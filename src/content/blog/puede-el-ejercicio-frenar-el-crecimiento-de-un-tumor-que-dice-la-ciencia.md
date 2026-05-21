@@ -24,19 +24,21 @@ Cuando recibes un diagnóstico de cáncer, es normal sentir que el control absol
 
 ## El problema de nuestro entorno moderno
 
-Hace 100 años, el nivel de actividad física diaria era altísimo por pura supervivencia. Nuestro genoma evolucionó esperando ese nivel de movimiento constante. Hoy, el sedentarismo extremo ha creado una desconexión: pasamos horas sentados, lo que favorece un entorno de inflamación crónica de bajo grado. Y la inflamación crónica puede favorecer un entorno más cómodo para la progresión tumoral.
+Hace 100 años, el nivel de actividad física diaria era altísimo por pura supervivencia. Nuestro genoma evolucionó esperando ese nivel de movimiento constante.
+
+Hoy, el sedentarismo extremo ha creado una desconexión: pasamos horas sentados, lo que favorece un entorno de inflamación crónica de bajo grado. Y la inflamación crónica puede favorecer un entorno más cómodo para la progresión tumoral.
 
 Por eso, el ejercicio no es un "extra" para sentirse bien. Es la forma de devolverle al cuerpo el entorno físico para el que fue diseñado, reduciendo esa inflamación y **creando un terreno biológico mucho más hostil para la enfermedad.**
 
-## Cómo influye el ejercicio en el tumor: La biología real
+## Cómo influye el ejercicio en el tumor
 
 El ejercicio intenso actúa sobre el microambiente tumoral (el entorno en el que vive el tumor) a través de 3 mecanismos muy concretos:
 
-**Movilización de las defensas:** Al realizar un esfuerzo que exige cierta intensidad, el cuerpo libera adrenalina. Esta hormona actúa como una señal de alarma que moviliza a las células NK o *Natural Killer* (un tipo de glóbulo blanco) y a los *linfocitos T*, lanzándolas al torrente sanguíneo.
+1. **Movilización de las defensas:** Al realizar un esfuerzo que exige cierta intensidad, el cuerpo libera adrenalina. Esta hormona actúa como una señal de alarma que moviliza a las células NK o *Natural Killer* (un tipo de glóbulo blanco) y a los *linfocitos T*, lanzándolas al torrente sanguíneo.
 
-**El músculo como farmacia interna:** Cada vez que contraes un músculo con resistencia, este libera *mioquinas* (como la IL-6). Estas sustancias viajan por la sangre y actúan como "guías" que ayudan a las células inmunitarias a infiltrarse mejor en los tejidos.
+2. **El músculo como farmacia interna:** Cada vez que contraes un músculo con resistencia, este libera *mioquinas* (como la IL-6). Estas sustancias viajan por la sangre y actúan como "guías" que ayudan a las células inmunitarias a infiltrarse mejor en los tejidos.
 
-**Mejora del riego sanguíneo:** Un tumor suele tener vasos sanguíneos caóticos que impiden que los fármacos de la quimioterapia lleguen bien a todas sus partes. El ejercicio aeróbico ayuda a normalizar esa vascularización, lo que teóricamente puede mejorar la llegada del tratamiento médico al tumor.
+3. **Mejora del riego sanguíneo:** Un tumor suele tener vasos sanguíneos caóticos que impiden que los fármacos de la quimioterapia lleguen bien a todas sus partes. El ejercicio aeróbico ayuda a normalizar esa vascularización, lo que teóricamente puede mejorar la llegada del tratamiento médico al tumor.
 
 En laboratorio, se ha observado que esta cascada de eventos ralentiza el crecimiento tumoral. En humanos, sabemos que **mejora radicalmente la tolerancia al tratamiento y altera positivamente el entorno metabólico.**
 
