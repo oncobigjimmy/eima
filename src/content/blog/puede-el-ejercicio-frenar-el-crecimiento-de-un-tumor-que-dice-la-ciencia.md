@@ -34,11 +34,11 @@ Por eso, el ejercicio no es un "extra" para sentirse bien. Es la forma de devolv
 
 El ejercicio intenso actúa sobre el microambiente tumoral (el entorno en el que vive el tumor) a través de 3 mecanismos muy concretos:
 
-1. **Movilización de las defensas:** Al realizar un esfuerzo que exige cierta intensidad, el cuerpo libera adrenalina. Esta hormona actúa como una señal de alarma que moviliza a las células NK o *Natural Killer* (un tipo de glóbulo blanco) y a los *linfocitos T*, lanzándolas al torrente sanguíneo.
-
-2. **El músculo como farmacia interna:** Cada vez que contraes un músculo con resistencia, este libera *mioquinas* (como la IL-6). Estas sustancias viajan por la sangre y actúan como "guías" que ayudan a las células inmunitarias a infiltrarse mejor en los tejidos.
-
-3. **Mejora del riego sanguíneo:** Un tumor suele tener vasos sanguíneos caóticos que impiden que los fármacos de la quimioterapia lleguen bien a todas sus partes. El ejercicio aeróbico ayuda a normalizar esa vascularización, lo que teóricamente puede mejorar la llegada del tratamiento médico al tumor.
+<ol class="tumor-mechanism-list">
+  <li><strong>Movilización de las defensas:</strong> Al realizar un esfuerzo que exige cierta intensidad, el cuerpo libera adrenalina. Esta hormona actúa como una señal de alarma que moviliza a las células NK o <em>Natural Killer</em> (un tipo de glóbulo blanco) y a los <em>linfocitos T</em>, lanzándolas al torrente sanguíneo.</li>
+  <li><strong>El músculo como farmacia interna:</strong> Cada vez que contraes un músculo con resistencia, este libera <em>mioquinas</em> (como la IL-6). Estas sustancias viajan por la sangre y actúan como "guías" que ayudan a las células inmunitarias a infiltrarse mejor en los tejidos.</li>
+  <li><strong>Mejora del riego sanguíneo:</strong> Un tumor suele tener vasos sanguíneos caóticos que impiden que los fármacos de la quimioterapia lleguen bien a todas sus partes. El ejercicio aeróbico ayuda a normalizar esa vascularización, lo que teóricamente puede mejorar la llegada del tratamiento médico al tumor.</li>
+</ol>
 
 En laboratorio, se ha observado que esta cascada de eventos ralentiza el crecimiento tumoral. En humanos, sabemos que **mejora radicalmente la tolerancia al tratamiento y altera positivamente el entorno metabólico.**
 
@@ -223,6 +223,10 @@ En Empenta no te decimos *"ve a caminar"*. Prescribimos el ejercicio como parte 
 
   .source-card:hover span {
     color: #4083a7;
+  }
+
+  .tumor-mechanism-list li::marker {
+    font-weight: 700;
   }
 
   @media (max-width: 640px) {

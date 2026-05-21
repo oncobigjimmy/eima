@@ -40,11 +40,11 @@ En el año 2013, una prestigiosa revisión publicada por investigadores de refer
 
 Este estudio analizó cómo el ejercicio afecta al cuerpo a nivel molecular y concluyó 3 puntos vitales:
 
-**1. Es un estímulo evolutivo:** Nuestros genes han evolucionado durante miles de años esperando el movimiento para funcionar correctamente. Dejar de moverse es romper nuestro equilibrio biológico.
+1. **Es un estímulo evolutivo:** Nuestros genes han evolucionado durante miles de años esperando el movimiento para funcionar correctamente. Dejar de moverse es romper nuestro equilibrio biológico.
 
-**2. Actúa a través de mioquinas:** Al contraer los músculos con la resistencia adecuada, estos liberan unas sustancias llamadas *mioquinas*. Estos mensajeros químicos viajan por la sangre ayudando a regular el metabolismo, frenar el deterioro muscular y mejorar la respuesta sistémica del organismo.
+2. **Actúa a través de mioquinas:** Al contraer los músculos con la resistencia adecuada, estos liberan unas sustancias llamadas *mioquinas*. Estos mensajeros químicos viajan por la sangre ayudando a regular el metabolismo, frenar el deterioro muscular y mejorar la respuesta sistémica del organismo.
 
-**3. Carece de toxicidad añadida:** A diferencia de las intervenciones farmacológicas necesarias, el ejercicio físico bien dosificado no sobrecarga tus órganos, sino que los protege y eleva su umbral de tolerancia frente a los efectos secundarios.
+3. **Carece de toxicidad añadida:** A diferencia de las intervenciones farmacológicas necesarias, el ejercicio físico bien dosificado no sobrecarga tus órganos, sino que los protege y eleva su umbral de tolerancia frente a los efectos secundarios.
 
 <figure class="expert-quote-card">
   <img src="/blog/alejandro-lucia.png" alt="Alejandro Lucía, investigador en fisiología del ejercicio" loading="lazy" />
