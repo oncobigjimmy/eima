@@ -55,14 +55,14 @@ Después de un diagnóstico, hay cosas que no dependen directamente de ti: el ti
 
 Pero **hay otras cosas donde sí puede haber margen de acción.** Y una de las más importantes es el movimiento. Tienes que saber que el ejercicio bien pautado puede ayudarte a:
 
-- Conservar masa muscular;
-- Reducir fatiga;
-- Mejorar capacidad física;
-- Tolerar mejor los tratamientos;
-- Mejorar metabolismo;
-- Modular inflamación;
-- Recuperar autonomía;
-- Recuperar confianza en tu cuerpo.
+- Conservar masa muscular
+- Reducir fatiga
+- Mejorar capacidad física
+- Tolerar mejor los tratamientos
+- Mejorar metabolismo
+- Modular inflamación
+- Recuperar autonomía
+- Recuperar confianza en tu cuerpo
 
 ## El ejercicio como tu "fármaco" natural en casa
 
