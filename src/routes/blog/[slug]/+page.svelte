@@ -205,6 +205,99 @@
     z-index: 1;
   }
 
+  :global(.prose-blog .blog-program-cta) {
+    margin: 2.3rem 0 2.8rem;
+  }
+
+  :global(.prose-blog .blog-program-cta__copy) {
+    border-left: 4px solid #8cd0d6;
+    padding: 0.1rem 0 0.1rem 1.15rem;
+  }
+
+  :global(.prose-blog .blog-program-cta__copy p) {
+    color: #233f4e;
+    font-size: 0.98rem;
+    font-weight: 300;
+    line-height: 1.65;
+    margin: 0 0 0.85rem;
+  }
+
+  :global(.prose-blog .blog-program-cta__copy p:first-child) {
+    margin-bottom: 1rem;
+  }
+
+  :global(.prose-blog .blog-program-cta__copy p:last-child) {
+    margin-bottom: 0;
+  }
+
+  :global(.prose-blog .empenta-inline-link) {
+    border-bottom: 1px dotted currentColor;
+    color: #4083a7;
+    font-weight: 500;
+    padding-bottom: 0.06em;
+    text-decoration: none !important;
+    transition: color 220ms ease;
+  }
+
+  :global(.prose-blog .empenta-inline-link:hover) {
+    color: #233f4e;
+  }
+
+  :global(.prose-blog .blog-program-cta__button) {
+    align-items: center;
+    background: #8cd0d6;
+    border-radius: 999px;
+    color: #233f4e;
+    display: flex;
+    font-size: 0.95rem;
+    font-weight: 500;
+    gap: 0.55rem;
+    justify-content: center;
+    margin: 0.75rem auto 0;
+    overflow: hidden;
+    padding: 0.8rem 1.75rem;
+    position: relative;
+    text-decoration: none !important;
+    transition:
+      transform 300ms ease-out,
+      background-color 300ms ease-out,
+      color 300ms ease-out,
+      font-weight 300ms ease-out,
+      box-shadow 300ms ease-out;
+    width: fit-content;
+  }
+
+  :global(.prose-blog .blog-program-cta__button::before) {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateX(-180%) skewX(-18deg);
+    transition: transform 420ms ease-out;
+    width: 44%;
+  }
+
+  :global(.prose-blog .blog-program-cta__button:hover),
+  :global(.prose-blog .blog-program-cta__button:focus-visible) {
+    background: #4083a7;
+    box-shadow: 0 10px 24px rgba(64, 131, 167, 0.28);
+    color: #ffffff;
+    font-weight: 700;
+    transform: scale(1.03);
+  }
+
+  :global(.prose-blog .blog-program-cta__button:hover::before),
+  :global(.prose-blog .blog-program-cta__button:focus-visible::before) {
+    transform: translateX(260%) skewX(-18deg);
+  }
+
+  :global(.prose-blog .blog-program-cta__button > span) {
+    position: relative;
+    z-index: 1;
+  }
+
   :global(.prose-blog h2),
   :global(.prose-blog h3) {
     font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;

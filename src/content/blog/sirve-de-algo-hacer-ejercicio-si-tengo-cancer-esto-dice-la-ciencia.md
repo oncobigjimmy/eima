@@ -70,18 +70,27 @@ No se trata de hacer ejercicio por hacer. Se trata de usar el movimiento para co
 Recuerda que el ejercicio no compite con la oncología médica; **la potencia.**
 
 <aside class="blog-program-cta">
-  <p><strong>Por eso no trabajamos a base de sesiones sueltas.</strong></p>
-  <p>
-    Trabajamos con un acompañamiento estructurado de <strong>12 semanas</strong>, con una primera
-    valoración en tu casa y un seguimiento online <strong>para adaptar el proceso según tu momento.</strong>
-  </p>
-  <p>
-    Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
-    <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>.
-  </p>
+  <div class="blog-program-cta__copy">
+    <p><strong>Por eso no trabajamos a base de sesiones sueltas.</strong></p>
+    <p>
+      Trabajamos con un acompañamiento estructurado de <strong>12 semanas</strong>, con una primera
+      valoración en tu casa y un seguimiento online <strong>para adaptar el proceso según tu momento.</strong>
+    </p>
+    <p>
+      Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
+      <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>.
+    </p>
+  </div>
   <a class="blog-program-cta__button" href="/como-funciona#program-steps">
     <span>Ver cómo funciona Empenta</span>
-    <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+    <span class="cta-arrow-swap" aria-hidden="true">
+      <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor">
+        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+      </svg>
+      <svg class="cta-arrow-swap__up" viewBox="0 0 256 256" fill="currentColor">
+        <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+      </svg>
+    </span>
   </a>
 </aside>
 
@@ -153,71 +162,6 @@ Recuerda que el ejercicio no compite con la oncología médica; **la potencia.**
 
   .polypill-study-list li::marker {
     font-weight: 700;
-  }
-
-  .blog-program-cta {
-    border-left: 3px solid #8cd0d6;
-    margin: 2.2rem 0 2.6rem;
-    padding: 0.1rem 0 0.1rem 1.1rem;
-  }
-
-  .blog-program-cta p {
-    color: #233f4e;
-    font-size: 0.98rem;
-    font-weight: 300;
-    line-height: 1.65;
-    margin: 0 0 0.85rem;
-  }
-
-  .blog-program-cta p:first-child {
-    margin-bottom: 1rem;
-  }
-
-  .empenta-inline-link {
-    border-bottom: 1px dotted currentColor;
-    color: #4083a7;
-    font-weight: 500;
-    padding-bottom: 0.06em;
-    text-decoration: none !important;
-    transition: color 220ms ease;
-  }
-
-  .empenta-inline-link:hover {
-    color: #233f4e;
-  }
-
-  .blog-program-cta__button {
-    align-items: center;
-    background: #8cd0d6;
-    border-radius: 999px;
-    color: #233f4e;
-    display: inline-flex;
-    font-size: 0.9rem;
-    font-weight: 300;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 0.6rem auto 0;
-    min-height: 2.85rem;
-    padding: 0.7rem 1.45rem;
-    text-decoration: none !important;
-    transition:
-      font-weight 220ms ease,
-      transform 220ms ease;
-    width: fit-content;
-  }
-
-  .blog-program-cta__button:hover {
-    font-weight: 700;
-    transform: scale(1.03);
-  }
-
-  .blog-program-cta__button .material-symbols-rounded {
-    font-size: 1.1rem;
-    line-height: 1;
-  }
-
-  .blog-program-cta .blog-program-cta__button {
-    display: flex;
   }
 
   .source-card {
