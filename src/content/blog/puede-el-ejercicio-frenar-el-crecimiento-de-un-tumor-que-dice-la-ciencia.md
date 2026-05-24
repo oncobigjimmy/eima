@@ -62,7 +62,32 @@ El músculo necesita un estímulo real (fuerza, resistencia) para reaccionar. Po
 
 Pero los tratamientos no pueden hacer todo el trabajo solos. El ejercicio físico debe integrarse como una intervención más dentro de tu proceso oncológico. Ya que es la única herramienta con evidencia científica capaz de **alterar tu sistema inmune, tu metabolismo y reducir la inflamación de tu cuerpo.**
 
-En Empenta no te decimos *"ve a caminar"*. Prescribimos el ejercicio como parte de tu tratamiento integral: midiendo tu fatiga diaria, tus ciclos médicos y tu estado físico. El objetivo es claro: preparar tu terreno biológico para que los fármacos funcionen mejor y que **tu cuerpo deje de ser un espectador para convertirse en un participante activo en tu recuperación.**
+En **nuestro Programa Empenta** no te decimos "ve a caminar". Prescribimos el ejercicio como parte de tu tratamiento integral: midiendo tu fatiga diaria, tus ciclos médicos y tu estado físico. El objetivo es claro: preparar tu terreno biológico para que los fármacos funcionen mejor y que tu cuerpo deje de ser un espectador para convertirse en un participante activo en tu recuperación.
+
+<aside class="blog-program-cta">
+  <div class="blog-program-cta__copy">
+    <p><strong>Por eso no trabajamos a base de sesiones sueltas.</strong></p>
+    <p>
+      Trabajamos con un acompañamiento estructurado de <strong>12 semanas</strong>, con una primera
+      valoración en tu casa y un seguimiento online <strong>para adaptar el proceso según tu momento.</strong>
+    </p>
+    <p>
+      Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
+      <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>.
+    </p>
+  </div>
+  <a class="blog-program-cta__button" href="/como-funciona#program-steps">
+    <span>Ver cómo funciona Empenta</span>
+    <span class="cta-arrow-swap" aria-hidden="true">
+      <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor">
+        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+      </svg>
+      <svg class="cta-arrow-swap__up" viewBox="0 0 256 256" fill="currentColor">
+        <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+      </svg>
+    </span>
+  </a>
+</aside>
 
 ## Fuentes
 
