@@ -62,7 +62,7 @@ El músculo necesita un estímulo real (fuerza, resistencia) para reaccionar. Po
 
 Pero los tratamientos no pueden hacer todo el trabajo solos. El ejercicio físico debe integrarse como una intervención más dentro de tu proceso oncológico. Ya que es la única herramienta con evidencia científica capaz de **alterar tu sistema inmune, tu metabolismo y reducir la inflamación de tu cuerpo.**
 
-En **nuestro Programa Empenta** no te decimos "ve a caminar". Prescribimos el ejercicio como parte de tu tratamiento integral: midiendo tu fatiga diaria, tus ciclos médicos y tu estado físico. El objetivo es claro: preparar tu terreno biológico para que los fármacos funcionen mejor y que tu cuerpo deje de ser un espectador para convertirse en un participante activo en tu recuperación.
+En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a> no te decimos "ve a caminar". Prescribimos el ejercicio como parte de tu tratamiento integral: midiendo tu fatiga diaria, tus ciclos médicos y tu estado físico. El objetivo es claro: preparar tu terreno biológico para que los fármacos funcionen mejor y que tu cuerpo deje de ser un espectador para convertirse en un participante activo en tu recuperación.
 
 <aside class="blog-program-cta">
   <div class="blog-program-cta__copy">
@@ -73,7 +73,7 @@ En **nuestro Programa Empenta** no te decimos "ve a caminar". Prescribimos el ej
     </p>
     <p>
       Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
-      <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>.
+      <strong class="blog-program-cta__program">Programa Empenta.</strong>
     </p>
   </div>
   <a class="blog-program-cta__button" href="/como-funciona#program-steps">

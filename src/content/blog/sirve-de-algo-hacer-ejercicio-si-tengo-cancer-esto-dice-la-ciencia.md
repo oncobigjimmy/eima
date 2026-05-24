@@ -58,7 +58,7 @@ Este estudio analizó cómo el ejercicio afecta al cuerpo a nivel molecular y co
 
 Decirle a un paciente con cáncer *"haz ejercicio"* es tan imprudente como abrir un armario lleno de pastillas y decirle *"toma medicamentos"*. El ejercicio físico es una intervención potente y, por lo tanto, requiere una receta, una progresión y una dosificación precisa.
 
-En nuestro **Programa Empenta** ajustamos esa dosis según tu situación:
+En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a> ajustamos esa dosis según tu situación:
 
 - **Si tienes mucha fatiga,** el objetivo puede ser moverte sin vaciarte.
 - **Si has perdido fuerza,** priorizamos ejercicios sencillos para recuperar masa muscular.
@@ -78,7 +78,7 @@ Recuerda que el ejercicio no compite con la oncología médica; **la potencia.**
     </p>
     <p>
       Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
-      <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>.
+      <strong class="blog-program-cta__program">Programa Empenta.</strong>
     </p>
   </div>
   <a class="blog-program-cta__button" href="/como-funciona#program-steps">

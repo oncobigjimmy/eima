@@ -243,6 +243,11 @@
     color: #233f4e;
   }
 
+  :global(.prose-blog .blog-program-cta__program) {
+    color: #4083a7;
+    font-weight: 700;
+  }
+
   :global(.prose-blog .blog-program-cta__button) {
     align-items: center;
     background: #8cd0d6;

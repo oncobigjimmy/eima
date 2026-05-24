@@ -34,7 +34,7 @@ No se trata de entrenar para una maratón, sino de utilizar el movimiento dosifi
 
 Empezar no es improvisar. Para que el ejercicio sea realmente una medicina, hace falta una valoración previa que tenga en cuenta el tipo de cáncer, la fase del tratamiento en la que te encuentras, tus síntomas actuales y tu historia personal de movimiento.
 
-Desde ahí, se construye un plan progresivo, revisable y ajustado a cómo te sientas cada día. Tu cuerpo sigue siendo tuyo y el ejercicio supervisado es la mejor herramienta para ayudarlo a estar más fuerte cuando más lo necesita.
+Desde ahí, en nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>, construimos un plan progresivo, revisable y ajustado a cómo te sientas cada día. Tu cuerpo sigue siendo tuyo y el ejercicio supervisado es la mejor herramienta para ayudarlo a estar más fuerte cuando más lo necesita.
 
 <aside class="blog-program-cta">
   <div class="blog-program-cta__copy">
@@ -45,7 +45,7 @@ Desde ahí, se construye un plan progresivo, revisable y ajustado a cómo te sie
     </p>
     <p>
       Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
-      <a class="empenta-inline-link" href="/como-funciona#program-steps">Programa Empenta</a>.
+      <strong class="blog-program-cta__program">Programa Empenta.</strong>
     </p>
   </div>
   <a class="blog-program-cta__button" href="/como-funciona#program-steps">
