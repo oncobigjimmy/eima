@@ -1,13 +1,24 @@
 <script>
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { storyProfiles } from '$lib/data/stories';
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
+  import { getWhatsAppHref } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
+  import { getStoryCopy } from '$lib/i18n/story';
 
   let activeId = 'miquel';
   let selectedCover = null;
 
+  $: storyCopy = getStoryCopy($language);
+  $: storyProfiles = storyCopy.profiles;
+  $: storyMarks = storyCopy.marks;
+  $: meta = storyCopy.meta;
+  $: hero = storyCopy.hero;
+  $: labels = storyCopy.labels;
+  $: statusLabels = storyCopy.status;
+  $: whatsappHref = getWhatsAppHref($language);
   $: activeProfile = storyProfiles.find((profile) => profile.id === activeId) ?? storyProfiles[0];
+  $: miquelProfileName = storyProfiles.find((profile) => profile.id === 'miquel')?.name ?? 'Miquel';
+  $: jaumeProfileName = storyProfiles.find((profile) => profile.id === 'jaume')?.name ?? 'Jaume';
 
   /** @param {'miquel' | 'jaume'} profileId */
   const selectProfile = (profileId) => {
@@ -44,41 +55,6 @@
     };
   });
 
-  const storyMarks = {
-    miquel: [
-      { text: 'quería dedicarme a ayudar a las personas.', mark: 'bold' },
-      { text: 'sensación constante de inconformidad.', mark: 'bold' },
-      {
-        text: '¿Por qué hacemos esto así? ¿De verdad me enseñan técnicas que no están demostradas científicamente? ¿Estoy tratando el dolor sin entender por qué le duele a mi paciente?',
-        mark: 'italic'
-      },
-      {
-        text: '¿Cómo va a mejorar alguien que no puede caminar por el dolor si lo único que hacemos es un masaje en la espalda?',
-        mark: 'bold'
-      },
-      { text: 'Esa frustración', mark: 'bold' },
-      { text: 'Necesitaba entender cómo funciona el dolor', mark: 'bold' },
-      { text: 'grandes profesionales', mark: 'bold' },
-      { text: 'Pablo Mendo, Rafael Torres o Louis Gifford', mark: 'bold' },
-      { text: 'trasladar todo este conocimiento a cada persona con la que trabajo', mark: 'bold' },
-      { text: 'nace EIMA.', mark: 'bold' }
-    ],
-    jaume: [
-      { text: '“la mitad de vosotros tendrá cáncer de mayor”', mark: 'bold' },
-      { text: 'espina clavada.', mark: 'bold' },
-      { text: 'sufrí episodios de dolor lumbar', mark: 'bold' },
-      { text: 'entender el cuerpo, el dolor y el movimiento.', mark: 'bold' },
-      { text: 'la independencia', mark: 'bold' },
-      { text: 'dependencia que crea la camilla.', mark: 'bold' },
-      { text: 'lo que tú mismo haces por TU cuerpo.', mark: 'bold' },
-      { text: 'la calidad de vida no era la misma.', mark: 'bold' },
-      { text: 'Thomas Seyfried', mark: 'bold' },
-      { text: 'el papel del metabolismo', mark: 'bold' },
-      { text: 'filtrar el ruido.', mark: 'bold' },
-      { text: 'Mi misión', mark: 'bold' }
-    ]
-  };
-
   const getMarkedSegments = (text, profileId) => {
     const marks = storyMarks[profileId] ?? [];
     const segments = [];
@@ -110,16 +86,26 @@
     'Explain Pain': '/book-explain-pain.png',
     'Aches & Pains': '/book-aches-pains.png',
     'Understanding sciatica': '/book-understanding-sciatica.png',
+    'Understanding Sciatica': '/book-understanding-sciatica.png',
     'The Biomechanics of Low Back Pain': '/book-biomechanics-back-pain.png',
     'El ayuno contra el cáncer': '/book-ayuno-cancer.png',
+    'Fasting Against Cancer': '/book-ayuno-cancer.png',
     'Hábitos atómicos': '/book-habitos-atomicos.png',
+    'Atomic Habits': '/book-habitos-atomicos.png',
     'Neurociencia del cuerpo': '/book-neurociencia-cuerpo.png',
+    'Neuroscience of the Body': '/book-neurociencia-cuerpo.png',
     'Essential Guide Cervical Spine': '/book-essential-guide-cervical-spine.jpg',
     'Antifrágil': '/book-antifragil.jpg',
+    'Antifràgil': '/book-antifragil.jpg',
+    Antifragile: '/book-antifragil.jpg',
     'Medio ambiente y salud': '/book-medio-ambiente-salud.png',
+    'Environment and Health': '/book-medio-ambiente-salud.png',
     'El ejercicio: Un muro contra el cáncer': '/book-ejercicio-muro-cancer.png',
+    'Exercise: A Wall Against Cancer': '/book-ejercicio-muro-cancer.png',
     'La Enciclopedia del Cáncer: Metabolismo, Sistema Inmune y Microbiota': '/book-cancer-integral.png',
-    'Libérate de tóxicos: Guía para evitar los disruptores endocrinos': '/book-liberate-toxicos.png'
+    'The Cancer Encyclopedia: Metabolism, Immune System and Microbiota': '/book-cancer-integral.png',
+    'Libérate de tóxicos: Guía para evitar los disruptores endocrinos': '/book-liberate-toxicos.png',
+    'Free Yourself from Toxins: A Guide to Avoiding Endocrine Disruptors': '/book-liberate-toxicos.png'
   };
 
   const displayReadingTitle = (title) => {
@@ -140,8 +126,10 @@
 
   const normalizeStatus = (status) => {
     const lower = status.toLowerCase();
-    if (status.includes('✔') || lower.includes('acabado')) return 'Acabado';
-    if (lower.includes('en curso')) return 'En curso';
+    if (status.includes('✔') || lower.includes('acabado') || lower.includes('acabat') || lower.includes('finished')) {
+      return statusLabels.done;
+    }
+    if (lower.includes('en curso') || lower.includes('en curs') || lower.includes('in progress')) return statusLabels.progress;
     return status;
   };
 
@@ -202,24 +190,24 @@
 </script>
 
 <svelte:head>
-  <title>Nuestra historia | Jaume y Miquel, fisioterapeutas EIMA</title>
+  <title>{meta.title}</title>
   <meta
     name="description"
-    content="Descubre la historia de los fisioterapeutas de EIMA y por qué acompañan a personas con cáncer a recuperar energía, confianza y autonomía."
+    content={meta.description}
   />
   <link rel="canonical" href="https://eimafisioterapia.es/quienes-somos/historia" />
-  <meta property="og:title" content="Nuestra historia | Jaume y Miquel, fisioterapeutas EIMA" />
+  <meta property="og:title" content={meta.ogTitle} />
   <meta
     property="og:description"
-    content="Conoce el camino de Jaume Sansó y Miquel Galmés, fisioterapeutas fundadores de EIMA, y su forma de acompañar a personas con cáncer."
+    content={meta.ogDescription}
   />
   <meta property="og:url" content="https://eimafisioterapia.es/quienes-somos/historia" />
   <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
-  <meta property="og:image:alt" content="Jaume y Miquel, fisioterapeutas fundadores de EIMA" />
-  <meta name="twitter:title" content="Nuestra historia | Jaume y Miquel, fisioterapeutas EIMA" />
+  <meta property="og:image:alt" content={meta.imageAlt} />
+  <meta name="twitter:title" content={meta.ogTitle} />
   <meta
     name="twitter:description"
-    content="Conoce el camino de Jaume Sansó y Miquel Galmés, fisioterapeutas fundadores de EIMA, y su forma de acompañar a personas con cáncer."
+    content={meta.ogDescription}
   />
   <meta name="twitter:image" content="https://eimafisioterapia.es/og-image.png" />
 </svelte:head>
@@ -235,29 +223,34 @@
     <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,18,24,0.2)_0%,rgba(8,18,24,0.08)_46%,rgba(8,18,24,0.46)_100%)]"></div>
   </div>
 
-  <div class="relative z-10 mx-auto max-w-6xl px-5 md:px-10">
+  <div class="relative z-10 mx-auto max-w-7xl px-5 md:px-10">
     <div class="max-w-2xl text-left">
       <p class="story-eyebrow text-[0.78rem] font-medium uppercase text-[#8CD0D6]">
-        Nuestra historia
+        {hero.eyebrow}
       </p>
       <h1 class="story-title mt-5 text-[3rem] font-medium leading-[0.98] tracking-[0] text-white md:text-[60px]">
-        <span class="story-title__line">Conoce <span>nuestra</span></span>
-        <span class="story-title__line"><span>historia</span> a fondo</span>
+        <span class="story-title__line">
+          {hero.titleLineOnePrefix}
+          {#if hero.titleLineOneHighlight}
+            <span>{hero.titleLineOneHighlight}</span>
+          {/if}
+        </span>
+        <span class="story-title__line"><span>{hero.titleLineTwoHighlight}</span> {hero.titleLineTwoSuffix}</span>
       </h1>
       <p class="mt-7 max-w-xl text-[16px] font-light leading-[1.85] text-white/88">
-        <span class="block">Dos caminos distintos, una <strong>misma idea</strong>:</span>
-        <span class="block">Ayudarte a recuperar seguridad, energía y confianza en tu proceso.</span>
+        <span class="block">{hero.introLineOne} <strong>{hero.introStrong}</strong>:</span>
+        <span class="block">{hero.introLineTwo}</span>
       </p>
     </div>
 
     <div class="mt-9 flex justify-center">
       <a
-        href={WEB_WHATSAPP_HREF}
+        href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         class="hero-story-cta inline-flex w-fit items-center justify-center rounded-full border border-white/50 px-7 py-3.5 font-light text-white transition-[background-color,transform,font-weight] duration-300 ease-out hover:scale-[1.03] hover:bg-white/10 hover:font-bold"
       >
-        Cuéntanos tu historia
+        {hero.cta}
       </a>
     </div>
   </div>
@@ -267,13 +260,13 @@
   <div class="mx-auto max-w-6xl px-5 md:px-10">
     <div class="mx-auto w-full max-w-[28rem]">
       <p class="story-eyebrow mb-5 text-center text-[0.78rem] font-medium uppercase text-[#4083A7]">
-        Conócenos
+        {labels.meetUs}
       </p>
-      <div class="team-photo-frame" aria-label="Miquel y Jaume, fisioterapeutas de EIMA">
+      <div class="team-photo-frame" aria-label={meta.imageAlt}>
         <button
           type="button"
           class="story-person-slot story-person-slot--miquel"
-          aria-label="Ver la historia de Miquel"
+          aria-label={labels.viewMiquel}
           on:click={() => selectProfile('miquel')}
         >
           <img
@@ -286,7 +279,7 @@
         <button
           type="button"
           class="story-person-slot story-person-slot--jaume"
-          aria-label="Ver la historia de Jaume"
+          aria-label={labels.viewJaume}
           on:click={() => selectProfile('jaume')}
         >
           <img
@@ -298,20 +291,20 @@
         </button>
       </div>
 
-      <div class="story-tabs mt-5" aria-label="Elegir historia">
+      <div class="story-tabs mt-5" aria-label={labels.chooseStory}>
         <button
           type="button"
           class:active-person={activeId === 'miquel'}
           on:click={() => selectProfile('miquel')}
         >
-          Miquel
+          {miquelProfileName}
         </button>
         <button
           type="button"
           class:active-person={activeId === 'jaume'}
           on:click={() => selectProfile('jaume')}
         >
-          Jaume
+          {jaumeProfileName}
         </button>
       </div>
     </div>
@@ -365,7 +358,7 @@
           <section class="profile-card">
             <header class="profile-card__header profile-card__header--blue">
               <h3 class="story-side-title text-[28px] text-white">
-                Mi formación
+                {activeProfile.educationTitle}
               </h3>
             </header>
 
@@ -402,7 +395,7 @@
           <section class="profile-card">
             <header class="profile-card__header profile-card__header--blue">
               <h3 class="story-side-title text-[28px] text-white">
-                Mis lecturas
+                {activeProfile.readingsTitle}
               </h3>
             </header>
 
@@ -412,18 +405,28 @@
                   {@const parsedReading = parseReading(reading)}
                   <article
                     class:reading-card--lift-author={parsedReading.title.startsWith('La Enciclopedia del Cáncer') ||
-                      parsedReading.title.startsWith('Libérate de tóxicos')}
+                      parsedReading.title.startsWith('The Cancer Encyclopedia') ||
+                      parsedReading.title.startsWith('Libérate de tóxicos') ||
+                      parsedReading.title.startsWith('Free Yourself from Toxins')}
                     class:reading-card--lift-simple={parsedReading.title === 'Explain Pain' ||
                       parsedReading.title === 'Aches & Pains' ||
                       parsedReading.title === 'Medio ambiente y salud' ||
+                      parsedReading.title === 'Environment and Health' ||
                       parsedReading.title === 'Understanding sciatica' ||
+                      parsedReading.title === 'Understanding Sciatica' ||
                       parsedReading.title === 'El ayuno contra el cáncer' ||
+                      parsedReading.title === 'Fasting Against Cancer' ||
                       parsedReading.title === 'Hábitos atómicos' ||
+                      parsedReading.title === 'Atomic Habits' ||
                       parsedReading.title === 'Neurociencia del cuerpo' ||
+                      parsedReading.title === 'Neuroscience of the Body' ||
                       parsedReading.title === 'Essential Guide Cervical Spine' ||
-                      parsedReading.title === 'Antifrágil'}
+                      parsedReading.title === 'Antifrágil' ||
+                      parsedReading.title === 'Antifràgil' ||
+                      parsedReading.title === 'Antifragile'}
                     class:reading-card--lift-exercise={parsedReading.title ===
-                      'El ejercicio: Un muro contra el cáncer'}
+                      'El ejercicio: Un muro contra el cáncer' ||
+                      parsedReading.title === 'Exercise: A Wall Against Cancer'}
                     class:reading-card--lift-biomechanics={parsedReading.title ===
                       'The Biomechanics of Low Back Pain'}
                     class="reading-card"
@@ -432,13 +435,13 @@
                       <button
                         type="button"
                         class="reading-cover-button"
-                        aria-label={`Ampliar portada de ${parsedReading.title}`}
+                        aria-label={`${labels.enlargeCover} ${parsedReading.title}`}
                         on:click={() => (selectedCover = parsedReading)}
                       >
                         <img
                           class="reading-cover-image"
                           src={parsedReading.cover}
-                          alt={`Portada de ${parsedReading.title}`}
+                          alt={`${labels.coverOf} ${parsedReading.title}`}
                         />
                       </button>
                     {:else}
@@ -457,8 +460,8 @@
                     {/if}
                     {#if parsedReading.status}
                       <span
-                        class:reading-status--done={parsedReading.status === 'Acabado'}
-                        class:reading-status--progress={parsedReading.status === 'En curso'}
+                        class:reading-status--done={parsedReading.status === statusLabels.done}
+                        class:reading-status--progress={parsedReading.status === statusLabels.progress}
                         class="reading-status"
                       >
                         {parsedReading.status}
@@ -473,12 +476,12 @@
           <div class="story-closing">
             <p>{activeProfile.cta}</p>
             <a
-              href={WEB_WHATSAPP_HREF}
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
               class="story-cta inline-flex items-center justify-center rounded-full bg-[#8CD0D6] px-6 py-3 text-[15px] font-medium text-[#233F4E] transition-all duration-300 hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
             >
-              Te escuchamos
+              {labels.finalCta}
             </a>
           </div>
         </article>
@@ -492,14 +495,14 @@
     class="cover-modal"
     role="dialog"
     aria-modal="true"
-    aria-label={`Portada de ${selectedCover.title}`}
+    aria-label={`${labels.coverOf} ${selectedCover.title}`}
     on:click={() => (selectedCover = null)}
   >
-    <button class="cover-modal__close" type="button" aria-label="Cerrar" on:click={() => (selectedCover = null)}>
+    <button class="cover-modal__close" type="button" aria-label={labels.close} on:click={() => (selectedCover = null)}>
       ×
     </button>
     <div class="cover-modal__content" on:click|stopPropagation>
-      <img src={selectedCover.cover} alt={`Portada de ${selectedCover.title}`} />
+      <img src={selectedCover.cover} alt={`${labels.coverOf} ${selectedCover.title}`} />
       <p>{selectedCover.title}</p>
     </div>
   </div>

@@ -1,5 +1,7 @@
 <script>
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
+  import { getCopy } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
 
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
@@ -22,56 +24,44 @@
     };
   }
 
-  const steps = [
-    {
-      title: 'Claridad desde el principio',
-      bodyLines: [
-        'No vas a ciegas ni probando cosas al azar.',
-        'En la primera valoraci\u00f3n vemos tu situaci\u00f3n, tus objetivos y qu\u00e9 necesitas ahora mismo para que sepas <strong>qu\u00e9 hacer, cu\u00e1nto hacer y c\u00f3mo adaptarlo</strong>.'
-      ],
-      icon: 'list'
-    },
-    {
-      title: 'Menos desplazamientos',
-      bodyLines: [
-        'Ya tienes suficientes citas, revisiones y días duros.',
-        'Por eso priorizamos un formato que te ayude sin a\u00f1adir m\u00e1s carga a una etapa que ya puede ser <strong>f\u00edsica y mentalmente exigente.</strong>'
-      ],
-      icon: 'car'
-    },
-    {
-      title: 'Apoyo cuando lo necesitas',
-      bodyLines: [
-        'Si aparece una duda, dolor, fatiga o un mal d\u00eda, no tienes que esperar a la siguiente cita para resolverlo.',
-        'Puedes consultarnos y <strong>ajustamos el proceso contigo en el momento.</strong>'
-      ],
-      icon: 'support'
-    },
-    {
-      title: 'Se adapta a ti, no al rev\u00e9s',
-      bodyLines: [
-        'Tu cuerpo no est\u00e1 igual todas las semanas.',
-        'Este formato permite subir, bajar o modificar el ejercicio seg\u00fan <strong>tu energ\u00eda, tus s\u00edntomas, tus horarios y tu tratamiento.</strong>'
-      ],
-      icon: 'calendar'
-    }
-  ];
+  /**
+   * @param {HTMLElement} node
+   * @param {string} value
+   */
+  function htmlContent(node, value) {
+    node.innerHTML = value;
+
+    return {
+      /** @param {string} nextValue */
+      update(nextValue) {
+        node.innerHTML = nextValue;
+      }
+    };
+  }
 
   let timelineRoot;
   let timelineLine;
   let timelineProgress;
+  let requestTimelineUpdate;
+
+  $: valueCopy = getCopy($language).home.valueProps;
+  $: steps = valueCopy.steps;
+
+  afterUpdate(() => {
+    requestTimelineUpdate?.();
+  });
 
   onMount(() => {
     if (!timelineRoot || !timelineLine || !timelineProgress) return;
-
-    const items = Array.from(timelineRoot.querySelectorAll('.js-timeline-item'));
-    if (!items.length) return;
 
     const getAbsTop = (element) => element.getBoundingClientRect().top + window.pageYOffset;
     let ticking = false;
     let resizeObserver;
 
     const updateLineBounds = () => {
+      const items = Array.from(timelineRoot.querySelectorAll('.js-timeline-item'));
+      if (!items.length) return;
+
       const firstPoint = items[0]?.querySelector('.js-timeline-point');
       const lastPoint = items[items.length - 1]?.querySelector('.js-timeline-point');
       if (!firstPoint || !lastPoint) return;
@@ -89,6 +79,9 @@
     };
 
     const updateProgressAndStates = () => {
+      const items = Array.from(timelineRoot.querySelectorAll('.js-timeline-item'));
+      if (!items.length) return;
+
       const scrollTop = window.pageYOffset;
       const viewportHeight = window.innerHeight;
       const lastPoint = items[items.length - 1]?.querySelector('.js-timeline-point');
@@ -128,6 +121,7 @@
       requestAnimationFrame(update);
     };
 
+    requestTimelineUpdate = requestUpdate;
     requestUpdate();
     requestAnimationFrame(requestUpdate);
     setTimeout(requestUpdate, 60);
@@ -139,9 +133,9 @@
 
     resizeObserver = new ResizeObserver(() => requestUpdate());
     resizeObserver.observe(timelineRoot);
-    items.forEach((item) => resizeObserver.observe(item));
 
     return () => {
+      requestTimelineUpdate = undefined;
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
       window.removeEventListener('orientationchange', requestUpdate);
@@ -157,19 +151,28 @@
       <h2
         class="font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px]"
       >
-        Ganarás
-        <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-          >tiempo</span
-        >, sin descuidar tu
-        <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-          >salud</span
-        >
+        {#if $language === 'ca'}
+          {valueCopy.headingBefore}
+          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
+            >{valueCopy.headingHighlight1}</span
+          >, sense descuidar<br class="hidden md:block" />
+          la teva
+          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
+            >{valueCopy.headingHighlight2}</span
+          >
+        {:else}
+          {valueCopy.headingBefore}
+          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
+            >{valueCopy.headingHighlight1}</span
+          >{valueCopy.headingMiddle}{' '}
+          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
+            >{valueCopy.headingHighlight2}</span
+          >
+        {/if}
       </h2>
 
       <p class="text-muted mx-auto mt-4 max-w-4xl text-[13px] font-light leading-relaxed md:text-base">
-        Nuestro formato est&aacute; pensado para no a&ntilde;adirte otra carga m&aacute;s.
-        Queremos acompa&ntilde;arte de una forma que encaje con tu energ&iacute;a, tus
-        citas m&eacute;dicas y lo que necesites en cada momento.
+        <span use:htmlContent={valueCopy.intro}></span>
       </p>
     </header>
 
@@ -189,7 +192,7 @@
                   </div>
                   <div class="timeline__card-body">
                     {#each step.bodyLines as line}
-                      <p class="timeline__card-paragraph">{@html line}</p>
+                      <p class="timeline__card-paragraph" use:htmlContent={line}></p>
                     {/each}
                   </div>
                 </div>
@@ -226,18 +229,11 @@
     <div use:revealOnScroll class="timeline-summary mx-auto mt-14 max-w-5xl md:mt-16">
       <div class="timeline-summary__content">
         <p class="timeline-summary__line timeline-summary__line--strong">
-          Por eso no trabajamos a base de sesiones sueltas.
+          {valueCopy.summaryStrong}
         </p>
-        <p class="timeline-summary__line timeline-summary__line--inter">
-          Trabajamos con un acompa&ntilde;amiento estructurado de
-          <strong class="text-[#4083A7]">12 semanas</strong>, con una primera valoraci&oacute;n
-          en tu casa y un
-          seguimiento online <strong>para adaptar el proceso seg&uacute;n tu momento.</strong>
-        </p>
-        <p class="timeline-summary__line timeline-summary__line--inter">
-          Haz clic abajo, donde te ense&ntilde;amos paso a paso c&oacute;mo funciona nuestro
-          <strong class="text-[#4083A7]">Programa Empenta.</strong>
-        </p>
+        {#each valueCopy.summaryLines as line}
+          <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}></p>
+        {/each}
       </div>
 
       <div class="mt-7 flex justify-center">
@@ -245,7 +241,7 @@
           href="/como-funciona#program-steps"
           class="value-cta cta-arrow-button inline-flex items-center justify-center gap-2 rounded-full bg-[#8CD0D6] px-7 py-3 text-[15px] font-medium text-[color:var(--color-brand)] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
         >
-          <span class="value-cta__label">Ver c&oacute;mo funciona Empenta</span>
+          <span class="value-cta__label">{valueCopy.cta}</span>
           <span class="cta-arrow-swap" aria-hidden="true">
             <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor">
               <path

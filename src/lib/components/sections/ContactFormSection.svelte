@@ -1,10 +1,26 @@
 <script>
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
+  import { getWhatsAppHref } from '$lib/i18n/copy';
+  import { getContactCopy } from '$lib/i18n/contact';
+  import { language } from '$lib/i18n/language';
 
   export let form = null;
 
   const instagramHref = 'https://www.instagram.com/eima.fisioterapia';
   const facebookHref = 'https://www.facebook.com/share/1EeWREQSQi/?mibextid=wwXIfr';
+
+  $: copy = getContactCopy($language);
+  $: hero = copy.hero;
+  $: formCopy = copy.form;
+  $: whatsappHref = getWhatsAppHref($language);
+  $: localizedError = form?.error ? getLocalizedError(form.error, formCopy.errors) : '';
+
+  function getLocalizedError(error, errors) {
+    if (error === 'Email requerido') return errors.email;
+    if (error === 'Nombre requerido') return errors.name;
+    if (error === 'El formulario no está configurado todavía.') return errors.notConfigured;
+    if (error === 'Error interno del servidor') return errors.internal;
+    return error;
+  }
 </script>
 
 <section
@@ -29,29 +45,31 @@
         <div class="max-w-[31rem]">
           <h1 class="contact-title text-white">
             <span class="contact-title__line">
-              ¿Listo/a para
+              {hero.titleLineOne}
             </span>
             <span class="contact-title__line">
-              <span class="text-[#8CD0D6]">tomar las riendas</span>
+              <span class="text-[#8CD0D6]">{hero.titleHighlight}</span>
             </span>
             <span class="contact-title__line">
-              de tu salud?
+              {hero.titleLineThree}
             </span>
           </h1>
 
           <p class="intro-copy mt-6 text-[1.16rem] leading-[1.65] text-white/92">
-            Si tienes dudas, escríbenos o llámanos <span class="desktop-break"><br /></span>de forma
-            <strong class="font-semibold text-white">totalmente gratuita.</strong>
+            {hero.introPrefix}
+            <span class="desktop-break"><br /></span>
+            {#if hero.introConnector}{hero.introConnector}{' '}{/if}<strong class="font-semibold text-white">{hero.introStrong}</strong>
           </p>
 
           <p class="intro-copy mt-5 text-[1.16rem] leading-[1.65] text-white/92">
-            Cuéntanos tu caso y te diremos con <span class="desktop-break"><br /></span>
-            <strong class="font-semibold text-white">total honestidad</strong> si podemos ayudarte.
+            {hero.casePrefix}
+            <span class="desktop-break"><br /></span>
+            <strong class="font-semibold text-white">{hero.caseStrong}</strong> {hero.caseSuffix}
           </p>
         </div>
 
         <div class="mt-9 flex max-w-[26rem] flex-col gap-3 text-white/95">
-          <a href={WEB_WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" class="contact-link">
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="contact-link">
             <span class="contact-link__icon" aria-hidden="true">
               <svg viewBox="0 0 448 512" fill="currentColor" class="h-5 w-5">
                 <path
@@ -78,7 +96,7 @@
         </div>
 
         <div class="mt-9 max-w-[26rem]">
-          <p class="social-heading text-[1rem] font-light text-white/88">También puedes encontrarnos aquí:</p>
+          <p class="social-heading text-[1rem] font-light text-white/88">{hero.socialHeading}</p>
           <div class="mt-4 flex flex-col items-start gap-3">
             <a
               href={instagramHref}
@@ -120,7 +138,7 @@
       <div class="w-full max-w-[340px] justify-self-center self-start lg:justify-self-end">
         <div class="form-card rounded-[8px] border border-white/24 bg-white/95 p-6 shadow-[0_28px_80px_rgba(7,16,22,0.26)] backdrop-blur-[6px] md:p-7">
           <h2 class="contact-form-title mx-auto mb-6 w-fit whitespace-nowrap text-center text-[20px] font-semibold uppercase leading-[1.15] text-[#4083A7]">
-            Contacta con nosotros
+            {formCopy.title}
           </h2>
 
           {#if form?.success}
@@ -129,9 +147,9 @@
               role="status"
               aria-live="polite"
             >
-              <p class="mb-1 font-semibold">¡Gracias! Hemos recibido tu mensaje.</p>
+              <p class="mb-1 font-semibold">{formCopy.successTitle}</p>
               <p class="font-light opacity-85">
-                Te responderemos lo antes posible. Si lo prefieres, también puedes llamarnos al
+                {formCopy.successBody}
                 <a href="tel:+34604529731" class="font-medium underline decoration-dotted"
                   >604 52 97 31</a
                 >.
@@ -145,46 +163,46 @@
               </div>
 
               <label class="field-group">
-                <span>Nombre <span class="text-[color:var(--color-brand-soft)]">*</span></span>
+                <span>{formCopy.nameLabel} <span class="text-[color:var(--color-brand-soft)]">*</span></span>
                 <input
                   name="name"
                   type="text"
                   required
                   autocomplete="name"
-                  placeholder="Nombre"
+                  placeholder={formCopy.namePlaceholder}
                   class="field-input"
                 />
               </label>
 
               <label class="field-group">
-                <span>Correo electrónico <span class="text-[color:var(--color-brand-soft)]">*</span></span>
+                <span>{formCopy.emailLabel} <span class="text-[color:var(--color-brand-soft)]">*</span></span>
                 <input
                   name="email"
                   type="email"
                   required
                   autocomplete="email"
-                  placeholder="Correo electrónico"
+                  placeholder={formCopy.emailPlaceholder}
                   class="field-input"
                 />
               </label>
 
               <label class="field-group">
-                <span>Cuéntanos tu caso</span>
+                <span>{formCopy.messageLabel}</span>
                 <textarea
                   name="message"
                   rows="5"
-                  placeholder={`¿Qué es lo que más te limita ahora mismo?\n¿Qué te gustaría volver a hacer?`}
+                  placeholder={formCopy.messagePlaceholder}
                   class="field-textarea"
                 ></textarea>
               </label>
 
               {#if form && !form.success && form.error}
-                <p class="text-sm text-red-600">{form.error}</p>
+                <p class="text-sm text-red-600">{localizedError}</p>
               {/if}
 
               <div class="flex flex-col items-center pt-2 text-center">
                 <button type="submit" class="contact-submit cta-arrow-button">
-                  <span>Enviar</span>
+                  <span>{formCopy.submit}</span>
                   <span class="cta-arrow-swap" aria-hidden="true">
                     <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor">
                       <path
@@ -199,12 +217,12 @@
                   </span>
                 </button>
                 <p class="privacy-note mt-4 text-[12px] leading-[1.55] text-[color:var(--color-brand)]/72">
-                  Al enviar aceptas nuestra
+                  {formCopy.privacyBefore}
                   <a
                     href="/politica-privacidad"
                     class="underline decoration-dotted underline-offset-[3px]"
-                    >política de privacidad</a
-                  >.
+                    >{formCopy.privacyLink}</a
+                  >{formCopy.privacyAfter}
                 </p>
               </div>
             </form>

@@ -1,12 +1,45 @@
 <script>
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
   import { onMount } from 'svelte';
+  import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
 
-  const phrases = ['Más energía', 'Más salud', 'Más vida.'];
+  /** @param {number} ms */
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  /** @param {string} html */
+  function parseInlineHtml(html) {
+    const segments = [];
+    const pattern = /<(strong|span)(?: class="([^"]*)")?>(.*?)<\/\1>/g;
+    let cursor = 0;
+    let match;
+
+    while ((match = pattern.exec(html)) !== null) {
+      if (match.index > cursor) {
+        segments.push({ text: html.slice(cursor, match.index), tag: 'text' });
+      }
+
+      segments.push({ text: match[3], tag: match[1], className: match[2] });
+      cursor = pattern.lastIndex;
+    }
+
+    if (cursor < html.length) {
+      segments.push({ text: html.slice(cursor), tag: 'text' });
+    }
+
+    return segments;
+  }
 
   let phraseIndex = 0;
   let typedPhrase = '';
+  let phrases = getCopy('es').home.hero.phrases;
+
+  $: hero = getCopy($language).home.hero;
+  $: whatsappHref = getWhatsAppHref($language);
+  $: if (phrases !== hero.phrases) {
+    phrases = hero.phrases;
+    phraseIndex = 0;
+    typedPhrase = '';
+  }
 
   onMount(() => {
     let cancelled = false;
@@ -56,9 +89,9 @@
   <div class="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24">
     <div class="max-w-3xl leading-[1.02] tracking-tight">
       <h1 class="mb-4 block max-w-xl text-[7px] font-light tracking-wide text-white/10 md:text-[7px]">
-        Ejercicio y fisioterapia a domicilio en Mallorca para personas con cáncer.
+        {hero.eyebrow}
       </h1>
-      <span class="block text-[2.1rem] font-normal text-white md:text-6xl">Menos limitaciones.</span>
+      <span class="block text-[2.1rem] font-normal text-white md:text-6xl">{hero.intro}</span>
       <span
         class="mt-1 block text-5xl font-bold text-white md:mt-2 md:text-[5rem]"
         aria-label={phrases[phraseIndex]}
@@ -69,47 +102,52 @@
         class="hero-accent-line mt-3 block font-serif-italic text-3xl md:text-[3.2rem]"
         style="color: var(--color-brand-accent);"
       >
-        Desde casa.
+        {hero.fromHome}
       </span>
     </div>
 
     <div class="mt-10 max-w-lg text-[15px] font-light leading-relaxed text-white/90 md:text-base">
-      <p class="md:hidden">
-        Si estás pasando por un <strong class="font-semibold">cáncer</strong> (o ya lo has pasado),
-        te ayudamos a empezar o retomar el <strong class="font-semibold">ejercicio</strong> de forma
-        segura con un acompañamiento de 12 semanas adaptado a ti.
-      </p>
-      <p class="mt-4 md:hidden">
-        Incluso si sigues con
-        <strong class="font-semibold">dolor, fatiga o miedo a empeorar</strong> tras tus
-        tratamientos médicos.
-      </p>
-      <p class="hidden md:block">
-        Si estás pasando por un <strong class="font-semibold">cáncer</strong> (o ya lo has pasado),
-        <br />
-        te ayudamos a empezar o retomar el <strong class="font-semibold">ejercicio</strong> de forma segura
-        <br />
-        con un acompañamiento de 12 semanas adaptado a ti.
-      </p>
-      <p class="mt-4 hidden md:block">
-        Incluso si sigues con
-        <strong class="font-semibold">dolor, fatiga o miedo a empeorar</strong>
-        <br />
-        tras tus tratamientos médicos.
-      </p>
+      {#each hero.mobileParagraphs as paragraph, index (paragraph)}
+        <p class:mt-4={index > 0} class="md:hidden">
+          {#each parseInlineHtml(paragraph) as segment}
+            {#if segment.tag === 'strong'}
+              <strong class={segment.className}>{segment.text}</strong>
+            {:else if segment.tag === 'span'}
+              <span class={segment.className}>{segment.text}</span>
+            {:else}
+              {segment.text}
+            {/if}
+          {/each}
+        </p>
+      {/each}
+      {#each hero.desktopParagraphs as paragraph, index (paragraph.join('|'))}
+        <p class:mt-4={index > 0} class="hidden md:block">
+          {#each paragraph as line, lineIndex (line)}
+            {#each parseInlineHtml(line) as segment}
+              {#if segment.tag === 'strong'}
+                <strong class={segment.className}>{segment.text}</strong>
+              {:else if segment.tag === 'span'}
+                <span class={segment.className}>{segment.text}</span>
+              {:else}
+                {segment.text}
+              {/if}
+            {/each}{#if lineIndex < paragraph.length - 1}<br />{/if}
+          {/each}
+        </p>
+      {/each}
     </div>
 
     <div class="mt-10 flex flex-col items-center gap-4">
       <a
-        href={WEB_WHATSAPP_HREF}
+        href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         class="hero-cta inline-flex w-fit items-center justify-center rounded-full border border-white/50 px-7 py-3.5 text-white font-light transition-[background-color,transform,font-weight] duration-300 ease-out hover:scale-[1.03] hover:bg-white/10 hover:font-bold"
       >
-        Cuéntanos tu caso aquí
+        {hero.cta}
       </a>
       <p class="max-w-md text-center text-xs font-light leading-relaxed text-white/75 md:text-sm">
-        Valoraremos tu caso, resolveremos tus dudas y te diremos si este acompañamiento encaja contigo.
+        {hero.note}
       </p>
     </div>
   </div>

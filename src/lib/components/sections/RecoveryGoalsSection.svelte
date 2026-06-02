@@ -1,5 +1,7 @@
 <script>
   import { onMount } from 'svelte';
+  import { getCopy } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
 
   let revealReady = false;
 
@@ -36,29 +38,8 @@
     revealReady = true;
   });
 
-  const goals = [
-    {
-      title: 'Reducir',
-      subtitle: 'el impacto de los efectos secundarios',
-      body:
-        'Buscamos que te muevas con menos fatiga, menos rigidez, menos miedo y m\u00e1s sensaci\u00f3n de control sobre tu cuerpo y tu d\u00eda a d\u00eda.',
-      icon: 'reduce'
-    },
-    {
-      title: 'Recuperar',
-      subtitle: 'fuerza y energ\u00eda para tu d\u00eda a d\u00eda',
-      body:
-        'Queremos que vuelvas a sentirte m\u00e1s capaz en cosas cotidianas como caminar, subir escaleras, cargar bolsas o terminar el d\u00eda con menos agotamiento.',
-      icon: 'recover'
-    },
-    {
-      title: 'Retomar',
-      subtitle: 'con confianza lo importante para ti',
-      body:
-        'Poco a poco, buscamos que vuelvas a hacer con m\u00e1s seguridad esas actividades que ahora te cuestan, te cansan o te generan dudas.',
-      icon: 'resume'
-    }
-  ];
+  $: recoveryCopy = getCopy($language).home.recovery;
+  $: goals = recoveryCopy.goals;
 </script>
 
 <section
@@ -68,22 +49,22 @@
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <header class="mx-auto max-w-4xl text-center">
       <h2
-        class="recovery-heading font-display-serif text-[2.05rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px]"
+        class="recovery-heading font-display-serif text-[1.9rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px]"
       >
-        <span class="block md:inline">Lo que queremos</span>
+        <span class="block md:inline">{recoveryCopy.headingBefore}</span>
         <span
           class="block text-[#4083A7] md:inline"
           style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-          >ayudarte a conseguir</span
+          >{recoveryCopy.headingHighlight}</span
         >
-        <span class="sr-only">. Las 3R de tu recuperación</span>
+        <span class="sr-only">{recoveryCopy.srTitle}</span>
       </h2>
       <p
         class="text-muted mx-auto mt-4 max-w-4xl text-[13px] font-light leading-relaxed md:text-base"
       >
-        ¿Sabes cuáles son los beneficios de hacer ejercicio durante y después del cáncer?
+        {recoveryCopy.intro}
         <br class="hidden md:block" />
-        Podemos resumirlos en un concepto:
+        {recoveryCopy.introSecond}
       </p>
     </header>
 
@@ -99,8 +80,8 @@
           class="recovery-goals-title text-[22px] font-light leading-tight text-[#4083A7] md:text-[36px]"
           aria-label="Las 3R de tu recuperación"
         >
-          <span>Las&nbsp;</span><span class="font-bold text-[#233F4E]">3R</span><span
-            >&nbsp;de tu recuperación</span
+          <span>{recoveryCopy.titlePrefix}&nbsp;</span><span class="font-bold text-[#233F4E]">{recoveryCopy.titleStrong}</span><span
+            >&nbsp;{recoveryCopy.titleSuffix}</span
           >
         </p>
       </div>

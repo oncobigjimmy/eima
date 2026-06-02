@@ -1,4 +1,7 @@
 <script>
+  import { language } from '$lib/i18n/language';
+  import { getProgramCopy } from '$lib/i18n/program';
+
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
     const observer = new IntersectionObserver(
@@ -20,36 +23,26 @@
     };
   }
 
-  const yesItems = [
-    'Te han dicho que te iría bien hacer ejercicio, pero no sabes bien por dónde empezar.',
-    'Te notas con menos fuerza, menos energía o más inseguridad desde el diagnóstico y los tratamientos.',
-    'Quieres recuperar <em>cosas normales</em> como: subir escaleras, llevar la compra o jugar con tus hijos/nietos.',
-    'Buscas una guía clara y un seguimiento real para no ir a ciegas.'
-  ];
-
-  const noItems = [
-    'Buscas sesiones sueltas sin implicarte en lo que haces fuera de ellas.',
-    'No quieres reservar un mínimo de tiempo al día para moverte por tu cuenta.',
-    'Esperas mejorar sin constancia, sin adaptación y sin revisar hábitos.',
-    'Prefieres una solución pasiva en lugar de participar en tu proceso.'
-  ];
+  $: fitCopy = getProgramCopy($language).fit;
+  $: yesItems = fitCopy.yesItems;
+  $: noItems = fitCopy.noItems;
 </script>
 
 <section class="program-fit-section bg-[#f8f4f0] pb-10 pt-9 md:pb-14 md:pt-12">
   <div class="mx-auto mb-8 max-w-4xl px-6 text-center md:mb-10 md:px-10">
     <p class="text-[16px] font-normal leading-relaxed text-[#233F4E]/78">
-      Si tengo cáncer o he pasado un cáncer
+      {fitCopy.eyebrow}
     </p>
 
     <h2
       class="mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[46px]"
       style="font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;"
     >
-      ¿Cómo sé si
+      {fitCopy.titlePrefix}
       <span
         class="text-[#4083A7]"
         style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-        >este programa es para mí?</span
+        >{fitCopy.titleHighlight}</span
       >
     </h2>
   </div>
@@ -76,7 +69,7 @@
               <span
                 class="font-display-serif"
                 style="font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;"
-                >Esto encaja contigo si...</span
+                >{@html fitCopy.yesTitle}</span
               >
             </h3>
             <div class="fit-card__line mt-3 h-px w-18 bg-[#9FD2AB]"></div>
@@ -121,7 +114,7 @@
               <span
                 class="font-display-serif"
                 style="font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;"
-                >Esto <span class="font-bold">NO</span> encaja contigo si...</span
+                >{@html fitCopy.noTitle}</span
               >
             </h3>
             <div class="fit-card__line mt-3 h-px w-18 bg-[#F3B1B1]"></div>
@@ -138,7 +131,7 @@
                   <path d="M15 9 9 15" stroke-linecap="round"></path>
                 </svg>
               </span>
-              <span>{item}</span>
+              <span>{@html item}</span>
             </li>
           {/each}
         </ul>

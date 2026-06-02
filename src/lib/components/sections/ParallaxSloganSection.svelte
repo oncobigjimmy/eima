@@ -12,6 +12,21 @@
   export let mobileBottomSize = 22;
   export let desktopBottomSize = 35;
   export let sectionClass = '';
+
+  /**
+   * @param {HTMLElement} node
+   * @param {string} value
+   */
+  function htmlContent(node, value) {
+    node.innerHTML = value;
+
+    return {
+      /** @param {string} nextValue */
+      update(nextValue) {
+        node.innerHTML = nextValue;
+      }
+    };
+  }
 </script>
 
 <section class={`bg-[#f8f4f0] pb-10 md:pb-12 ${sectionClass}`.trim()}>
@@ -25,21 +40,21 @@
           class="parallax-slogan__top text-center font-light leading-tight text-white"
           style={`--mobile-top-size:${mobileTopSize}px; --desktop-top-size:${desktopTopSize}px;`}
         >
-          {@html topHtml}
+          <span use:htmlContent={topHtml}></span>
         </p>
         {#if middleHtml}
           <p
             class="parallax-slogan__middle text-center font-light leading-tight text-white"
             style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px;`}
           >
-            {@html middleHtml}
+            <span use:htmlContent={middleHtml}></span>
           </p>
         {/if}
         <p
           class="parallax-slogan__bottom text-center font-light leading-tight text-white"
           style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px; --mobile-bottom-size:${mobileBottomSize}px; --desktop-bottom-size:${desktopBottomSize}px;`}
         >
-          {@html bottomHtml}
+          <span use:htmlContent={bottomHtml}></span>
         </p>
       </div>
     </div>

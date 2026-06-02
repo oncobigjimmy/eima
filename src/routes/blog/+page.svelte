@@ -67,19 +67,31 @@
     style="background-image: url('/blog-hero-mallorca.png');"
     aria-hidden="true"
   ></div>
-  <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(35,63,78,0.85) 0%, rgba(35,63,78,0.5) 100%);" aria-hidden="true"></div>
+  <div
+    class="absolute inset-0"
+    style="background: linear-gradient(90deg, rgba(8,18,24,0.76) 0%, rgba(8,18,24,0.58) 42%, rgba(8,18,24,0.3) 100%);"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="absolute inset-0"
+    style="background: linear-gradient(180deg, rgba(8,18,24,0.26) 0%, rgba(8,18,24,0.12) 46%, rgba(8,18,24,0.48) 100%);"
+    aria-hidden="true"
+  ></div>
 
-  <div class="relative z-10 mx-auto max-w-6xl px-6 md:px-10 pt-24 md:pt-32 pb-16">
+  <div class="relative z-10 mx-auto max-w-7xl px-5 md:px-10 pt-24 md:pt-32 pb-16">
     <nav aria-label="Migas de pan" class="text-sm font-light text-white/70 mb-6">
       <a href="/" class="hover:text-white">Inicio</a>
       <span aria-hidden="true" class="mx-2">/</span>
       <span>Blog</span>
     </nav>
-    <h1 class="blog-hero-title max-w-[12ch] text-[35px] leading-[1.08] text-white md:max-w-none md:text-[50px] md:leading-[1.1]">
-      <span class="block md:whitespace-nowrap">Artículos sobre</span>
+    <h1 class="blog-hero-title text-[35px] leading-[1.08] text-white md:text-[60px] md:leading-[1.02]">
+      <span class="block md:hidden">Artículos sobre</span>
       <span class="block text-[#8CD0D6] md:hidden">cáncer, ejercicio</span>
       <span class="block text-[#8CD0D6] md:hidden">y salud.</span>
-      <span class="hidden text-[#8CD0D6] md:block md:whitespace-nowrap">cáncer, ejercicio y salud.</span>
+      <span class="hidden md:block">
+        Artículos sobre <span class="text-[#8CD0D6]">cáncer,</span>
+      </span>
+      <span class="hidden text-[#8CD0D6] md:block">ejercicio y salud.</span>
     </h1>
     <p class="mt-5 text-white/80 font-light max-w-xl text-[15px]">
       Fisioterapia oncológica y ejercicio terapéutico para personas con cáncer: fuerza, fatiga, dolor, movilidad y salud durante y después del tratamiento.

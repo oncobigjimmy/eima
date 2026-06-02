@@ -1,25 +1,13 @@
 <script>
   import { onMount } from 'svelte';
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
-
-  const definitionOne = 'Fer les coses amb seny i coneixement.';
-  const definitionTwo = '«Tenir eima»: anar amb compte a l’hora de fer les coses.';
-  const closingPrefix = 'Porque la ';
-  const closingAccentOne = 'salud';
-  const closingMiddle = 'también necesita';
-  const closingAccentTwo = 'tiempo.';
-  const teamHintFullText = 'Haz clic encima de uno de nosotros para conocer nuestra historia.';
-  const teamHintMobileLineOne = 'Haz clic encima de uno de nuestros nombres';
-  const teamHintMobileLineTwo = 'para conocer nuestra historia al completo.';
-  const closingFirstLineLength = closingPrefix.length + closingAccentOne.length;
-  const closingSecondLineStart = closingFirstLineLength + 1;
-  const closingThirdLineStart = closingSecondLineStart + closingMiddle.length + 1;
-  const closingFullText = `${closingPrefix}${closingAccentOne} ${closingMiddle} ${closingAccentTwo}`;
+  import { getWhatsAppHref } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
+  import { getAboutCopy } from '$lib/i18n/about';
 
   let typedDefinitionOne = '';
   let typedDefinitionTwo = '';
   let typedClosing = '';
-  let typedTeamHint = teamHintFullText;
+  let typedTeamHint = '';
   let dictionaryTyping = false;
   let dictionaryFinalPulse = false;
   /** @type {HTMLElement | undefined} */
@@ -31,9 +19,62 @@
   let dictionaryStarted = false;
   let closingStarted = false;
   let teamHintStarted = false;
+  let currentLanguage = $language;
+
+  $: aboutCopy = getAboutCopy($language);
+  $: meta = aboutCopy.meta;
+  $: hero = aboutCopy.hero;
+  $: origin = aboutCopy.origin;
+  $: dictionary = aboutCopy.dictionary;
+  $: team = aboutCopy.team;
+  $: principlesCopy = aboutCopy.principles;
+  $: closing = aboutCopy.closing;
+  $: principles = principlesCopy.items;
+  $: whatsappHref = getWhatsAppHref($language);
+  $: definitionOne = dictionary.definitionOne;
+  $: definitionTwo = dictionary.definitionTwo;
+  $: teamHintFullText = team.hintFull;
+  $: teamHintMobileLineOne = team.hintMobileLineOne;
+  $: teamHintMobileLineTwo = team.hintMobileLineTwo;
+  $: closingPrefix = closing.prefix;
+  $: closingAccentOne = closing.accentOne;
+  $: closingMiddle = closing.middle;
+  $: closingAccentTwo = closing.accentTwo;
+  $: originTitleHighlight = origin.titleHighlight ?? 'EIMA';
+  $: originTitleDesktopSuffix = origin.titleDesktopSuffix ?? '';
+  $: originTitleMobileLine2Highlight = origin.titleMobileLine2Highlight ?? 'EIMA';
+  $: originTitleMobileLine2Suffix = origin.titleMobileLine2Suffix ?? '';
+  $: closingFirstLineLength = closingPrefix.length + closingAccentOne.length;
+  $: closingSecondLineStart = closingFirstLineLength + 1;
+  $: closingThirdLineStart = closingSecondLineStart + closingMiddle.length + 1;
+  $: closingFullText = `${closingPrefix}${closingAccentOne} ${closingMiddle} ${closingAccentTwo}`;
+  $: if (currentLanguage !== $language) {
+    currentLanguage = $language;
+    if (dictionaryStarted) {
+      typedDefinitionOne = definitionOne;
+      typedDefinitionTwo = definitionTwo;
+    }
+    if (closingStarted) typedClosing = closingFullText;
+    typedTeamHint = teamHintStarted ? teamHintFullText : teamHintFullText;
+  }
 
   /** @param {number} ms */
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  /**
+   * @param {HTMLElement} node
+   * @param {string} value
+   */
+  function htmlContent(node, value) {
+    node.innerHTML = value;
+
+    return {
+      /** @param {string} nextValue */
+      update(nextValue) {
+        node.innerHTML = nextValue;
+      }
+    };
+  }
 
   /**
    * @param {string} text
@@ -182,48 +223,20 @@
     };
   });
 
-  const principles = [
-    {
-      iconPath:
-        'M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z',
-      title: 'Escuchar antes de pautar',
-      text: 'Cada persona llega con una historia, un tratamiento y unas prioridades distintas. Primero entendemos tu contexto; después adaptamos el plan a ti. No al revés.'
-    },
-    {
-      iconPath:
-        'M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z',
-      title: 'Medir para decidir',
-      text: 'No trabajamos a ojo. Observamos cómo respondes, ajustamos la carga y buscamos que cada paso tenga sentido para tu momento.'
-    },
-    {
-      iconPath:
-        'M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z',
-      title: 'Integrarlo en tu vida',
-      text: 'Llevamos la fisioterapia y el ejercicio a tu entorno para que cuidar tu salud sea más fácil, más realista y, sobre todo, más sostenible a largo plazo.'
-    }
-  ];
+  $: if (!teamHintStarted) typedTeamHint = teamHintFullText;
 </script>
 
 <svelte:head>
-  <title>EIMA | Quiénes somos | Fisioterapia a Domicilio en Mallorca</title>
-  <meta
-    name="description"
-    content="Somos fisioterapeutas que creemos en el ejercicio como la base para mantener nuestra autonomía. Conoce nuestra historia y nuestra forma de entender la salud."
-  />
+  <title>{meta.title}</title>
+  <meta name="description" content={meta.description} />
   <link rel="canonical" href="https://eimafisioterapia.es/quienes-somos" />
-  <meta property="og:title" content="Conoce quiénes somos y nuestra historia | Eima Fisioterapia" />
-  <meta
-    property="og:description"
-    content="Conoce al equipo y por qué nuestro enfoque es activo. Nos basamos en ejercicio, educación en hábitos de salud y un seguimiento continuado para recuperar fuerza, energía y autonomía."
-  />
+  <meta property="og:title" content={meta.ogTitle} />
+  <meta property="og:description" content={meta.ogDescription} />
   <meta property="og:url" content="https://eimafisioterapia.es/quienes-somos" />
   <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
-  <meta property="og:image:alt" content="Jaume y Miquel, fisioterapeutas de EIMA" />
-  <meta name="twitter:title" content="Conoce quiénes somos y nuestra historia | Eima Fisioterapia" />
-  <meta
-    name="twitter:description"
-    content="Conoce al equipo y por qué nuestro enfoque es activo. Nos basamos en ejercicio, educación en hábitos de salud y un seguimiento continuado para recuperar fuerza, energía y autonomía."
-  />
+  <meta property="og:image:alt" content={meta.imageAlt} />
+  <meta name="twitter:title" content={meta.ogTitle} />
+  <meta name="twitter:description" content={meta.ogDescription} />
   <meta name="twitter:image" content="https://eimafisioterapia.es/og-image.png" />
 </svelte:head>
 
@@ -241,33 +254,30 @@
   <div class="relative z-10 mx-auto flex min-h-[calc(86vh-6rem)] max-w-7xl flex-col justify-end px-5 pb-14 md:px-10 md:pb-20">
     <div class="max-w-[42rem] text-white">
       <p class="mb-5 text-[0.78rem] font-light uppercase tracking-[0.28em] text-white/72">
-        Quiénes somos
+        {hero.eyebrow}
       </p>
       <h1 class="about-hero-title max-w-[12ch] text-[42px] leading-[1.06] text-white md:max-w-none md:text-[60px]">
-        <span class="block md:whitespace-nowrap">Queremos ayudarte a</span>
-        <span class="block md:whitespace-nowrap">recuperar <span class="text-[#8CD0D6]">tu energía,</span></span>
-        <span class="block text-[#8CD0D6] md:whitespace-nowrap">confianza y control.</span>
+        <span class="block md:whitespace-nowrap">{hero.line1}</span>
+        <span class="block md:whitespace-nowrap">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
+        <span class="block text-[#8CD0D6] md:whitespace-nowrap">{hero.line3}</span>
       </h1>
       <h2 class="sr-only">
-        Acompañamos a personas con cáncer a moverse con seguridad, recuperar energía y cuidarse sin
-        desplazamientos innecesarios.
+        {hero.srSubtitle}
       </h2>
       <p class="mt-7 max-w-[35rem] text-[16px] font-light leading-[1.75] text-white/90">
-        Somos Miquel y Jaume, fisioterapeutas y fundadores de EIMA. <strong>Acompañamos a
-        personas con cáncer</strong> a moverse con seguridad, recuperar energía y cuidarse sin
-        desplazamientos innecesarios.
+        <span use:htmlContent={hero.body}></span>
       </p>
     </div>
 
     <div class="mt-12 flex w-full flex-col items-center justify-center gap-4 md:flex-row">
-      <p class="text-center text-[14px] font-light text-white/72">¿Nos cuentas tu historia?</p>
+      <p class="text-center text-[14px] font-light text-white/72">{hero.prompt}</p>
       <a
-        href={WEB_WHATSAPP_HREF}
+        href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         class="hero-cta inline-flex w-fit items-center justify-center rounded-full border border-white/50 px-7 py-3.5 font-light text-white transition-[background-color,transform,font-weight] duration-300 ease-out hover:scale-[1.03] hover:bg-white/10 hover:font-bold"
       >
-        Te escuchamos
+        {hero.cta}
       </a>
     </div>
   </div>
@@ -277,26 +287,25 @@
   <div class="mx-auto max-w-6xl px-5 md:px-10">
     <div class="hidden text-center md:block">
       <p class="text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#4083A7]">
-        Nuestra mirada
+        {origin.eyebrow}
       </p>
       <h2 class="about-section-title about-origin-heading mt-4 text-[58px] leading-[1.02] text-[#233F4E]">
-        <span>De dónde nace&nbsp;</span><span class="text-[#4083A7]" style="font-family: inherit;">EIMA</span>
+        <span>{origin.titleDesktopPrefix}&nbsp;</span><span class="text-[#4083A7]" style="font-family: inherit;">{originTitleHighlight}</span>{#if originTitleDesktopSuffix}<span>{' '}{originTitleDesktopSuffix}</span>{/if}
       </h2>
       <p class="mx-auto mt-6 max-w-[58rem] text-[16px] font-light leading-[1.85] text-[#233F4E]/88">
-        EIMA nace del cansancio.<br />Del cansancio de ver un sistema que, muchas veces, no ayuda a
-        salir de la enfermedad, sino a convivir a diario con ella.
+        <span use:htmlContent={origin.intro}></span>
       </p>
     </div>
 
     <div class="grid gap-12 md:mt-12 md:grid-cols-[0.82fr_1fr]">
       <div>
         <p class="text-center text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#4083A7] md:hidden">
-          Nuestra mirada
+          {origin.eyebrow}
         </p>
         <div class="about-section-title about-origin-heading mt-4 text-center text-[3.05rem] leading-[1.02] text-[#233F4E] md:hidden">
-          <span class="block">De dónde</span>
+          <span class="block">{origin.titleMobileLine1}</span>
           <span class="block">
-            nace <span class="text-[#4083A7]" style="font-family: inherit;">EIMA</span>
+            {origin.titleMobileLine2Prefix}{origin.titleMobileLine2Prefix ? ' ' : ''}<span class="text-[#4083A7]" style="font-family: inherit;">{originTitleMobileLine2Highlight}</span>{#if originTitleMobileLine2Suffix}<span>{' '}{originTitleMobileLine2Suffix}</span>{/if}
           </span>
         </div>
 
@@ -306,7 +315,7 @@
         >
           <img
             src="/dependencia-502.png"
-            alt="Persona sentada en casa mirando medicación"
+            alt={origin.imageAlt}
             class="aspect-[16/9] w-full object-cover object-[64%_center]"
           />
         </div>
@@ -314,27 +323,18 @@
 
       <div class="space-y-6 text-[16px] font-light leading-[1.85] text-[#233F4E]/88">
         <p class="md:hidden">
-          EIMA nace del cansancio. Del cansancio de ver un sistema que, muchas veces, no ayuda a
-          salir de la enfermedad, sino a convivir a diario con ella.
+          {origin.introMobile}
         </p>
-        <p>
-          De ver cómo, en este sistema, se normaliza la <strong>dependencia</strong> y se pierde de vista el
-          principal objetivo: recuperar salud, autonomía y calidad de vida a largo plazo.
-        </p>
-        <p>
-          Nosotros no creemos en eso. Creemos que la salud no va de parches eternos ni de delegarlo
-          todo en otros. Creemos en personas activas, críticas y responsables, que quieren
-          <strong>entender qué les pasa</strong>, qué pueden hacer para estar mejor
-          <strong>hoy</strong> y qué necesitan para seguir estando bien
-          <strong>dentro de 10 años</strong>.
-        </p>
+        {#each origin.firstParagraphs as paragraph}
+          <p use:htmlContent={paragraph}></p>
+        {/each}
         <div
           use:revealOnScroll
           class="about-reveal about-origin-image mt-8 overflow-hidden rounded-[8px] shadow-[0_34px_76px_rgba(14,29,38,0.38)] ring-1 ring-[#233F4E]/5 md:hidden"
         >
           <img
             src="/dependencia-502.png"
-            alt="Persona sentada en casa mirando medicación"
+            alt={origin.imageAlt}
             class="aspect-[16/9] w-full object-cover object-[64%_center]"
           />
         </div>
@@ -343,18 +343,9 @@
 
     <div class="mt-8 grid gap-10 md:mt-10 md:grid-cols-[0.82fr_1fr] md:items-start md:gap-12">
       <div class="space-y-6 text-[16px] font-light leading-[1.85] text-[#233F4E]/88">
-        <p>
-          No pretendemos luchar contra el sistema. Sabemos que es demasiado grande para cambiarlo
-          desde dentro.
-        </p>
-        <p>
-          Por eso decidimos salirnos y construir una forma de trabajar coherente con cómo entendemos
-          la salud.
-        </p>
-        <p>
-          Eso es EIMA: hacer las cosas con
-          <strong>conocimiento, criterio y sentido común.</strong> No por costumbre ni por inercia.
-        </p>
+        {#each origin.secondParagraphs as paragraph}
+          <p use:htmlContent={paragraph}></p>
+        {/each}
       </div>
 
       <div
@@ -364,11 +355,11 @@
       >
         <p class="dictionary-word">eima</p>
         <p class="mt-4 text-[1rem] leading-snug text-[#14191d] md:text-[18px]">
-          <span>['əj.mə]</span>
+          <span>{dictionary.phonetic}</span>
           <span class="mx-1.5">·</span>
-          <em>nom femení</em>
+          <em>{dictionary.gender}</em>
           <span class="mx-1.5">·</span>
-          <strong class="font-semibold">Balear</strong>
+          <strong class="font-semibold">{dictionary.region}</strong>
         </p>
         <div class="mt-5 h-px bg-[#14191d]"></div>
 
@@ -406,15 +397,15 @@
       <div class="team-copy">
         <header class="team-header max-w-[36rem]">
           <p class="text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#4083A7]">
-            El equipo
+            {team.eyebrow}
           </p>
           <h2 class="about-section-title team-heading mt-4 text-center text-[2.2rem] leading-[1.05] text-[#233F4E] md:text-left md:pb-1 md:text-[3.15rem] md:leading-[1.04]">
             <span class="block">
-              Dos <span class="text-[#4083A7]" style="font-family: inherit;">fisioterapeutas,</span>
+              {team.headingLine1Prefix} <span class="text-[#4083A7]" style="font-family: inherit;">{team.headingLine1Highlight}</span>
             </span>
-            <span class="block">una misma forma</span>
+            <span class="block">{team.headingLine2}</span>
             <span class="block">
-              de <span class="text-[#4083A7]" style="font-family: inherit;">acompañarte.</span>
+              {team.headingLine3Prefix} <span class="text-[#4083A7]" style="font-family: inherit;">{team.headingLine3Highlight}</span>
             </span>
           </h2>
         </header>
@@ -424,25 +415,13 @@
           class="about-reveal team-health-wrap relative mt-10 w-full max-w-[28rem] justify-self-center md:mt-14 md:max-w-none"
         >
           <div class="team-health-label relative z-10 mx-auto w-full whitespace-nowrap rounded-[12px] bg-[#4083A7] px-3 py-3 text-center text-[16px] font-bold leading-tight text-white shadow-[0_8px_18px_rgba(14,29,38,0.18)] md:absolute md:left-1/2 md:top-0 md:w-[23rem] md:-translate-x-1/2 md:-translate-y-1/2 md:px-6 md:text-[16px]">
-            Nuestra forma de entender la salud
+            {team.healthLabel}
           </div>
 
           <div class="team-health-card mt-3 bg-[#E8E8F6] px-5 pb-6 pt-6 text-[14px] leading-[1.55] text-black shadow-[0_16px_38px_rgba(14,29,38,0.16)] md:mt-0 md:px-5 md:pb-7 md:pt-9 md:text-[14px]">
-            <p>
-              En EIMA entendemos que un proceso oncológico <strong>no es solo un diagnóstico</strong>.
-              Es una experiencia que puede afectar al cuerpo, a la mente, a la energía, a la confianza
-              y al día a día.
-            </p>
-            <p class="mt-5">
-              Por eso no miramos únicamente el síntoma. <strong>Miramos a la persona:</strong> su
-              historia, su contexto, su nivel de actividad, sus miedos, su fatiga, su dolor y lo que
-              necesita para <strong>volver a sentirse más capaz.</strong>
-            </p>
-            <p class="mt-5">
-              Trabajamos desde un enfoque activo, con <strong>ejercicio adaptado</strong>, educación en
-              hábitos de salud y acompañamiento cercano. No buscamos imponer un ritmo, sino ayudarte a
-              avanzar con criterio, seguridad y objetivos realistas.
-            </p>
+            {#each team.healthParagraphs as paragraph, index}
+              <p class:mt-5={index > 0} use:htmlContent={paragraph}></p>
+            {/each}
           </div>
         </div>
       </div>
@@ -457,7 +436,7 @@
           <div use:revealOnScroll class="about-reveal team-photo-inner h-full w-full">
             <img
               src="/eima-team-card.png"
-              alt="Jaume Sansó Servera y Miquel Galmés Vives"
+              alt={team.imageAlt}
               class="h-full w-full object-cover object-center"
             />
             <a
@@ -485,7 +464,7 @@
           </div>
         </div>
 
-        <div class="team-mobile-name-row md:hidden" aria-label="Historias del equipo">
+        <div class="team-mobile-name-row md:hidden" aria-label={team.mobileNamesLabel}>
           <a class="team-mobile-name-chip" href="/quienes-somos/historia#miquel">Miquel</a>
           <a class="team-mobile-name-chip" href="/quienes-somos/historia#jaume">Jaume</a>
         </div>
@@ -498,7 +477,7 @@
 
         <div class="team-actions mt-6 flex items-center justify-center md:mt-3">
           <a class="about-cta team-action-pill team-action-pill--single" href="/quienes-somos/historia">
-            <span>Lee nuestra historia</span>
+            <span>{team.cta}</span>
             <span class="team-action-icon" aria-hidden="true">
               <svg class="team-action-icon__arrow" viewBox="0 0 256 256" fill="currentColor">
                 <path
@@ -522,10 +501,10 @@
   <div class="mx-auto max-w-6xl px-5 md:px-10">
     <header class="mx-auto max-w-3xl text-center">
       <p class="text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#8CD0D6]">
-        Cómo trabajamos
+        {principlesCopy.eyebrow}
       </p>
       <h2 class="about-section-title mt-4 text-[2.1rem] leading-[1.06] text-white md:text-[3rem]">
-        Cercanía, criterio y <span class="text-[#8CD0D6]" style="font-family: inherit;">un plan</span> que puedas sostener.
+        {principlesCopy.headingPrefix} <span class="text-[#8CD0D6]" style="font-family: inherit;">{principlesCopy.headingHighlight}</span> {principlesCopy.headingSuffix}
       </h2>
     </header>
 
@@ -560,9 +539,9 @@
   <div class="closing-section__grid mx-auto grid max-w-7xl items-stretch md:grid-cols-[1.05fr_0.95fr]">
     <div class="closing-section__copy px-5 py-16 md:px-10 md:py-24">
       <p class="text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#4083A7]">
-        Y así nace EIMA
+        {closing.eyebrow}
       </p>
-      <h2 class="sr-only">Porque la salud también necesita tiempo.</h2>
+      <h2 class="sr-only">{closingFullText}</h2>
       <div
         bind:this={closingHeadingNode}
         class="about-section-title closing-type-title mt-4 text-[40px] leading-[1.04] text-[#233F4E] md:text-[58px]"
@@ -584,29 +563,19 @@
         </span>
       </div>
       <div class="mt-7 max-w-[36rem] space-y-5 text-[16px] font-light leading-[1.85] text-[#233F4E]/86">
-        <p>
-          Creamos EIMA para personas que
-          <strong>no quieren que la vida quede en pausa</strong> durante el tratamiento.
-        </p>
-        <p>
-          Personas que quieren seguir haciendo lo que está en su mano para recuperar energía,
-          moverse con más seguridad y <strong>vivir más, sí, pero sobre todo vivir mejor.</strong>
-        </p>
-        <p>
-          Por eso trabajamos de forma <strong>online</strong>: porque sabemos que el cansancio, las
-          citas médicas y la vida diaria ya ocupan demasiado espacio. Nuestro papel es ayudarte a
-          cuidar tu salud <strong>sin añadir más carga a tu día a día.</strong>
-        </p>
+        {#each closing.paragraphs as paragraph}
+          <p use:htmlContent={paragraph}></p>
+        {/each}
       </div>
 
       <div class="mt-9 flex justify-center">
         <a
-          href={WEB_WHATSAPP_HREF}
+          href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
           class="about-cta inline-flex w-fit items-center justify-center rounded-full bg-[#8CD0D6] px-6 py-3 text-[15px] font-medium text-[#233F4E] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
         >
-          <span>Cuéntanos tu caso</span>
+          <span>{closing.cta}</span>
         </a>
       </div>
     </div>

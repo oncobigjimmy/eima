@@ -1,8 +1,32 @@
 <script>
   import { onMount } from 'svelte';
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
+  import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
 
   let revealReady = false;
+
+  /** @param {string} html */
+  function parseInlineHtml(html) {
+    const segments = [];
+    const pattern = /<(strong|span)(?: class="([^"]*)")?>(.*?)<\/\1>/g;
+    let cursor = 0;
+    let match;
+
+    while ((match = pattern.exec(html)) !== null) {
+      if (match.index > cursor) {
+        segments.push({ text: html.slice(cursor, match.index), tag: 'text' });
+      }
+
+      segments.push({ text: match[3], tag: match[1], className: match[2] });
+      cursor = pattern.lastIndex;
+    }
+
+    if (cursor < html.length) {
+      segments.push({ text: html.slice(cursor), tag: 'text' });
+    }
+
+    return segments;
+  }
 
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
@@ -37,23 +61,9 @@
     revealReady = true;
   });
 
-  const situations = [
-    {
-      icon: 'battery',
-      body:
-        'Te notas con <strong>menos fuerza y menos energía</strong>, y sientes que tu cuerpo ya no responde como antes.'
-    },
-    {
-      icon: 'stethoscope',
-      body:
-        'Tu oncólogo/a te ha recomendado moverte, pero <strong>no sabes qué hacer, cuánto hacer ni cómo adaptarlo</strong> a tus tratamientos, síntomas y situación actual.'
-    },
-    {
-      icon: 'question',
-      body:
-        'Quieres hacer algo para encontrarte mejor, pero <strong>te da miedo pasarte, agotarte o empeorar tus síntomas.</strong>'
-    }
-  ];
+  $: commonCopy = getCopy($language).home.commonSituations;
+  $: situations = commonCopy.situations;
+  $: whatsappHref = getWhatsAppHref($language);
 </script>
 
 <section
@@ -65,11 +75,11 @@
       <h2
         class="font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-white md:text-[48px]"
       >
-        Si ahora mismo
+        {commonCopy.titlePrefix}
         <span
           class="text-[#8CD0D6]"
           style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-          >te pasa algo de esto</span
+          >{commonCopy.titleHighlight}</span
         >
       </h2>
     </header>
@@ -123,9 +133,19 @@
             </div>
 
             <div class="border-l border-[#8CD0D6]/45 pl-5">
-              <p class="text-[16px] leading-[1.5] text-white/86">
-                {@html item.body}
-              </p>
+              {#key item.body}
+                <p class="text-[16px] leading-[1.5] text-white/86">
+                  {#each parseInlineHtml(item.body) as segment}
+                    {#if segment.tag === 'strong'}
+                      <strong class={segment.className}>{segment.text}</strong>
+                    {:else if segment.tag === 'span'}
+                      <span class={segment.className}>{segment.text}</span>
+                    {:else}
+                      {segment.text}
+                    {/if}
+                  {/each}
+                </p>
+              {/key}
             </div>
           </article>
         {/each}
@@ -148,23 +168,37 @@
 
           <div class="relative flex h-full flex-col items-center justify-center px-7 pb-5 pt-5 text-center">
             <h3 class="common-situations-title text-[24px] leading-[1.03] text-white md:text-[28px]">
-              <span class="block">Tienes que saber que</span>
-              <span class="block">
-                <span class="font-bold">NO</span>
-                es culpa tuya
-              </span>
+              {#each commonCopy.asideTitleLines as line (line)}
+                <span class="block">
+                  {#each parseInlineHtml(line) as segment}
+                    {#if segment.tag === 'strong'}
+                      <strong class={segment.className}>{segment.text}</strong>
+                    {:else if segment.tag === 'span'}
+                      <span class={segment.className}>{segment.text}</span>
+                    {:else}
+                      {segment.text}
+                    {/if}
+                  {/each}
+                </span>
+              {/each}
             </h3>
 
             <div class="mt-4 h-px w-24 bg-[#8CD0D6] md:mt-7"></div>
 
             <div class="mt-5 max-w-[17.4rem] text-[16px] leading-[1.48] text-white/92 md:mt-8 md:text-[18px] md:leading-[1.6]">
-              <p>Esto le pasa a muchas personas durante y después del tratamiento.</p>
-              <p class="mt-3 md:mt-4">Y no significa que estés fallando.</p>
-              <p class="mt-3 md:mt-4">
-                Significa que
-                <strong class="font-bold">necesitas una guía adaptada</strong>
-                a tu momento actual.
-              </p>
+              {#each commonCopy.asideParagraphs as paragraph, index (paragraph)}
+                <p class={index > 0 ? 'mt-3 md:mt-4' : ''}>
+                  {#each parseInlineHtml(paragraph) as segment}
+                    {#if segment.tag === 'strong'}
+                      <strong class={segment.className}>{segment.text}</strong>
+                    {:else if segment.tag === 'span'}
+                      <span class={segment.className}>{segment.text}</span>
+                    {:else}
+                      {segment.text}
+                    {/if}
+                  {/each}
+                </p>
+              {/each}
             </div>
           </div>
         </div>
@@ -173,16 +207,15 @@
 
     <div class="mx-auto mt-10 max-w-4xl text-center md:mt-12">
       <p class="text-[15px] leading-relaxed text-white/84 md:text-[1.05rem]">
-        Por eso, no se trata de moverte sin más, sino de hacerlo de una forma que te ayude de
-        verdad en tu día a día.
+        {commonCopy.bottom}
       </p>
       <a
-        href={WEB_WHATSAPP_HREF}
+        href={whatsappHref}
         target="_blank"
         rel="noreferrer"
         class="common-cta mt-5 inline-flex items-center justify-center rounded-full bg-[#8CD0D6] px-6 py-3 text-[15px] font-medium text-[color:var(--color-brand)] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
       >
-        Cuéntanos qué te pasa
+        {commonCopy.cta}
       </a>
     </div>
   </div>

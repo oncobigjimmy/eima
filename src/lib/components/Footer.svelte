@@ -1,20 +1,23 @@
 <script>
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
+  import { page } from '$app/stores';
+  import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
+
   const year = new Date().getFullYear();
 
-  const pageLinks = [
-    { href: '/', label: 'Inicio' },
-    { href: '/como-funciona', label: 'Cómo funciona' },
-    { href: '/quienes-somos', label: 'Quiénes somos' },
-    { href: '/contacto', label: 'Contacto' },
-    { href: '/blog', label: 'Blog' }
-  ];
-
-  const legalLinks = [
-    { href: '/terminos', label: 'Términos y condiciones' },
-    { href: '/politica-privacidad', label: 'Política de privacidad' },
-    { href: '/politica-cookies', label: 'Política de cookies' }
-  ];
+  $: pathname = $page.url.pathname;
+  $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
+  $: currentLanguage = isBlog ? 'es' : $language;
+  $: copy = getCopy(currentLanguage);
+  $: pageLinks = copy.nav.links;
+  $: legalLinks = copy.footer.legalLinks;
+  $: whatsappHref = getWhatsAppHref(currentLanguage);
+  $: brandName =
+    currentLanguage === 'en'
+      ? 'EIMA Physiotherapy'
+      : currentLanguage === 'ca'
+        ? 'EIMA Fisioteràpia'
+        : 'EIMA Fisioterapia';
 </script>
 
 <footer class="bg-dark text-[color:var(--color-inverse)]">
@@ -22,13 +25,13 @@
     class="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.15fr_1fr_1fr_1fr] md:gap-0 md:px-10"
   >
     <div class="flex flex-col items-center justify-center border-b border-white/14 pb-8 md:items-start md:border-b-0 md:border-r md:border-white/18 md:pb-0 md:pr-10">
-      <img src="/eima-logo.png" alt="EIMA Fisioterapia" class="h-20 w-auto md:h-24" />
+      <img src="/eima-logo.png" alt={brandName} class="h-20 w-auto md:h-24" />
     </div>
 
     <div
       class="flex flex-col items-center justify-center gap-5 border-b border-white/14 pb-8 text-center md:border-b-0 md:border-r md:border-white/18 md:px-6 md:pb-0"
     >
-      <p class="text-[22px] font-medium tracking-[0.02em]">Contáctanos</p>
+      <p class="text-[22px] font-medium tracking-[0.02em]">{copy.footer.contact}</p>
       <div class="flex flex-wrap items-center justify-center gap-3 md:grid md:grid-cols-2 md:gap-3">
         <a
           href="https://www.instagram.com/eima.fisioterapia"
@@ -46,7 +49,7 @@
         </a>
 
         <a
-          href={WEB_WHATSAPP_HREF}
+          href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
@@ -74,7 +77,7 @@
           aria-label="Llamar"
           class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10"
         >
-          <span class="footer-social-tooltip">Teléfono</span>
+          <span class="footer-social-tooltip">{copy.footer.phone}</span>
           <span class="material-symbols-rounded !text-[20px]">call</span>
         </a>
       </div>
@@ -83,7 +86,7 @@
     <div
       class="flex flex-col items-center justify-center border-b border-white/14 text-center pb-8 md:border-b-0 md:border-r md:border-white/18 md:px-6 md:pb-0"
     >
-      <p class="mb-4 text-[22px] font-medium">Menú de páginas</p>
+      <p class="mb-4 text-[22px] font-medium">{copy.footer.pageMenu}</p>
       <ul class="space-y-2 text-sm font-light opacity-90">
         {#each pageLinks as link (link.href)}
           <li>
@@ -94,7 +97,7 @@
     </div>
 
     <div class="flex flex-col items-center justify-center text-center md:px-6">
-      <p class="mb-4 text-[22px] font-medium">Páginas legales</p>
+      <p class="mb-4 text-[22px] font-medium">{copy.footer.legalPages}</p>
       <ul class="space-y-2 text-sm font-light opacity-90">
         {#each legalLinks as link (link.href)}
           <li>
@@ -109,8 +112,12 @@
     <div
       class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-5 text-center text-xs opacity-70 md:flex-row md:px-10"
     >
-      <p>Copyright © {year} EIMA Fisioterapia</p>
-      <p>Creado con cariño en Mallorca</p>
+      <p>{copy.footer.copyrightPrefix} {year} {brandName}</p>
+      <p class="inline-flex items-center justify-center gap-1.5">
+        <span>{copy.footer.madeInBefore}</span>
+        <img src="/heart-poker.png" alt={copy.footer.heartAlt} class="h-3.5 w-3.5" />
+        <span>{copy.footer.madeInAfter}</span>
+      </p>
     </div>
   </div>
 </footer>

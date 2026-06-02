@@ -1,4 +1,4 @@
-export const WEB_WHATSAPP_MESSAGE =
-  'Hola, he visto vuestro programa Empenta en la web y me gustaría saber si puede encajar con mi situación. ¿Os puedo contar un poco mi caso?';
+import { DEFAULT_LANGUAGE, getCopy, getWhatsAppHref } from '$lib/i18n/copy';
 
-export const WEB_WHATSAPP_HREF = `https://wa.me/34604529731?text=${encodeURIComponent(WEB_WHATSAPP_MESSAGE)}`;
+export const WEB_WHATSAPP_MESSAGE = getCopy(DEFAULT_LANGUAGE).whatsapp.message;
+export const WEB_WHATSAPP_HREF = getWhatsAppHref(DEFAULT_LANGUAGE);
