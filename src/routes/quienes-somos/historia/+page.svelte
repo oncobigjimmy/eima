@@ -17,8 +17,6 @@
   $: statusLabels = storyCopy.status;
   $: whatsappHref = getWhatsAppHref($language);
   $: activeProfile = storyProfiles.find((profile) => profile.id === activeId) ?? storyProfiles[0];
-  $: miquelProfileName = storyProfiles.find((profile) => profile.id === 'miquel')?.name ?? 'Miquel';
-  $: jaumeProfileName = storyProfiles.find((profile) => profile.id === 'jaume')?.name ?? 'Jaume';
 
   /** @param {'miquel' | 'jaume'} profileId */
   const selectProfile = (profileId) => {
@@ -297,14 +295,14 @@
           class:active-person={activeId === 'miquel'}
           on:click={() => selectProfile('miquel')}
         >
-          {miquelProfileName}
+          Miquel
         </button>
         <button
           type="button"
           class:active-person={activeId === 'jaume'}
           on:click={() => selectProfile('jaume')}
         >
-          {jaumeProfileName}
+          Jaume
         </button>
       </div>
     </div>
