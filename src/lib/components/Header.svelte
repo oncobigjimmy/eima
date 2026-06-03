@@ -4,6 +4,7 @@
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
+  import { getLanguageFromPath, getRouteKey, getRoutePath } from '$lib/i18n/routes';
 
   export let mobileMenuOpen = false;
 
@@ -29,15 +30,18 @@
 
   $: pathname = $page.url.pathname;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
-  $: currentLanguage = isBlog ? 'es' : $language;
+  $: routeLanguage = getLanguageFromPath(pathname);
+  $: currentLanguage = isBlog ? 'es' : (routeLanguage ?? $language);
   $: copy = getCopy(currentLanguage);
   $: links = copy.nav.links;
+  $: homeHref = getRoutePath('home', currentLanguage);
   $: whatsappHref = getWhatsAppHref(currentLanguage);
+  $: routeKey = getRouteKey(pathname);
   $: hasDarkHero =
-    pathname === '/' ||
-    pathname === '/como-funciona' ||
-    pathname === '/quienes-somos' ||
-    pathname === '/contacto' ||
+    routeKey === 'home' ||
+    routeKey === 'program' ||
+    routeKey === 'about' ||
+    routeKey === 'contact' ||
     pathname === '/blog' ||
     pathname.startsWith('/blog/');
   $: transparent = mounted && hasDarkHero && !scrolled && !mobileMenuOpen;
@@ -51,7 +55,7 @@
     {lightHeader ? 'bg-transparent' : 'bg-[#F8F4F0]'}"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-10">
-    <a href="/" aria-label="Inicio" class="flex items-center">
+    <a href={homeHref} aria-label="Inicio" class="flex items-center">
       <img
         src={lightHeader ? '/eima-logo.png' : '/eima-logo-white.png'}
         alt="EIMA Fisioterapia"

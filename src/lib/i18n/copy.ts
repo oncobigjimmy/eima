@@ -244,10 +244,10 @@ const caCopy = {
   ...esCopy,
   nav: {
     links: [
-      { href: '/', label: 'Inici' },
-      { href: '/como-funciona', label: 'Com funciona' },
-      { href: '/quienes-somos', label: 'Qui som' },
-      { href: '/contacto', label: 'Contacte' },
+      { href: '/ca', label: 'Inici' },
+      { href: '/ca/com-funciona', label: 'Com funciona' },
+      { href: '/ca/qui-som', label: 'Qui som' },
+      { href: '/ca/contacte', label: 'Contacte' },
       { href: '/blog', label: 'Blog' }
     ],
     contact: 'Contacta’ns',
@@ -474,10 +474,10 @@ const enCopy = {
   ...esCopy,
   nav: {
     links: [
-      { href: '/', label: 'Home' },
-      { href: '/como-funciona', label: 'How it works' },
-      { href: '/quienes-somos', label: 'Who we are' },
-      { href: '/contacto', label: 'Contact' },
+      { href: '/en', label: 'Home' },
+      { href: '/en/how-it-works', label: 'How it works' },
+      { href: '/en/who-we-are', label: 'Who we are' },
+      { href: '/en/contact', label: 'Contact' },
       { href: '/blog', label: 'Blog' }
     ],
     contact: 'Contact us',

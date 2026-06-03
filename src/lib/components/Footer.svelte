@@ -2,12 +2,14 @@
   import { page } from '$app/stores';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
+  import { getLanguageFromPath } from '$lib/i18n/routes';
 
   const year = new Date().getFullYear();
 
   $: pathname = $page.url.pathname;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
-  $: currentLanguage = isBlog ? 'es' : $language;
+  $: routeLanguage = getLanguageFromPath(pathname);
+  $: currentLanguage = isBlog ? 'es' : (routeLanguage ?? $language);
   $: copy = getCopy(currentLanguage);
   $: pageLinks = copy.nav.links;
   $: legalLinks = copy.footer.legalLinks;

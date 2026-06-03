@@ -1,22 +1,27 @@
 <script>
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
+  import { page } from '$app/stores';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { getStoryCopy } from '$lib/i18n/story';
+  import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
 
   let activeId = 'miquel';
   let selectedCover = null;
 
-  $: storyCopy = getStoryCopy($language);
+  $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? $language;
+  $: storyCopy = getStoryCopy(pageLanguage);
   $: storyProfiles = storyCopy.profiles;
   $: storyMarks = storyCopy.marks;
   $: meta = storyCopy.meta;
   $: hero = storyCopy.hero;
   $: labels = storyCopy.labels;
   $: statusLabels = storyCopy.status;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref(pageLanguage);
   $: activeProfile = storyProfiles.find((profile) => profile.id === activeId) ?? storyProfiles[0];
+  $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
+  $: alternateLinks = getAlternateLinks('story');
 
   /** @param {'miquel' | 'jaume'} profileId */
   const selectProfile = (profileId) => {
@@ -193,13 +198,16 @@
     name="description"
     content={meta.description}
   />
-  <link rel="canonical" href="https://eimafisioterapia.es/quienes-somos/historia" />
+  <link rel="canonical" href={canonicalUrl} />
+  {#each alternateLinks as alternate}
+    <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+  {/each}
   <meta property="og:title" content={meta.ogTitle} />
   <meta
     property="og:description"
     content={meta.ogDescription}
   />
-  <meta property="og:url" content="https://eimafisioterapia.es/quienes-somos/historia" />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
   <meta property="og:image:alt" content={meta.imageAlt} />
   <meta name="twitter:title" content={meta.ogTitle} />

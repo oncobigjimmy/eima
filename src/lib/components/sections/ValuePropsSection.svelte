@@ -2,6 +2,7 @@
   import { afterUpdate, onMount } from 'svelte';
   import { getCopy } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
+  import { getRoutePath } from '$lib/i18n/routes';
 
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
@@ -46,6 +47,7 @@
 
   $: valueCopy = getCopy($language).home.valueProps;
   $: steps = valueCopy.steps;
+  $: programHref = `${getRoutePath('program', $language)}#program-steps`;
 
   afterUpdate(() => {
     requestTimelineUpdate?.();
@@ -238,7 +240,7 @@
 
       <div class="mt-7 flex justify-center">
         <a
-          href="/como-funciona#program-steps"
+          href={programHref}
           class="value-cta cta-arrow-button inline-flex items-center justify-center gap-2 rounded-full bg-[#8CD0D6] px-7 py-3 text-[15px] font-medium text-[color:var(--color-brand)] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
         >
           <span class="value-cta__label">{valueCopy.cta}</span>

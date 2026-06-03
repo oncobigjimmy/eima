@@ -2,6 +2,7 @@
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { getContactCopy } from '$lib/i18n/contact';
   import { language } from '$lib/i18n/language';
+  import { getRoutePath } from '$lib/i18n/routes';
 
   export let form = null;
 
@@ -12,6 +13,7 @@
   $: hero = copy.hero;
   $: formCopy = copy.form;
   $: whatsappHref = getWhatsAppHref($language);
+  $: formAction = getRoutePath('contact', $language);
   $: localizedError = form?.error ? getLocalizedError(form.error, formCopy.errors) : '';
 
   function getLocalizedError(error, errors) {
@@ -156,7 +158,7 @@
               </p>
             </div>
           {:else}
-            <form method="POST" action="/contacto" class="flex flex-col gap-4">
+            <form method="POST" action={formAction} class="flex flex-col gap-4">
               <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
                 <input type="text" name="company" tabindex="-1" autocomplete="off" />
                 <input type="text" name="website" tabindex="-1" autocomplete="off" />

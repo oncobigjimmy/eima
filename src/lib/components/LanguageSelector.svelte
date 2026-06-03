@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { LANGUAGES, type Language } from '$lib/i18n/copy';
   import { language, setLanguage } from '$lib/i18n/language';
+  import { getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
 
   export let light = false;
   export let compact = false;
@@ -11,12 +13,22 @@
 
   $: pathname = $page.url.pathname;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
-  $: currentLanguage = LANGUAGES.find((item) => item.code === $language) ?? LANGUAGES[0];
+  $: routeLanguage = getLanguageFromPath(pathname);
+  $: currentLanguageCode = routeLanguage ?? $language;
+  $: currentLanguage = LANGUAGES.find((item) => item.code === currentLanguageCode) ?? LANGUAGES[0];
 
   function chooseLanguage(nextLanguage: Language) {
+    const nextPath = getLocalizedPath(pathname, nextLanguage);
+    const nextUrl = `${nextPath}${$page.url.search}${$page.url.hash}`;
+    const currentUrl = `${$page.url.pathname}${$page.url.search}${$page.url.hash}`;
+
     setLanguage(nextLanguage);
     dropdownOpen = false;
     onSelect();
+
+    if (nextUrl !== currentUrl) {
+      goto(nextUrl, { noScroll: true, keepFocus: true });
+    }
   }
 
   function closeDropdown() {
@@ -40,14 +52,14 @@
             {light
               ? 'border-white/45 text-white'
               : 'border-[color:var(--color-brand)]/18 text-[color:var(--color-brand)]'}
-            {$language === item.code
+            {currentLanguageCode === item.code
               ? light
                 ? 'bg-white/18 font-medium'
                 : 'bg-[color:var(--color-brand-accent)] font-medium'
               : light
                 ? 'bg-white/5'
                 : 'bg-white/45'}"
-          aria-pressed={$language === item.code}
+          aria-pressed={currentLanguageCode === item.code}
           aria-label={`Cambiar idioma a ${item.name}`}
           on:click={() => chooseLanguage(item.code)}
         >
@@ -86,9 +98,9 @@
             <button
               type="button"
               class="flex w-full items-center gap-2 rounded-[6px] px-3 py-2 text-left text-[12px] font-light tracking-[0.02em] transition-colors hover:bg-[#8CD0D6]
-                {$language === item.code ? 'bg-[#8CD0D6] font-medium' : ''}"
+                {currentLanguageCode === item.code ? 'bg-[#8CD0D6] font-medium' : ''}"
               role="menuitemradio"
-              aria-checked={$language === item.code}
+              aria-checked={currentLanguageCode === item.code}
               on:click|stopPropagation={() => chooseLanguage(item.code)}
             >
               <span class={`language-flag language-flag--${item.code}`} aria-hidden="true"></span>

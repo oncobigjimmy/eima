@@ -1,11 +1,20 @@
 <script>
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
   import '@fontsource/material-symbols-rounded/300.css';
   import '../app.css';
   import Header from '$lib/components/Header.svelte';
   import MobileMenu from '$lib/components/MobileMenu.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import FloatingWhatsApp from '$lib/components/FloatingWhatsApp.svelte';
+  import { setLanguage } from '$lib/i18n/language';
+  import { getLanguageFromPath } from '$lib/i18n/routes';
+
+  const ogLocaleByLanguage = {
+    es: 'es_ES',
+    ca: 'ca_ES',
+    en: 'en_GB'
+  };
 
   let mobileMenuOpen = false;
   let scrollProgress = 0;
@@ -13,6 +22,11 @@
   function closeMobileMenu() {
     mobileMenuOpen = false;
   }
+
+  $: urlLanguage = getLanguageFromPath($page.url.pathname);
+  $: if (urlLanguage) setLanguage(urlLanguage);
+  $: currentLanguage = urlLanguage ?? 'es';
+  $: ogLocale = ogLocaleByLanguage[currentLanguage] ?? ogLocaleByLanguage.es;
 
   onMount(() => {
     const updateProgress = () => {
@@ -33,7 +47,7 @@
 
 <svelte:head>
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale" content={ogLocale} />
   <meta property="og:site_name" content="EIMA Fisioterapia" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:domain" content="eimafisioterapia.es" />

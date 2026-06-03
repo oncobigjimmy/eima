@@ -3,6 +3,7 @@
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
+  import { getLanguageFromPath } from '$lib/i18n/routes';
 
   export let mobileMenuOpen = false;
   export let onClose = () => {};
@@ -25,7 +26,8 @@
 
   $: pathname = $page.url.pathname;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
-  $: currentLanguage = isBlog ? 'es' : $language;
+  $: routeLanguage = getLanguageFromPath(pathname);
+  $: currentLanguage = isBlog ? 'es' : (routeLanguage ?? $language);
   $: copy = getCopy(currentLanguage);
   $: links = copy.nav.links;
   $: whatsappHref = getWhatsAppHref(currentLanguage);

@@ -1,11 +1,15 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 import { DEFAULT_LANGUAGE, getHtmlLang, isLanguage, type Language } from './copy';
+import { getLanguageFromPath } from './routes';
 
 const STORAGE_KEY = 'eima-language';
 
 function getInitialLanguage(): Language {
   if (!browser) return DEFAULT_LANGUAGE;
+
+  const urlLanguage = getLanguageFromPath(window.location.pathname);
+  if (urlLanguage) return urlLanguage;
 
   const stored = window.localStorage.getItem(STORAGE_KEY);
   return stored && isLanguage(stored) ? stored : DEFAULT_LANGUAGE;

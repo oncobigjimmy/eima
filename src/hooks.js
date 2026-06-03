@@ -1,5 +1,6 @@
-/** @type {import('@sveltejs/kit').Handle} */
-export const handle = async ({ event, resolve }) => {
-  const response = await resolve(event);
-  return response;
-};
+import { getCanonicalPath } from '$lib/i18n/routes';
+
+/** @type {import('@sveltejs/kit').Reroute} */
+export function reroute({ url }) {
+  return getCanonicalPath(url.pathname) ?? url.pathname;
+}

@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
   import ProgramStepsSection from '$lib/components/sections/ProgramStepsSection.svelte';
   import ProgramFitSection from '$lib/components/sections/ProgramFitSection.svelte';
   import ProgramFaqSection from '$lib/components/sections/ProgramFaqSection.svelte';
@@ -7,6 +8,7 @@
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { getProgramCopy } from '$lib/i18n/program';
+  import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
 
   let programCopy = getProgramCopy('es');
   let phrases = programCopy.hero.phrases;
@@ -31,10 +33,13 @@
     };
   }
 
-  $: programCopy = getProgramCopy($language);
+  $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? $language;
+  $: programCopy = getProgramCopy(pageLanguage);
   $: hero = programCopy.hero;
   $: meta = programCopy.meta;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
+  $: alternateLinks = getAlternateLinks('program');
   $: if (phrases !== hero.phrases) {
     phrases = hero.phrases;
     phraseIndex = 0;
@@ -93,10 +98,13 @@
 <svelte:head>
   <title>{meta.title}</title>
   <meta name="description" content={meta.description} />
-  <link rel="canonical" href="https://eimafisioterapia.es/como-funciona" />
+  <link rel="canonical" href={canonicalUrl} />
+  {#each alternateLinks as alternate}
+    <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+  {/each}
   <meta property="og:title" content={meta.ogTitle} />
   <meta property="og:description" content={meta.ogDescription} />
-  <meta property="og:url" content="https://eimafisioterapia.es/como-funciona" />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
   <meta property="og:image:alt" content={meta.imageAlt} />
   <meta name="twitter:title" content={meta.ogTitle} />

@@ -1,8 +1,10 @@
 <script>
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { getAboutCopy } from '$lib/i18n/about';
+  import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath, getRoutePath } from '$lib/i18n/routes';
 
   let typedDefinitionOne = '';
   let typedDefinitionTwo = '';
@@ -21,7 +23,8 @@
   let teamHintStarted = false;
   let currentLanguage = $language;
 
-  $: aboutCopy = getAboutCopy($language);
+  $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? $language;
+  $: aboutCopy = getAboutCopy(pageLanguage);
   $: meta = aboutCopy.meta;
   $: hero = aboutCopy.hero;
   $: origin = aboutCopy.origin;
@@ -30,7 +33,12 @@
   $: principlesCopy = aboutCopy.principles;
   $: closing = aboutCopy.closing;
   $: principles = principlesCopy.items;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: storyPath = getRoutePath('story', pageLanguage);
+  $: miquelStoryHref = `${storyPath}#miquel`;
+  $: jaumeStoryHref = `${storyPath}#jaume`;
+  $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
+  $: alternateLinks = getAlternateLinks('about');
   $: definitionOne = dictionary.definitionOne;
   $: definitionTwo = dictionary.definitionTwo;
   $: teamHintFullText = team.hintFull;
@@ -48,8 +56,8 @@
   $: closingSecondLineStart = closingFirstLineLength + 1;
   $: closingThirdLineStart = closingSecondLineStart + closingMiddle.length + 1;
   $: closingFullText = `${closingPrefix}${closingAccentOne} ${closingMiddle} ${closingAccentTwo}`;
-  $: if (currentLanguage !== $language) {
-    currentLanguage = $language;
+  $: if (currentLanguage !== pageLanguage) {
+    currentLanguage = pageLanguage;
     if (dictionaryStarted) {
       typedDefinitionOne = definitionOne;
       typedDefinitionTwo = definitionTwo;
@@ -229,10 +237,13 @@
 <svelte:head>
   <title>{meta.title}</title>
   <meta name="description" content={meta.description} />
-  <link rel="canonical" href="https://eimafisioterapia.es/quienes-somos" />
+  <link rel="canonical" href={canonicalUrl} />
+  {#each alternateLinks as alternate}
+    <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+  {/each}
   <meta property="og:title" content={meta.ogTitle} />
   <meta property="og:description" content={meta.ogDescription} />
-  <meta property="og:url" content="https://eimafisioterapia.es/quienes-somos" />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
   <meta property="og:image:alt" content={meta.imageAlt} />
   <meta name="twitter:title" content={meta.ogTitle} />
@@ -441,23 +452,23 @@
             />
             <a
               class="team-photo-hover team-photo-hover--left"
-              href="/quienes-somos/historia#miquel"
+              href={miquelStoryHref}
               aria-label="Ver la historia de Miquel Galmés"
             ></a>
             <a
               class="team-photo-hover team-photo-hover--right"
-              href="/quienes-somos/historia#jaume"
+              href={jaumeStoryHref}
               aria-label="Ver la historia de Jaume Sansó"
             ></a>
             <a
               class="team-photo-tooltip team-photo-tooltip--left"
-              href="/quienes-somos/historia#miquel"
+              href={miquelStoryHref}
               aria-label="Ver la historia de Miquel Galmés"
               >Miquel</a
             >
             <a
               class="team-photo-tooltip team-photo-tooltip--right"
-              href="/quienes-somos/historia#jaume"
+              href={jaumeStoryHref}
               aria-label="Ver la historia de Jaume Sansó"
               >Jaume</a
             >
@@ -465,8 +476,8 @@
         </div>
 
         <div class="team-mobile-name-row md:hidden" aria-label={team.mobileNamesLabel}>
-          <a class="team-mobile-name-chip" href="/quienes-somos/historia#miquel">Miquel</a>
-          <a class="team-mobile-name-chip" href="/quienes-somos/historia#jaume">Jaume</a>
+          <a class="team-mobile-name-chip" href={miquelStoryHref}>Miquel</a>
+          <a class="team-mobile-name-chip" href={jaumeStoryHref}>Jaume</a>
         </div>
 
         <p class="team-photo-hint team-photo-hint--mobile mt-[-0.5rem] text-center text-[14px] font-light italic leading-relaxed text-[#233F4E]/72 md:hidden">
@@ -476,7 +487,7 @@
         </p>
 
         <div class="team-actions mt-6 flex items-center justify-center md:mt-3">
-          <a class="about-cta team-action-pill team-action-pill--single" href="/quienes-somos/historia">
+          <a class="about-cta team-action-pill team-action-pill--single" href={storyPath}>
             <span>{team.cta}</span>
             <span class="team-action-icon" aria-hidden="true">
               <svg class="team-action-icon__arrow" viewBox="0 0 256 256" fill="currentColor">
