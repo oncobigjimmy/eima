@@ -20,7 +20,10 @@
    * @param {string} pathname
    */
   function isActive(href, pathname) {
-    return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+    const homePaths = ['/', '/ca', '/en'];
+    if (homePaths.includes(href)) return pathname === href;
+
+    return pathname === href || pathname.startsWith(`${href}/`);
   }
 
   onMount(() => {

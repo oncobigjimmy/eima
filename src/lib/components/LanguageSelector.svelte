@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { LANGUAGES, type Language } from '$lib/i18n/copy';
   import { language, setLanguage } from '$lib/i18n/language';
-  import { getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
+  import { getLanguageFromPath, getLocalizedHash, getLocalizedPath } from '$lib/i18n/routes';
 
   export let light = false;
   export let compact = false;
@@ -19,7 +19,8 @@
 
   function chooseLanguage(nextLanguage: Language) {
     const nextPath = getLocalizedPath(pathname, nextLanguage);
-    const nextUrl = `${nextPath}${$page.url.search}${$page.url.hash}`;
+    const nextHash = getLocalizedHash($page.url.hash, nextLanguage);
+    const nextUrl = `${nextPath}${$page.url.search}${nextHash}`;
     const currentUrl = `${$page.url.pathname}${$page.url.search}${$page.url.hash}`;
 
     setLanguage(nextLanguage);
@@ -150,7 +151,9 @@
   }
 
   .language-flag--ca {
-    background: repeating-linear-gradient(180deg, #ffd447 0 12.5%, #c60b1e 12.5% 25%);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg' shape-rendering='crispEdges'%3E%3Crect width='72' height='72' fill='%23ffd447'/%3E%3Crect y='8' width='72' height='8' fill='%23c60b1e'/%3E%3Crect y='24' width='72' height='8' fill='%23c60b1e'/%3E%3Crect y='40' width='72' height='8' fill='%23c60b1e'/%3E%3Crect y='56' width='72' height='8' fill='%23c60b1e'/%3E%3C/svg%3E");
+    background-position: center;
+    background-size: cover;
   }
 
   .language-flag--en {

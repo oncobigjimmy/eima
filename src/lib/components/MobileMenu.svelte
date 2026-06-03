@@ -21,7 +21,10 @@
   function isActive(currentPath, href) {
     const pathname = normalizePath(currentPath);
     const target = normalizePath(href);
-    return target === '/' ? pathname === '/' : pathname === target || pathname.startsWith(`${target}/`);
+    const homePaths = ['/', '/ca', '/en'];
+    if (homePaths.includes(target)) return pathname === target;
+
+    return pathname === target || pathname.startsWith(`${target}/`);
   }
 
   $: pathname = $page.url.pathname;

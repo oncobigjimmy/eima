@@ -2,7 +2,7 @@
   import { afterUpdate, onMount } from 'svelte';
   import { getCopy } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
-  import { getRoutePath } from '$lib/i18n/routes';
+  import { getProgramStepsHash, getRoutePath } from '$lib/i18n/routes';
 
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
@@ -47,7 +47,7 @@
 
   $: valueCopy = getCopy($language).home.valueProps;
   $: steps = valueCopy.steps;
-  $: programHref = `${getRoutePath('program', $language)}#program-steps`;
+  $: programHref = `${getRoutePath('program', $language)}#${getProgramStepsHash($language)}`;
 
   afterUpdate(() => {
     requestTimelineUpdate?.();

@@ -32,6 +32,14 @@ export const localizedRoutes: Record<LocalizedRouteKey, Record<Language, string>
   }
 };
 
+export const localizedHashes = {
+  programSteps: {
+    es: 'program-steps',
+    ca: 'programa-empenta',
+    en: 'empenta-programme'
+  }
+} satisfies Record<string, Record<Language, string>>;
+
 export function normalizePath(pathname: string) {
   const normalized = decodeURIComponent(pathname).replace(/\/+$/, '');
   return normalized === '' ? '/' : normalized;
@@ -70,8 +78,23 @@ export function getLocalizedPath(pathname: string, language: Language) {
   return key ? localizedRoutes[key][language] : localizedRoutes.home[language];
 }
 
+export function getLocalizedHash(hash: string, language: Language) {
+  const normalizedHash = hash.replace(/^#/, '');
+  if (!normalizedHash) return '';
+
+  if (Object.values(localizedHashes.programSteps).includes(normalizedHash)) {
+    return `#${getProgramStepsHash(language)}`;
+  }
+
+  return hash;
+}
+
 export function getRoutePath(key: LocalizedRouteKey, language: Language) {
   return localizedRoutes[key][language];
+}
+
+export function getProgramStepsHash(language: Language) {
+  return localizedHashes.programSteps[language];
 }
 
 export function getAbsoluteUrl(pathname: string) {
