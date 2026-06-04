@@ -513,9 +513,9 @@ const enProgram = {
     line1: 'during and after',
     line2: 'cancer',
     desktopParagraph: [
-      'We help people with cancer rebuild strength, energy and confidence',
-      'through a <strong class="font-semibold">12-week programme</strong> adapted to their treatment,',
-      'symptoms and daily life.'
+      'We help people with cancer rebuild strength, energy and',
+      'confidence through a <strong class="font-semibold">12-week programme</strong> adapted',
+      'to their treatment, symptoms and daily life.'
     ],
     mobileParagraph:
       'We help people with cancer rebuild strength, energy and confidence through a <strong class="font-semibold">12-week programme</strong> adapted to their treatment, symptoms and daily life.',
@@ -584,8 +584,9 @@ const enProgram = {
     yesTitle: 'This is right for you if...',
     noTitle: 'This <span class="font-bold">is NOT</span> right for you if...',
     yesItems: [
+      "You've been told that exercise would be good for you, but you don't really know where to start.",
       'You feel weaker, more tired or less confident since diagnosis or treatment.',
-      'You want to get back to everyday things like: climbing stairs, carrying shopping bags or playing with your children or grandchildren.',
+      'You want to get back to <em>everyday life</em>: climbing stairs, carrying shopping bags or playing with your family.',
       'You want clear guidance and real support, instead of guessing on your own.'
     ],
     noItems: [

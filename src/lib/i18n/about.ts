@@ -216,7 +216,7 @@ const caAbout = {
         iconPath: principleIcons.measure,
         title: 'Mesurar per decidir',
         text:
-          'No treballam a ull. Observam com respons, ajustam la càrrega i cercam que cada passa tengui sentit per al teu moment.'
+          'No treballam a ull. Observam com respons, ajustam la càrrega segons la teva energia i símptomes, i cercam que cada passa tengui sentit per al moment en què et trobes.'
       },
       {
         iconPath: principleIcons.integrate,
@@ -233,8 +233,8 @@ const caAbout = {
     middle: 'també necessita',
     accentTwo: 'temps.',
     paragraphs: [
-      'Cream EIMA per a persones que <strong>no volen que la vida quedi en pausa</strong> durant el tractament.',
-      'Persones que volen continuar fent el que està en la seva mà per recuperar energia, moure’s amb més seguretat i <strong>viure més, sí, però sobretot viure millor.</strong>',
+      'Cream EIMA per a persones que <strong>no volen que la vida quedi en pausa</strong> durant el tractament, ni sentir que només poden esperar que les coses passin.',
+      'Persones que volen continuar fent el que està a les seves mans per recuperar energia, moure’s amb més seguretat, guanyar confiança en el seu cos i <strong>viure més, sí, però sobretot viure millor.</strong>',
       'Per això treballam de forma <strong>online</strong>: perquè sabem que el cansament, les cites mèdiques i la vida diària ja ocupen massa espai. El nostre paper és ajudar-te a cuidar la teva salut <strong>sense afegir més càrrega al teu dia a dia.</strong>'
     ],
     cta: 'Explica’ns el teu cas'
@@ -359,7 +359,7 @@ const enAbout = {
         iconPath: principleIcons.integrate,
         title: 'Bringing it into your life',
         text:
-          'We bring physiotherapy and exercise into your own environment, so taking care of your health becomes easier, more realistic and, above all, more sustainable in the long term.'
+          'We bring physiotherapy and exercise into your own environment. Making it easier, more realistic and more sustainable to take care of your health.'
       }
     ]
   },
@@ -370,9 +370,9 @@ const enAbout = {
     middle: 'also needs',
     accentTwo: 'time.',
     paragraphs: [
-      'We created EIMA for people who <strong>do not want life to be put on hold</strong> during treatment.',
+      'We created EIMA for people who <strong>do not want life to be put on hold</strong> during treatment, or feel stuck waiting for things to change.',
       'People who want to keep doing what is within their power to rebuild energy, move with more confidence and <strong>live longer — but above all, live better.</strong>',
-      'That is why we work mainly <strong>online</strong>: because tiredness, medical appointments and daily life already take up enough space. Our role is to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
+      'That is why we work mainly <strong>online</strong>: to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
     ],
     cta: 'Tell us what’s going on'
   }

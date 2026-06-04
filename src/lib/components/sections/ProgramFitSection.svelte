@@ -26,6 +26,9 @@
   $: fitCopy = getProgramCopy($language).fit;
   $: yesItems = fitCopy.yesItems;
   $: noItems = fitCopy.noItems;
+  $: highlightWords = fitCopy.titleHighlight.split(' ');
+  $: firstHighlightWord = highlightWords[0];
+  $: remainingHighlightWords = highlightWords.slice(1).join(' ');
 </script>
 
 <section class="program-fit-section bg-[#f8f4f0] pb-10 pt-9 md:pb-14 md:pt-12">
@@ -38,13 +41,27 @@
       class="mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[48px]"
       style="font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;"
     >
-      {fitCopy.titlePrefix}
-      {#if $language === 'en'}<br class="hidden md:block" /><span class="md:hidden"> </span>{:else}{' '}{/if}
-      <span
-        class="text-[#4083A7]"
-        style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-        >{fitCopy.titleHighlight}</span
-      >
+      {#if $language === 'es'}
+        {fitCopy.titlePrefix}{' '}
+        <span
+          class="text-[#4083A7]"
+          style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
+          >{firstHighlightWord}</span
+        ><br />
+        <span
+          class="text-[#4083A7]"
+          style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
+          >{remainingHighlightWords}</span
+        >
+      {:else}
+        {fitCopy.titlePrefix}
+        {#if $language === 'en'}<br class="hidden md:block" /><span class="md:hidden"> </span>{:else}{' '}{/if}
+        <span
+          class="text-[#4083A7]"
+          style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
+          >{fitCopy.titleHighlight}</span
+        >
+      {/if}
     </h2>
   </div>
 

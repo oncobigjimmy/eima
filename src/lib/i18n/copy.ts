@@ -87,7 +87,7 @@ const esCopy = {
       button: 'Ver si es para mí',
       closingLines: ['3 situaciones diferentes.', 'Pero con un objetivo común:'],
       autonomyPrefix: 'Recuperar su',
-      autonomyStrong: 'autonomía',
+      autonomyStrong: 'independencia',
       items: [
         {
           letter: 'A',
@@ -317,7 +317,7 @@ const caCopy = {
       button: 'Veure si és per a mi',
       closingLines: ['3 situacions diferents.', 'Però amb un objectiu comú:'],
       autonomyPrefix: 'Recuperar la seva',
-      autonomyStrong: 'autonomia',
+      autonomyStrong: 'independència',
       items: [
         {
           letter: 'A',
@@ -551,7 +551,7 @@ const enCopy = {
       button: 'Is this for me?',
       closingLines: ['3 different starting points.', 'One shared goal:'],
       autonomyPrefix: 'Rebuilding your',
-      autonomyStrong: 'independence.',
+      autonomyStrong: 'independence',
       items: [
         {
           letter: 'A',
