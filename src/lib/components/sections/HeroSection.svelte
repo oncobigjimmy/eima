@@ -147,7 +147,13 @@
         {hero.cta}
       </a>
       <p class="max-w-md text-center text-xs font-light leading-relaxed text-white/75 md:text-sm">
-        {hero.note}
+        {#if hero.noteLines}
+          {#each hero.noteLines as line, index (line)}
+            {line}{#if index < hero.noteLines.length - 1}<br />{/if}
+          {/each}
+        {:else}
+          {hero.note}
+        {/if}
       </p>
     </div>
   </div>

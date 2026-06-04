@@ -75,11 +75,11 @@
       </p>
     </header>
 
-    <div class="audience-grid grid gap-3.5 justify-items-center md:grid-cols-3 md:gap-4 lg:gap-5">
+    <div class="audience-grid grid gap-7 justify-items-center md:grid-cols-3 md:gap-4 lg:gap-5">
       {#each audience as item, i (item.letter)}
         <div use:revealOnScroll class="audience-reveal w-full" style={`--reveal-delay: ${i * 90}ms`}>
           <article
-            class="audience-card flex h-full w-full max-w-[19.6rem] flex-col rounded-[8px] border border-transparent bg-white px-3 py-3 text-center shadow-[0_14px_34px_rgba(14,29,38,0.10)] md:mx-auto md:min-h-[20rem] md:max-w-[18.75rem] md:px-3.5 md:pb-3 md:pt-3.5"
+            class="audience-card mx-auto flex h-full w-full max-w-[19.6rem] flex-col rounded-[8px] border border-transparent bg-white px-3 py-3 text-center shadow-[0_14px_34px_rgba(14,29,38,0.10)] md:min-h-[20rem] md:max-w-[18.75rem] md:px-3.5 md:pb-3 md:pt-3.5"
           >
             <div
               class="mx-auto grid h-11 w-11 place-items-center rounded-full bg-[#8CD0D6] text-[1.65rem] text-[color:var(--color-brand)] md:h-11 md:w-11 md:text-[1.75rem]"

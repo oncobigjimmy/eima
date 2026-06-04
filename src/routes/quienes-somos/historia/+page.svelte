@@ -241,7 +241,14 @@
             <span>{hero.titleLineOneHighlight}</span>
           {/if}
         </span>
-        <span class="story-title__line"><span>{hero.titleLineTwoHighlight}</span> {hero.titleLineTwoSuffix}</span>
+        <span class="story-title__line">
+          {#if hero.titleLineTwoHighlight}
+            <span>{hero.titleLineTwoHighlight}</span>
+          {/if}
+          {#if hero.titleLineTwoSuffix}
+            {hero.titleLineTwoHighlight ? ' ' : ''}{hero.titleLineTwoSuffix}
+          {/if}
+        </span>
       </h1>
       <p class="mt-7 max-w-xl text-[16px] font-light leading-[1.85] text-white/88">
         <span class="block">{hero.introLineOne} <strong>{hero.introStrong}</strong>:</span>

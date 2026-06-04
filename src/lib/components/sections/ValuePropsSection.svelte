@@ -162,6 +162,15 @@
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
             >{valueCopy.headingHighlight2}</span
           >
+        {:else if $language === 'en'}
+          {valueCopy.headingBefore}
+          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
+          >{valueCopy.headingHighlight1}</span
+          >{valueCopy.headingMiddle}<br class="hidden md:block" /><span class="md:hidden"> </span>
+          {valueCopy.headingSecondLine}{' '}
+          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
+            >{valueCopy.headingHighlight2}</span
+          >
         {:else}
           {valueCopy.headingBefore}
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"

@@ -22,9 +22,14 @@ const esAbout = {
   hero: {
     eyebrow: 'Quiénes somos',
     line1: 'Queremos ayudarte a',
-    line2Prefix: 'recuperar',
-    line2Highlight: 'tu energía,',
+    line2Prefix: 'recuperar tu',
+    line2Highlight: 'energía,',
     line3: 'confianza y control.',
+    line3Parts: [
+      { text: 'confianza', accent: true },
+      { text: ' y ' },
+      { text: 'control.', accent: true }
+    ],
     srSubtitle:
       'Acompañamos a personas con cáncer a moverse con seguridad, recuperar energía y cuidarse sin desplazamientos innecesarios.',
     body:
@@ -68,7 +73,7 @@ const esAbout = {
     headingLine3Highlight: 'acompañarte.',
     healthLabel: 'Nuestra forma de entender la salud',
     healthParagraphs: [
-      'En EIMA entendemos que un proceso oncológico <strong>no es solo un diagnóstico</strong>. Es una experiencia que puede afectar al cuerpo, a la mente, a la energía, a la confianza y al día a día.',
+      'En EIMA entendemos que un cáncer <strong>no es solo un diagnóstico</strong>. Es una experiencia que puede afectar al cuerpo, a la mente, a la energía, a la confianza y la forma en que vives tu día a día.',
       'Por eso no miramos únicamente el síntoma. <strong>Miramos a la persona:</strong> su historia, su contexto, su nivel de actividad, sus miedos, su fatiga, su dolor y lo que necesita para <strong>volver a sentirse más capaz.</strong>',
       'Trabajamos desde un enfoque activo, con <strong>ejercicio adaptado</strong>, educación en hábitos de salud y acompañamiento cercano. No buscamos imponer un ritmo, sino ayudarte a avanzar con criterio, seguridad y objetivos realistas.'
     ],
@@ -133,13 +138,18 @@ const caAbout = {
   hero: {
     eyebrow: 'Qui som',
     line1: 'Volem ajudar-te a',
-    line2Prefix: 'recuperar',
-    line2Highlight: 'la teva energia,',
+    line2Prefix: 'recuperar la teva',
+    line2Highlight: 'energia,',
     line3: 'confiança i control.',
+    line3Parts: [
+      { text: 'confiança', accent: true },
+      { text: ' i ' },
+      { text: 'control.', accent: true }
+    ],
     srSubtitle:
       'Acompanyam persones amb càncer a moure’s amb seguretat, recuperar energia i cuidar-se sense desplaçaments innecessaris.',
     body:
-      'Som en Miquel i en Jaume, fisioterapeutes i fundadors d’EIMA. <strong>Acompanyam persones amb càncer</strong> a moure’s amb seguretat, recuperar energia i cuidar-se sense desplaçaments innecessaris.',
+      'Som en Miquel i en Jaume, fisioterapeutes i fundadors d’EIMA.<br class="hidden md:block" /> <strong>Acompanyam persones amb càncer</strong> a moure’s amb seguretat,<br class="hidden md:block" /> recuperar energia i cuidar-se sense desplaçaments innecessaris.',
     prompt: 'Ens expliques la teva història?',
     cta: 'T’escoltam'
   },
@@ -179,7 +189,7 @@ const caAbout = {
     headingLine3Highlight: 'acompanyar-te.',
     healthLabel: 'La nostra manera d’entendre la salut',
     healthParagraphs: [
-      'A EIMA entenem que un procés oncològic <strong>no és només un diagnòstic</strong>. És una experiència que pot afectar el cos, la ment, l’energia, la confiança i el dia a dia.',
+      'A EIMA entenem que un càncer <strong>no és només un diagnòstic</strong>. És una experiència que pot afectar el cos, la ment, l’energia, la confiança i la manera com vius el teu dia a dia.',
       'Per això no miram únicament el símptoma. <strong>Miram la persona:</strong> la seva història, el seu context, el seu nivell d’activitat, les seves pors, la seva fatiga, el seu dolor i el que necessita per tornar a sentir-se més capaç.',
       'Treballam des d’un enfocament actiu, amb <strong>exercici adaptat</strong>, educació en hàbits de salut i acompanyament proper. No cercam imposar un ritme, sinó ajudar-te a avançar amb criteri, seguretat i objectius realistes.'
     ],
@@ -244,18 +254,40 @@ const enAbout = {
   hero: {
     eyebrow: 'Who we are',
     line1: 'We want to help you',
-    line2Prefix: 'recover',
-    line2Highlight: 'your energy,',
-    line3: 'confidence and control.',
+    line2Prefix: 'rebuild your',
+    line2Highlight: 'energy,',
+    line3: 'confidence and sense of control.',
+    line3Parts: [
+      { text: 'confidence', accent: true },
+      { text: ' and sense of ' },
+      { text: 'control.', accent: true }
+    ],
+    desktopTitleLines: [
+      { text: 'We want to help you rebuild' },
+      {
+        parts: [
+          { text: 'your ' },
+          { text: 'energy,', accent: true },
+          { text: ' ' },
+          { text: 'confidence', accent: true }
+        ]
+      },
+      {
+        parts: [
+          { text: 'and sense of ' },
+          { text: 'control.', accent: true }
+        ]
+      }
+    ],
     srSubtitle:
-      'We support people with cancer so they can move safely, recover energy and take care of themselves without unnecessary journeys.',
+      'We support people with cancer so they can move safely, rebuild energy and take care of their health without unnecessary travel.',
     body:
-      'We are Miquel and Jaume, physiotherapists and founders of EIMA. <strong>We support people with cancer</strong> so they can move safely, recover energy and take care of themselves without unnecessary journeys.',
+      'We are Miquel and Jaume, physiotherapists and founders of EIMA.<br class="hidden md:block" /> <strong>We support people with cancer</strong> so they can move safely, rebuild<br class="hidden md:block" /> energy and take care of their health without unnecessary travel.',
     prompt: 'Will you tell us your story?',
     cta: 'We listen to you'
   },
   origin: {
-    eyebrow: 'Our perspective',
+    eyebrow: 'Our view of health',
     titleDesktopPrefix: 'Where',
     titleHighlight: 'EIMA',
     titleDesktopSuffix: 'comes from',
@@ -264,18 +296,18 @@ const enAbout = {
     titleMobileLine2Highlight: 'EIMA',
     titleMobileLine2Suffix: 'comes from',
     intro:
-      'EIMA was born out of frustration.<br />The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.',
+      'EIMA was born from a clear frustration.<br /><span class="about-origin-nowrap">The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.</span>',
     introMobile:
-      'EIMA was born out of frustration. The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.',
+      'EIMA was born from a clear frustration. The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.',
     imageAlt: 'Person sitting at home looking at medication',
     firstParagraphs: [
-      'Seeing how, in this system, <strong>dependency</strong> becomes normalised and the main goal is lost from sight: recovering health, autonomy and long-term quality of life.',
-      'We do not believe in that. We believe that health is not about endless quick fixes or delegating everything to others. We believe in active, critical and responsible people who want to <strong>understand what is happening to them</strong>, what they can do to feel better <strong>today</strong> and what they need to keep feeling well <strong>10 years from now</strong>.'
+      'Seeing how, in this system, <strong>dependency</strong> becomes normalised, and the real goal is pushed into the background: recovering health, autonomy and long-term quality of life.',
+      'We do not believe in that. We believe health is not about endless quick fixes or handing everything over to others. We believe in active, critical and responsible people who want to <strong>understand what is happening to them</strong>, what they can do to feel better <strong>today</strong> and what they need to keep feeling well <strong>10 years from now</strong>.'
     ],
     secondParagraphs: [
-      'We do not aim to fight the system. We know it is too big to change from within.',
-      'That is why we decided to step outside it and build a way of working that is coherent with how we understand health.',
-      'That is EIMA: doing things with <strong>knowledge, judgement and common sense.</strong> Not out of habit or inertia.'
+      'We are not here to fight the system. We know it is too big to change from within.',
+      'We are here to offer a way of working that is more coherent with how we understand health.',
+      'That is EIMA: doing things with <strong>knowledge, clinical judgement and common sense.</strong> Not out of habit or inertia.'
     ]
   },
   dictionary: {
@@ -294,20 +326,20 @@ const enAbout = {
     headingLine3Highlight: 'supporting you.',
     healthLabel: 'Our way of understanding health',
     healthParagraphs: [
-      'At EIMA, we understand that an oncological process <strong>is not just a diagnosis</strong>. It is an experience that can affect the body, the mind, energy, confidence and day-to-day life.',
+      'At EIMA, we understand that cancer <strong>is not just a diagnosis</strong>. It is an experience that can affect your body, mind, energy, confidence and the way you live your day-to-day life.',
       'That is why we do not look only at the symptom. <strong>We look at the person:</strong> their story, their context, their activity level, their fears, their fatigue, their pain and what they need to <strong>feel more capable again.</strong>',
-      'We work from an active approach, using <strong>adapted exercise</strong>, health habit education and close support. We do not aim to impose a pace, but to help you move forward with judgement, safety and realistic goals.'
+      'We work from an active approach, using <strong>adapted exercise</strong>, health education and close support. We are not here to impose a pace, but to help you move forward safely, realistically and with clear criteria.'
     ],
-    hintFull: 'Click on one of us to learn more about our story.',
+    hintFull: 'Click on one of our names to read our story.',
     hintMobileLineOne: 'Click on one of our names',
-    hintMobileLineTwo: 'to learn more about our full story.',
+    hintMobileLineTwo: 'to read our story.',
     imageAlt: 'Jaume Sansó Servera and Miquel Galmés Vives',
     mobileNamesLabel: 'Team stories',
     cta: 'Read our story'
   },
   principles: {
     eyebrow: 'How we work',
-    headingPrefix: 'Closeness, judgement and',
+    headingPrefix: 'Close support, clinical judgement and',
     headingHighlight: 'a plan',
     headingSuffix: 'you can sustain.',
     items: [
@@ -315,19 +347,19 @@ const enAbout = {
         iconPath: principleIcons.listen,
         title: 'Listening before prescribing',
         text:
-          'Every person arrives with a different story, treatment and set of priorities. First, we understand your context; then we adapt the plan to you. Not the other way around.'
+          'Every person arrives with a different story, treatment and set of priorities. First, we understand your context. Then we adapt the plan to you. Not the other way around.'
       },
       {
         iconPath: principleIcons.measure,
         title: 'Measuring in order to decide',
         text:
-          'We do not work by guesswork. We observe how you respond, adjust the load and make sure that every step makes sense for your current situation.'
+          'We do not rely on guesswork. We observe how you respond, adjust the load and make sure each step makes sense for your current situation.'
       },
       {
         iconPath: principleIcons.integrate,
-        title: 'Integrating it into your life',
+        title: 'Bringing it into your life',
         text:
-          'We bring physiotherapy and exercise into your own environment so that taking care of your health becomes easier, more realistic and, above all, more sustainable in the long term.'
+          'We bring physiotherapy and exercise into your own environment, so taking care of your health becomes easier, more realistic and, above all, more sustainable in the long term.'
       }
     ]
   },
@@ -339,10 +371,10 @@ const enAbout = {
     accentTwo: 'time.',
     paragraphs: [
       'We created EIMA for people who <strong>do not want life to be put on hold</strong> during treatment.',
-      'People who want to keep doing what is within their power to recover energy, move with greater confidence and <strong>live longer, yes, but above all live better.</strong>',
-      'That is why we work <strong>online</strong>: because we know that tiredness, medical appointments and daily life already take up enough space. Our role is to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
+      'People who want to keep doing what is within their power to rebuild energy, move with more confidence and <strong>live longer — but above all, live better.</strong>',
+      'That is why we work mainly <strong>online</strong>: because tiredness, medical appointments and daily life already take up enough space. Our role is to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
     ],
-    cta: 'Tell us about your case'
+    cta: 'Tell us what’s going on'
   }
 };
 

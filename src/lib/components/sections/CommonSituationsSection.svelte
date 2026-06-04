@@ -73,7 +73,8 @@
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <header class="mx-auto max-w-4xl text-center">
       <h2
-        class="font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-white md:text-[48px]"
+        class="common-situations-heading font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-white md:text-[48px]"
+        class:common-situations-heading--en={$language === 'en'}
       >
         {commonCopy.titlePrefix}
         <span
@@ -205,7 +206,10 @@
       </aside>
     </div>
 
-    <div class="mx-auto mt-10 max-w-4xl text-center md:mt-12">
+    <div
+      class="common-situations-bottom mx-auto mt-10 max-w-4xl text-center md:mt-12"
+      class:common-situations-bottom--en={$language === 'en'}
+    >
       <p class="text-[15px] leading-relaxed text-white/84 md:text-[1.05rem]">
         {commonCopy.bottom}
       </p>
@@ -290,12 +294,26 @@
   }
 
   @media (min-width: 768px) {
+    .common-situations-heading--en {
+      font-size: 45px;
+    }
+
     .common-situations-grid {
       grid-template-columns: minmax(0, 1fr) minmax(21rem, 24rem);
     }
 
     .common-situations-list {
       justify-content: space-between;
+    }
+  }
+
+  @media (min-width: 1180px) {
+    .common-situations-bottom--en {
+      max-width: 72rem;
+    }
+
+    .common-situations-bottom--en p {
+      white-space: nowrap;
     }
   }
 

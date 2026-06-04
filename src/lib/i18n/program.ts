@@ -506,120 +506,120 @@ const enProgram = {
   },
   hero: {
     eyebrow:
-      'Specialist oncology physiotherapy and physical exercise service at home in Mallorca.',
+      'Home-based oncology physiotherapy and exercise support in Mallorca.',
     srTitle:
       'Specialist oncology physiotherapy and physical exercise service at home in Mallorca. Fewer side effects during and after cancer',
     phrases: ['More vitality', 'More strength', 'Fewer side effects'],
     line1: 'during and after',
     line2: 'cancer',
     desktopParagraph: [
-      'We help people with cancer recover their vitality',
-      'and reduce the impact of side effects in their daily life',
-      'with our <strong class="font-semibold">12-week programme</strong>.'
+      'We help people with cancer rebuild strength, energy and confidence',
+      'through a <strong class="font-semibold">12-week programme</strong> adapted to their treatment,',
+      'symptoms and daily life.'
     ],
     mobileParagraph:
-      'We help people with cancer recover their vitality and reduce the impact of side effects in their daily life with our <strong class="font-semibold">12-week programme</strong>.',
-    cta: 'Let us talk about your case'
+      'We help people with cancer rebuild strength, energy and confidence through a <strong class="font-semibold">12-week programme</strong> adapted to their treatment, symptoms and daily life.',
+    cta: 'Talk to us about your situation'
   },
   steps: {
     headingPrefix: 'How',
-    headingHighlight: 'Empenta works',
+    headingHighlight: 'Empenta',
+    headingSuffix: 'works',
     intro:
-      'A 12-week process so you do not have to improvise what to do, how much to do, or keep wondering all the time whether you are doing it right.',
+      'A 12-week process so you do not have to improvise what to do, how much to do, or keep wondering all the time whether you are doing it right or not.',
     badge: '12-week programme',
     sideParagraphs: [
       'We do not work through isolated sessions. <strong>It is a structured support process</strong> to help you start or return to exercise safely.',
-      'We assess your starting point, design a progressive plan and adapt it as you evolve.'
+      'We assess your starting point, build a progressive plan and adapt it as your body changes.'
     ],
     items: [
       {
         number: '1',
-        title: 'You tell us about your case',
+        title: 'We listen first',
         body:
-          'We start with a <strong>short phone call</strong> to understand your situation and see whether Empenta can truly help you. If we think it can, we send you an initial form to collect the <strong>important information before starting</strong>.',
+          'We start with a <strong>short phone call</strong> to understand your situation and see whether Empenta can truly help you. If it is, we’ll send you a short form so we can understand the <strong>key details before we begin</strong>.',
         icon: 'call'
       },
       {
         number: '2',
-        title: 'We carry out an initial assessment at your home',
+        title: 'Initial assessment at your home',
         body:
-          'We come to your home to get to know you properly and <strong>assess your starting point</strong>. We review your history, your symptoms, where you are in the cancer process (chemotherapy, radiotherapy, immunotherapy, post-surgery, etc.) and your current physical condition to <strong>adapt the plan to you from the beginning</strong>.',
+          'We visit you at home to understand your situation properly and <strong>assess your starting point</strong>. We review your medical history, symptoms, treatment stage (chemotherapy, radiotherapy, immunotherapy, post-surgery, etc.) and current physical capacity so the <strong>plan is built around you from the start</strong>.',
         icon: 'home'
       },
       {
         number: '3',
-        title: 'We prepare the ground so you can start well',
+        title: 'We set you up properly before you begin',
         body:
-          'Before really getting started, we are not looking for perfection. We explain <strong>how the programme works</strong>, how to record activity in the app and how to start gradually so you arrive ready for the first real week.',
+          'Before the first real week, the goal is not perfection. We explain <strong>how the programme works</strong>, how to use the app and how to start gradually, so you feel ready for the first week.',
         icon: 'phone'
       },
       {
         number: '4',
-        title: 'You start your adapted plan',
+        title: 'Your tailored plan begins',
         body:
-          'We design an exercise plan adjusted to your current situation. We prioritise a dose that is manageable for you and adapt it according to <strong>your tolerance, your symptoms and your progress</strong>.',
+          'We design an exercise plan tailored to your current situation. We prioritise a level that feels manageable for you. We adapt it according to <strong>your tolerance, symptoms and progress</strong>.',
         icon: 'checklist'
       },
       {
         number: '5',
-        title: 'We support you and measure your progress',
+        title: 'We track, adapt and support you',
         body:
-          'During the programme, we provide <strong>continuous online follow-up</strong>, adjust the plan according to how you are feeling and collect data to assess your progress with criteria. If you authorise it, we can <strong>share this information with your oncologist</strong> or medical team so they also have a clear view of your progress.',
+          'Throughout the programme, we provide <strong>online follow-up</strong>, adjust your plan based on how you feel and track your progress with clear criteria. With your permission, we can <strong>share useful progress updates</strong> with your oncologist or medical team.',
         icon: 'support'
       }
     ],
     closing:
-      'Because <strong>your body changes</strong> week by week. And <strong>the plan</strong> needs to change too.',
-    cta: 'Tell us your story'
+      'Your <strong>body changes</strong> week by week. Your <strong>plan</strong> should too.',
+    cta: 'Tell us what’s going on'
   },
   slogan1: {
     topHtml: 'Medicine will focus on helping you live <strong>LONGER.</strong>',
     bottomHtml: '<strong>We</strong> focus on helping you live <strong>BETTER.</strong>'
   },
   fit: {
-    eyebrow: 'If I have cancer or have had cancer',
-    titlePrefix: 'How do I know if',
-    titleHighlight: 'this programme is for me?',
+    eyebrow: 'If I have or have had cancer',
+    titlePrefix: 'How do I know if this',
+    titleHighlight: 'programme is for me?',
     yesTitle: 'This is right for you if...',
     noTitle: 'This <span class="font-bold">is NOT</span> right for you if...',
     yesItems: [
-      'You have been told that exercise would be good for you, but you do not really know where to start.',
-      'You feel less strong, less energetic or more uncertain since the diagnosis and treatments.',
-      'You want to recover <em>normal things</em> such as: climbing stairs, carrying shopping bags or playing with your children/grandchildren.',
-      'You are looking for clear guidance and real follow-up so you are not going in blind.'
+      'You feel weaker, more tired or less confident since diagnosis or treatment.',
+      'You want to get back to everyday things like: climbing stairs, carrying shopping bags or playing with your children or grandchildren.',
+      'You want clear guidance and real support, instead of guessing on your own.'
     ],
     noItems: [
-      'You are looking for isolated sessions without getting involved in what you do outside them.',
-      'You do not want to set aside a minimum amount of time each day to move on your own.',
-      'You expect to improve without consistency, without adaptation and without reviewing habits.',
-      'You prefer a passive solution instead of taking part in your process.'
+      'You’re only looking for occasional sessions and don’t want to do anything between them.',
+      'You don’t want to set aside a small amount of time to move on your own.',
+      'You expect progress without consistency, adaptation or follow-up.',
+      'You prefer a passive fix rather than taking part in your recovery.'
     ]
   },
   doubtCta: {
-    text: 'Still unsure whether we can help you?',
-    cta: 'Tell us about your case'
+    text: 'Still unsure whether Empenta is right for you?',
+    cta: 'Tell us what’s going on'
   },
   slogan2: {
     topHtml:
       "Your <strong>health</strong> and your <strong>time</strong> are the <br class='parallax-mobile-break' /><strong>most valuable</strong> things you have.",
     bottomHtml:
-      'With our <strong>Empenta</strong> programme, you will take care of <strong>BOTH.</strong>'
+      'With our <strong>Empenta Programme</strong>, you will take care of <strong>BOTH.</strong>'
   },
   faq: {
     eyebrow: 'Frequently asked questions',
     titleHighlight: 'Common questions',
     titleRest: 'about',
-    titleProgram: 'our programme',
+    titleProgram: 'our Programme',
     bottomText: 'Still have questions?',
     bottomCta: 'Write to us',
     faqs: [
       {
-        q: 'Is it <strong>safe to exercise</strong> during cancer treatment (chemotherapy or radiotherapy)?',
+        q: 'Is it <strong>safe to exercise</strong> during chemotherapy or radiotherapy?',
         a: [
           'In most cases, <strong>yes.</strong> Exercising during cancer treatment can be safe when it is <strong>adapted</strong> to your situation, your symptoms and the stage of your treatment.',
-          'That is why at Empenta we do not work with generic plans. First we <strong>assess your case</strong>, understand how you are and <strong>adapt the exercise to you, not you to the exercise.</strong>',
-          'The idea is not to push you harder for the sake of it, but to help you <strong>move with criteria and safety, so that exercise adds value</strong> during the process instead of becoming another burden.',
-          'If this is one of the doubts holding you back, we can guide you before starting.'
+          'That’s why Empenta does not use generic exercise plans. First, we <strong>assess your situation</strong>, understand how you are and <strong>build the exercise around you.</strong>',
+          'The goal is not to push you harder for the sake of it, but to help you <strong>move with clarity and safety</strong>, so exercise supports the process instead of becoming another burden.',
+          'If this doubt is holding you back, we can guide you before you start.'
         ],
         cta: 'I want to know if this is right for me',
         icon: icons.shield
@@ -627,10 +627,10 @@ const enProgram = {
       {
         q: 'Can exercise help me with <strong>cancer-related fatigue?</strong>',
         a: [
-          'Yes. Adapted exercise can help many people with cancer manage <strong>cancer-related fatigue</strong> better, especially when it is adjusted to their energy level, symptoms and treatment stage.',
-          'Cancer-related fatigue is not simply being tired. Sometimes it appears even after you have rested, and it can make <strong>normal tasks</strong> - walking, showering, leaving the house or climbing stairs - feel <strong>heavier than usual.</strong>',
-          'It does not mean the tiredness will disappear overnight, or that every day will feel the same. But with a well-adjusted plan, exercise can help you preserve <strong>strength</strong>, tolerate <strong>effort</strong> better and feel that you are regaining some <strong>control</strong> over your body.',
-          'If fatigue is limiting you, we can help you assess where to start.'
+          'Yes. Adapted exercise can help many people manage <strong>cancer-related fatigue</strong> better, especially when it is adjusted to their energy level, symptoms and treatment stage.',
+          'Cancer-related fatigue is not the same as normal tiredness. Sometimes it appears even after you have rested, and it can make <strong>normal tasks</strong> - walking, showering, leaving the house or climbing stairs - feel <strong>heavier than usual.</strong>',
+          'It doesn’t mean the fatigue will disappear overnight, or that every day will feel the same. With a well-adjusted plan, exercise can help you preserve <strong>strength</strong>, tolerate <strong>effort</strong> better and regain a sense of <strong>control</strong> over your body.',
+          'If fatigue is limiting you, we can help you find a safe starting point.'
         ],
         cta: 'I want guidance to get started',
         icon: icons.battery
@@ -638,9 +638,9 @@ const enProgram = {
       {
         q: 'Do I need a <strong>referral from my oncologist</strong> to start this exercise programme?',
         a: [
-          'No. It is not necessary. What matters is not whether your oncologist knows the name of the programme, but whether the exercise is properly adapted to your real clinical situation.',
+          'No. It is not necessary. What matters is not whether your oncologist knows Empenta, but whether the exercise is properly adapted to your real clinical situation.',
           'In the initial assessment, <strong>we review the medical information</strong> you have available: reports, blood tests, PET-CT, electrocardiograms, recent tests, medication and specific instructions from your medical team.',
-          'Empenta does not operate in isolation. When necessary and possible, and always with your authorisation, <strong>we can coordinate with your oncologist to share your progress</strong> and better adjust the plan according to the treatment stage: chemotherapy, immunotherapy, radiotherapy or surgery.',
+          'Empenta does not work in isolation. When needed, and always with your permission, <strong>we can coordinate with your oncologist or medical team</strong> to share your progress and better adjust the plan according to the treatment stage: chemotherapy, immunotherapy, radiotherapy or surgery.',
           'The idea is to build a small <strong>team around you</strong>: so oncology has useful information about your progress and we can adapt the exercise to what is happening in your treatment.',
           'If you want us to review your situation before starting, you can do it {{reviewLink}}.'
         ],
@@ -651,7 +651,7 @@ const enProgram = {
         a: [
           'No. Empenta does not replace oncology or medication, chemotherapy, radiotherapy, surgery, immunotherapy or any treatment indicated by your medical team.',
           'It is not about choosing between medical treatment or exercise. It is about <strong>joining forces against cancer.</strong>',
-          'Cancer treatment targets the disease. Adapted exercise aims to <strong>help you take care of the rest</strong>: your muscles, your energy, your mobility, your immune system, your metabolism, your tolerance to effort and your autonomy.',
+          'Medical treatment targets the disease. Adapted exercise helps you <strong>take care of the rest</strong>: your muscles, your energy, your mobility, your immune system, your metabolism, your tolerance to effort and your autonomy.',
           'The idea is to <strong>create synergy.</strong> Let medical treatment do its part against cancer while exercise - together with other pillars such as nutrition, rest, emotional management and reducing toxins - helps your body reach the process in the best possible condition within your situation.',
           'If you want to know how we could help without interfering with your treatment, you can write to us {{writeLink}}.'
         ],
@@ -661,21 +661,21 @@ const enProgram = {
         q: 'Is the assessment <strong>in person</strong> or is everything <strong>online?</strong>',
         a: [
           '<strong>The initial assessment</strong> is done <strong>in person</strong> at your home, so we can get to know you well before prescribing exercise. In that first visit we review your situation, your symptoms, your limitations, the stage of the cancer process and your physical starting point.',
-          'Afterwards, the <strong>programme follow-up</strong> is mainly <strong>online</strong>. This allows us to adjust exercise better to your energy, symptoms and schedule, without adding more unnecessary journeys.',
-          'Many people think online means distant. In Empenta, we use it for exactly the opposite: so we can pay closer attention to <strong>how you evolve between one visit and the next.</strong>',
+          'Afterwards, the <strong>programme follow-up</strong> is mainly <strong>online</strong>. This allows us to adjust your exercise around your energy, symptoms and schedule, without adding unnecessary travel.',
+          'Many people think online means distant. In Empenta, we use it for the opposite reason: to follow you more closely between visits.',
           'Before starting, we explain what the process would look like in your case.'
         ],
-        cta: 'I want you to explain the process to me',
+        cta: 'Show me the process',
         icon: icons.home
       },
       {
-        q: 'What if I have <strong>doubts</strong> or I am not good with <strong>technology?</strong>',
+        q: 'What if I have <strong>questions</strong> or I’m not confident with <strong>technology?</strong>',
         a: [
-          '<strong>You will not be alone.</strong> During the process you will have support to resolve doubts, adjust the exercise and review how you are progressing.',
-          'If you do not know whether you are doing an exercise correctly, if one week you have more fatigue, if pain appears or if something worries you, <strong>you do not have to keep the doubt to yourself.</strong>',
-          'And if technology is not your thing, that is fine too. We explain it <strong>step by step</strong> and use <strong>simple tools.</strong> You do not need to master any app to get started. And if at first you need a family member to help you, they can participate without any problem.',
+          '<strong>You won’t be left on your own.</strong> During the process you will have support to resolve doubts, adjust the exercise and review how you are progressing.',
+          'If you’re unsure whether you’re doing an exercise correctly, if fatigue increases, if pain appears or if something worries you, <strong>you don’t have to keep it to yourself.</strong>',
+          'And if technology is not your thing, that’s completely fine. We explain it <strong>step by step</strong> and use <strong>simple tools.</strong> You don’t need to master any app to get started.',
           'The online part is not designed to complicate your life, but to <strong>support you better without forcing you to travel more.</strong>',
-          'If this is one of the things holding you back, we look at it with you from the beginning.'
+          'If this is holding you back, we’ll look at it with you from the beginning.'
         ],
         cta: 'I want to resolve my doubts',
         icon: icons.chat
@@ -683,10 +683,10 @@ const enProgram = {
       {
         q: 'Can I exercise if I have <strong>metastases, pain or anaemia</strong> due to cancer?',
         a: [
-          '<strong>That is precisely why we do not give generic plans.</strong>',
-          'If you have pain, anaemia, bone metastases, a significant drop in defences, neuropathy or other side effects of treatment, exercise is not automatically removed, but it <strong>must be adapted with greater precision.</strong>',
-          'In some cases we will need to lower the intensity. In others, change the type of exercise, reduce duration, modify positions or avoid certain movements. And at specific times, it may make sense to pause, prioritise gentle mobility or focus only on maintaining basic activity.',
-          'It is not about forcing or training no matter what. It is about finding the <strong>safest, most useful and most realistic</strong> way to move according to your current situation.',
+          '<strong>That is exactly why we do not give generic plans.</strong>',
+          'If you have pain, anaemia, bone metastases, a significant drop in defences, neuropathy or other side effects of treatment, exercise is not automatically ruled out, but it <strong>must be adapted with greater precision.</strong>',
+          'In some cases we will need to lower the intensity. In others, change the type of exercise, reduce duration, modify positions or avoid certain movements. At certain times, it may make sense to pause, prioritise gentle mobility or focus only on basic activity.',
+          'It is not about forcing yourself to train no matter what. It is about finding the <strong>safest, most useful and most realistic</strong> way to move according to your current situation.',
           'If you have doubts about your specific case, you can explain your situation to us {{situationLink}}.'
         ],
         icon: icons.gear
@@ -695,8 +695,8 @@ const enProgram = {
         q: '<strong>When should I start exercising:</strong> during or after cancer treatment?',
         a: [
           'In general, if your situation allows it, it usually makes more sense to <strong>start gradually during cancer treatment</strong> than to wait for the perfect moment.',
-          'Many times that perfect moment takes a long time to arrive. Meanwhile, weeks or months may pass in which you could have started moving, even a little, to better preserve your <strong>strength, mobility, energy and autonomy.</strong>',
-          'It is not about starting hard, but about starting with <strong>a dose adapted to you.</strong> Waiting would only make sense if there is a specific limitation or clinical situation that requires modifying the plan. That is why we first assess your case and, from there, decide what makes sense for you.',
+          'That perfect moment often takes a long time to arrive.',
+          'It is not about starting hard, but about starting with <strong>a dose adapted to you.</strong> Waiting only makes sense if there is a specific clinical reason to adapt or delay the plan. That is why we first assess your case and, from there, decide what makes sense for you.',
           'If you do not know whether it is a good time to start, you can ask us {{askLink}}.'
         ],
         icon: icons.hourglass
@@ -704,22 +704,22 @@ const enProgram = {
       {
         q: 'What happens if I have <strong>never exercised</strong> and I am diagnosed with cancer?',
         a: [
-          'Nothing happens. Empenta is also designed for people who <strong>have never exercised</strong> or who have not moved much for a long time.',
-          'Often, the problem is not a lack of motivation, but not knowing <strong>what to do, how much to do or how to start without fear.</strong> And when everything seems too confusing, it is easy to freeze and end up doing nothing.',
+          'That’s completely fine. Empenta is also designed for people who <strong>have never exercised</strong> or have not moved much for a long time.',
+          'Often, the problem is not a lack of motivation, but not knowing <strong>what to do, how much to do or how to start without fear.</strong> When everything feels confusing, it is easy to freeze and end up doing nothing.',
           'That is why we are not looking for perfection from day one. First we understand your starting point, explain how everything works and start with <strong>a dose that is manageable for you.</strong>',
-          'If you are starting from zero, you can tell us your case {{caseLink}} and we will see whether this programme is right for you.'
+          'If you’re starting from zero, tell us what’s going on {{caseLink}} and we’ll see whether Empenta is right for you.'
         ],
         icon: icons.steps
       },
       {
         q: 'What happens if one week <strong>I feel worse?</strong>',
         a: [
-          'If one week you feel worse, <strong>you let us know and we adjust the plan.</strong> You do not have to wait until the next appointment to know what to do, what to reduce or what to avoid.',
-          'During treatment there are better weeks and more difficult weeks. That is why exercise <strong>cannot be rigid.</strong>',
-          "If you have more fatigue, pain, poor sleep, side effects or less energy, we lower the load, modify the exercises or change that week's objective. <strong>We will progress again when your body is ready.</strong>",
-          'The idea is not for you to fit into a closed routine, but for <strong>the plan to fit you.</strong> Our goal is for you to keep moving forward without feeling that you are failing every time you have a difficult week.'
+          'If one week you feel worse, <strong>let us know and we’ll adjust the plan.</strong> You do not have to wait until the next appointment to know what to do, what to reduce or what to avoid.',
+          'During treatment, some weeks are better and some are more difficult. That’s why exercise <strong>cannot be rigid.</strong>',
+          "If you have more fatigue, pain, poor sleep, side effects or less energy, we lower the load, modify the exercises or change that week’s goal. <strong>We will progress again when your body is ready.</strong>",
+          'The idea is not for you to fit into a fixed routine, but for <strong>the plan to fit you.</strong> Our goal is to help you keep moving forward without feeling that you’ve failed every time you have a difficult week.'
         ],
-        cta: 'I want to know what my plan would look like',
+        cta: 'See what my plan could look like',
         icon: icons.refresh
       }
     ]

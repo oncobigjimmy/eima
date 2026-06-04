@@ -108,9 +108,9 @@ const contactCopy = {
       introPrefix: 'If you have any questions, write to us or call us',
       introStrong: 'completely free of charge.',
       introConnector: '',
-      casePrefix: 'Tell us about your case and we will tell you with',
-      caseStrong: 'complete honesty',
-      caseSuffix: 'whether we can help you.',
+      casePrefix: 'Tell us what’s going on and we’ll be',
+      caseStrong: 'honest',
+      caseSuffix: 'about whether we can help.',
       socialHeading: 'You can also find us here:'
     },
     form: {

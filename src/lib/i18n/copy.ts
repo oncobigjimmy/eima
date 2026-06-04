@@ -408,7 +408,7 @@ const caCopy = {
           title: 'Reprendre',
           subtitle: 'allò que és important per a tu',
           body:
-            'A poc a poc, cercam que tornis a fer amb més seguretat aquelles activitats que ara et costen, et cansen o et generen dubtes.',
+            'A poc a poc, cercam que tornis a fer amb més seguretat aquelles activitats que ara et costen, et cansen o et generen dubtes de si ara és un bon moment.',
           icon: 'resume'
         }
       ]
@@ -501,80 +501,84 @@ const enCopy = {
   },
   whatsapp: {
     message:
-      'Hello, I saw your Empenta programme on the website and I would like to know whether it could fit my situation. Can I tell you a little about my case?'
+      'Hi, I saw your Empenta Programme on your website and I’m wondering if it might be right for me. Can I tell you a bit about my situation?'
   },
   home: {
     ...esCopy.home,
     meta: {
       title: 'EIMA | Home physiotherapy for people with cancer',
       description:
-        'Exercise and home physiotherapy in Mallorca for people with cancer. Start or return to exercise safely with a 12-week programme adapted to you.',
-      ogTitle: 'Exercise and home physiotherapy for people with cancer',
+        'Home-based oncology physiotherapy and exercise support in Mallorca. Start or return to exercise safely through a 12-week programme built around you.',
+      ogTitle: 'Home-based oncology physiotherapy and exercise support in Mallorca',
       ogDescription:
         'We support you during and after cancer with a safe, progressive and personalised plan to recover strength and energy from home.',
       imageAlt: 'EIMA Physiotherapy — Home physiotherapy in Mallorca'
     },
     hero: {
-      eyebrow: 'Exercise and home physiotherapy in Mallorca for people with cancer.',
+      eyebrow: 'Home-based oncology physiotherapy and exercise support in Mallorca.',
       intro: 'Fewer limitations.',
-      phrases: ['More energy.', 'More health.', 'More life.'],
+      phrases: ['More energy', 'More health', 'More life.'],
       fromHome: 'From home.',
       mobileParagraphs: [
-        'If you are going through <strong class="font-semibold">cancer</strong> (or you have already been through it), we help you start or return to <strong class="font-semibold">exercise</strong> safely with a 12-week programme adapted to you.',
-        'Even if you still have <strong class="font-semibold">pain, fatigue or fear of getting worse</strong> after your medical treatments.'
+        'If you’re going through <strong class="font-semibold">cancer treatment</strong> — or recovering from it — we help you start or return to <strong class="font-semibold">exercise</strong> safely through a 12-week programme built around you.',
+        'Even if you’re dealing with <strong class="font-semibold">pain, fatigue or fear of making things worse</strong> after treatment.'
       ],
       desktopParagraphs: [
         [
-          'If you are going through <strong class="font-semibold">cancer</strong> (or you have already been through it),',
-          'we help you start or return to <strong class="font-semibold">exercise</strong> safely',
-          'with a 12-week programme adapted to you.'
+          'If you’re going through <strong class="font-semibold">cancer treatment</strong> — or recovering from it —',
+          'we help you start or return to <strong class="font-semibold">exercise</strong> safely through',
+          'a 12-week programme built around you.'
         ],
         [
-          'Even if you still have <strong class="font-semibold">pain, fatigue or fear of getting worse</strong>',
-          'after your medical treatments.'
+          'Even if you’re dealing with <strong class="font-semibold">pain, fatigue</strong> or',
+          '<strong class="font-semibold">fear of making things worse</strong> after treatment.'
         ]
       ],
-      cta: 'Tell us about your case here',
+      cta: "Tell us what's going on",
       note:
-        'We will assess your case, answer your questions and tell you whether this support programme is right for you.'
+        'We’ll look at your situation, answer your questions and tell you honestly if we can help you.',
+      noteLines: [
+        'We’ll look at your situation, answer your questions',
+        'and tell you honestly if we can help you.'
+      ]
     },
     audience: {
       titleLine1: 'Do you see yourself in any',
       titleLine2Prefix: 'of',
       titleHighlight: 'these situations',
       titleSuffix: '?',
-      subtitle: 'Not everyone starts from the same point. That is why we adapt the process to your case.',
-      button: 'See if it is for me',
-      closingLines: ['3 different situations.', 'But with one common goal:'],
-      autonomyPrefix: 'Regaining your',
-      autonomyStrong: 'autonomy',
+      subtitle: 'Not everyone starts from the same place. That is why we adapt the process to your case.',
+      button: 'Is this for me?',
+      closingLines: ['3 different starting points.', 'One shared goal:'],
+      autonomyPrefix: 'Rebuilding your',
+      autonomyStrong: 'independence.',
       items: [
         {
           letter: 'A',
           quote: '“I have never exercised and I don’t know where to start.”',
           quoteLines: ['“I have never exercised', 'and I don’t know', 'where to start.”'],
           actionLines: [
-            'We will guide you with a clear and',
-            'progressive plan. We will start',
-            'safely, without overwhelm.'
+            'We’ll guide you with a clear,',
+            'progressive plan so you can begin',
+            'safely, without feeling overwhelmed.'
           ]
         },
         {
           letter: 'B',
           quote: '“I do some exercise on my own, but I don’t know if it is right for me now.”',
           actionLines: [
-            'We will adjust your training',
-            'so that it is effective. And we will make it',
-            'sustainable for your day-to-day life.'
+            'We’ll adapt your training',
+            'so it fits your treatment, symptoms',
+            'and day-to-day life.'
           ]
         },
         {
           letter: 'C',
-          quote: '“I know moving can help me, but I have pain or fatigue.”',
+          quote: '“I know movement can help, but right now I have pain or fatigue.”',
           actionLines: [
-            'You will learn to move with',
-            'confidence. And to progress without fear,',
-            'even with pain or fatigue.'
+            'You’ll learn how to move with more',
+            'confidence and progress without fear,',
+            'even on difficult days.'
           ]
         }
       ]
@@ -586,7 +590,7 @@ const enCopy = {
         {
           icon: 'battery',
           body:
-            'You feel you have <strong>less strength and less energy</strong>, and you feel that your body no longer responds as it used to.'
+            'You feel <strong>weaker, more tired and less confident</strong> in your body than before. Like your body no longer responds as it used to.'
         },
         {
           icon: 'stethoscope',
@@ -599,14 +603,14 @@ const enCopy = {
             'You want to do something to feel better, but <strong>you are afraid of overdoing it, exhausting yourself or worsening your symptoms.</strong>'
         }
       ],
-      asideTitleLines: ['You need to know that', 'it is <span class="font-bold">NOT</span> your fault'],
+      asideTitleLines: ['You need to know this:', 'it is <span class="font-bold">NOT</span> your fault'],
       asideParagraphs: [
         'This happens to many people during and after treatment.',
-        'And it does not mean you are failing.',
-        'It means you need <strong class="font-bold">guidance adapted</strong> to your current situation.'
+        'It doesn’t mean you’re failing.',
+        'It means you need <strong class="font-bold">guidance</strong> that fits your current situation.'
       ],
       bottom:
-        'That is why it is not about just moving for the sake of it, but about doing it in a way that truly helps you in your daily life.',
+        'Because this is not about “just moving more”. It’s about moving in a way that actually helps you in your daily life.',
       cta: 'Tell us what is going on'
     },
     recovery: {
@@ -638,7 +642,7 @@ const enCopy = {
           title: 'Return',
           subtitle: 'with confidence to what matters to you',
           body:
-            'Little by little, we aim to help you return more safely to the activities that are now difficult, tiring or uncertain for you.',
+            'Step by step, we help you return more safely to the activities that you now find difficult, exhausting, or uncertain. So you can enjoy them again.',
           icon: 'resume'
         }
       ]
@@ -652,7 +656,8 @@ const enCopy = {
     valueProps: {
       headingBefore: 'You will save',
       headingHighlight1: 'time',
-      headingMiddle: ', without neglecting your',
+      headingMiddle: ', without',
+      headingSecondLine: 'compromising your',
       headingHighlight2: 'health',
       intro:
         'Our format is designed so it does not become another burden. We want to support you in a way that fits your energy, your medical appointments and what you need at each moment.',
@@ -660,16 +665,16 @@ const enCopy = {
         {
           title: 'Clarity from the beginning',
           bodyLines: [
-            'You will not be going in blind or trying random things.',
+            'You won’t be left guessing or trying random exercises.',
             'In the first assessment, we look at your situation, your goals and what you need right now, so you know <strong>what to do, how much to do and how to adapt it.</strong>'
           ],
           icon: 'list'
         },
         {
-          title: 'Fewer journeys',
+          title: 'Less travelling',
           bodyLines: [
             'You already have enough appointments, check-ups and difficult days.',
-            'That is why we prioritise a format that helps you without adding more burden to a stage that may already be <strong>physically and mentally demanding.</strong>'
+            'That’s why we prioritise a format that supports you without adding more unnecessary travelling to an <strong>already demanding stage.</strong>'
           ],
           icon: 'car'
         },
@@ -682,7 +687,7 @@ const enCopy = {
           icon: 'support'
         },
         {
-          title: 'It adapts to you, not the other way around',
+          title: 'The plan is built around you',
           bodyLines: [
             'Your body is not the same every week.',
             'This format allows us to increase, reduce or modify the exercise according to <strong>your energy, your symptoms, your schedule and your treatment.</strong>'
@@ -693,7 +698,7 @@ const enCopy = {
       summaryStrong: 'That is why we do not work through isolated sessions.',
       summaryLines: [
         'We work with a structured <strong class="text-[#4083A7]">12-week</strong> support programme, with an initial assessment at your home and online follow-up <strong>to adapt the process according to your current situation.</strong>',
-        'Click below, where we show you step by step how our <strong class="text-[#4083A7]">Empenta Programme</strong> works.'
+        'Click below to see, step by step, how the <strong class="text-[#4083A7]">Empenta Programme</strong> works.'
       ],
       cta: 'See how Empenta works'
     }

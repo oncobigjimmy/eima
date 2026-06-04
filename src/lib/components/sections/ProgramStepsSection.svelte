@@ -62,7 +62,9 @@
           <h2
             class="font-display-serif text-[2.4rem] font-medium leading-[0.98] tracking-[0] text-[color:var(--color-brand)] md:text-[50px]"
           >
-            {stepsCopy.headingPrefix} <span class="font-display-serif text-[#4083A7]">{stepsCopy.headingHighlight}</span>
+            {stepsCopy.headingPrefix} <span class="font-display-serif text-[#4083A7]">{stepsCopy.headingHighlight}</span>{#if stepsCopy.headingSuffix}
+              {' '}{stepsCopy.headingSuffix}
+            {/if}
           </h2>
 
           <p class="mt-6 text-[16px] font-light leading-[1.6] text-[color:var(--color-brand)]/82">

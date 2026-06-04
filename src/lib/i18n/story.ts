@@ -579,9 +579,9 @@ const storyCopy = {
     },
     hero: {
       eyebrow: 'Our story',
-      titleLineOnePrefix: 'Get to know our',
-      titleLineOneHighlight: '',
-      titleLineTwoHighlight: 'story',
+      titleLineOnePrefix: 'Get to know',
+      titleLineOneHighlight: 'our stories',
+      titleLineTwoHighlight: '',
       titleLineTwoSuffix: 'in depth',
       introLineOne: 'Two different paths, one',
       introStrong: 'shared idea',

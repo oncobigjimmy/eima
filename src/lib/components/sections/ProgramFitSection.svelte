@@ -35,10 +35,11 @@
     </p>
 
     <h2
-      class="mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[46px]"
+      class="mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[48px]"
       style="font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;"
     >
       {fitCopy.titlePrefix}
+      {#if $language === 'en'}<br class="hidden md:block" /><span class="md:hidden"> </span>{:else}{' '}{/if}
       <span
         class="text-[#4083A7]"
         style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"

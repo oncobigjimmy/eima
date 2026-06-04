@@ -268,9 +268,46 @@
         {hero.eyebrow}
       </p>
       <h1 class="about-hero-title max-w-[12ch] text-[42px] leading-[1.06] text-white md:max-w-none md:text-[60px]">
-        <span class="block md:whitespace-nowrap">{hero.line1}</span>
-        <span class="block md:whitespace-nowrap">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
-        <span class="block text-[#8CD0D6] md:whitespace-nowrap">{hero.line3}</span>
+        {#if hero.desktopTitleLines}
+          <span class="md:hidden">
+            <span class="block">{hero.line1}</span>
+            <span class="block">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
+            <span class="block">
+              {#if hero.line3Parts}
+                {#each hero.line3Parts as part}
+                  <span class:text-[#8CD0D6]={part.accent}>{part.text}</span>
+                {/each}
+              {:else}
+                <span class="text-[#8CD0D6]">{hero.line3}</span>
+              {/if}
+            </span>
+          </span>
+          <span class="hidden md:block">
+            {#each hero.desktopTitleLines as line}
+              <span class={`block whitespace-nowrap ${line.accent ? 'text-[#8CD0D6]' : ''}`}>
+                {#if line.parts}
+                  {#each line.parts as part}
+                    <span class:text-[#8CD0D6]={part.accent}>{part.text}</span>
+                  {/each}
+                {:else}
+                  {line.text}
+                {/if}
+              </span>
+            {/each}
+          </span>
+        {:else}
+          <span class="block md:whitespace-nowrap">{hero.line1}</span>
+          <span class="block md:whitespace-nowrap">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
+          <span class="block md:whitespace-nowrap">
+            {#if hero.line3Parts}
+              {#each hero.line3Parts as part}
+                <span class:text-[#8CD0D6]={part.accent}>{part.text}</span>
+              {/each}
+            {:else}
+              <span class="text-[#8CD0D6]">{hero.line3}</span>
+            {/if}
+          </span>
+        {/if}
       </h1>
       <h2 class="sr-only">
         {hero.srSubtitle}
@@ -613,6 +650,16 @@
   .about-origin-heading,
   .about-origin-heading * {
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
+  }
+
+  :global(.about-origin-nowrap) {
+    white-space: normal;
+  }
+
+  @media (min-width: 1180px) {
+    :global(.about-origin-nowrap) {
+      white-space: nowrap;
+    }
   }
 
   .team-heading,
