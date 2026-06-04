@@ -346,8 +346,8 @@ const caProgram = {
   },
   fit: {
     eyebrow: 'Si tenc càncer o he passat un càncer',
-    titlePrefix: 'Com sé si',
-    titleHighlight: 'el programa és per a mi?',
+    titlePrefix: 'Com sé si aquest',
+    titleHighlight: 'programa és per a mi?',
     yesTitle: 'Això encaixa amb tu si...',
     noTitle: 'Això <span class="font-bold">NO</span> encaixa amb tu si...',
     yesItems: [
