@@ -29,9 +29,7 @@
   $: highlightWords = fitCopy.titleHighlight.split(' ');
   $: firstHighlightWord = highlightWords[0];
   $: remainingHighlightWords = highlightWords.slice(1).join(' ');
-  $: firstTwoHighlightWords = highlightWords.slice(0, 2).join(' ');
   $: secondAndThirdHighlightWords = highlightWords.slice(1, 3).join(' ');
-  $: remainingAfterSecondHighlightWords = highlightWords.slice(2).join(' ');
   $: remainingAfterThirdHighlightWords = highlightWords.slice(3).join(' ');
   $: titlePrefixWithoutThis = fitCopy.titlePrefix.replace(/ this$/, '');
 </script>
@@ -48,16 +46,21 @@
     >
       <span class="md:hidden">
         {#if $language === 'ca'}
-          {fitCopy.titlePrefix}<br />
+          {fitCopy.titlePrefix}{' '}
           <span
             class="text-[#4083A7]"
             style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-            >{firstTwoHighlightWords}</span
+            >{firstHighlightWord}</span
           ><br />
           <span
             class="text-[#4083A7]"
             style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-            >{remainingAfterSecondHighlightWords}</span
+            >{secondAndThirdHighlightWords}</span
+          ><br />
+          <span
+            class="text-[#4083A7]"
+            style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
+            >{remainingAfterThirdHighlightWords}</span
           >
         {:else if $language === 'en'}
           {titlePrefixWithoutThis}<br />
