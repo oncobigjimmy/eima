@@ -9,7 +9,7 @@
   /** @param {string} html */
   function parseInlineHtml(html) {
     const segments = [];
-    const pattern = /<(strong|span)(?: class="([^"]*)")?>(.*?)<\/\1>/g;
+    const pattern = /<br\s*\/?>|<(strong|span)(?: class="([^"]*)")?>(.*?)<\/\1>/g;
     let cursor = 0;
     let match;
 
@@ -18,7 +18,11 @@
         segments.push({ text: html.slice(cursor, match.index), tag: 'text' });
       }
 
-      segments.push({ text: match[3], tag: match[1], className: match[2] });
+      if (match[0].startsWith('<br')) {
+        segments.push({ tag: 'br' });
+      } else {
+        segments.push({ text: match[3], tag: match[1], className: match[2] });
+      }
       cursor = pattern.lastIndex;
     }
 
@@ -114,6 +118,8 @@
               <strong class={segment.className}>{segment.text}</strong>
             {:else if segment.tag === 'span'}
               <span class={segment.className}>{segment.text}</span>
+            {:else if segment.tag === 'br'}
+              <br />
             {:else}
               {segment.text}
             {/if}
@@ -125,12 +131,14 @@
           {#each paragraph as line, lineIndex (line)}
             {#each parseInlineHtml(line) as segment}
               {#if segment.tag === 'strong'}
-                <strong class={segment.className}>{segment.text}</strong>
-              {:else if segment.tag === 'span'}
-                <span class={segment.className}>{segment.text}</span>
-              {:else}
-                {segment.text}
-              {/if}
+              <strong class={segment.className}>{segment.text}</strong>
+            {:else if segment.tag === 'span'}
+              <span class={segment.className}>{segment.text}</span>
+            {:else if segment.tag === 'br'}
+              <br />
+            {:else}
+              {segment.text}
+            {/if}
             {/each}{#if lineIndex < paragraph.length - 1}<br />{/if}
           {/each}
         </p>

@@ -267,21 +267,31 @@
       <p class="mb-5 text-[0.78rem] font-light uppercase tracking-[0.28em] text-white/72">
         {hero.eyebrow}
       </p>
-      <h1 class="about-hero-title max-w-[12ch] text-[42px] leading-[1.06] text-white md:max-w-none md:text-[60px]">
-        {#if hero.desktopTitleLines}
-          <span class="md:hidden">
-            <span class="block">{hero.line1}</span>
-            <span class="block">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
-            <span class="block">
-              {#if hero.line3Parts}
-                {#each hero.line3Parts as part}
-                  <span class:text-[#8CD0D6]={part.accent}>{part.text}</span>
-                {/each}
-              {:else}
-                <span class="text-[#8CD0D6]">{hero.line3}</span>
-              {/if}
+      <h1 class="about-hero-title max-w-[12ch] text-[38px] leading-[1.06] text-white md:max-w-none md:text-[60px]">
+        <span class="about-hero-title-mobile md:hidden">
+          {#if pageLanguage === 'ca'}
+            <span class="block whitespace-nowrap">Volem ajudar-te</span>
+            <span class="block whitespace-nowrap">a recuperar la teva</span>
+            <span class="block whitespace-nowrap text-[#8CD0D6]">energia, confiança</span>
+            <span class="block whitespace-nowrap text-[#8CD0D6]">i control.</span>
+          {:else if pageLanguage === 'en'}
+            <span class="block whitespace-nowrap">We want to help</span>
+            <span class="block whitespace-nowrap">you rebuild your</span>
+            <span class="block whitespace-nowrap text-[#8CD0D6]">energy, confidence</span>
+            <span class="block whitespace-nowrap">
+              and sense of <span class="text-[#8CD0D6]">control.</span>
             </span>
-          </span>
+          {:else}
+            <span class="block whitespace-nowrap">Queremos ayudarte</span>
+            <span class="block whitespace-nowrap">a recuperar tu</span>
+            <span class="block whitespace-nowrap text-[#8CD0D6]">energía, confianza</span>
+            <span class="block whitespace-nowrap">
+              y <span class="text-[#8CD0D6]">control.</span>
+            </span>
+          {/if}
+        </span>
+
+        {#if hero.desktopTitleLines}
           <span class="hidden md:block">
             {#each hero.desktopTitleLines as line}
               <span class={`block whitespace-nowrap ${line.accent ? 'text-[#8CD0D6]' : ''}`}>
@@ -296,9 +306,9 @@
             {/each}
           </span>
         {:else}
-          <span class="block md:whitespace-nowrap">{hero.line1}</span>
-          <span class="block md:whitespace-nowrap">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
-          <span class="block md:whitespace-nowrap">
+          <span class="hidden md:block md:whitespace-nowrap">{hero.line1}</span>
+          <span class="hidden md:block md:whitespace-nowrap">{hero.line2Prefix} <span class="text-[#8CD0D6]">{hero.line2Highlight}</span></span>
+          <span class="hidden md:block md:whitespace-nowrap">
             {#if hero.line3Parts}
               {#each hero.line3Parts as part}
                 <span class:text-[#8CD0D6]={part.accent}>{part.text}</span>
@@ -453,7 +463,11 @@
             </span>
             <span class="block">{team.headingLine2}</span>
             <span class="block">
-              {team.headingLine3Prefix} <span class="text-[#4083A7]" style="font-family: inherit;">{team.headingLine3Highlight}</span>
+              {#if pageLanguage === 'ca'}
+                <span class="text-[#4083A7]" style="font-family: inherit;">{team.headingLine3Prefix}{team.headingLine3Highlight}</span>
+              {:else}
+                {team.headingLine3Prefix} <span class="text-[#4083A7]" style="font-family: inherit;">{team.headingLine3Highlight}</span>
+              {/if}
             </span>
           </h2>
         </header>
@@ -1042,7 +1056,7 @@
 
   @media (max-width: 767px) {
     .about-hero-title {
-      max-width: 9.5ch;
+      max-width: min(100%, 22rem);
     }
 
     .team-layout {
@@ -1062,23 +1076,31 @@
 
     .team-photo-card {
       aspect-ratio: 1.13 / 1;
-      margin-top: -2.25rem;
+      margin-top: 0.75rem;
       margin-inline: auto;
-      order: 3;
+      order: 2;
       overflow: hidden;
       width: 100%;
     }
 
+    .team-photo-inner {
+      border: 0;
+      box-shadow: none !important;
+      filter: none !important;
+    }
+
     .team-photo-card img {
+      box-shadow: none !important;
+      filter: none !important;
       transform: scale(1.08);
     }
 
     .team-photo-hint--mobile {
       line-height: 1.55;
-      margin-top: 1rem;
-      order: 2;
+      margin-top: 0.85rem;
+      order: 4;
       overflow: visible;
-      padding-bottom: 2.25rem;
+      padding-bottom: 0;
     }
 
     .team-photo-tooltip {
@@ -1096,8 +1118,8 @@
       display: flex;
       gap: 2.75rem;
       justify-content: center;
-      margin-top: -0.25rem;
-      order: 4;
+      margin-top: -0.35rem;
+      order: 3;
     }
 
     .team-health-wrap {

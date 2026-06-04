@@ -291,7 +291,7 @@ const caCopy = {
       fromHome: 'Des de casa.',
       mobileParagraphs: [
         'Si estàs passant per un <strong class="font-semibold">càncer</strong> (o ja l’has passat), t’ajudam a començar o reprendre l’<strong class="font-semibold">exercici</strong> de manera segura amb un acompanyament de 12 setmanes adaptat a tu.',
-        'Fins i tot si continues amb <strong class="font-semibold">dolor, fatiga o por d’empitjorar</strong> després dels teus tractaments mèdics.'
+        'Encara que segueixis amb <strong class="font-semibold">dolor, fatiga o por</strong><br /><strong class="font-semibold">d’empitjorar</strong> després dels tractaments mèdics.'
       ],
       desktopParagraphs: [
         [
@@ -300,8 +300,8 @@ const caCopy = {
           'amb un acompanyament de 12 setmanes adaptat a tu.'
         ],
         [
-          'Fins i tot si continues amb <strong class="font-semibold">dolor, fatiga o por d’empitjorar</strong>',
-          'després dels teus tractaments mèdics.'
+          'Encara que segueixis amb <strong class="font-semibold">dolor, fatiga o por d’empitjorar</strong>',
+          'després dels tractaments mèdics.'
         ]
       ],
       cta: 'Explica’ns el teu cas aquí',

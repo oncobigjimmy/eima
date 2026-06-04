@@ -197,7 +197,11 @@
   <div class="mx-auto max-w-6xl px-6 text-center md:px-10">
     <div class="flex flex-col items-center gap-4 md:gap-5">
       <p class="text-[16px] font-light leading-relaxed text-[#233F4E]">
-        {programCopy.doubtCta.text}
+        {#if pageLanguage === 'en'}
+          Still unsure whether Empenta<span class="hidden md:inline"> </span><br class="md:hidden" />is right for you?
+        {:else}
+          {programCopy.doubtCta.text}
+        {/if}
       </p>
 
       <a
