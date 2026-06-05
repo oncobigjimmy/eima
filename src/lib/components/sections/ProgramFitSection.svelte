@@ -279,6 +279,12 @@
     font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
   }
 
+  :global(.fit-card__title span),
+  :global(.fit-card__title strong),
+  :global(.fit-card__title em) {
+    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
+  }
+
   .fit-card:hover {
     box-shadow: 0 22px 46px rgba(14, 29, 38, 0.14);
     transform: translateY(-6px) scale(1.015);
