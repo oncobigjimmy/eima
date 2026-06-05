@@ -35,6 +35,14 @@
     }
   };
 
+  const closeCoverModal = () => {
+    selectedCover = null;
+  };
+
+  const handleCoverModalKeydown = (event) => {
+    if (event.key === 'Escape') closeCoverModal();
+  };
+
   onMount(() => {
     const setProfileFromHash = () => {
       const profileId = window.location.hash.replace('#', '');
@@ -509,12 +517,14 @@
     role="dialog"
     aria-modal="true"
     aria-label={`${labels.coverOf} ${selectedCover.title}`}
-    on:click={() => (selectedCover = null)}
+    tabindex="-1"
+    on:keydown={handleCoverModalKeydown}
   >
-    <button class="cover-modal__close" type="button" aria-label={labels.close} on:click={() => (selectedCover = null)}>
+    <button class="cover-modal__backdrop" type="button" aria-label={labels.close} on:click={closeCoverModal}></button>
+    <button class="cover-modal__close" type="button" aria-label={labels.close} on:click={closeCoverModal}>
       ×
     </button>
-    <div class="cover-modal__content" on:click|stopPropagation>
+    <div class="cover-modal__content">
       <img src={selectedCover.cover} alt={`${labels.coverOf} ${selectedCover.title}`} />
       <p>{selectedCover.title}</p>
     </div>
@@ -837,11 +847,19 @@
     padding: 1.5rem;
   }
 
+  .cover-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    cursor: default;
+  }
+
   .cover-modal__content {
     display: grid;
     justify-items: center;
     gap: 1rem;
     max-width: min(92vw, 34rem);
+    position: relative;
+    z-index: 1;
   }
 
   .cover-modal__content img {
@@ -862,6 +880,7 @@
     position: fixed;
     right: 1.25rem;
     top: 1rem;
+    z-index: 2;
     color: #ffffff;
     font-size: 2.1rem;
     line-height: 1;

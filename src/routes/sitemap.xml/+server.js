@@ -6,11 +6,11 @@ export const prerender = true;
 const SITE = 'https://eimafisioterapia.es';
 
 const staticRoutes = [
-  { key: 'home', lastmod: '2026-06-03', changefreq: 'weekly', priority: '1.0' },
-  { key: 'program', lastmod: '2026-06-03', changefreq: 'monthly', priority: '0.9' },
-  { key: 'about', lastmod: '2026-06-03', changefreq: 'monthly', priority: '0.8' },
-  { key: 'story', lastmod: '2026-06-03', changefreq: 'monthly', priority: '0.7' },
-  { key: 'contact', lastmod: '2026-06-03', changefreq: 'monthly', priority: '0.9' }
+  { key: 'home', lastmod: '2026-06-05', changefreq: 'weekly', priority: '1.0' },
+  { key: 'program', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.9' },
+  { key: 'about', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.8' },
+  { key: 'story', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.7' },
+  { key: 'contact', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.9' }
 ];
 
 function toISODate(d) {
