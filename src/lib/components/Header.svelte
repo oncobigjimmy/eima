@@ -45,6 +45,7 @@
     routeKey === 'program' ||
     routeKey === 'about' ||
     routeKey === 'contact' ||
+    pathname === '/testimonios' ||
     pathname === '/blog' ||
     pathname.startsWith('/blog/');
   $: transparent = mounted && hasDarkHero && !scrolled && !mobileMenuOpen;

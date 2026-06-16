@@ -454,7 +454,7 @@
     <div class="team-layout grid gap-9 md:grid-cols-[1.06fr_0.94fr] md:items-start md:gap-12">
       <div class="team-copy">
         <header class="team-header max-w-[36rem]">
-          <p class="text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#4083A7]">
+          <p class="text-center text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[#4083A7] md:text-left">
             {team.eyebrow}
           </p>
           <h2 class="about-section-title team-heading mt-4 text-center text-[2.2rem] leading-[1.05] text-[#233F4E] md:text-left md:pb-1 md:text-[3.15rem] md:leading-[1.04]">
@@ -476,7 +476,7 @@
           use:revealOnScroll
           class="about-reveal team-health-wrap relative mt-10 w-full max-w-[28rem] justify-self-center md:mt-14 md:max-w-none"
         >
-          <div class="team-health-label relative z-10 mx-auto w-full whitespace-nowrap rounded-[12px] bg-[#4083A7] px-3 py-3 text-center text-[16px] font-bold leading-tight text-white shadow-[0_8px_18px_rgba(14,29,38,0.18)] md:absolute md:left-1/2 md:top-0 md:w-[23rem] md:-translate-x-1/2 md:-translate-y-1/2 md:px-6 md:text-[16px]">
+          <div class="team-health-label relative z-10 mx-auto w-full whitespace-nowrap rounded-[12px] bg-[#4083A7] px-3 py-3 text-center text-[16px] font-bold leading-tight text-white shadow-[0_8px_18px_rgba(14,29,38,0.18)] md:absolute md:left-1/2 md:top-0 md:w-[28rem] md:-translate-x-1/2 md:-translate-y-1/2 md:px-8 md:text-[20px]">
             {team.healthLabel}
           </div>
 
