@@ -35,8 +35,10 @@
       alt=""
       class="h-full w-full object-cover object-center"
     />
-    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,18,24,0.78)_0%,rgba(8,18,24,0.56)_36%,rgba(8,18,24,0.28)_57%,rgba(8,18,24,0.54)_100%)]"></div>
-    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,18,24,0.52)_0%,rgba(8,18,24,0.18)_26%,rgba(8,18,24,0.18)_74%,rgba(8,18,24,0.62)_100%)]"></div>
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(90deg, rgba(8, 18, 24, 0.48) 0%, rgba(8, 18, 24, 0.38) 44%, rgba(8, 18, 24, 0.2) 100%), linear-gradient(180deg, rgba(8, 18, 24, 0.12) 0%, rgba(8, 18, 24, 0.36) 100%);"
+    ></div>
   </div>
 
   <div class="relative mx-auto flex min-h-[calc(100vh-6rem)] max-w-7xl items-stretch px-5 pb-10 md:px-10 md:pb-14">

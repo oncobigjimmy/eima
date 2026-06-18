@@ -138,7 +138,7 @@
       {hero.srTitle}
     </h1>
     <div class="max-w-4xl leading-[1.02] tracking-tight" aria-hidden="true">
-      <span class="mb-4 block max-w-xl text-[7px] font-light tracking-wide text-white/10 md:text-[7px]">
+      <span class="mb-4 block max-w-xl text-[5px] font-light tracking-wide text-white/10 md:text-[5px]">
         {hero.eyebrow}
       </span>
       <span

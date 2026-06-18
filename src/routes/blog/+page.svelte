@@ -69,17 +69,11 @@
   ></div>
   <div
     class="absolute inset-0"
-    style="background: linear-gradient(90deg, rgba(8,18,24,0.76) 0%, rgba(8,18,24,0.58) 42%, rgba(8,18,24,0.3) 100%);"
-    aria-hidden="true"
-  ></div>
-  <div
-    class="absolute inset-0"
-    style="background: linear-gradient(180deg, rgba(8,18,24,0.26) 0%, rgba(8,18,24,0.12) 46%, rgba(8,18,24,0.48) 100%);"
+    style="background: linear-gradient(90deg, rgba(8, 18, 24, 0.48) 0%, rgba(8, 18, 24, 0.38) 44%, rgba(8, 18, 24, 0.2) 100%), linear-gradient(180deg, rgba(8, 18, 24, 0.12) 0%, rgba(8, 18, 24, 0.36) 100%);"
     aria-hidden="true"
   ></div>
 
-  <div class="relative z-10 mx-auto max-w-7xl px-5 md:px-10 pt-24 md:pt-32 pb-16">
-    <p class="mb-6 text-[0.78rem] font-light uppercase tracking-[0.28em] text-white/70">Blog</p>
+  <div class="relative z-10 mx-auto max-w-7xl px-5 md:px-10 pt-20 md:pt-28 pb-16">
     <h1 class="blog-hero-title text-[35px] leading-[1.08] text-white md:text-[60px] md:leading-[1.02]">
       <span class="block md:hidden">Artículos sobre</span>
       <span class="block text-[#8CD0D6] md:hidden">cáncer, ejercicio</span>

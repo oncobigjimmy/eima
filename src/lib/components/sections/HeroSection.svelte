@@ -92,7 +92,7 @@
 
   <div class="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24">
     <div class="max-w-3xl leading-[1.02] tracking-tight">
-      <h1 class="mb-4 block max-w-xl text-[7px] font-light tracking-wide text-white/10 md:text-[7px]">
+      <h1 class="mb-4 block max-w-xl text-[5px] font-light tracking-wide text-white/10 md:text-[5px]">
         {hero.eyebrow}
       </h1>
       <span class="block text-[2.1rem] font-normal text-white md:text-6xl">{hero.intro}</span>

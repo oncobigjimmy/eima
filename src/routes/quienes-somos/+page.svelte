@@ -258,15 +258,14 @@
       alt=""
       class="h-full w-full object-cover object-center"
     />
-    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,18,24,0.72)_0%,rgba(8,18,24,0.56)_36%,rgba(8,18,24,0.28)_68%,rgba(8,18,24,0.14)_100%)]"></div>
-    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,18,24,0.34)_0%,rgba(8,18,24,0.08)_48%,rgba(8,18,24,0.62)_100%)]"></div>
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(90deg, rgba(8, 18, 24, 0.48) 0%, rgba(8, 18, 24, 0.38) 44%, rgba(8, 18, 24, 0.2) 100%), linear-gradient(180deg, rgba(8, 18, 24, 0.12) 0%, rgba(8, 18, 24, 0.36) 100%);"
+    ></div>
   </div>
 
-  <div class="relative z-10 mx-auto flex min-h-[calc(86vh-6rem)] max-w-7xl flex-col justify-end px-5 pb-14 md:px-10 md:pb-20">
+  <div class="relative z-10 mx-auto flex min-h-[calc(86vh-6rem)] max-w-7xl flex-col justify-end px-5 pb-20 md:px-10 md:pb-28">
     <div class="max-w-[42rem] text-white">
-      <p class="mb-5 text-[0.78rem] font-light uppercase tracking-[0.28em] text-white/72">
-        {hero.eyebrow}
-      </p>
       <h1 class="about-hero-title max-w-[12ch] text-[38px] leading-[1.06] text-white md:max-w-none md:text-[60px]">
         <span class="about-hero-title-mobile md:hidden">
           {#if pageLanguage === 'ca'}

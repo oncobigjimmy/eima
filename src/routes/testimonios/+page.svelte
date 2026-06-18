@@ -7,6 +7,8 @@
     {
       name: 'Josué',
       condition: 'Glioblastoma estadio IV. Cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
+      conditionTitle: 'Glioblastoma estadio IV',
+      conditionDetail: 'Ha pasado por cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
       before: 'De sentirse debilitado tras el tratamiento y ver muy lejos recuperar su rutina deportiva',
       after: 'A ganar energía, ánimo y constancia con ejercicio adaptado y seguimiento diario',
       modalTitle: 'Josué · Glioblastoma estadio IV',
@@ -78,8 +80,6 @@
   <div class="testimonials-hero__image" aria-hidden="true"></div>
   <div class="testimonials-hero__shade" aria-hidden="true"></div>
   <div class="testimonials-hero__content">
-    <p class="testimonials-hero__eyebrow">Testimonios</p>
-
     <h1>Historias <span>reales</span></h1>
     <div class="testimonials-hero__lead">
       <p>Cada persona llega en <strong>un punto diferente.</strong></p>
@@ -107,6 +107,33 @@
     <div class="testimonials-grid">
       {#each testimonials as testimonial (testimonial.name)}
         <article class="testimonial-card">
+          <div class="testimonial-card__content">
+            <div class="testimonial-card__person">
+              <h3>{testimonial.name}</h3>
+              <p class="testimonial-card__condition testimonial-card__condition--desktop">
+                {testimonial.condition}
+              </p>
+              <p class="testimonial-card__condition testimonial-card__condition--mobile">
+                {#if testimonial.conditionTitle && testimonial.conditionDetail}
+                  <span class="testimonial-card__condition-title">{testimonial.conditionTitle}</span>
+                  <span class="testimonial-card__condition-detail">{testimonial.conditionDetail}</span>
+                {:else}
+                  {testimonial.condition}
+                {/if}
+              </p>
+            </div>
+
+            <div class="testimonial-card__change">
+              <span>Antes</span>
+              <p>{testimonial.before}</p>
+            </div>
+
+            <div class="testimonial-card__change testimonial-card__change--after">
+              <span>Ahora</span>
+              <p>{testimonial.after}</p>
+            </div>
+          </div>
+
           <button
             class="testimonial-card__media"
             type="button"
@@ -124,23 +151,6 @@
           </button>
 
           <div class="testimonial-card__divider" aria-hidden="true"></div>
-
-          <div class="testimonial-card__content">
-            <div class="testimonial-card__person">
-              <h3>{testimonial.name}</h3>
-              <p>{testimonial.condition}</p>
-            </div>
-
-            <div class="testimonial-card__change">
-              <span>Antes</span>
-              <p>{testimonial.before}</p>
-            </div>
-
-            <div class="testimonial-card__change testimonial-card__change--after">
-              <span>Ahora</span>
-              <p>{testimonial.after}</p>
-            </div>
-          </div>
         </article>
       {/each}
     </div>
@@ -249,7 +259,7 @@
   }
 
   .testimonials-hero__image {
-    background-image: url('/blog-hero-mallorca.png');
+    background-image: url('/testimonials-hero-bridge.jpg');
     background-position: center;
     background-size: cover;
     inset: 0;
@@ -272,15 +282,6 @@
     padding: 7.5rem 1.5rem 5.5rem;
     position: relative;
     z-index: 1;
-  }
-
-  .testimonials-hero__eyebrow {
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.78rem;
-    font-weight: 300;
-    letter-spacing: 0.28em;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
   }
 
   .testimonials-hero h1 {
@@ -395,7 +396,7 @@
     display: grid;
     gap: 1.15rem;
     grid-template-columns: minmax(11rem, 0.72fr) minmax(0, 1fr);
-    min-height: 24rem;
+    min-height: 20rem;
     overflow: hidden;
     padding: 1rem;
   }
@@ -406,7 +407,9 @@
     border-radius: 8px;
     color: white;
     display: block;
-    min-height: 22rem;
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 18.75rem;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -479,6 +482,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.08rem;
+    grid-column: 2;
+    grid-row: 1;
     padding: 0.4rem 0.25rem 0.4rem 0;
   }
 
@@ -495,12 +500,16 @@
     line-height: 1;
   }
 
-  .testimonial-card__person p {
+  .testimonial-card__condition {
     color: color-mix(in srgb, var(--color-brand) 80%, transparent);
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.55;
+  }
+
+  .testimonial-card__condition--mobile {
+    display: none;
   }
 
   .testimonial-card__person::after {
@@ -768,10 +777,6 @@
       padding-top: 6.7rem;
     }
 
-    .testimonials-hero__eyebrow {
-      margin-bottom: 2.8rem;
-    }
-
     .testimonials-hero__lead {
       max-width: 20rem;
     }
@@ -795,11 +800,16 @@
 
     .testimonial-card__divider {
       background: linear-gradient(90deg, transparent, #8cd0d6 16%, #8cd0d6 84%, transparent);
+      display: block;
+      grid-column: 1;
+      grid-row: 4;
       height: 1px;
     }
 
     .testimonial-card__media {
       aspect-ratio: 9 / 14;
+      grid-column: 1;
+      grid-row: 2;
       min-height: auto;
     }
 
@@ -815,7 +825,84 @@
     }
 
     .testimonial-card__content {
+      display: contents;
       padding: 0.15rem 0.2rem 0.4rem;
+    }
+
+    .testimonial-card__person {
+      grid-column: 1;
+      grid-row: 1;
+      padding: 0.15rem 0.2rem 0;
+    }
+
+    .testimonial-card__person h3 {
+      text-align: center;
+    }
+
+    .testimonial-card__condition--desktop {
+      display: none;
+    }
+
+    .testimonial-card__condition--mobile {
+      border-left: 2px solid #4083a7;
+      display: block;
+      font-size: 15px;
+      line-height: 1.48;
+      margin-top: 0.45rem;
+      padding-left: 0.9rem;
+      text-align: left;
+    }
+
+    .testimonial-card__condition-title {
+      color: #4083a7;
+      display: block;
+      font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+
+    .testimonial-card__condition-detail {
+      color: rgba(35, 63, 78, 0.8);
+      display: block;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.48;
+    }
+
+    .testimonial-card__person::after {
+      display: none;
+    }
+
+    .testimonial-card__change {
+      border-left-color: #245b7d;
+      grid-column: 1;
+      grid-row: 3;
+      margin: 0.15rem 0.2rem 0;
+    }
+
+    .testimonial-card__change span {
+      color: #245b7d;
+    }
+
+    .testimonial-card__change p {
+      color: rgba(35, 63, 78, 0.8);
+    }
+
+    .testimonial-card__change--after {
+      border-left-color: #233f4e;
+      grid-row: 5;
+      margin: 0.1rem 0.2rem 0.35rem;
+    }
+
+    .testimonial-card__change--after span {
+      color: #233f4e;
+    }
+
+    .testimonial-card__change--after p {
+      color: rgba(35, 63, 78, 0.8);
     }
 
     .testimonials-cta {
