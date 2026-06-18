@@ -222,7 +222,7 @@
         <span>
           {#if activeTestimonial.summaryLines}
             {#each activeTestimonial.summaryLines as line, index}
-              {line}{#if index < activeTestimonial.summaryLines.length - 1}<br class="testimonial-modal__summary-break" />{/if}
+              {line}{#if index < activeTestimonial.summaryLines.length - 1}<br class="testimonial-modal__summary-break" />{' '}{/if}
             {/each}
           {:else}
             {activeTestimonial.summary ?? `${activeTestimonial.before} · ${activeTestimonial.after}`}

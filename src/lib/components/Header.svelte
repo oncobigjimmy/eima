@@ -50,13 +50,14 @@
     pathname.startsWith('/blog/');
   $: transparent = mounted && hasDarkHero && !scrolled && !mobileMenuOpen;
   $: lightHeader = transparent;
+  $: solidHeaderClass = pathname === '/testimonios' ? 'bg-[#F4F8F0]' : 'bg-[#F8F4F0]';
 </script>
 
 <svelte:window on:scroll={updateScrolled} />
 
 <header
   class="fixed top-0 z-40 w-full transition-colors duration-300
-    {lightHeader ? 'bg-transparent' : 'bg-[#F8F4F0]'}"
+    {lightHeader ? 'bg-transparent' : solidHeaderClass}"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-10">
     <a href={homeHref} aria-label="Inicio" class="flex items-center">
