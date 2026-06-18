@@ -1,14 +1,23 @@
 <script>
   import { onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
+  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
 
   const testimonials = [
     {
-      name: 'Josue',
-      condition: 'dolor lumbar, miedo al esfuerzo y meses evitando moverse con confianza.',
-      before: 'De vivir pendiente del dolor y medir cada gesto del dia',
-      after: 'A volver a entrenar fuerza, moverse con calma y recuperar seguridad',
-      image: '/testimonials/testimonial-josue.jpg'
+      name: 'Josué',
+      condition: 'Glioblastoma estadio IV. Cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
+      before: 'De sentirse debilitado tras el tratamiento y ver muy lejos recuperar su rutina deportiva',
+      after: 'A ganar energía, ánimo y constancia con ejercicio adaptado y seguimiento diario',
+      modalTitle: 'Josué · Glioblastoma estadio IV',
+      summary: 'De sentirse debilitado tras los tratamientos a recuperar energía, ánimo y constancia.',
+      summaryLines: [
+        'De sentirse debilitado tras los',
+        'tratamientos a recuperar energía,',
+        'ánimo y constancia.'
+      ],
+      image: '/testimonials/testimonial-josue.jpg',
+      videoUrl: 'https://www.youtube.com/embed/85AuEva-CUc'
     },
     {
       name: 'Marta',
@@ -69,26 +78,31 @@
   <div class="testimonials-hero__image" aria-hidden="true"></div>
   <div class="testimonials-hero__shade" aria-hidden="true"></div>
   <div class="testimonials-hero__content">
-    <nav aria-label="Migas de pan" class="testimonials-hero__breadcrumbs">
-      <a href="/">Inicio</a>
-      <span aria-hidden="true">/</span>
-      <span>Testimonios</span>
-    </nav>
+    <p class="testimonials-hero__eyebrow">Testimonios</p>
 
-    <p class="testimonials-hero__eyebrow">Historias EIMA</p>
-    <h1>Historias reales de personas que volvieron a confiar en su cuerpo</h1>
-    <p class="testimonials-hero__lead">
-      El dolor, miedo, dudas y un proceso acompañado. Estos son algunos caminos de vuelta al movimiento.
-    </p>
+    <h1>Historias <span>reales</span></h1>
+    <div class="testimonials-hero__lead">
+      <p>Cada persona llega en <strong>un punto diferente.</strong></p>
+      <p>
+        Algunas están en tratamiento, otras acaban de terminarlo<br />
+        y muchas no <strong>saben cómo volver</strong> a moverse sin miedo.
+      </p>
+      <p>
+        En EIMA trabajamos con <strong>ejercicio</strong> adaptado,<br />
+        mejora de <strong>hábitos</strong> y <strong>seguimiento diario</strong> para ajustar el plan<br />
+        según la fatiga, el tratamiento y la respuesta de <strong>cada persona.</strong>
+      </p>
+    </div>
+
+    <a class="testimonials-hero__cta" href="/como-funciona#program-steps">
+      <span>Conoce cómo trabajamos</span>
+    </a>
   </div>
 </section>
 
 <section class="testimonials-section" aria-labelledby="testimonios-title">
   <div class="testimonials-section__inner">
-    <div class="testimonials-section__heading">
-      <p>Testimonios en preparacion</p>
-      <h2 id="testimonios-title">Procesos reales, contados desde el cambio</h2>
-    </div>
+    <h2 id="testimonios-title" class="sr-only">Testimonios</h2>
 
     <div class="testimonials-grid">
       {#each testimonials as testimonial (testimonial.name)}
@@ -112,9 +126,10 @@
           <div class="testimonial-card__divider" aria-hidden="true"></div>
 
           <div class="testimonial-card__content">
-            <p class="testimonial-card__person">
-              <strong>{testimonial.name}:</strong> {testimonial.condition}
-            </p>
+            <div class="testimonial-card__person">
+              <h3>{testimonial.name}</h3>
+              <p>{testimonial.condition}</p>
+            </div>
 
             <div class="testimonial-card__change">
               <span>Antes</span>
@@ -134,11 +149,12 @@
 
 <section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
   <div>
-    <p>Tu proceso tambien puede empezar aqui</p>
-    <h2 id="testimonios-cta-title">Hablemos de tu caso con calma.</h2>
+    <h2 id="testimonios-cta-title">
+      Si <strong>quieres cambiar</strong> tu situación actual, pero <strong>no sabes cómo</strong> hacerlo.
+    </h2>
   </div>
-  <a class="cta-arrow-button" href="/contacto">
-    <span>Quiero que me orientéis</span>
+  <a class="cta-arrow-button" href={WEB_WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">
+    <span>Háblanos de tu caso</span>
     <span class="cta-arrow-swap" aria-hidden="true">
       <svg class="cta-arrow-swap__right" viewBox="0 0 24 24" fill="none">
         <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
@@ -173,18 +189,35 @@
       </button>
 
       <div class="testimonial-modal__video">
-        <img src={activeTestimonial.image} alt="" />
-        <div class="testimonial-modal__video-shade" aria-hidden="true"></div>
-        <span class="testimonial-modal__play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5.5v13l10-6.5-10-6.5Z" />
-          </svg>
-        </span>
+        {#if activeTestimonial.videoUrl}
+          <iframe
+            src={`${activeTestimonial.videoUrl}?autoplay=1&rel=0&modestbranding=1`}
+            title={`Testimonio de ${activeTestimonial.name}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        {:else}
+          <img src={activeTestimonial.image} alt="" />
+          <div class="testimonial-modal__video-shade" aria-hidden="true"></div>
+          <span class="testimonial-modal__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5.5v13l10-6.5-10-6.5Z" />
+            </svg>
+          </span>
+        {/if}
       </div>
 
       <div class="testimonial-modal__caption">
-        <p>{activeTestimonial.name}</p>
-        <span>{activeTestimonial.before} · {activeTestimonial.after}</span>
+        <p>{activeTestimonial.modalTitle ?? activeTestimonial.name}</p>
+        <span>
+          {#if activeTestimonial.summaryLines}
+            {#each activeTestimonial.summaryLines as line, index}
+              {line}{#if index < activeTestimonial.summaryLines.length - 1}<br class="testimonial-modal__summary-break" />{/if}
+            {/each}
+          {:else}
+            {activeTestimonial.summary ?? `${activeTestimonial.before} · ${activeTestimonial.after}`}
+          {/if}
+        </span>
       </div>
     </div>
   </div>
@@ -193,6 +226,20 @@
 <style>
   :global(body:has(.testimonial-modal)) {
     overflow: hidden;
+  }
+
+  :global(body:has(.testimonials-hero)) {
+    background: #f4f8f0;
+  }
+
+  .sr-only {
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 
   .testimonials-hero {
@@ -227,80 +274,113 @@
     z-index: 1;
   }
 
-  .testimonials-hero__breadcrumbs {
-    align-items: center;
+  .testimonials-hero__eyebrow {
     color: rgba(255, 255, 255, 0.72);
-    display: flex;
-    font-size: 0.9rem;
-    gap: 0.55rem;
-    margin-bottom: 4rem;
-  }
-
-  .testimonials-hero__breadcrumbs a {
-    transition: color 180ms ease;
-  }
-
-  .testimonials-hero__breadcrumbs a:hover {
-    color: white;
-  }
-
-  .testimonials-hero__eyebrow,
-  .testimonials-section__heading p,
-  .testimonials-cta p {
-    color: #8cd0d6;
-    font-size: 0.77rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    margin-bottom: 2rem;
     text-transform: uppercase;
   }
 
   .testimonials-hero h1 {
     color: white;
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    font-size: clamp(2.55rem, 6vw, 5.8rem);
+    font-size: clamp(2.7rem, 12vw, 3.45rem);
     font-weight: 500;
     letter-spacing: 0;
     line-height: 0.98;
-    margin-top: 1rem;
+    margin-top: 0;
     max-width: 58rem;
   }
 
+  .testimonials-hero h1 span {
+    color: #8cd0d6;
+    font-family: inherit;
+  }
+
   .testimonials-hero__lead {
-    color: rgba(255, 255, 255, 0.82);
-    font-size: clamp(1rem, 2vw, 1.22rem);
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+    max-width: 47rem;
+  }
+
+  .testimonials-hero__lead p {
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 16px;
     font-weight: 300;
-    line-height: 1.65;
-    margin-top: 1.5rem;
-    max-width: 40rem;
+    line-height: 1.68;
+  }
+
+  .testimonials-hero__lead strong {
+    color: white;
+    font-weight: 700;
+  }
+
+  .testimonials-hero__cta {
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 999px;
+    color: white;
+    display: flex;
+    gap: 0.55rem;
+    isolation: isolate;
+    justify-content: center;
+    margin: 2rem auto 0;
+    min-width: 15.5rem;
+    overflow: hidden;
+    padding: 0.82rem 1.45rem;
+    position: relative;
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      font-weight 180ms ease,
+      transform 180ms ease;
+    width: fit-content;
+  }
+
+  .testimonials-hero__cta::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateX(-180%) skewX(-18deg);
+    transition: transform 420ms ease-out;
+    width: 44%;
+    z-index: 0;
+  }
+
+  .testimonials-hero__cta:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 14px 32px rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  .testimonials-hero__cta:hover::before {
+    transform: translateX(260%) skewX(-18deg);
+  }
+
+  .testimonials-hero__cta > span {
+    position: relative;
+    z-index: 1;
   }
 
   .testimonials-section {
     background:
       linear-gradient(180deg, rgba(140, 208, 214, 0.12), transparent 18rem),
-      var(--color-surface);
-    padding: 5rem 1.25rem 6rem;
+      #f4f8f0;
+    padding: 4.4rem 1.25rem 3.2rem;
   }
 
   .testimonials-section__inner {
     margin: 0 auto;
     max-width: 80rem;
-  }
-
-  .testimonials-section__heading {
-    align-items: end;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-  }
-
-  .testimonials-section__heading h2 {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
-    font-size: clamp(2rem, 3.8vw, 3.45rem);
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 1.08;
-    margin-top: 0.7rem;
-    max-width: 46rem;
   }
 
   .testimonials-grid {
@@ -309,12 +389,12 @@
   }
 
   .testimonial-card {
-    background: color-mix(in srgb, #ffffff 64%, var(--color-surface));
+    background: color-mix(in srgb, #ffffff 64%, #f4f8f0);
     border: 1px solid rgba(140, 208, 214, 0.74);
     border-radius: 8px;
     display: grid;
     gap: 1.15rem;
-    grid-template-columns: minmax(11rem, 0.72fr) 1px minmax(0, 1fr);
+    grid-template-columns: minmax(11rem, 0.72fr) minmax(0, 1fr);
     min-height: 24rem;
     overflow: hidden;
     padding: 1rem;
@@ -391,70 +471,106 @@
   }
 
   .testimonial-card__divider {
-    background: linear-gradient(180deg, transparent, #8cd0d6 16%, #8cd0d6 84%, transparent);
+    display: none;
   }
 
   .testimonial-card__content {
     align-content: center;
-    display: grid;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.08rem;
     padding: 0.4rem 0.25rem 0.4rem 0;
   }
 
   .testimonial-card__person {
-    color: color-mix(in srgb, var(--color-brand) 82%, transparent);
-    font-size: 0.95rem;
-    font-weight: 300;
-    line-height: 1.65;
+    display: grid;
+    gap: 0.52rem;
   }
 
-  .testimonial-card__person strong {
+  .testimonial-card__person h3 {
     color: var(--color-brand);
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .testimonial-card__person p {
+    color: color-mix(in srgb, var(--color-brand) 80%, transparent);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .testimonial-card__person::after {
+    background: linear-gradient(90deg, transparent 0%, rgba(140, 208, 214, 0.72) 18%, #8cd0d6 50%, rgba(140, 208, 214, 0.72) 82%, transparent 100%);
+    clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+    content: '';
+    display: block;
+    height: 4px;
+    justify-self: center;
+    margin: 0.7rem auto 0;
+    max-width: calc(100% - 1.5rem);
+    width: 15.5rem;
   }
 
   .testimonial-card__change {
-    border-left: 2px solid rgba(35, 63, 78, 0.18);
+    border-left: 2px solid #4083a7;
     padding-left: 0.9rem;
   }
 
   .testimonial-card__change span {
-    color: var(--color-brand-soft);
+    color: #4083a7;
     display: block;
-    font-size: 0.74rem;
+    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0;
     margin-bottom: 0.32rem;
-    text-transform: uppercase;
   }
 
   .testimonial-card__change p {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
-    font-size: 1.13rem;
+    color: var(--color-brand);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 1.35;
+    line-height: 1.48;
   }
 
   .testimonial-card__change--after {
-    border-left-color: #8cd0d6;
+    border-left-color: #245b7d;
+    margin-top: 0.65rem;
+  }
+
+  .testimonial-card__change--after span {
+    color: #245b7d;
   }
 
   .testimonials-cta {
     align-items: center;
-    background: #233f4e;
-    color: white;
+    background: #f4f8f0;
+    color: var(--color-brand);
     display: flex;
-    gap: 2rem;
-    justify-content: space-between;
-    padding: 3rem max(1.5rem, calc((100vw - 80rem) / 2));
+    flex-direction: column;
+    gap: 1.35rem;
+    justify-content: center;
+    padding: 2.25rem max(1.5rem, calc((100vw - 80rem) / 2)) 3.5rem;
+    text-align: center;
   }
 
   .testimonials-cta h2 {
-    color: white;
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 400;
+    color: var(--color-brand);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
     letter-spacing: 0;
-    margin-top: 0.45rem;
+    line-height: 1.45;
+    max-width: 50rem;
+  }
+
+  .testimonials-cta h2 strong {
+    font-weight: 700;
   }
 
   .testimonials-cta a {
@@ -464,17 +580,34 @@
     color: var(--color-brand);
     display: inline-flex;
     flex: none;
-    font-weight: 400;
+    font-weight: 500;
     gap: 0.55rem;
-    padding: 0.9rem 1.35rem;
+    justify-content: center;
+    min-width: 14.4rem;
+    padding: 0.92rem 1.55rem;
     transition:
       background-color 180ms ease,
+      box-shadow 180ms ease,
       color 180ms ease,
+      font-weight 180ms ease,
       transform 180ms ease;
   }
 
+  .testimonials-cta .cta-arrow-swap {
+    height: 1.55rem;
+    width: 1.55rem;
+  }
+
+  .testimonials-cta .cta-arrow-swap svg {
+    height: 1.55rem;
+    width: 1.55rem;
+  }
+
   .testimonials-cta a:hover {
-    background: #ffffff;
+    background: #4083a7;
+    box-shadow: 0 14px 28px rgba(64, 131, 167, 0.22);
+    color: white;
+    font-weight: 700;
     transform: translateY(-2px);
   }
 
@@ -484,13 +617,14 @@
     display: flex;
     inset: 0;
     justify-content: center;
-    padding: 1.25rem;
+    overflow-y: auto;
+    padding: 3.25rem 1.25rem 1.5rem;
     position: fixed;
     z-index: 60;
   }
 
   .testimonial-modal__panel {
-    max-width: min(25rem, 92vw);
+    max-width: min(21rem, 90vw, calc((100vh - 8.5rem) * 9 / 16));
     position: relative;
     width: 100%;
   }
@@ -503,9 +637,10 @@
     display: inline-flex;
     height: 2.35rem;
     justify-content: center;
+    left: 0.65rem;
     position: absolute;
-    right: -0.75rem;
-    top: -0.75rem;
+    right: auto;
+    top: 0.65rem;
     width: 2.35rem;
     z-index: 3;
   }
@@ -530,6 +665,14 @@
     width: 100%;
   }
 
+  .testimonial-modal__video iframe {
+    border: 0;
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+  }
+
   .testimonial-modal__video-shade {
     background: linear-gradient(180deg, rgba(8, 18, 24, 0.08), rgba(8, 18, 24, 0.45));
     inset: 0;
@@ -540,19 +683,25 @@
     background: white;
     border-radius: 0 0 10px 10px;
     color: var(--color-brand);
-    padding: 1rem 1.1rem 1.1rem;
+    padding: 0.72rem 0.9rem 0.82rem;
+    text-align: center;
   }
 
   .testimonial-modal__caption p {
+    font-size: 14px;
     font-weight: 700;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.45rem;
   }
 
   .testimonial-modal__caption span {
     color: color-mix(in srgb, var(--color-brand) 72%, transparent);
     display: block;
-    font-size: 0.9rem;
-    line-height: 1.45;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .testimonial-modal__summary-break {
+    display: none;
   }
 
   @media (min-width: 768px) {
@@ -561,19 +710,47 @@
       padding-right: 2.5rem;
     }
 
+    .testimonials-hero h1 {
+      font-size: 70px;
+    }
+
+    .testimonials-hero__lead p {
+      font-size: 16px;
+    }
+
+    .testimonial-modal__close {
+      height: 1.85rem;
+      width: 1.85rem;
+    }
+
+    .testimonial-modal__close svg {
+      height: 0.9rem;
+      width: 0.9rem;
+    }
+
+    .testimonial-modal__summary-break {
+      display: block;
+    }
+
     .testimonials-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .testimonial-card__caption {
+      bottom: 1.1rem;
+      font-size: 15px;
+      left: 50%;
+      line-height: 1.2;
+      max-width: calc(100% - 1.5rem);
+      text-align: center;
+      transform: translateX(-50%);
+      white-space: nowrap;
     }
   }
 
   @media (max-width: 1023px) {
-    .testimonials-section__heading {
-      align-items: start;
-      display: block;
-    }
-
     .testimonial-card {
-      grid-template-columns: minmax(8.5rem, 0.58fr) 1px minmax(0, 1fr);
+      grid-template-columns: minmax(8.5rem, 0.58fr) minmax(0, 1fr);
       min-height: 20rem;
     }
 
@@ -591,12 +768,20 @@
       padding-top: 6.7rem;
     }
 
-    .testimonials-hero__breadcrumbs {
+    .testimonials-hero__eyebrow {
       margin-bottom: 2.8rem;
     }
 
     .testimonials-hero__lead {
       max-width: 20rem;
+    }
+
+    .testimonials-hero__lead p {
+      font-size: 15px;
+    }
+
+    .testimonials-hero__lead br {
+      display: none;
     }
 
     .testimonials-section {
@@ -618,24 +803,36 @@
       min-height: auto;
     }
 
+    .testimonial-card__caption {
+      bottom: 1rem;
+      font-size: 15px;
+      left: 50%;
+      line-height: 1.2;
+      max-width: calc(100% - 1.25rem);
+      text-align: center;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
     .testimonial-card__content {
       padding: 0.15rem 0.2rem 0.4rem;
     }
 
     .testimonials-cta {
-      align-items: start;
+      align-items: center;
       flex-direction: column;
       padding-bottom: 3.5rem;
       padding-top: 3.5rem;
+      text-align: center;
     }
 
     .testimonial-modal__panel {
-      max-width: min(20rem, 86vw);
+      max-width: min(18.5rem, 86vw, calc((100vh - 7.5rem) * 9 / 16));
     }
 
     .testimonial-modal__close {
-      right: 0.65rem;
-      top: 0.65rem;
+      height: 2.15rem;
+      width: 2.15rem;
     }
   }
 </style>
