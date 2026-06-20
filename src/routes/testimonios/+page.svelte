@@ -9,8 +9,21 @@
       condition: 'Glioblastoma estadio IV. Cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
       conditionTitle: 'Glioblastoma estadio IV',
       conditionDetail: 'Ha pasado por cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
+      conditionDetailLines: [
+        'Ha pasado por cirugía, radioterapia,',
+        'quimioterapia y meses de parón',
+        'antes de volver a moverse.'
+      ],
       before: 'De sentirse debilitado tras el tratamiento y ver muy lejos recuperar su rutina deportiva',
+      beforeLines: [
+        'De sentirse debilitado tras el tratamiento y',
+        'ver muy lejos recuperar su rutina deportiva'
+      ],
       after: 'A ganar energía, ánimo y constancia con ejercicio adaptado y seguimiento diario',
+      afterLines: [
+        'A ganar energía, ánimo y constancia con',
+        'ejercicio adaptado y seguimiento diario'
+      ],
       modalTitle: 'Josué · Glioblastoma estadio IV',
       summary: 'De sentirse debilitado tras los tratamientos a recuperar energía, ánimo y constancia.',
       summaryLines: [
@@ -25,22 +38,19 @@
       name: 'Marta',
       condition: 'fatiga, perdida de fuerza y dudas sobre que podia hacer sin empeorar.',
       before: 'De sentir que el cuerpo no respondia y parar por miedo',
-      after: 'A construir una rutina posible y volver a sentirse autonoma',
-      image: '/testimonials/testimonial-marta.jpg'
+      after: 'A construir una rutina posible y volver a sentirse autonoma'
     },
     {
       name: 'Carlos',
       condition: 'molestias persistentes de cadera y falta de confianza para caminar mas.',
       before: 'De cancelar planes por inseguridad y rigidez',
-      after: 'A caminar mas lejos, subir cuestas y disfrutar sin anticipar dolor',
-      image: '/testimonials/testimonial-carlos.jpg'
+      after: 'A caminar mas lejos, subir cuestas y disfrutar sin anticipar dolor'
     },
     {
       name: 'Elena',
       condition: 'dolor cervical, cansancio y tension acumulada al final del dia.',
       before: 'De terminar cada jornada agotada y con miedo a cargar peso',
-      after: 'A recuperar movilidad, fuerza y tranquilidad en su rutina',
-      image: '/testimonials/testimonial-elena.jpg'
+      after: 'A recuperar movilidad, fuerza y tranquilidad en su rutina'
     }
   ];
 
@@ -116,7 +126,15 @@
               <p class="testimonial-card__condition testimonial-card__condition--mobile">
                 {#if testimonial.conditionTitle && testimonial.conditionDetail}
                   <span class="testimonial-card__condition-title">{testimonial.conditionTitle}</span>
-                  <span class="testimonial-card__condition-detail">{testimonial.conditionDetail}</span>
+                  <span class="testimonial-card__condition-detail">
+                    {#if testimonial.conditionDetailLines}
+                      {#each testimonial.conditionDetailLines as line, index}
+                        {line}{#if index < testimonial.conditionDetailLines.length - 1}<br />{/if}
+                      {/each}
+                    {:else}
+                      {testimonial.conditionDetail}
+                    {/if}
+                  </span>
                 {:else}
                   {testimonial.condition}
                 {/if}
@@ -125,29 +143,50 @@
 
             <div class="testimonial-card__change">
               <span>Antes</span>
-              <p>{testimonial.before}</p>
+              <p>
+                {#if testimonial.beforeLines}
+                  {#each testimonial.beforeLines as line, index}
+                    {line}{#if index < testimonial.beforeLines.length - 1}<br class="testimonial-card__mobile-break" />{' '}{/if}
+                  {/each}
+                {:else}
+                  {testimonial.before}
+                {/if}
+              </p>
             </div>
 
             <div class="testimonial-card__change testimonial-card__change--after">
               <span>Ahora</span>
-              <p>{testimonial.after}</p>
+              <p>
+                {#if testimonial.afterLines}
+                  {#each testimonial.afterLines as line, index}
+                    {line}{#if index < testimonial.afterLines.length - 1}<br class="testimonial-card__mobile-break" />{' '}{/if}
+                  {/each}
+                {:else}
+                  {testimonial.after}
+                {/if}
+              </p>
             </div>
           </div>
 
           <button
             class="testimonial-card__media"
             type="button"
-            aria-label={`Ver testimonio de ${testimonial.name}`}
-            on:click={() => openTestimonial(testimonial)}
+            aria-label={testimonial.videoUrl ? `Ver testimonio de ${testimonial.name}` : `Próximo testimonio de ${testimonial.name}`}
+            disabled={!testimonial.videoUrl}
+            on:click={() => testimonial.videoUrl && openTestimonial(testimonial)}
           >
-            <img src={testimonial.image} alt="" loading="lazy" />
-            <span class="testimonial-card__overlay" aria-hidden="true"></span>
+            {#if testimonial.image}
+              <img src={testimonial.image} alt="" loading="lazy" />
+              <span class="testimonial-card__overlay" aria-hidden="true"></span>
+            {/if}
             <span class="testimonial-card__play" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5.5v13l10-6.5-10-6.5Z" />
               </svg>
             </span>
-            <span class="testimonial-card__caption">Conoce la historia de {testimonial.name}</span>
+            {#if testimonial.image}
+              <span class="testimonial-card__caption">Conoce la historia de {testimonial.name}</span>
+            {/if}
           </button>
 
           <div class="testimonial-card__divider" aria-hidden="true"></div>
@@ -376,7 +415,7 @@
     background:
       linear-gradient(180deg, rgba(140, 208, 214, 0.12), transparent 18rem),
       #f4f8f0;
-    padding: 4.4rem 1.25rem 3.2rem;
+    padding: 4.4rem 1.25rem 2.5rem;
   }
 
   .testimonials-section__inner {
@@ -426,6 +465,14 @@
   .testimonial-card__media:hover img,
   .testimonial-card__media:focus-visible img {
     transform: scale(1.045);
+  }
+
+  .testimonial-card__media:disabled {
+    cursor: default;
+  }
+
+  .testimonial-card__mobile-break {
+    display: none;
   }
 
   .testimonial-card__overlay {
@@ -564,7 +611,7 @@
     flex-direction: column;
     gap: 1.35rem;
     justify-content: center;
-    padding: 2.25rem max(1.5rem, calc((100vw - 80rem) / 2)) 3.5rem;
+    padding: 1.5rem max(1.5rem, calc((100vw - 80rem) / 2)) 3.5rem;
     text-align: center;
   }
 
@@ -790,7 +837,7 @@
     }
 
     .testimonials-section {
-      padding: 4rem 1rem 5rem;
+      padding: 4rem 1rem 2rem;
     }
 
     .testimonial-card {
@@ -867,7 +914,7 @@
       color: rgba(35, 63, 78, 0.8);
       display: block;
       font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
       line-height: 1.48;
     }
@@ -889,6 +936,11 @@
 
     .testimonial-card__change p {
       color: rgba(35, 63, 78, 0.8);
+      font-size: 14px;
+    }
+
+    .testimonial-card__mobile-break {
+      display: block;
     }
 
     .testimonial-card__change--after {
@@ -909,7 +961,7 @@
       align-items: center;
       flex-direction: column;
       padding-bottom: 3.5rem;
-      padding-top: 3.5rem;
+      padding-top: 2.25rem;
       text-align: center;
     }
 
