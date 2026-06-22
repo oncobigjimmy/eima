@@ -42,7 +42,7 @@ const esCopy = {
   },
   whatsapp: {
     message:
-      'Hola, he visto vuestro programa Empenta en la web y me gustaría saber si puede encajar con mi situación. ¿Os puedo contar un poco mi caso?'
+      'Hola, he visto vuestro programa Empenta en la web y me gustaría saber si puede encajar con mi situación. Quiero saber más información al respecto.'
   },
   home: {
     meta: {
@@ -271,7 +271,7 @@ const caCopy = {
   },
   whatsapp: {
     message:
-      "Hola, he vist el vostre programa Empenta a la web i m'agradaria saber si pot encaixar amb la meva situació. Us puc explicar una mica el meu cas?"
+      "Hola, he vist el vostre programa Empenta a la web i m'agradaria saber si pot encaixar amb la meva situació. Vull rebre més informació al respecte."
   },
   home: {
     ...esCopy.home,
@@ -501,7 +501,7 @@ const enCopy = {
   },
   whatsapp: {
     message:
-      'Hi, I saw your Empenta Programme on your website and I’m wondering if it might be right for me. Can I tell you a bit about my situation?'
+      'Hi, I saw your Empenta Programme on your website and I’d like to know whether it could be a good fit for my situation. I’d like more information about it.'
   },
   home: {
     ...esCopy.home,
