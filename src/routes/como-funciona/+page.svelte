@@ -129,7 +129,7 @@
 
   <div
     class="absolute inset-0"
-    style="background: linear-gradient(90deg, rgba(20,38,49,0.58) 0%, rgba(20,38,49,0.38) 55%, rgba(20,38,49,0.18) 100%);"
+    style="background: linear-gradient(90deg, rgba(20,38,49,0.66) 0%, rgba(20,38,49,0.46) 55%, rgba(20,38,49,0.26) 100%);"
     aria-hidden="true"
   ></div>
 
