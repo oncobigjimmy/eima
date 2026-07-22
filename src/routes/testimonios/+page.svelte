@@ -3,10 +3,30 @@
   import { fade } from 'svelte/transition';
   import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
 
+  /**
+   * @typedef {{
+   *   name: string;
+   *   condition: string;
+   *   conditionTitle?: string;
+   *   conditionDetail?: string;
+   *   conditionDetailLines?: string[];
+   *   before: string;
+   *   beforeLines?: string[];
+   *   after: string;
+   *   afterLines?: string[];
+   *   modalTitle?: string;
+   *   summary?: string;
+   *   summaryLines?: string[];
+   *   image?: string;
+   *   videoUrl?: string;
+   * }} Testimonial
+   */
+
+  /** @type {Testimonial[]} */
   const testimonials = [
     {
       name: 'Josué',
-      condition: 'Glioblastoma estadio IV. Cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
+      condition: 'Glioblastoma estadio IV. Ha pasado por cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
       conditionTitle: 'Glioblastoma estadio IV',
       conditionDetail: 'Ha pasado por cirugía, radioterapia, quimioterapia y meses de parón antes de volver a moverse.',
       conditionDetailLines: [
@@ -14,31 +34,58 @@
         'quimioterapia y meses de parón',
         'antes de volver a moverse.'
       ],
-      before: 'De sentirse debilitado tras el tratamiento y ver muy lejos recuperar su rutina deportiva',
+      before: 'De sentirse debilitado tras los tratamientos médicos y ver muy lejos poder recuperar su rutina deportiva.',
       beforeLines: [
-        'De sentirse debilitado tras el tratamiento y',
-        'ver muy lejos recuperar su rutina deportiva'
+        'De sentirse debilitado tras los tratamientos',
+        'médicos y ver muy lejos poder recuperar',
+        'su rutina deportiva.'
       ],
-      after: 'A ganar energía, ánimo y constancia con ejercicio adaptado y seguimiento diario',
+      after: 'A ganar energía, ánimo y constancia con el ejercicio adaptado a su situación y con un seguimiento diario.',
       afterLines: [
-        'A ganar energía, ánimo y constancia con',
-        'ejercicio adaptado y seguimiento diario'
+        'A ganar energía, ánimo y constancia',
+        'con el ejercicio adaptado a su situación',
+        'y con un seguimiento diario.'
       ],
       modalTitle: 'Josué · Glioblastoma estadio IV',
-      summary: 'De sentirse debilitado tras los tratamientos a recuperar energía, ánimo y constancia.',
+      summary: 'De sentirse debilitado tras los tratamientos médicos a ganar energía, ánimo y constancia con ejercicio adaptado.',
       summaryLines: [
         'De sentirse debilitado tras los',
-        'tratamientos a recuperar energía,',
-        'ánimo y constancia.'
+        'tratamientos médicos a ganar energía,',
+        'ánimo y constancia con ejercicio adaptado.'
       ],
       image: '/testimonials/testimonial-josue.jpg',
       videoUrl: 'https://www.youtube.com/embed/85AuEva-CUc'
     },
     {
-      name: 'Marta',
-      condition: 'fatiga, perdida de fuerza y dudas sobre que podia hacer sin empeorar.',
-      before: 'De sentir que el cuerpo no respondia y parar por miedo',
-      after: 'A construir una rutina posible y volver a sentirse autonoma'
+      name: 'Tim',
+      condition: 'Cáncer de próstata. Operado de prótesis de cadera derecha en 2025 y de prótesis de cadera izquierda en 2026.',
+      conditionTitle: 'Cáncer de próstata',
+      conditionDetail: 'Operado de prótesis de cadera derecha en 2025 y de prótesis de cadera izquierda en 2026.',
+      conditionDetailLines: [
+        'Operado de prótesis de cadera derecha',
+        'en 2025 y de prótesis de cadera',
+        'izquierda en 2026.'
+      ],
+      before: 'De caminar con andador con poca estabilidad y sentirse muy fatigado a los pocos metros.',
+      beforeLines: [
+        'De caminar con andador con poca estabilidad',
+        'y sentirse muy fatigado a los pocos metros.'
+      ],
+      after: 'A ser capaz de caminar sin ayudas por dentro de su casa y sintiéndose cada vez más fuerte.',
+      afterLines: [
+        'A ser capaz de caminar sin ayudas',
+        'por dentro de su casa y sintiéndose',
+        'cada vez más fuerte.'
+      ],
+      modalTitle: 'Tim · Cáncer de próstata',
+      summary: 'De caminar con andador, poca estabilidad y mucha fatiga a moverse dentro de casa sin ayudas y con más fuerza.',
+      summaryLines: [
+        'De caminar con andador, poca estabilidad',
+        'y mucha fatiga a moverse dentro de casa',
+        'sin ayudas y con más fuerza.'
+      ],
+      image: 'https://img.youtube.com/vi/4k4t-Er_SiU/hqdefault.jpg',
+      videoUrl: 'https://www.youtube.com/embed/4k4t-Er_SiU'
     },
     {
       name: 'Carlos',
@@ -54,8 +101,15 @@
     }
   ];
 
+  /** @type {Testimonial | null} */
   let activeTestimonial = null;
 
+  /** @param {Testimonial} testimonial */
+  function hasPlayableVideo(testimonial) {
+    return Boolean(testimonial.videoUrl);
+  }
+
+  /** @param {Testimonial} testimonial */
   function openTestimonial(testimonial) {
     activeTestimonial = testimonial;
     document.body.style.overflow = 'hidden';
@@ -66,6 +120,7 @@
     document.body.style.overflow = '';
   }
 
+  /** @param {KeyboardEvent} event */
   function handleKeydown(event) {
     if (event.key === 'Escape' && activeTestimonial) closeTestimonial();
   }
@@ -171,9 +226,9 @@
           <button
             class="testimonial-card__media"
             type="button"
-            aria-label={testimonial.videoUrl ? `Ver testimonio de ${testimonial.name}` : `Próximo testimonio de ${testimonial.name}`}
-            disabled={!testimonial.videoUrl}
-            on:click={() => testimonial.videoUrl && openTestimonial(testimonial)}
+            aria-label={hasPlayableVideo(testimonial) ? `Ver testimonio de ${testimonial.name}` : `Próximo testimonio de ${testimonial.name}`}
+            disabled={!hasPlayableVideo(testimonial)}
+            on:click={() => hasPlayableVideo(testimonial) && openTestimonial(testimonial)}
           >
             {#if testimonial.image}
               <img src={testimonial.image} alt="" loading="lazy" />
@@ -716,6 +771,7 @@
   }
 
   .testimonial-modal__video img {
+    display: block;
     height: 100%;
     object-fit: cover;
     width: 100%;
