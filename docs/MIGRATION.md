@@ -1,5 +1,29 @@
 # Migración a EIMA SALUT
 
+## Publicación autorizada — 1 de octubre de 2026
+
+El usuario autorizó expresamente publicar y sustituir la web anterior. Este
+apartado sustituye el estado histórico de preparación que figura debajo.
+
+- Hostinger sirve la nueva web en `https://eimasalut.es`, desde `eima-salut`;
+  `main` se conserva intacta. El commit publicado es `cbcd030`.
+- La compilación requiere las dependencias de desarrollo: hPanel usa
+  `NPM_CONFIG_INCLUDE=dev`, junto a `NODE_ENV=production` y `PORT=3000`.
+- El dominio antiguo está aparcado sobre la nueva aplicación. Las dos reglas
+  de hPanel para HTTP y HTTPS redirigen la portada al nuevo dominio; la prueba
+  pública confirmó que las páginas interiores todavía respondían 200 bajo el
+  dominio antiguo.
+- Se añade una capa sobre el handler generado por adapter-node, antes de las
+  páginas prerenderizadas, para redirigir ambos hosts antiguos y el `www` nuevo
+  a `https://eimasalut.es`, conservando la ruta y la query. No cambia las rutas
+  y alias de la aplicación ni el servidor de inicio generado por el adaptador.
+- Validación local: check sin errores ni avisos, build correcto y 27 pruebas
+  HTTP del handler generado. Falta subir esta corrección y verificarla en
+  Hostinger; la autorización de publicación ya está concedida.
+- El correo nuevo se ha probado en envío y recepción. La confirmación del
+  reenviador del socio, la migración del buzón antiguo y la finalización de la
+  transferencia del dominio son asuntos separados pendientes de confirmar.
+
 | Elemento | Identidad anterior         | Destino             |
 | -------- | -------------------------- | ------------------- |
 | Marca    | EIMA Fisioterapia          | EIMA SALUT          |
