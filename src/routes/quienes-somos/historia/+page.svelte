@@ -1,4 +1,5 @@
 <script>
+  import { site } from '$lib/site';
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
@@ -6,12 +7,19 @@
   import { language } from '$lib/i18n/language';
   import { getStoryCopy } from '$lib/i18n/story';
   import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import { dialog } from '$lib/actions/dialog';
+  import { motionDuration } from '$lib/motion';
 
   let activeId = 'miquel';
+  /** @type {ReturnType<typeof parseReading> | null} */
   let selectedCover = null;
+  /** @type {string | undefined} */
+  let anchorEntryPadding;
 
   $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? $language;
   $: storyCopy = getStoryCopy(pageLanguage);
+  $: journey = { es: { first: 'Conoce', accent: 'nuestro recorrido' }, ca: { first: 'Coneix', accent: 'el nostre recorregut' }, en: { first: 'Discover', accent: 'our journey' } }[pageLanguage];
   $: storyProfiles = storyCopy.profiles;
   $: storyMarks = storyCopy.marks;
   $: meta = storyCopy.meta;
@@ -39,6 +47,7 @@
     selectedCover = null;
   };
 
+  /** @param {KeyboardEvent} event */
   const handleCoverModalKeydown = (event) => {
     if (event.key === 'Escape') closeCoverModal();
   };
@@ -48,17 +57,25 @@
       const profileId = window.location.hash.replace('#', '');
       if (profileId === 'miquel' || profileId === 'jaume') {
         activeId = profileId;
-        requestAnimationFrame(() => {
-          const target = document.getElementById('historias');
-          if (!target) return;
 
-          const top = target.getBoundingClientRect().top + window.scrollY + 86;
-          window.scrollTo({ top, behavior: 'auto' });
-        });
       }
     };
 
     setProfileFromHash();
+    {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        if (!['#jaume', '#miquel'].includes(window.location.hash)) return;
+        const section = document.getElementById('historias');
+        const card = section?.querySelector('.team-photo-frame');
+        const header = document.querySelector('header');
+        if (!section || !card || !header) return;
+        const requiredSpace = header.getBoundingClientRect().bottom + 32;
+        const cardDocumentTop = card.getBoundingClientRect().top + window.scrollY;
+        const offset = Math.max(0, requiredSpace - cardDocumentTop);
+        anchorEntryPadding = `${parseFloat(getComputedStyle(section).paddingTop) + offset}px`;
+      });
+    }
     window.addEventListener('hashchange', setProfileFromHash);
 
     return () => {
@@ -66,8 +83,9 @@
     };
   });
 
+  /** @param {string} text @param {string} profileId */
   const getMarkedSegments = (text, profileId) => {
-    const marks = storyMarks[profileId] ?? [];
+    const marks = storyMarks[/** @type {keyof typeof storyMarks} */ (profileId)] ?? [];
     const segments = [];
     let cursor = 0;
 
@@ -93,6 +111,7 @@
     return segments;
   };
 
+  /** @type {Record<string, string>} */
   const readingCovers = {
     'Explain Pain': '/book-explain-pain.png',
     'Aches & Pains': '/book-aches-pains.png',
@@ -100,6 +119,8 @@
     'Understanding Sciatica': '/book-understanding-sciatica.png',
     'The Biomechanics of Low Back Pain': '/book-biomechanics-back-pain.png',
     'El ayuno contra el cáncer': '/book-ayuno-cancer.png',
+    'Ser mujer': '/book-ser-mujer.png',
+    'Exercise Oncology': '/book-exercise-oncology.jpg',
     'Fasting Against Cancer': '/book-ayuno-cancer.png',
     'Hábitos atómicos': '/book-habitos-atomicos.png',
     'Atomic Habits': '/book-habitos-atomicos.png',
@@ -119,6 +140,7 @@
     'Free Yourself from Toxins: A Guide to Avoiding Endocrine Disruptors': '/book-liberate-toxicos.png'
   };
 
+  /** @param {string} title */
   const displayReadingTitle = (title) => {
     if (title.startsWith('Aches & Pains') || title.toLowerCase().startsWith('aches and pains')) {
       return 'Aches & Pains';
@@ -129,12 +151,17 @@
     }
 
     if (title.startsWith('El ejercicio, un muro contra el cáncer')) {
-      return 'El ejercicio: Un muro contra el cáncer';
+      return 'Un muro contra el cáncer';
     }
+
+    if (title.startsWith('La Enciclopedia del Cáncer')) return 'La Enciclopedia del Cáncer';
+    if (title.startsWith('Libérate de tóxicos')) return 'Libérate de tóxicos';
+    if (title === 'The Biomechanics of Low Back Pain') return 'The Biomechanics of BP';
 
     return title;
   };
 
+  /** @param {string} status */
   const normalizeStatus = (status) => {
     const lower = status.toLowerCase();
     if (status.includes('✔') || lower.includes('acabado') || lower.includes('acabat') || lower.includes('finished')) {
@@ -144,6 +171,7 @@
     return status;
   };
 
+  /** @param {string} reading */
   const parseReading = (reading) => {
     const [rawTitle, detail = ''] = reading.split(' — ');
     const title = displayReadingTitle(rawTitle);
@@ -153,8 +181,9 @@
     let author = rawStatus ? detail.replace(rawStatus, '').trim() : detail.trim();
 
     if (title.startsWith('La Enciclopedia del Cáncer')) {
-      author = 'Alfonso Fernández (Cáncer Integral)';
+      author = 'Alfonso Fernández';
     }
+    if (title === 'Un muro contra el cáncer') author = 'Adrián C., Javier M. y Pedro V.';
 
     const authorParts = author.match(/^(.*?)\s*(\([^)]*\))$/u);
     const authorName = authorParts ? authorParts[1].trim() : author;
@@ -166,10 +195,11 @@
       authorName,
       authorNote,
       status,
-      cover: readingCovers[rawTitle] ?? readingCovers[title]
+      cover: readingCovers[rawTitle] ?? readingCovers[title] ?? (title === 'Un muro contra el cáncer' ? '/book-ejercicio-muro-cancer.png' : undefined)
     };
   };
 
+  /** @param {{id: string, readings: string[]}} profile */
   const getDisplayReadings = (profile) => {
     const seen = new Set();
 
@@ -186,6 +216,7 @@
     });
   };
 
+  /** @param {string} item */
   const parseEducationItem = (item) => {
     const [main, ...rest] = item.split(' — ');
     const detail = rest.join(' — ');
@@ -216,73 +247,21 @@
     content={meta.ogDescription}
   />
   <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
+  <meta property="og:image" content={`${site.url}/og-image.png`} />
   <meta property="og:image:alt" content={meta.imageAlt} />
   <meta name="twitter:title" content={meta.ogTitle} />
   <meta
     name="twitter:description"
     content={meta.ogDescription}
   />
-  <meta name="twitter:image" content="https://eimafisioterapia.es/og-image.png" />
+  <meta name="twitter:image" content={`${site.url}/og-image.png`} />
 </svelte:head>
 
-<section class="story-hero relative overflow-hidden bg-[#13212b] pt-28 pb-10 md:pt-34 md:pb-14">
-  <div class="absolute inset-0">
-    <img
-      src="/historia-hero.jpg"
-      alt=""
-      class="h-full w-full object-cover object-center"
-    />
-    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,18,24,0.62)_0%,rgba(8,18,24,0.42)_42%,rgba(8,18,24,0.18)_100%)]"></div>
-    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,18,24,0.2)_0%,rgba(8,18,24,0.08)_46%,rgba(8,18,24,0.46)_100%)]"></div>
-  </div>
-
-  <div class="relative z-10 mx-auto max-w-7xl px-5 md:px-10">
-    <div class="max-w-2xl text-left">
-      <p class="story-eyebrow text-[0.78rem] font-medium uppercase text-[#8CD0D6]">
-        {hero.eyebrow}
-      </p>
-      <h1 class="story-title mt-5 text-[3rem] font-medium leading-[0.98] tracking-[0] text-white md:text-[60px]">
-        <span class="story-title__line">
-          {hero.titleLineOnePrefix}
-          {#if hero.titleLineOneHighlight}
-            <span>{hero.titleLineOneHighlight}</span>
-          {/if}
-        </span>
-        <span class="story-title__line">
-          {#if hero.titleLineTwoHighlight}
-            <span>{hero.titleLineTwoHighlight}</span>
-          {/if}
-          {#if hero.titleLineTwoSuffix}
-            {hero.titleLineTwoHighlight ? ' ' : ''}{hero.titleLineTwoSuffix}
-          {/if}
-        </span>
-      </h1>
-      <p class="mt-7 max-w-xl text-[16px] font-light leading-[1.85] text-white/88">
-        <span class="block">{hero.introLineOne} <strong>{hero.introStrong}</strong>:</span>
-        <span class="block">{hero.introLineTwo}</span>
-      </p>
-    </div>
-
-    <div class="mt-9 flex justify-center">
-      <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hero-story-cta inline-flex w-fit items-center justify-center rounded-full border border-white/50 px-7 py-3.5 font-light text-white transition-[background-color,transform,font-weight] duration-300 ease-out hover:scale-[1.03] hover:bg-white/10 hover:font-bold"
-      >
-        {hero.cta}
-      </a>
-    </div>
-  </div>
-</section>
-
-<section id="historias" class="story-page bg-[#F8F4F0] pt-16 pb-20 md:pt-20 md:pb-28">
+<section id="historias" style:padding-top={anchorEntryPadding} class={`story-page bg-[#F8F4F0] pb-12 md:pb-16 pt-20 md:pt-24`}>
   <div class="mx-auto max-w-6xl px-5 md:px-10">
+    <h1 class="story-journey-title">{journey.first} <span>{journey.accent}</span></h1>
     <div class="mx-auto w-full max-w-[28rem]">
-      <p class="story-eyebrow mb-5 text-center text-[0.78rem] font-medium uppercase text-[#4083A7]">
-        {labels.meetUs}
-      </p>
+
       <div class="team-photo-frame" aria-label={meta.imageAlt}>
         <button
           type="button"
@@ -333,7 +312,7 @@
     {#if activeProfile}
       {#key activeId}
         <article
-          in:fade={{ duration: 260 }}
+          in:fade={{ duration: motionDuration(260) }}
           class="mt-14 space-y-10 md:mt-16 md:space-y-14"
         >
           <section class="profile-card">
@@ -341,7 +320,7 @@
               <h2 class="story-name story-profile-name text-white">
                 {activeProfile.name}
               </h2>
-              <p class="mx-auto mt-3 max-w-2xl text-[16px] font-light leading-[1.7] text-white/86">
+              <p class="mx-auto mt-3 max-w-2xl text-[20px] font-light leading-[1.7] text-white/86">
                 {activeProfile.specialty}
               </p>
             </header>
@@ -350,8 +329,7 @@
               {#each activeProfile.storySections as section}
                 <section>
                   <h3
-                    class="story-section-heading text-[22px] leading-[1.2] text-[#4083A7]"
-                    style={section.title.includes('respuestas') ? 'font-size: 21.5px;' : ''}
+                    class="story-section-heading text-[25px] leading-[1.2] text-[#4083A7]"
                   >
                     {section.title}
                   </h3>
@@ -378,7 +356,7 @@
 
           <section class="profile-card">
             <header class="profile-card__header profile-card__header--blue">
-              <h3 class="story-side-title text-[28px] text-white">
+              <h3 class="story-side-title text-[30px] text-white">
                 {activeProfile.educationTitle}
               </h3>
             </header>
@@ -413,44 +391,20 @@
             </div>
           </section>
 
-          <section class="profile-card">
+          <section class="profile-card profile-card--readings">
             <header class="profile-card__header profile-card__header--blue">
-              <h3 class="story-side-title text-[28px] text-white">
+              <h3 class="story-side-title text-[30px] text-white">
                 {activeProfile.readingsTitle}
               </h3>
             </header>
 
             <div class="profile-card__body">
-              <div class="readings-grid">
+              <div class:readings-grid--compact={true} class="readings-grid hover-dim-group">
                 {#each getDisplayReadings(activeProfile) as reading}
                   {@const parsedReading = parseReading(reading)}
                   <article
-                    class:reading-card--lift-author={parsedReading.title.startsWith('La Enciclopedia del Cáncer') ||
-                      parsedReading.title.startsWith('The Cancer Encyclopedia') ||
-                      parsedReading.title.startsWith('Libérate de tóxicos') ||
-                      parsedReading.title.startsWith('Free Yourself from Toxins')}
-                    class:reading-card--lift-simple={parsedReading.title === 'Explain Pain' ||
-                      parsedReading.title === 'Aches & Pains' ||
-                      parsedReading.title === 'Medio ambiente y salud' ||
-                      parsedReading.title === 'Environment and Health' ||
-                      parsedReading.title === 'Understanding sciatica' ||
-                      parsedReading.title === 'Understanding Sciatica' ||
-                      parsedReading.title === 'El ayuno contra el cáncer' ||
-                      parsedReading.title === 'Fasting Against Cancer' ||
-                      parsedReading.title === 'Hábitos atómicos' ||
-                      parsedReading.title === 'Atomic Habits' ||
-                      parsedReading.title === 'Neurociencia del cuerpo' ||
-                      parsedReading.title === 'Neuroscience of the Body' ||
-                      parsedReading.title === 'Essential Guide Cervical Spine' ||
-                      parsedReading.title === 'Antifrágil' ||
-                      parsedReading.title === 'Antifràgil' ||
-                      parsedReading.title === 'Antifragile'}
-                    class:reading-card--lift-exercise={parsedReading.title ===
-                      'El ejercicio: Un muro contra el cáncer' ||
-                      parsedReading.title === 'Exercise: A Wall Against Cancer'}
-                    class:reading-card--lift-biomechanics={parsedReading.title ===
-                      'The Biomechanics of Low Back Pain'}
-                    class="reading-card"
+                    class:reading-card--compact={true}
+                    class="reading-card hover-dim-item"
                   >
                     {#if parsedReading.cover}
                       <button
@@ -462,7 +416,7 @@
                         <img
                           class="reading-cover-image"
                           src={parsedReading.cover}
-                          alt={`${labels.coverOf} ${parsedReading.title}`}
+                          alt={`${labels.coverOf} ${parsedReading.title}`} loading="lazy" decoding="async"
                         />
                       </button>
                     {:else}
@@ -479,15 +433,7 @@
                         {/if}
                       </p>
                     {/if}
-                    {#if parsedReading.status}
-                      <span
-                        class:reading-status--done={parsedReading.status === statusLabels.done}
-                        class:reading-status--progress={parsedReading.status === statusLabels.progress}
-                        class="reading-status"
-                      >
-                        {parsedReading.status}
-                      </span>
-                    {/if}
+
                   </article>
                 {/each}
               </div>
@@ -496,14 +442,7 @@
 
           <div class="story-closing">
             <p>{activeProfile.cta}</p>
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="story-cta inline-flex items-center justify-center rounded-full bg-[#8CD0D6] px-6 py-3 text-[15px] font-medium text-[#233F4E] transition-all duration-300 hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
-            >
-              {labels.finalCta}
-            </a>
+            <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={labels.finalCta} />
           </div>
         </article>
       {/key}
@@ -514,13 +453,14 @@
 {#if selectedCover}
   <div
     class="cover-modal"
+    use:dialog={{ close: closeCoverModal }}
     role="dialog"
     aria-modal="true"
     aria-label={`${labels.coverOf} ${selectedCover.title}`}
     tabindex="-1"
     on:keydown={handleCoverModalKeydown}
   >
-    <button class="cover-modal__backdrop" type="button" aria-label={labels.close} on:click={closeCoverModal}></button>
+    <button class="cover-modal__backdrop" type="button" tabindex="-1" aria-label={labels.close} on:click={closeCoverModal}></button>
     <button class="cover-modal__close" type="button" aria-label={labels.close} on:click={closeCoverModal}>
       ×
     </button>
@@ -561,9 +501,25 @@
 
   .story-section-heading,
   .story-side-title {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
-    font-weight: 700;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
   }
+
+  .story-section-heading { font-weight: 500 !important; }
+  @media (min-width: 1024px) { .story-side-title { font-size: 40px; } }
+
+  .story-journey-title {
+    margin: 0 auto 2.5rem;
+    color: #233f4e;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .story-journey-title span { color: #4083a7; font-family: inherit; }
+  @media (min-width: 1024px) { .story-journey-title { font-size: 60px; } }
 
   .profile-card {
     overflow: hidden;
@@ -592,8 +548,10 @@
     padding: 2rem 1.5rem;
   }
 
+  .profile-card--readings, .profile-card--readings .profile-card__body { background: #f8f4f0; }
+
   .story-profile-name {
-    font-size: 30px;
+    font-size: 40px;
     line-height: 1.08;
   }
 
@@ -626,9 +584,12 @@
   }
 
   .education-year {
+    transform-origin: right center;
+    transition: transform 260ms ease-out, opacity 175ms ease-out, filter 175ms ease-out;
     padding-top: 0;
     text-align: right;
-    font-size: 16px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.65;
     letter-spacing: 0.18em;
@@ -643,6 +604,7 @@
   }
 
   .education-item {
+    transition: opacity 175ms ease-out, filter 175ms ease-out;
     position: relative;
     min-height: 1.45rem;
     font-size: 14px;
@@ -650,6 +612,8 @@
     line-height: 1.65;
     color: rgba(35, 63, 78, 0.86);
   }
+
+  .education-item p { transform-origin: left center; transition: transform 260ms ease-out; }
 
   .education-item em {
     font-style: italic;
@@ -667,6 +631,7 @@
   }
 
   .education-dot {
+    transition: transform 260ms ease-out;
     position: absolute;
     left: -19px;
     top: 0.5rem;
@@ -681,20 +646,27 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
+    align-items: start;
   }
 
   .reading-card {
+    --reading-title-height: 56.7px;
+    --reading-author-height: 34.8px;
     display: grid;
-    grid-template-rows: 8.85rem 4rem 1.9rem 1.85rem;
-    align-items: center;
+    grid-template-rows: 8.85rem var(--reading-title-height) var(--reading-author-height);
+    align-items: start;
     justify-items: center;
-    row-gap: 0.28rem;
+    row-gap: 0.65rem;
     border-radius: 8px;
-    border: 1px solid rgba(140, 208, 214, 0.7);
-    background: #f8f4f0;
+    border: 1px solid #4083a7;
+    background: #e8e8f6;
     padding: 1rem;
     text-align: center;
+    transition: opacity 175ms ease-out, filter 175ms ease-out, transform 380ms ease-out, background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out;
   }
+
+  .reading-card--compact { --reading-title-height: 18.9px; --reading-author-height: 17.4px; grid-template-rows: calc(8.85rem + 8px) var(--reading-title-height) var(--reading-author-height); }
+  .reading-card--compact h4, .reading-card--compact p { white-space: nowrap; }
 
   .reading-cover {
     display: flex;
@@ -727,6 +699,7 @@
   }
 
   .reading-cover-image {
+    transition: transform 380ms ease-out;
     display: block;
     width: min(100%, 6.2rem);
     height: 100%;
@@ -745,10 +718,11 @@
   }
 
   .reading-card h4 {
+    transition: color 380ms ease-out, text-shadow 380ms ease-out;
+    height: 100%;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    height: 100%;
     margin: 0;
     font-size: 14px;
     font-weight: 700;
@@ -757,10 +731,9 @@
   }
 
   .reading-card p {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    transition: color 380ms ease-out, text-shadow 380ms ease-out;
     height: 100%;
+    display: block;
     margin: 0;
     font-size: 12px;
     font-weight: 300;
@@ -773,29 +746,50 @@
     margin-left: 0.18rem;
   }
 
-  .reading-card--lift-author .reading-author {
-    transform: translateY(-0.42rem);
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .reading-card:hover {
+      background: #4083a7;
+      border-color: #233f4e;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26;
+    }
+    .reading-card:hover h4 { color: #ffffff; }
+    .reading-card:hover .reading-author { color: #e8e8f6; }
+    .reading-card:hover h4, .reading-card:hover .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
+    .reading-card:hover .reading-cover-image { transform: scale(1.06); }
+    .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: .7; filter: blur(1px); }
+
+    .education-item:hover p { transform: scale(1.06); }
+    .education-item:hover .education-dot { transform: scale(1.55); }
+    .education-year-block:has(.education-item:hover) > .education-year { transform: scale(1.13); }
+    .education-timeline:has(.education-item:hover) .education-item:not(:hover),
+    .education-timeline:has(.education-item:hover) .education-year-block:not(:has(.education-item:hover)) > .education-year { opacity: .5; filter: blur(.7px); }
   }
 
-  .reading-card--lift-simple h4,
-  .reading-card--lift-simple .reading-author {
-    transform: translateY(-1.2rem);
+  @media (hover: none), (pointer: coarse) {
+    .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: 1; filter: none; }
   }
 
-  .reading-card--lift-exercise h4 {
-    transform: translateY(-0.58rem);
+  @media (prefers-reduced-motion: reduce) {
+    .reading-card, .reading-cover-image, .reading-card h4, .reading-card p,
+    .education-item, .education-item p, .education-year, .education-dot { transition: none; }
+    .reading-card:hover, .reading-card:hover .reading-cover-image,
+    .education-item:hover p, .education-item:hover .education-dot,
+    .education-year-block:has(.education-item:hover) > .education-year { transform: none; }
   }
 
-  .reading-card--lift-exercise .reading-author {
-    transform: translateY(-0.36rem);
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .readings-grid--compact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .reading-card:not(.reading-card--compact) { --reading-title-height: 75.6px; }
   }
 
-  .reading-card--lift-biomechanics h4 {
-    transform: translateY(-0.82rem);
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .readings-grid--compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .reading-card:not(.reading-card--compact) { --reading-title-height: 94.5px; --reading-author-height: 52.2px; }
   }
 
-  .reading-card--lift-biomechanics .reading-author {
-    transform: translateY(-0.88rem);
+  @media (max-width: 374px) {
+    .reading-card:not(.reading-card--compact) { --reading-title-height: 75.6px; }
   }
 
   .reading-status {
@@ -891,7 +885,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    gap: 2.35rem;
+    gap: 1.5rem;
     overflow: hidden;
     aspect-ratio: 1.35;
     border-radius: 8px;
@@ -926,6 +920,7 @@
     width: auto;
     object-fit: contain;
     object-position: bottom center;
+    transform-origin: center bottom;
     transition:
       filter 280ms ease,
       opacity 280ms ease,
@@ -944,13 +939,13 @@
 
   .story-person:not(.inactive-person) {
     filter: none;
-    transform: scale(1.02);
+    transform: scale(1.12);
   }
 
   .story-person.inactive-person {
     filter: blur(3px) saturate(0.7);
     opacity: 0.38;
-    transform: scale(0.98);
+    transform: scale(1.08);
   }
 
   .story-tabs {
@@ -968,6 +963,7 @@
   }
 
   .story-tabs button {
+    cursor: pointer;
     min-height: 2.8rem;
     border-radius: 9999px;
     background: #e8e8f6;
@@ -1003,13 +999,16 @@
 
     .team-photo-frame {
       aspect-ratio: 1.35;
-      gap: 1.45rem;
+      gap: 1.1rem;
       padding: 0.28rem 1rem 0;
     }
 
     .story-person {
       height: 122%;
     }
+
+    .story-person:not(.inactive-person) { transform: scale(1.08); }
+    .story-person.inactive-person { transform: scale(1.04); }
 
     .story-person--miquel {
       margin: 0;
@@ -1038,7 +1037,7 @@
     }
 
     .education-year {
-      font-size: 16px;
+      font-size: 18px;
       letter-spacing: 0.14em;
     }
 

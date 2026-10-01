@@ -2,6 +2,7 @@
 
 Estamos migrando EIMA Fisioterapia a **EIMA SALUT**. Leer antes de trabajar:
 
+- [Especificación consolidada del rediseño](docs/REDESIGN-SPEC.md) — fuente de verdad; prevalece sobre decisiones anteriores de diseño, copy y SEO.
 - [Marca](docs/BRAND.md)
 - [Decisiones de la web](docs/WEBSITE.md)
 - [Migración y producción](docs/MIGRATION.md)

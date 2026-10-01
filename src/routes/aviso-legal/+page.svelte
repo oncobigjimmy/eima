@@ -1,19 +1,25 @@
+<script>
+  import { site } from '$lib/site';
+</script>
+
 <svelte:head>
-  <title>Aviso Legal | EIMA Fisioterapia</title>
-  <meta name="description" content="Aviso legal de EIMA Fisioterapia." />
-  <meta name="robots" content="noindex" />
-  <link rel="canonical" href="https://eimafisioterapia.es/aviso-legal" />
+  <title>Aviso Legal | Eima Salut</title>
+  <meta name="description" content="Aviso legal de Eima Salut." />
+  <meta name="robots" content="noindex, follow" />
+  <meta property="og:title" content="Aviso Legal | Eima Salut" />
+  <meta property="og:description" content="Información legal y condiciones generales del sitio web de Eima Salut." />
+  <link rel="canonical" href={`${site.url}/aviso-legal`} />
 </svelte:head>
 
-<article class="max-w-3xl mx-auto px-6 md:px-8 pt-16 pb-16 prose-blog">
+<article lang="es" class="max-w-3xl mx-auto px-6 md:px-8 pt-24 pb-16 prose-blog">
   <h1>Aviso Legal</h1>
   <p class="text-secondary">Última actualización: 17 de abril de 2026</p>
 
   <h2>Titular del sitio</h2>
   <p>
-    Este sitio web es titularidad de EIMA Fisioterapia, con dirección en Mallorca (Islas Baleares,
+    Este sitio web es titularidad de EIMA SALUT, con dirección en Mallorca (Islas Baleares,
     España) y correo electrónico de contacto
-    <a href="mailto:info@eimafisioterapia.es">info@eimafisioterapia.es</a>.
+    <a href={`mailto:${site.email}`}>{site.email}</a>.
   </p>
 
   <h2>Objeto</h2>
@@ -26,7 +32,7 @@
   <h2>Propiedad intelectual</h2>
   <p>
     Los contenidos, el diseño, los textos, las imágenes y el código de este sitio son propiedad de
-    EIMA Fisioterapia, salvo cuando se indique lo contrario.
+    EIMA SALUT, salvo cuando se indique lo contrario.
   </p>
 
   <h2>Legislación aplicable</h2>

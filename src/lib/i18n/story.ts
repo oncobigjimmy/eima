@@ -18,7 +18,7 @@ const esMarks = {
     { text: 'grandes profesionales', mark: 'bold' },
     { text: 'Pablo Mendo, Rafael Torres o Louis Gifford', mark: 'bold' },
     { text: 'trasladar todo este conocimiento a cada persona con la que trabajo', mark: 'bold' },
-    { text: 'nace EIMA.', mark: 'bold' }
+    { text: 'nace Eima Salut.', mark: 'bold' }
   ],
   jaume: [
     { text: '“la mitad de vosotros tendrá cáncer de mayor”', mark: 'bold' },
@@ -26,7 +26,7 @@ const esMarks = {
     { text: 'sufrí episodios de dolor lumbar', mark: 'bold' },
     { text: 'entender el cuerpo, el dolor y el movimiento.', mark: 'bold' },
     { text: 'la independencia', mark: 'bold' },
-    { text: 'dependencia que crea la camilla.', mark: 'bold' },
+    { text: 'un papel más activo de cada persona.', mark: 'bold' },
     { text: 'lo que tú mismo haces por TU cuerpo.', mark: 'bold' },
     { text: 'la calidad de vida no era la misma.', mark: 'bold' },
     { text: 'Thomas Seyfried', mark: 'bold' },
@@ -39,7 +39,7 @@ const esMarks = {
 const caProfiles = [
   {
     id: 'jaume',
-    name: 'Jaume Sansó',
+    name: 'Jaume Sansó Servera',
     specialty: 'Fisioterapeuta especialitzat en exercici i càncer',
     storySections: [
       {
@@ -54,7 +54,7 @@ const caProfiles = [
       {
         title: 'La meva frustració',
         paragraphs: [
-          'I quan vaig començar a treballar a l’hospital vaig veure un problema enorme: la dependència que crea la llitera. Allà vaig entendre una cosa que ho va canviar tot: gran part del canvi no està en el que et fan, sinó en el que tu mateix fas pel TEU cos. Volia traslladar als meus pacients aquella sensació de llibertat i empoderament que jo mateix havia sentit en recuperar-me amb exercici, rompent el paradigma de dependre de les mans del fisio per millorar.',
+          'I quan vaig començar a treballar a l’hospital vaig comprendre que l’atenció a la llitera es podia complementar amb un paper més actiu de cada persona. Allà vaig entendre una cosa que ho va canviar tot: gran part del canvi no està només en el que et fan, sinó també en el que tu mateix fas pel TEU cos. Volia traslladar als meus pacients aquella sensació de llibertat i autonomia que jo mateix havia sentit en recuperar-me amb exercici, ajudant-los a participar en la seva pròpia millora.',
           'Amb els anys, el càncer es va tornar a creuar en el meu camí: pacients que havien passat per un procés oncològic i arrossegaven seqüeles. I allà vaig veure una diferència molt clara entre qui feia exercici i qui no: la qualitat de vida no era la mateixa.'
         ]
       },
@@ -62,8 +62,8 @@ const caProfiles = [
         title: 'El perquè del que faig',
         paragraphs: [
           'El clic definitiu va arribar quan vaig escoltar una entrevista a l’investigador Thomas Seyfried: allà vaig veure amb claredat el paper del metabolisme en la salut. Des de llavors aprenc dia a dia dels millors professionals que treballen amb aquest enfocament, per nodrir-me dels seus coneixements i aplicar-los als meus pacients.',
-          'EIMA neix amb un objectiu clar: filtrar el renou. Condensam la informació dels majors experts i la transformam en accions clares perquè tenguis el teu full de ruta ben definit, sense perdre mesos entre dubtes i consells contradictoris.',
-          'La meva missió és que tota persona que passi per EIMA sigui conscient de tot el que el seu cos pot fer per millorar la seva salut.'
+          'Eima Salut neix amb un objectiu clar: filtrar el renou. Condensam la informació dels majors experts i la transformam en accions clares perquè tenguis el teu full de ruta ben definit, sense perdre mesos entre dubtes i consells contradictoris.',
+          'La meva missió és que tota persona que passi per Eima Salut sigui conscient de tot el que el seu cos pot fer per millorar la seva salut.'
         ]
       }
     ],
@@ -77,39 +77,43 @@ const caProfiles = [
       {
         year: '2021',
         items: [
-          'Curs de Raonament Clínic i Diagnòstic Clínic — Arturo Such — Qeres Formación',
-          'Curs de Mètode Científic i Investigació Sanitària — Fran Gurdiel i Laura Flix — Qeres Formación'
+          'Raonament Clínic i Diagnòstic Clínic — Arturo Such — Qeres Formación',
+          'Mètode Científic i Investigació Sanitària — Fran Gurdiel i Laura Flix — Qeres Formación'
         ]
       },
       {
         year: '2022',
         items: [
-          'Curs d’Exercici Terapèutic — Fran Gurdiel — Qeres Formación',
-          'Curs d’Abordatge de Neuropaties en MMSS i MMII — Arturo Such — Qeres Formación'
+          'Exercici Terapèutic — Fran Gurdiel — Qeres Formación',
+          'Abordatge de Neuropaties en MMSS i MMII — Arturo Such — Qeres Formación'
         ]
       },
       {
         year: '2023',
         items: [
-          'Curs d’Abordatge i Tractament de Tendinopaties en MMSS i MMII — Álvaro Altube — Qeres Formación',
-          'Curs de Reconeixement de Patrons — Arturo Such — Qeres Formación',
-          'Curs d’Exercici, Obesitat i Càncer — 2a edició — Mario Redondo i Javi Butragueño — Obesity Management School'
+          'Abordatge i Tractament de Tendinopaties en MMSS i MMII — Álvaro Altube — Qeres Formación',
+          'Reconeixement de Patrons — Arturo Such — Qeres Formación',
+          'Exercici, Obesitat i Càncer — 2a edició — Mario Redondo i Javi Butragueño — Obesity Management School'
         ]
       },
       {
         year: '2024',
         items: [
-          'Curs d’Abordatge de la Persona amb Dolor de Llarga Evolució — Mar Flores — acreditat per l’Hospital Sant Joan de Déu',
-          'Curs de Dolor i Moviment. Neurobiologia del Dolor — Arturo Goicoechea — acreditat per l’Hospital Sant Joan de Déu',
-          'Curs de Fisioteràpia en el Pacient Oncològic — Luis Montoya — Qeres Formación'
+          'Abordatge de la Persona amb Dolor de Llarga Evolució — Mar Flores — acreditat per l’Hospital Sant Joan de Déu',
+          'Dolor i Moviment. Neurobiologia del Dolor — Arturo Goicoechea — acreditat per l’Hospital Sant Joan de Déu',
+          'Fisioteràpia en el Pacient Oncològic — Luis Montoya — Qeres Formación'
         ]
       },
       {
         year: '2025',
         items: [
-          'Curs de Dolor d’Espatlla. Raonament Clínic i Abordatge Terapèutic — Tito Pampín — acreditat per l’Hospital Sant Joan de Déu',
-          'Curs d’Oncologia Metabòlica — Alfonso Fernández'
+          'Dolor d’Espatlla. Raonament Clínic i Abordatge Terapèutic — Tito Pampín — acreditat per l’Hospital Sant Joan de Déu',
+          'Oncologia Metabòlica — Alfonso Fernández'
         ]
+      },
+      {
+        year: '2026',
+        items: ['Abordatge nutricional del càncer com a malaltia metabòlica — Emuná Nutrición Integrativa']
       }
     ],
     readingsTitle: 'Les meves lectures',
@@ -124,7 +128,7 @@ const caProfiles = [
   },
   {
     id: 'miquel',
-    name: 'Miquel Galmés',
+    name: 'Miquel Galmés Vives',
     specialty: 'Fisioterapeuta especialitzat en exercici i dolor oncològic',
     storySections: [
       {
@@ -160,8 +164,8 @@ const caProfiles = [
         title: 'Com treball avui dia',
         paragraphs: [
           'Avui enfoc la meva feina a traslladar tot aquest coneixement a cada persona amb qui treball, elaborant programes totalment personalitzats i acompanyant-la en el seu procés per recuperar benestar, moviment i confiança en el seu cos.',
-          'I d’aquí neix EIMA.',
-          'De la unió de dos professionals cansats de treballar amb limitacions, amb l’objectiu de millorar la vida dels nostres pacients amb compromís real, implicació total i acompanyant-te passa a passa cap al teu millor estat de salut.'
+          'I d’aquí neix Eima Salut.',
+          'De la unió de dos professionals convençuts que podien acompanyar més de prop, amb l’objectiu de millorar la vida dels nostres pacients amb compromís real, implicació total i acompanyant-te passa a passa cap al teu millor estat de salut.'
         ]
       }
     ],
@@ -175,9 +179,8 @@ const caProfiles = [
       {
         year: '2018',
         items: [
-          'Curs de Punció Seca en la Síndrome de Dolor Miofascial',
-          'Curs d’Actualització en la Llei de Protecció de Dades',
-          'Curs sobre Noves Tecnologies Aplicades a la Rehabilitació'
+          'Punció Seca en la Síndrome de Dolor Miofascial',
+          'Noves Tecnologies Aplicades a la Rehabilitació'
         ]
       },
       {
@@ -186,30 +189,34 @@ const caProfiles = [
       },
       {
         year: '2021',
-        items: ['Curs de Raonament i Diagnòstic Clínic — Arturo Such']
+        items: ['Raonament i Diagnòstic Clínic — Arturo Such']
       },
       {
         year: '2022',
         items: [
-          'Curs d’Abordatge Pràctic del Pacient amb Dolor Crònic — Nivell Bàsic — Rafael Torres',
-          'Curs d’Exercici Terapèutic en Persones Majors'
+          'Abordatge Pràctic del Pacient amb Dolor Crònic — Nivell Bàsic — Rafael Torres',
+          'Exercici Terapèutic en Persones Majors'
         ]
       },
       {
         year: '2023',
         items: [
-          'Curs d’Abordatge Pràctic del Pacient amb Dolor Crònic — Nivell Avançat — Rafael Torres',
-          'Curs d’Abordatge de la Persona amb Dolor de Llarga Evolució — Mar Flores',
-          'Curs d’Abordatge de les Tendinopaties Basat en l’Evidència — Álvaro Altube'
+          'Abordatge Pràctic del Pacient amb Dolor Crònic — Nivell Avançat — Rafael Torres',
+          'Abordatge de la Persona amb Dolor de Llarga Evolució — Mar Flores',
+          'Abordatge de les Tendinopaties Basat en l’Evidència — Álvaro Altube'
         ]
       },
       {
         year: '2024',
-        items: ['Curs de Dolor i Moviment. Neurobiologia del Dolor — Arturo Goicoechea']
+        items: ['Dolor i Moviment. Neurobiologia del Dolor — Arturo Goicoechea']
       },
       {
         year: '2025',
-        items: ['Curs de Dolor d’Espatlla. Raonament Clínic i Abordatge Terapèutic — Tito Pampín']
+        items: ['Dolor d’Espatlla. Raonament Clínic i Abordatge Terapèutic — Tito Pampín']
+      },
+      {
+        year: '2026',
+        items: ['Abordatge nutricional del càncer com a malaltia metabòlica — Emuná Nutrición Integrativa']
       }
     ],
     readingsTitle: 'Les meves lectures',
@@ -245,7 +252,7 @@ const caMarks = {
     { text: 'grans professionals', mark: 'bold' },
     { text: 'Pablo Mendo, Rafael Torres o Louis Gifford', mark: 'bold' },
     { text: 'traslladar tot aquest coneixement a cada persona amb qui treball', mark: 'bold' },
-    { text: 'neix EIMA.', mark: 'bold' }
+    { text: 'neix Eima Salut.', mark: 'bold' }
   ],
   jaume: [
     { text: '“la meitat de vosaltres tendrà càncer de gran”', mark: 'bold' },
@@ -253,7 +260,7 @@ const caMarks = {
     { text: 'vaig patir episodis de dolor lumbar', mark: 'bold' },
     { text: 'entendre el cos, el dolor i el moviment.', mark: 'bold' },
     { text: 'la independència', mark: 'bold' },
-    { text: 'dependència que crea la llitera.', mark: 'bold' },
+    { text: 'un paper més actiu de cada persona.', mark: 'bold' },
     { text: 'el que tu mateix fas pel TEU cos.', mark: 'bold' },
     { text: 'la qualitat de vida no era la mateixa.', mark: 'bold' },
     { text: 'Thomas Seyfried', mark: 'bold' },
@@ -266,7 +273,7 @@ const caMarks = {
 const enProfiles = [
   {
     id: 'jaume',
-    name: 'Jaume Sansó',
+    name: 'Jaume Sansó Servera',
     specialty: 'Physiotherapist specialised in exercise and cancer',
     storySections: [
       {
@@ -281,7 +288,7 @@ const enProfiles = [
       {
         title: 'My frustration',
         paragraphs: [
-          'When I started working in the hospital, I saw a huge problem: the dependency created by the treatment table. That is when I understood something that changed everything: a large part of change does not come from what is done to you, but from what you do yourself for YOUR body. I wanted to give my patients that same sense of freedom and empowerment that I had felt when recovering through exercise, breaking away from the idea of depending on a physiotherapist’s hands in order to improve.',
+          'When I started working in the hospital, I understood that care on the treatment table could be complemented by a more active role for each person. That is when I understood something that changed everything: much of the change comes not only from what is done to you, but also from what you do yourself for YOUR body. I wanted to give my patients that same sense of freedom and autonomy I had felt when recovering through exercise, helping them take part in their own improvement.',
           'Over the years, cancer crossed my path again: patients who had been through an oncological process and were still dealing with its consequences. And there I saw a very clear difference between those who exercised and those who did not: their quality of life was not the same.'
         ]
       },
@@ -289,8 +296,8 @@ const enProfiles = [
         title: 'The reason behind what I do',
         paragraphs: [
           'The definitive turning point came when I listened to an interview with researcher Thomas Seyfried: that is when I clearly saw the role of metabolism in health. Since then, I have been learning day by day from some of the best professionals working with this approach, absorbing their knowledge and applying it with my patients.',
-          'EIMA was born with a clear goal: to filter out the noise. We condense information from leading experts and transform it into clear actions so that you have a well-defined roadmap, without losing months among doubts and contradictory advice.',
-          'My mission is for every person who comes to EIMA to become aware of everything their body can do to improve their health.'
+          'Eima Salut was born with a clear goal: to filter out the noise. We condense information from leading experts and transform it into clear actions so that you have a well-defined roadmap, without losing months among doubts and contradictory advice.',
+          'My mission is for every person who comes to Eima Salut to become aware of everything their body can do to improve their health.'
         ]
       }
     ],
@@ -304,39 +311,43 @@ const enProfiles = [
       {
         year: '2021',
         items: [
-          'Course in Clinical Reasoning and Clinical Diagnosis — Arturo Such — Qeres Formación',
-          'Course in Scientific Method and Health Research — Fran Gurdiel and Laura Flix — Qeres Formación'
+          'Clinical Reasoning and Clinical Diagnosis — Arturo Such — Qeres Formación',
+          'Scientific Method and Health Research — Fran Gurdiel and Laura Flix — Qeres Formación'
         ]
       },
       {
         year: '2022',
         items: [
-          'Course in Therapeutic Exercise — Fran Gurdiel — Qeres Formación',
-          'Course in the Management of Upper and Lower Limb Neuropathies — Arturo Such — Qeres Formación'
+          'Therapeutic Exercise — Fran Gurdiel — Qeres Formación',
+          'Management of Upper and Lower Limb Neuropathies — Arturo Such — Qeres Formación'
         ]
       },
       {
         year: '2023',
         items: [
-          'Course in the Management and Treatment of Upper and Lower Limb Tendinopathies — Álvaro Altube — Qeres Formación',
-          'Course in Pattern Recognition — Arturo Such — Qeres Formación',
-          'Course in Exercise, Obesity and Cancer — 2nd edition — Mario Redondo and Javi Butragueño — Obesity Management School'
+          'Management and Treatment of Upper and Lower Limb Tendinopathies — Álvaro Altube — Qeres Formación',
+          'Pattern Recognition — Arturo Such — Qeres Formación',
+          'Exercise, Obesity and Cancer — 2nd edition — Mario Redondo and Javi Butragueño — Obesity Management School'
         ]
       },
       {
         year: '2024',
         items: [
-          'Course in the Management of People with Long-Term Pain — Mar Flores — accredited by Hospital Sant Joan de Déu',
-          'Course in Pain and Movement. Neurobiology of Pain — Arturo Goicoechea — accredited by Hospital Sant Joan de Déu',
-          'Course in Physiotherapy for the Oncology Patient — Luis Montoya — Qeres Formación'
+          'Management of People with Long-Term Pain — Mar Flores — accredited by Hospital Sant Joan de Déu',
+          'Pain and Movement. Neurobiology of Pain — Arturo Goicoechea — accredited by Hospital Sant Joan de Déu',
+          'Physiotherapy for the Oncology Patient — Luis Montoya — Qeres Formación'
         ]
       },
       {
         year: '2025',
         items: [
-          'Course in Shoulder Pain. Clinical Reasoning and Therapeutic Management — Tito Pampín — accredited by Hospital Sant Joan de Déu',
-          'Course in Metabolic Oncology — Alfonso Fernández'
+          'Shoulder Pain. Clinical Reasoning and Therapeutic Management — Tito Pampín — accredited by Hospital Sant Joan de Déu',
+          'Metabolic Oncology — Alfonso Fernández'
         ]
+      },
+      {
+        year: '2026',
+        items: ['Nutritional management of cancer as a metabolic disease — Emuná Nutrición Integrativa']
       }
     ],
     readingsTitle: 'My reading',
@@ -351,7 +362,7 @@ const enProfiles = [
   },
   {
     id: 'miquel',
-    name: 'Miquel Galmés',
+    name: 'Miquel Galmés Vives',
     specialty: 'Physiotherapist specialised in exercise and cancer-related pain',
     storySections: [
       {
@@ -387,8 +398,8 @@ const enProfiles = [
         title: 'How I work today',
         paragraphs: [
           'Today, I focus my work on bringing all this knowledge to each person I work with, creating fully personalised programmes and supporting them throughout their process of recovering wellbeing, movement and confidence in their body.',
-          'And that is where EIMA comes from.',
-          'From the union of two professionals tired of working with limitations, with the goal of improving our patients’ lives through real commitment, full involvement and step-by-step support towards their best possible state of health.'
+          'And that is where Eima Salut comes from.',
+          'From the union of two professionals convinced that they could provide closer support, with the goal of improving our patients’ lives through real commitment, full involvement and step-by-step support towards their best possible state of health.'
         ]
       }
     ],
@@ -402,9 +413,8 @@ const enProfiles = [
       {
         year: '2018',
         items: [
-          'Course in Dry Needling for Myofascial Pain Syndrome',
-          'Course on Updates in Data Protection Law',
-          'Course on New Technologies Applied to Rehabilitation'
+          'Dry Needling for Myofascial Pain Syndrome',
+          'New Technologies Applied to Rehabilitation'
         ]
       },
       {
@@ -413,30 +423,34 @@ const enProfiles = [
       },
       {
         year: '2021',
-        items: ['Course in Clinical Reasoning and Diagnosis — Arturo Such']
+        items: ['Clinical Reasoning and Diagnosis — Arturo Such']
       },
       {
         year: '2022',
         items: [
-          'Course in Practical Management of Patients with Chronic Pain — Basic Level — Rafael Torres',
-          'Course in Therapeutic Exercise for Older Adults'
+          'Practical Management of Patients with Chronic Pain — Basic Level — Rafael Torres',
+          'Therapeutic Exercise for Older Adults'
         ]
       },
       {
         year: '2023',
         items: [
-          'Course in Practical Management of Patients with Chronic Pain — Advanced Level — Rafael Torres',
-          'Course in the Management of People with Long-Term Pain — Mar Flores',
-          'Evidence-Based Course in Tendinopathy Management — Álvaro Altube'
+          'Practical Management of Patients with Chronic Pain — Advanced Level — Rafael Torres',
+          'Management of People with Long-Term Pain — Mar Flores',
+          'Evidence-Based Tendinopathy Management — Álvaro Altube'
         ]
       },
       {
         year: '2024',
-        items: ['Course in Pain and Movement. Neurobiology of Pain — Arturo Goicoechea']
+        items: ['Pain and Movement. Neurobiology of Pain — Arturo Goicoechea']
       },
       {
         year: '2025',
-        items: ['Course in Shoulder Pain. Clinical Reasoning and Therapeutic Management — Tito Pampín']
+        items: ['Shoulder Pain. Clinical Reasoning and Therapeutic Management — Tito Pampín']
+      },
+      {
+        year: '2026',
+        items: ['Nutritional management of cancer as a metabolic disease — Emuná Nutrición Integrativa']
       }
     ],
     readingsTitle: 'My reading',
@@ -472,7 +486,7 @@ const enMarks = {
     { text: 'great professionals', mark: 'bold' },
     { text: 'Pablo Mendo, Rafael Torres and Louis Gifford', mark: 'bold' },
     { text: 'bringing all this knowledge to each person I work with', mark: 'bold' },
-    { text: 'where EIMA comes from.', mark: 'bold' }
+    { text: 'where Eima Salut comes from.', mark: 'bold' }
   ],
   jaume: [
     { text: '“half of you will have cancer when you are older”', mark: 'bold' },
@@ -480,7 +494,7 @@ const enMarks = {
     { text: 'suffered episodes of low back pain', mark: 'bold' },
     { text: 'understanding the body, pain and movement.', mark: 'bold' },
     { text: 'independence.', mark: 'bold' },
-    { text: 'dependency created by the treatment table.', mark: 'bold' },
+    { text: 'a more active role for each person.', mark: 'bold' },
     { text: 'what you do yourself for YOUR body.', mark: 'bold' },
     { text: 'their quality of life was not the same.', mark: 'bold' },
     { text: 'Thomas Seyfried', mark: 'bold' },
@@ -493,13 +507,13 @@ const enMarks = {
 const storyCopy = {
   es: {
     meta: {
-      title: 'Nuestra historia | Jaume y Miquel, fisioterapeutas EIMA',
+      title: 'Nuestra historia | Eima Salut',
       description:
-        'Descubre la historia de los fisioterapeutas de EIMA y por qué acompañan a personas con cáncer a recuperar energía, confianza y autonomía.',
-      ogTitle: 'Nuestra historia | Jaume y Miquel, fisioterapeutas EIMA',
+        'Descubre la historia de los fisioterapeutas de Eima Salut y por qué acompañan a personas con cáncer a recuperar energía, confianza y autonomía.',
+      ogTitle: 'Nuestra historia | Jaume y Miquel, fisioterapeutas Eima Salut',
       ogDescription:
-        'Conoce el camino de Jaume Sansó y Miquel Galmés, fisioterapeutas fundadores de EIMA, y su forma de acompañar a personas con cáncer.',
-      imageAlt: 'Jaume y Miquel, fisioterapeutas fundadores de EIMA'
+        'Conoce el camino de Jaume Sansó y Miquel Galmés, fisioterapeutas fundadores de Eima Salut, y su forma de acompañar a personas con cáncer.',
+      imageAlt: 'Jaume y Miquel, fisioterapeutas fundadores de Eima Salut'
     },
     hero: {
       eyebrow: 'Nuestra historia',
@@ -531,13 +545,13 @@ const storyCopy = {
   },
   ca: {
     meta: {
-      title: 'La nostra història | Jaume i Miquel, fisioterapeutes EIMA',
+      title: 'La nostra història | Eima Salut',
       description:
-        'Coneix la història dels fisioterapeutes d’EIMA i per què acompanyen persones amb càncer a recuperar energia, confiança i autonomia.',
-      ogTitle: 'La nostra història | Jaume i Miquel, fisioterapeutes EIMA',
+        'Coneix la història dels fisioterapeutes d’Eima Salut i per què acompanyen persones amb càncer a recuperar energia, confiança i autonomia.',
+      ogTitle: 'La nostra història | Jaume i Miquel, fisioterapeutes Eima Salut',
       ogDescription:
-        'Coneix el camí de Jaume Sansó i Miquel Galmés, fisioterapeutes fundadors d’EIMA, i la seva manera d’acompanyar persones amb càncer.',
-      imageAlt: 'Jaume i Miquel, fisioterapeutes fundadors d’EIMA'
+        'Coneix el camí de Jaume Sansó i Miquel Galmés, fisioterapeutes fundadors d’Eima Salut, i la seva manera d’acompanyar persones amb càncer.',
+      imageAlt: 'Jaume i Miquel, fisioterapeutes fundadors d’Eima Salut'
     },
     hero: {
       eyebrow: 'La nostra història',
@@ -569,13 +583,13 @@ const storyCopy = {
   },
   en: {
     meta: {
-      title: 'Our story | Jaume and Miquel, EIMA physiotherapists',
+      title: 'Our story | Eima Salut',
       description:
-        'Discover the story of EIMA’s physiotherapists and why they support people with cancer in recovering energy, confidence and autonomy.',
-      ogTitle: 'Our story | Jaume and Miquel, EIMA physiotherapists',
+        'Discover the story of Eima Salut’s physiotherapists and why they support people with cancer in recovering energy, confidence and autonomy.',
+      ogTitle: 'Our story | Jaume and Miquel, Eima Salut physiotherapists',
       ogDescription:
-        'Discover the path of Jaume Sansó and Miquel Galmés, EIMA’s founding physiotherapists, and their way of supporting people with cancer.',
-      imageAlt: 'Jaume and Miquel, founding physiotherapists of EIMA'
+        'Discover the path of Jaume Sansó and Miquel Galmés, Eima Salut’s founding physiotherapists, and their way of supporting people with cancer.',
+      imageAlt: 'Jaume and Miquel, founding physiotherapists of Eima Salut'
     },
     hero: {
       eyebrow: 'Our story',
@@ -608,5 +622,27 @@ const storyCopy = {
 };
 
 export function getStoryCopy(language: Language) {
-  return storyCopy[language];
+  const copy = storyCopy[language];
+  if (language === 'es') return copy;
+  return {
+    ...copy,
+    profiles: copy.profiles.map(profile => ({
+      ...profile,
+      // Preserve the exact editions and authorised covers of the approved ES library.
+      readings: esProfiles.find(p => p.id === profile.id)!.readings,
+      education: profile.education.map(group => ({
+        ...group,
+        items: group.items.map(item => {
+          if (profile.id !== 'jaume') return item;
+          if (group.year === '2020') return language === 'ca'
+            ? 'Grau en Fisioteràpia (col·legiat 1738) — Universitat de les Illes Balears'
+            : 'Degree in Physiotherapy (registered physiotherapist 1738) — University of the Balearic Islands';
+          // Strip the legacy institution/accreditation suffix, retaining all course and lecturer details.
+          return item.replace(/ — (?:Qeres Formación|Obesity Management School|acreditat per.*|accredited by.*)$/u, '')
+            .replace(' — 2a edició — ', ' (2a edició) — ')
+            .replace(' — 2nd edition — ', ' (2nd edition) — ');
+        })
+      }))
+    }))
+  };
 }

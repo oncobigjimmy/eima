@@ -1,7 +1,20 @@
 <script>
   import { onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
+  import { page } from '$app/stores';
+  import { getWhatsAppHref } from '$lib/i18n/copy';
+  import { getTestimonialsCopy } from '$lib/i18n/testimonials';
+  import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import { site } from '$lib/site';
+  import { dialog } from '$lib/actions/dialog';
+  import { motionDuration } from '$lib/motion';
+
+  $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? 'es';
+  $: copy = getTestimonialsCopy(pageLanguage);
+  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
+  $: alternateLinks = getAlternateLinks('testimonials');
 
   /**
    * @typedef {{
@@ -84,7 +97,7 @@
         'y mucha fatiga a moverse dentro de casa',
         'sin ayudas y con más fuerza.'
       ],
-      image: 'https://img.youtube.com/vi/4k4t-Er_SiU/hqdefault.jpg',
+      image: '/testimonials/testimonial-tim.jpg',
       videoUrl: 'https://www.youtube.com/embed/4k4t-Er_SiU'
     },
     {
@@ -100,6 +113,9 @@
       after: 'A recuperar movilidad, fuerza y tranquilidad en su rutina'
     }
   ];
+  $: visibleTestimonials = pageLanguage === 'es'
+    ? testimonials.filter((testimonial) => testimonial.name === 'Josué' || testimonial.name === 'Tim')
+    : copy.testimonials;
 
   /** @type {Testimonial | null} */
   let activeTestimonial = null;
@@ -112,12 +128,10 @@
   /** @param {Testimonial} testimonial */
   function openTestimonial(testimonial) {
     activeTestimonial = testimonial;
-    document.body.style.overflow = 'hidden';
   }
 
   function closeTestimonial() {
     activeTestimonial = null;
-    document.body.style.overflow = '';
   }
 
   /** @param {KeyboardEvent} event */
@@ -133,48 +147,49 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
-  <title>Testimonios | EIMA Fisioterapia</title>
-  <meta name="robots" content="noindex, nofollow" />
+  <title>{copy.title}</title>
   <meta
     name="description"
-    content="Pagina interna de EIMA Fisioterapia para preparar futuros testimonios en video."
+    content={copy.description}
   />
+  <link rel="canonical" href={canonicalUrl} />
+  {#each alternateLinks as alternate}
+    <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+  {/each}
+  <meta property="og:title" content={copy.title} />
+  <meta property="og:description" content={copy.ogDescription} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={`${site.url}${site.socialImage}`} />
+  <meta property="og:image:alt" content={copy.heading + ' — Eima Salut'} />
+  <meta name="twitter:title" content={copy.title} />
+  <meta name="twitter:description" content={copy.description} />
+  <meta name="twitter:image" content={`${site.url}${site.socialImage}`} />
 </svelte:head>
 
 <section class="testimonials-hero">
   <div class="testimonials-hero__image" aria-hidden="true"></div>
-  <div class="testimonials-hero__shade" aria-hidden="true"></div>
-  <div class="testimonials-hero__content">
-    <h1>Historias <span>reales</span></h1>
+  <div class="testimonials-hero__shade site-hero-overlay" aria-hidden="true"></div>
+  <div class="testimonials-hero__content photo-text-contrast">
+    <h1>{copy.heading} <span>{copy.accent}</span></h1>
     <div class="testimonials-hero__lead">
-      <p>Cada persona llega en <strong>un punto diferente.</strong></p>
-      <p>
-        Algunas están en tratamiento, otras acaban de terminarlo<br />
-        y muchas no <strong>saben cómo volver</strong> a moverse sin miedo.
-      </p>
-      <p>
-        En EIMA trabajamos con <strong>ejercicio</strong> adaptado,<br />
-        mejora de <strong>hábitos</strong> y <strong>seguimiento diario</strong> para ajustar el plan<br />
-        según la fatiga, el tratamiento y la respuesta de <strong>cada persona.</strong>
-      </p>
+      {#each copy.intro as lines}
+        <p>{@html lines[0]}<br class="testimonials-intro-break" />{' '}{@html lines[1]}</p>
+      {/each}
     </div>
 
-    <a class="testimonials-hero__cta" href="/como-funciona#program-steps">
-      <span>Conoce cómo trabajamos</span>
-    </a>
   </div>
 </section>
 
 <section class="testimonials-section" aria-labelledby="testimonios-title">
   <div class="testimonials-section__inner">
-    <h2 id="testimonios-title" class="sr-only">Testimonios</h2>
+    <h2 id="testimonios-title" class="sr-only">{copy.section}</h2>
 
     <div class="testimonials-grid">
-      {#each testimonials as testimonial (testimonial.name)}
+      {#each visibleTestimonials as testimonial (testimonial.name)}
         <article class="testimonial-card">
           <div class="testimonial-card__content">
             <div class="testimonial-card__person">
-              <h3>{testimonial.name}</h3>
+              <h3 class="section-playfair-desktop">{testimonial.name}</h3>
               <p class="testimonial-card__condition testimonial-card__condition--desktop">
                 {testimonial.condition}
               </p>
@@ -197,7 +212,7 @@
             </div>
 
             <div class="testimonial-card__change">
-              <span>Antes</span>
+              <span>{copy.before}</span>
               <p>
                 {#if testimonial.beforeLines}
                   {#each testimonial.beforeLines as line, index}
@@ -210,7 +225,7 @@
             </div>
 
             <div class="testimonial-card__change testimonial-card__change--after">
-              <span>Ahora</span>
+              <span>{copy.after}</span>
               <p>
                 {#if testimonial.afterLines}
                   {#each testimonial.afterLines as line, index}
@@ -226,7 +241,7 @@
           <button
             class="testimonial-card__media"
             type="button"
-            aria-label={hasPlayableVideo(testimonial) ? `Ver testimonio de ${testimonial.name}` : `Próximo testimonio de ${testimonial.name}`}
+            aria-label={`${hasPlayableVideo(testimonial) ? copy.view : copy.upcoming} ${testimonial.name}`}
             disabled={!hasPlayableVideo(testimonial)}
             on:click={() => hasPlayableVideo(testimonial) && openTestimonial(testimonial)}
           >
@@ -240,7 +255,7 @@
               </svg>
             </span>
             {#if testimonial.image}
-              <span class="testimonial-card__caption">Conoce la historia de {testimonial.name}</span>
+              <span class="testimonial-card__caption">{copy.captionBefore}{testimonial.name}{copy.captionAfter}</span>
             {/if}
           </button>
 
@@ -254,20 +269,10 @@
 <section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
   <div>
     <h2 id="testimonios-cta-title">
-      Si <strong>quieres cambiar</strong> tu situación actual, pero <strong>no sabes cómo</strong> hacerlo.
+      {@html copy.ctaHeading}
     </h2>
   </div>
-  <a class="cta-arrow-button" href={WEB_WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">
-    <span>Háblanos de tu caso</span>
-    <span class="cta-arrow-swap" aria-hidden="true">
-      <svg class="cta-arrow-swap__right" viewBox="0 0 24 24" fill="none">
-        <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <svg class="cta-arrow-swap__up" viewBox="0 0 24 24" fill="none">
-        <path d="M7 17 17 7m0 0H9m8 0v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </span>
-  </a>
+  <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} />
 </section>
 
 {#if activeTestimonial}
@@ -275,18 +280,19 @@
     class="testimonial-modal"
     role="presentation"
     on:click={closeTestimonial}
-    transition:fade={{ duration: 140 }}
+    transition:fade={{ duration: motionDuration(140) }}
   >
     <div
       class="testimonial-modal__panel"
+      use:dialog={{ close: closeTestimonial }}
       role="dialog"
       aria-modal="true"
-      aria-label={`Testimonio de ${activeTestimonial.name}`}
+      aria-label={`${copy.dialog} ${activeTestimonial.name}`}
       tabindex="-1"
       on:click|stopPropagation
       on:keydown|stopPropagation
     >
-      <button class="testimonial-modal__close" type="button" aria-label="Cerrar video" on:click={closeTestimonial}>
+      <button class="testimonial-modal__close" type="button" aria-label={copy.close} on:click={closeTestimonial}>
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
         </svg>
@@ -296,7 +302,7 @@
         {#if activeTestimonial.videoUrl}
           <iframe
             src={`${activeTestimonial.videoUrl}?autoplay=1&rel=0&modestbranding=1`}
-            title={`Testimonio de ${activeTestimonial.name}`}
+            title={`${copy.dialog} ${activeTestimonial.name}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
@@ -347,7 +353,7 @@
   }
 
   .testimonials-hero {
-    min-height: 76vh;
+    min-height: 0;
     overflow: hidden;
     position: relative;
   }
@@ -362,9 +368,6 @@
   }
 
   .testimonials-hero__shade {
-    background:
-      linear-gradient(90deg, rgba(8, 18, 24, 0.82) 0%, rgba(8, 18, 24, 0.66) 44%, rgba(8, 18, 24, 0.32) 100%),
-      linear-gradient(180deg, rgba(8, 18, 24, 0.22) 0%, rgba(8, 18, 24, 0.58) 100%);
     inset: 0;
     position: absolute;
   }
@@ -373,9 +376,15 @@
     color: white;
     margin: 0 auto;
     max-width: 80rem;
-    padding: 7.5rem 1.5rem 5.5rem;
+    padding: 7.5rem 1.5rem 4.4rem;
     position: relative;
     z-index: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials-hero__content {
+      padding-top: 110px;
+    }
   }
 
   .testimonials-hero h1 {
@@ -398,72 +407,21 @@
     display: grid;
     gap: 0.9rem;
     margin-top: 1.4rem;
-    max-width: 47rem;
+    max-width: 58rem;
   }
 
   .testimonials-hero__lead p {
-    color: rgba(255, 255, 255, 0.84);
+    color: rgba(255, 255, 255, 0.96);
     font-size: 16px;
     font-weight: 300;
     line-height: 1.68;
   }
 
-  .testimonials-hero__lead strong {
+  @media (max-width: 1023px) { .testimonials-intro-break { display: none; } }
+
+  .testimonials-hero__lead :global(strong) {
     color: white;
     font-weight: 700;
-  }
-
-  .testimonials-hero__cta {
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.72);
-    border-radius: 999px;
-    color: white;
-    display: flex;
-    gap: 0.55rem;
-    isolation: isolate;
-    justify-content: center;
-    margin: 2rem auto 0;
-    min-width: 15.5rem;
-    overflow: hidden;
-    padding: 0.82rem 1.45rem;
-    position: relative;
-    transition:
-      background-color 180ms ease,
-      border-color 180ms ease,
-      box-shadow 180ms ease,
-      font-weight 180ms ease,
-      transform 180ms ease;
-    width: fit-content;
-  }
-
-  .testimonials-hero__cta::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-180%) skewX(-18deg);
-    transition: transform 420ms ease-out;
-    width: 44%;
-    z-index: 0;
-  }
-
-  .testimonials-hero__cta:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 14px 32px rgba(255, 255, 255, 0.1);
-    font-weight: 700;
-    transform: translateY(-2px) scale(1.03);
-  }
-
-  .testimonials-hero__cta:hover::before {
-    transform: translateX(260%) skewX(-18deg);
-  }
-
-  .testimonials-hero__cta > span {
-    position: relative;
-    z-index: 1;
   }
 
   .testimonials-section {
@@ -564,9 +522,9 @@
 
   .testimonial-card__caption {
     bottom: 1rem;
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
     font-size: 1.12rem;
-    font-weight: 400;
     left: 1rem;
     line-height: 1.2;
     max-width: 9rem;
@@ -591,6 +549,7 @@
 
   .testimonial-card__person {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.52rem;
   }
 
@@ -634,9 +593,9 @@
   .testimonial-card__change span {
     color: #4083a7;
     display: block;
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
     font-size: 20px;
-    font-weight: 700;
     letter-spacing: 0;
     margin-bottom: 0.32rem;
   }
@@ -680,46 +639,8 @@
     max-width: 50rem;
   }
 
-  .testimonials-cta h2 strong {
+  .testimonials-cta h2 :global(strong) {
     font-weight: 700;
-  }
-
-  .testimonials-cta a {
-    align-items: center;
-    background: #8cd0d6;
-    border-radius: 999px;
-    color: var(--color-brand);
-    display: inline-flex;
-    flex: none;
-    font-weight: 500;
-    gap: 0.55rem;
-    justify-content: center;
-    min-width: 14.4rem;
-    padding: 0.92rem 1.55rem;
-    transition:
-      background-color 180ms ease,
-      box-shadow 180ms ease,
-      color 180ms ease,
-      font-weight 180ms ease,
-      transform 180ms ease;
-  }
-
-  .testimonials-cta .cta-arrow-swap {
-    height: 1.55rem;
-    width: 1.55rem;
-  }
-
-  .testimonials-cta .cta-arrow-swap svg {
-    height: 1.55rem;
-    width: 1.55rem;
-  }
-
-  .testimonials-cta a:hover {
-    background: #4083a7;
-    box-shadow: 0 14px 28px rgba(64, 131, 167, 0.22);
-    color: white;
-    font-weight: 700;
-    transform: translateY(-2px);
   }
 
   .testimonial-modal {
@@ -823,7 +744,7 @@
     }
 
     .testimonials-hero h1 {
-      font-size: 70px;
+      font-size: 60px;
     }
 
     .testimonials-hero__lead p {
@@ -869,15 +790,20 @@
     .testimonial-card__media {
       min-height: 18rem;
     }
+
+    .testimonial-card__caption {
+      white-space: normal;
+    }
   }
 
   @media (max-width: 680px) {
     .testimonials-hero {
-      min-height: 72vh;
+      min-height: 0;
     }
 
     .testimonials-hero__content {
       padding-top: 6.7rem;
+      padding-bottom: 4rem;
     }
 
     .testimonials-hero__lead {
@@ -959,9 +885,9 @@
     .testimonial-card__condition-title {
       color: #4083a7;
       display: block;
-      font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+      font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
       font-size: 20px;
-      font-weight: 700;
       line-height: 1.25;
       margin-bottom: 0.35rem;
     }

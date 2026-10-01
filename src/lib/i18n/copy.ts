@@ -1,3 +1,6 @@
+import { homeEsReview, homeWhatsAppMessage } from '$lib/data/home-es';
+import { translatedHomeReview } from './home-reviewed';
+import { site } from '$lib/site';
 export const DEFAULT_LANGUAGE = 'es';
 
 export const LANGUAGES = [
@@ -46,13 +49,13 @@ const esCopy = {
   },
   home: {
     meta: {
-      title: 'EIMA | Fisioterapia a domicilio para personas con cáncer',
+      title: 'EIMA SALUT | Fisioterapia a domicilio para personas con cáncer',
       description:
         'Fisioterapia a domicilio en Mallorca para personas con cáncer. Si estás en tratamiento o ya lo has pasado: recupera fuerza y energía con ejercicio en casa.',
       ogTitle: 'Fisioterapeutas especializados en cáncer y dolor oncológico',
       ogDescription:
         'Fisioterapia y ejercicio a domicilio en Mallorca. Te guiamos durante y después del cáncer con un plan seguro, progresivo y personalizado para recuperar fuerza y energía, incluso con dolor oncológico.',
-      imageAlt: 'EIMA Fisioterapia — Fisioterapia a domicilio en Mallorca'
+      imageAlt: 'EIMA SALUT — Fisioterapia a domicilio en Mallorca'
     },
     hero: {
       eyebrow: 'Ejercicio y fisioterapia a domicilio en Mallorca para personas con cáncer.',
@@ -276,13 +279,13 @@ const caCopy = {
   home: {
     ...esCopy.home,
     meta: {
-      title: 'EIMA | Exercici i fisioteràpia a domicili per a persones amb càncer',
+      title: 'EIMA SALUT | Exercici i fisioteràpia a domicili per a persones amb càncer',
       description:
         'Exercici i fisioteràpia a domicili a Mallorca per a persones amb càncer. Comença o reprèn l’exercici de manera segura amb un acompanyament adaptat.',
       ogTitle: 'Exercici i fisioteràpia a domicili per a persones amb càncer',
       ogDescription:
         'T’acompanyam durant i després del càncer amb un pla segur, progressiu i personalitzat per recuperar força i energia des de casa.',
-      imageAlt: 'EIMA Fisioteràpia — Fisioteràpia a domicili a Mallorca'
+      imageAlt: 'EIMA SALUT — Fisioteràpia a domicili a Mallorca'
     },
     hero: {
       eyebrow: 'Exercici i fisioteràpia a domicili a Mallorca per a persones amb càncer.',
@@ -506,13 +509,13 @@ const enCopy = {
   home: {
     ...esCopy.home,
     meta: {
-      title: 'EIMA | Home physiotherapy for people with cancer',
+      title: 'EIMA SALUT | Home physiotherapy for people with cancer',
       description:
         'Home-based oncology physiotherapy and exercise support in Mallorca. Start or return to exercise safely through a 12-week programme built around you.',
       ogTitle: 'Home-based oncology physiotherapy and exercise support in Mallorca',
       ogDescription:
         'We support you during and after cancer with a safe, progressive and personalised plan to recover strength and energy from home.',
-      imageAlt: 'EIMA Physiotherapy — Home physiotherapy in Mallorca'
+      imageAlt: 'EIMA SALUT — Home physiotherapy in Mallorca'
     },
     hero: {
       eyebrow: 'Home-based oncology physiotherapy and exercise support in Mallorca.',
@@ -705,10 +708,20 @@ const enCopy = {
   }
 };
 
+const reviewedEsCopy = {
+  ...esCopy,
+  home: {
+    ...esCopy.home,
+    meta: homeEsReview.meta,
+    hero: { ...esCopy.home.hero, ...homeEsReview.hero },
+    valueProps: { ...esCopy.home.valueProps, ...homeEsReview.valueProps }
+  }
+};
+
 const copyByLanguage = {
-  es: esCopy,
-  ca: caCopy,
-  en: enCopy
+  es: reviewedEsCopy,
+  ca: { ...caCopy, home: { ...caCopy.home, ...translatedHomeReview.ca, valueProps: { ...caCopy.home.valueProps, ...translatedHomeReview.ca.valueProps } } },
+  en: { ...enCopy, home: { ...enCopy.home, ...translatedHomeReview.en, valueProps: { ...enCopy.home.valueProps, ...translatedHomeReview.en.valueProps } } }
 };
 
 export function getCopy(language: Language) {
@@ -719,7 +732,7 @@ export function getHtmlLang(language: Language) {
   return language === 'ca' ? 'ca' : language === 'en' ? 'en' : 'es';
 }
 
-export function getWhatsAppHref(language: Language) {
-  const message = getCopy(language).whatsapp.message;
-  return `https://wa.me/34604529731?text=${encodeURIComponent(message)}`;
+export function getWhatsAppHref(language: Language, home = false) {
+  const message = home && language === 'es' ? homeWhatsAppMessage : getCopy(language).whatsapp.message;
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }

@@ -123,7 +123,7 @@
             </div>
           </div>
 
-          <h3 class="recovery-goal-heading font-noto-serif leading-none text-[color:var(--color-brand)]">
+          <h3 class="recovery-goal-heading font-fraunces leading-none text-[color:var(--color-brand)]">
             {goal.title}
             <span class="sr-only"> {goal.subtitle}</span>
           </h3>
@@ -181,7 +181,8 @@
 
   .recovery-goals-title,
   .recovery-goals-title * {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-weight: 400 !important;
   }
 
   .recovery-heading,

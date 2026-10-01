@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
 
   let revealReady = false;
 
@@ -88,7 +89,7 @@
             </div>
 
             <h3
-              class="audience-quote font-noto-serif mx-auto mt-3 min-h-[4.9rem] max-w-[17.4rem] text-[1.45rem] leading-[1.05] text-[color:var(--color-brand)] md:min-h-[5.1rem] md:max-w-[17.6rem] md:text-[1.54rem]"
+              class="audience-quote font-fraunces mx-auto mt-3 min-h-[4.9rem] max-w-[17.4rem] text-[1.45rem] leading-[1.05] text-[color:var(--color-brand)] md:min-h-[5.1rem] md:max-w-[17.6rem] md:text-[1.54rem]"
             >
               {#if item.quoteLines}
                 {#each item.quoteLines as line}
@@ -109,26 +110,7 @@
               {/each}
             </p>
 
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              class="audience-button cta-arrow-button mt-5 inline-flex items-center justify-center gap-2.5 self-center rounded-full bg-[color:var(--color-brand-accent)] px-5 py-2.5 text-[13px] font-medium text-[color:var(--color-brand)] shadow-[0_6px_14px_rgba(14,29,38,0.12)] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out md:mt-4 md:px-[1.4rem] md:py-[0.8rem]"
-            >
-              <span class="audience-button-label">{audienceCopy.button}</span>
-              <span class="cta-arrow-swap" aria-hidden="true">
-                <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor">
-                  <path
-                    d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-                  ></path>
-                </svg>
-                <svg class="cta-arrow-swap__up" viewBox="0 0 256 256" fill="currentColor">
-                  <path
-                    d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"
-                  ></path>
-                </svg>
-              </span>
-            </a>
+            <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={audienceCopy.button} class="mt-5 self-center" />
           </article>
         </div>
       {/each}
@@ -178,7 +160,8 @@
 
   .audience-quote,
   .audience-quote * {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-weight: 400 !important;
   }
 
   .audience-reveal {
@@ -232,58 +215,10 @@
     }
   }
 
-  .audience-button {
-    overflow: hidden;
-    position: relative;
-  }
-
-  .audience-button::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-180%) skewX(-18deg);
-    transition: transform 420ms ease-out;
-    width: 44%;
-  }
-
-  .audience-button-label {
-    position: relative;
-    z-index: 1;
-  }
-
-  .audience-card:hover .audience-button,
-  .audience-button:hover {
-    background: #4083a7;
-    box-shadow: 0 9px 18px rgba(14, 29, 38, 0.16);
-    color: #ffffff;
-    font-weight: 700;
-    transform: translateY(-1px);
-  }
-
-  .audience-card:hover .audience-button::before,
-  .audience-button:hover::before {
-    transform: translateX(260%) skewX(-18deg);
-  }
-
-  .audience-card:hover .audience-button :global(.cta-arrow-swap__right) {
-    opacity: 0;
-    transform: translate3d(0.12rem, -0.12rem, 0) scale(0.88);
-  }
-
-  .audience-card:hover .audience-button :global(.cta-arrow-swap__up) {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .audience-reveal,
     .audience-fade,
-    .audience-card,
-    .audience-button,
-    .audience-button::before {
+    .audience-card {
       transition: none;
     }
   }

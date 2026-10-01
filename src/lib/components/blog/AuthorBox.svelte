@@ -1,7 +1,11 @@
 <script>
+  import { getBlogCopy } from '$lib/i18n/blog';
+  import { getRoutePath } from '$lib/i18n/routes';
+  /** @type {import('$lib/i18n/copy').Language} */
+  export let language = 'es';
   export let author;
 
-  $: authorHref = author?.id ? `/quienes-somos/historia#${author.id}` : author?.url;
+  $: authorHref = author?.id ? `${getRoutePath('story', language)}#${author.id}` : author?.url;
 </script>
 
 <a
@@ -15,14 +19,14 @@
       <img
         src={author.avatar}
         alt={author.name}
-        class="h-full w-full object-cover object-top"
+        class="h-full w-full object-cover object-top" loading="lazy" decoding="async"
       />
     {:else}
       <span class="material-symbols-rounded !text-3xl">account_circle</span>
     {/if}
   </div>
   <div class="flex-1">
-    <p class="text-sm font-light opacity-70">Escrito por</p>
+    <p class="text-sm font-light opacity-70">{getBlogCopy(language).written}</p>
     <p class="text-lg font-medium">{author.name}</p>
     <p class="text-sm text-[color:var(--color-brand-soft)] mb-2 font-light">{author.role}</p>
     <p class="text-sm font-light opacity-85">{author.bio}</p>

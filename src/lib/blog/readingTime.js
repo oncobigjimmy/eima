@@ -1,3 +1,4 @@
+/** @param {unknown} text */
 export function readingTime(text) {
   const words = String(text ?? '')
     .trim()

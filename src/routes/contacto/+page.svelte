@@ -1,11 +1,10 @@
 <script>
+  import { site } from '$lib/site';
   import { page } from '$app/stores';
-  import ContactFormSection from '$lib/components/sections/ContactFormSection.svelte';
+  import ContactSection from '$lib/components/sections/ContactSection.svelte';
   import { getContactCopy } from '$lib/i18n/contact';
   import { language } from '$lib/i18n/language';
   import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
-
-  export let form;
 
   $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? $language;
   $: meta = getContactCopy(pageLanguage).meta;
@@ -29,14 +28,14 @@
     content={meta.ogDescription}
   />
   <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
+  <meta property="og:image" content={`${site.url}/og-image.png`} />
   <meta property="og:image:alt" content={meta.imageAlt} />
   <meta name="twitter:title" content={meta.ogTitle} />
   <meta
     name="twitter:description"
     content={meta.ogDescription}
   />
-  <meta name="twitter:image" content="https://eimafisioterapia.es/og-image.png" />
+  <meta name="twitter:image" content={`${site.url}/og-image.png`} />
 </svelte:head>
 
-<ContactFormSection {form} />
+<ContactSection />

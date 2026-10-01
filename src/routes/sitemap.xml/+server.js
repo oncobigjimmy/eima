@@ -1,25 +1,29 @@
-import { posts } from '$lib/blog/posts.js';
+import { site } from '$lib/site';
+import { posts, allPosts, getPostAlternates } from '$lib/blog/posts.js';
 import { getAbsoluteUrl, getAlternateLinks, localizedRoutes } from '$lib/i18n/routes';
 
 export const prerender = true;
 
-const SITE = 'https://eimafisioterapia.es';
+const SITE = site.url;
 
+/** @type {{key: import('$lib/i18n/routes').LocalizedRouteKey, changefreq: string, priority: string}[]} */
 const staticRoutes = [
-  { key: 'home', lastmod: '2026-06-05', changefreq: 'weekly', priority: '1.0' },
-  { key: 'program', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.9' },
-  { key: 'about', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.8' },
-  { key: 'story', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.7' },
-  { key: 'contact', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.9' }
+  { key: 'home', changefreq: 'weekly', priority: '1.0' },
+  { key: 'program', changefreq: 'monthly', priority: '0.9' },
+  { key: 'about', changefreq: 'monthly', priority: '0.8' },
+  { key: 'story', changefreq: 'monthly', priority: '0.7' },
+  { key: 'contact', changefreq: 'monthly', priority: '0.9' },
+  { key: 'testimonials', changefreq: 'monthly', priority: '0.6' }
 ];
 
+/** @param {string | null | undefined} d */
 function toISODate(d) {
   if (!d) return new Date().toISOString().slice(0, 10);
   return new Date(d).toISOString().slice(0, 10);
 }
 
 export function GET() {
-  const latestPost = posts[0]?.updated ?? posts[0]?.date;
+  const latestPost = posts.map(post => post.updated ?? post.date).filter(Boolean).sort().at(-1);
   const blogIndexLastmod = latestPost ? toISODate(latestPost) : '2026-04-17';
 
   const localizedUrls = staticRoutes.flatMap((route) =>
@@ -34,7 +38,6 @@ export function GET() {
       return `  <url>
     <loc>${getAbsoluteUrl(path)}</loc>
 ${alternates}
-    <lastmod>${route.lastmod}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
     <priority>${route.priority}</priority>
   </url>`;
@@ -43,15 +46,17 @@ ${alternates}
 
   const urls = [
     ...localizedUrls,
-    `  <url>
-    <loc>${SITE}/blog</loc>
+    ...Object.values(localizedRoutes.blog).map((path) => `  <url>
+    <loc>${SITE}${path}</loc>
+${getAlternateLinks('blog').map((alternate) => `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${alternate.href}" />`).join('\n')}
     <lastmod>${blogIndexLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`,
-    ...posts.map(
+  </url>`),
+    ...allPosts.map(
       (p) => `  <url>
-    <loc>${SITE}/blog/${p.slug}</loc>
+    <loc>${SITE}${p.path}</loc>
+${getPostAlternates(p.slug).map((alternate) => `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${alternate.href}" />`).join('\n')}
     <lastmod>${toISODate(p.updated ?? p.date)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

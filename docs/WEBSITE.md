@@ -1,5 +1,7 @@
 # Decisiones de la web
 
+La [especificación consolidada](REDESIGN-SPEC.md) prevalece sobre este registro histórico. El [estado del bloque 0](BLOCK-0.md) distingue lo implementado de lo pendiente.
+
 Este documento registra decisiones y asuntos pendientes. No describe necesariamente el estado implementado ni autoriza cambios fuera de la tarea solicitada.
 
 ## Dirección y servicio

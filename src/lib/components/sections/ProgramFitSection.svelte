@@ -41,7 +41,7 @@
     </p>
 
     <h2
-      class="program-fit-title mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[48px]"
+      class={`program-fit-title mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[48px] section-playfair-desktop`}
       style="font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;"
     >
       <span class="md:hidden">
@@ -91,26 +91,13 @@
       </span>
 
       <span class="hidden md:inline">
-        {#if $language === 'es'}
-          {fitCopy.titlePrefix}{' '}
-          <span
-            class="text-[#4083A7]"
-            style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-            >{firstHighlightWord}</span
-          ><br />
-          <span
-            class="text-[#4083A7]"
-            style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-            >{remainingHighlightWords}</span
-          >
+        {#if $language === 'en'}
+        {titlePrefixWithoutThis}<br />
+        this <span class="text-[#4083A7]" style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;">{fitCopy.titleHighlight}</span>
         {:else}
-          {fitCopy.titlePrefix}
-          {#if $language === 'en'}<br class="hidden md:block" /><span class="md:hidden"> </span>{:else}{' '}{/if}
-          <span
-            class="text-[#4083A7]"
-            style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;"
-            >{fitCopy.titleHighlight}</span
-          >
+        {fitCopy.titlePrefix}{' '}
+        <span class="text-[#4083A7]" style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;">{firstHighlightWord}</span><br />
+        <span class="text-[#4083A7]" style="font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;">{remainingHighlightWords}</span>
         {/if}
       </span>
     </h2>
@@ -137,7 +124,7 @@
             <h3 class="fit-card__title text-[25px] leading-[1.05] text-[#233F4E]">
               <span
                 class="font-display-serif"
-                style="font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;"
+                style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
                 >{@html fitCopy.yesTitle}</span
               >
             </h3>
@@ -182,7 +169,7 @@
             <h3 class="fit-card__title text-[23px] leading-[1.05] text-[#233F4E] md:text-[25px]">
               <span
                 class="font-display-serif"
-                style="font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;"
+                style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
                 >{@html fitCopy.noTitle}</span
               >
             </h3>
@@ -276,13 +263,15 @@
 
   .fit-card__title,
   .fit-card__title * {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-weight: 400 !important;
   }
 
   :global(.fit-card__title span),
   :global(.fit-card__title strong),
   :global(.fit-card__title em) {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-weight: 400 !important;
   }
 
   .fit-card:hover {
@@ -303,6 +292,7 @@
   .fit-card:hover .fit-card__item,
   .fit-card:hover .fit-card__item :global(em) {
     color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.32), 0 4px 12px rgba(0, 0, 0, 0.18);
   }
 
   .fit-card:hover .fit-card__line {

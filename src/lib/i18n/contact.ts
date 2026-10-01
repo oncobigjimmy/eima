@@ -3,13 +3,12 @@ import type { Language } from './copy';
 const contactCopy = {
   es: {
     meta: {
-      title: 'Contacto | Fisioterapia oncológica a domicilio en Mallorca',
+      title: 'Contacto | Eima Salut',
       description:
         'Escríbenos o llámanos para contarnos tu caso. Te diremos con honestidad si Empenta puede ayudarte durante o después del cáncer.',
-      ogTitle: 'Contacto | Fisioterapia oncológica a domicilio en Mallorca',
-      ogDescription:
-        'Cuéntanos tu caso sin compromiso. Valoramos si podemos ayudarte con fisioterapia oncológica y ejercicio a domicilio en Mallorca.',
-      imageAlt: 'EIMA Fisioterapia — Contacto'
+      ogTitle: "Contacto | Eima Salut",
+      ogDescription: "Cuéntanos tu caso sin compromiso. Te diremos con honestidad si Empenta puede encajar contigo durante o después del cáncer.",
+      imageAlt: 'Eima Salut — Contacto'
     },
     hero: {
       titleLineOne: '¿Listo/a para',
@@ -18,43 +17,19 @@ const contactCopy = {
       introPrefix: 'Si tienes dudas, escríbenos o llámanos',
       introStrong: 'totalmente gratuita.',
       introConnector: 'de forma',
-      casePrefix: 'Cuéntanos tu caso y te diremos con',
+      casePrefix: 'Cuéntanos tu caso y te diremos',
       caseStrong: 'total honestidad',
-      caseSuffix: 'si podemos ayudarte.',
-      socialHeading: 'También puedes encontrarnos aquí:'
-    },
-    form: {
-      title: 'Contacta con nosotros',
-      nameLabel: 'Nombre',
-      namePlaceholder: 'Nombre',
-      emailLabel: 'Correo electrónico',
-      emailPlaceholder: 'Correo electrónico',
-      messageLabel: 'Cuéntanos tu caso',
-      messagePlaceholder:
-        '¿Qué es lo que más te limita ahora mismo?\n¿Qué te gustaría volver a hacer?',
-      submit: 'Enviar',
-      privacyBefore: 'Al enviar aceptas nuestra',
-      privacyLink: 'política de privacidad',
-      privacyAfter: '.',
-      successTitle: '¡Gracias! Hemos recibido tu mensaje.',
-      successBody: 'Te responderemos lo antes posible. Si lo prefieres, también puedes llamarnos al',
-      errors: {
-        email: 'Email requerido',
-        name: 'Nombre requerido',
-        notConfigured: 'El formulario no está configurado todavía.',
-        internal: 'Error interno del servidor'
-      }
+      caseSuffix: 'si podemos ayudarte.'
     }
   },
   ca: {
     meta: {
-      title: 'Contacte | Fisioteràpia oncològica a domicili a Mallorca',
+      title: 'Contacte | Eima Salut',
       description:
         'Escriu-nos o telefona’ns per explicar-nos el teu cas. Et direm amb honestedat si Empenta et pot ajudar durant o després del càncer.',
-      ogTitle: 'Contacte | Fisioteràpia oncològica a domicili a Mallorca',
-      ogDescription:
-        'Explica’ns el teu cas sense compromís. Valoram si et podem ajudar amb fisioteràpia oncològica i exercici a domicili a Mallorca.',
-      imageAlt: 'EIMA Fisioteràpia — Contacte'
+      ogTitle: "Contacte | Eima Salut",
+      ogDescription: "Explica’ns el teu cas sense compromís. Et direm amb honestedat si Empenta pot encaixar amb tu durant o després del càncer.",
+      imageAlt: 'Eima Salut — Contacte'
     },
     hero: {
       titleLineOne: 'Preparat/ada per',
@@ -65,41 +40,17 @@ const contactCopy = {
       introConnector: 'de manera',
       casePrefix: 'Explica’ns el teu cas i et direm amb',
       caseStrong: 'total honestedat',
-      caseSuffix: 'si et podem ajudar.',
-      socialHeading: 'També ens pots trobar aquí:'
-    },
-    form: {
-      title: 'Contacta amb nosaltres',
-      nameLabel: 'Nom',
-      namePlaceholder: 'Nom',
-      emailLabel: 'Correu electrònic',
-      emailPlaceholder: 'Correu electrònic',
-      messageLabel: 'Explica’ns el teu cas',
-      messagePlaceholder:
-        'Què és el que més et limita ara mateix?\nQuè t’agradaria tornar a fer?',
-      submit: 'Enviar',
-      privacyBefore: 'En enviar acceptes la nostra',
-      privacyLink: 'política de privacitat',
-      privacyAfter: '.',
-      successTitle: 'Gràcies! Hem rebut el teu missatge.',
-      successBody: 'Et respondrem tan aviat com puguem. Si ho prefereixes, també ens pots telefonar al',
-      errors: {
-        email: 'Correu electrònic requerit',
-        name: 'Nom requerit',
-        notConfigured: 'El formulari encara no està configurat.',
-        internal: 'Error intern del servidor'
-      }
+      caseSuffix: 'si et podem ajudar.'
     }
   },
   en: {
     meta: {
-      title: 'Contact | Oncology physiotherapy at home in Mallorca',
+      title: 'Contact | Eima Salut',
       description:
         'Write to us or call us to tell us about your case. We will honestly tell you whether Empenta can help you during or after cancer.',
-      ogTitle: 'Contact | Oncology physiotherapy at home in Mallorca',
-      ogDescription:
-        'Tell us about your case with no obligation. We will assess whether we can help you with oncology physiotherapy and home-based exercise in Mallorca.',
-      imageAlt: 'EIMA Physiotherapy — Contact'
+      ogTitle: "Contact | Eima Salut",
+      ogDescription: "Tell us about your case with no obligation. We will honestly tell you whether Empenta could be suitable for you during or after cancer.",
+      imageAlt: 'Eima Salut — Contact'
     },
     hero: {
       titleLineOne: 'Ready to',
@@ -110,30 +61,7 @@ const contactCopy = {
       introConnector: '',
       casePrefix: 'Tell us what’s going on and we’ll be',
       caseStrong: 'honest',
-      caseSuffix: 'about whether we can help.',
-      socialHeading: 'You can also find us here:'
-    },
-    form: {
-      title: 'Contact us',
-      nameLabel: 'Name',
-      namePlaceholder: 'Name',
-      emailLabel: 'Email address',
-      emailPlaceholder: 'Email address',
-      messageLabel: 'Tell us about your case',
-      messagePlaceholder:
-        'What is limiting you the most right now?\nWhat would you like to be able to do again?',
-      submit: 'Send',
-      privacyBefore: 'By submitting, you accept our',
-      privacyLink: 'privacy policy',
-      privacyAfter: '.',
-      successTitle: 'Thank you! We have received your message.',
-      successBody: 'We will reply as soon as possible. If you prefer, you can also call us at',
-      errors: {
-        email: 'Email required',
-        name: 'Name required',
-        notConfigured: 'The form is not configured yet.',
-        internal: 'Internal server error'
-      }
+      caseSuffix: 'about whether we can help.'
     }
   }
 } as const;

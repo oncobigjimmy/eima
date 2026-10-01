@@ -70,7 +70,7 @@ Desde ahí, en nuestro <a class="empenta-inline-link" href="/como-funciona#progr
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src="/blog/acsm-roundtable-exercise-guidelines-2010.png" alt="Portada del consenso del American College of Sports Medicine sobre ejercicio para supervivientes de cáncer" />
+    <img src="/blog/acsm-roundtable-exercise-guidelines-2010.png" alt="Portada del consenso del American College of Sports Medicine sobre ejercicio para supervivientes de cáncer" loading="lazy" decoding="async" />
     <span>American College of Sports Medicine Roundtable on Exercise Guidelines for Cancer Survivors</span>
   </a>
 
@@ -80,7 +80,7 @@ Desde ahí, en nuestro <a class="empenta-inline-link" href="/como-funciona#progr
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src="/blog/exercise-guidelines-cancer-survivors-2019.png" alt="Portada del consenso internacional Exercise Guidelines for Cancer Survivors" />
+    <img src="/blog/exercise-guidelines-cancer-survivors-2019.png" alt="Portada del consenso internacional Exercise Guidelines for Cancer Survivors" loading="lazy" decoding="async" />
     <span>Exercise Guidelines for Cancer Survivors: Consensus Statement from International Multidisciplinary Roundtable</span>
   </a>
 </div>

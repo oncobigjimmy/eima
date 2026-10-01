@@ -6,7 +6,7 @@
   $: pathname = $page.url.pathname;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: currentLanguage = isBlog ? 'es' : $language;
-  $: whatsappHref = getWhatsAppHref(currentLanguage);
+  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
   $: whatsappLabel =
     currentLanguage === 'en'
       ? 'Open WhatsApp'

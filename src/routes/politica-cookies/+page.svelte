@@ -1,11 +1,17 @@
+<script>
+  import { site } from '$lib/site';
+</script>
+
 <svelte:head>
-  <title>Política de Cookies | EIMA Fisioterapia</title>
-  <meta name="description" content="Política de cookies de EIMA Fisioterapia." />
-  <meta name="robots" content="noindex" />
-  <link rel="canonical" href="https://eimafisioterapia.es/politica-cookies" />
+  <title>Política de Cookies | Eima Salut</title>
+  <meta name="description" content="Política de cookies de Eima Salut." />
+  <meta name="robots" content="noindex, follow" />
+  <meta property="og:title" content="Política de Cookies | Eima Salut" />
+  <meta property="og:description" content="Información sobre el uso y la gestión de cookies en el sitio web de Eima Salut." />
+  <link rel="canonical" href={`${site.url}/politica-cookies`} />
 </svelte:head>
 
-<article class="mx-auto max-w-3xl px-6 pb-16 pt-16 prose-blog md:px-8">
+<article lang="es" class="mx-auto max-w-3xl px-6 pb-16 pt-24 prose-blog md:px-8">
   <h1>Política de Cookies</h1>
   <p class="mt-2 text-secondary">Última actualización: 29 de abril de 2026</p>
 

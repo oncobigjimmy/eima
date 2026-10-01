@@ -1,11 +1,16 @@
-import { posts } from '$lib/blog/posts.js';
+import { getPosts } from '$lib/blog/posts.js';
+import { getLanguageFromPath } from '$lib/i18n/routes';
 
 export const prerender = true;
 
-export function load() {
+export function load({ url }) {
+  const language = getLanguageFromPath(url.pathname) ?? 'es';
   return {
-    posts: posts.map((p) => ({
+    language,
+    posts: getPosts(language).map((p) => ({
       slug: p.slug,
+      path: p.path,
+      language: p.language,
       title: p.title,
       description: p.description,
       titleAccent: p.titleAccent,

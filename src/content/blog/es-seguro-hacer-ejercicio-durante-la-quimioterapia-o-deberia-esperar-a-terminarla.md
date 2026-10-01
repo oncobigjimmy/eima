@@ -1,6 +1,7 @@
 ---
 title: "¿Es seguro hacer ejercicio durante la quimioterapia o debería esperar a terminarla?"
 description: "Empezar a hacer ejercicio durante la quimioterapia no solo es seguro. Sino que puede ayudar a combatir la toxicidad y preservar tu capacidad física."
+seoDescription: "Empezar a hacer ejercicio durante la quimioterapia no solo es seguro, sino que puede ayudar a combatir la toxicidad y preservar tu capacidad física."
 titleAccent: "quimioterapia"
 heroEmphasis: "combatir la toxicidad"
 heroTitleClass: "blog-post-title--long"
@@ -69,7 +70,7 @@ El objetivo final no es batir récords deportivos, sino utilizar el movimiento c
     <img
       src="/blog/optimal-timing-exercise-chemotherapy-2022.png"
       alt="Optimal Timing of a Physical Exercise Intervention to Improve Cardiorespiratory Fitness During or After Chemotherapy. JACC: CardioOncology, 2022."
-      loading="lazy"
+      loading="lazy" decoding="async"
     />
     <span>Optimal Timing of a Physical Exercise Intervention to Improve Cardiorespiratory Fitness During or After Chemotherapy</span>
   </a>
@@ -83,7 +84,7 @@ El objetivo final no es batir récords deportivos, sino utilizar el movimiento c
     <img
       src="/blog/courneya-exercise-chemotherapy-2007.png"
       alt="Effects of Aerobic and Resistance Exercise in Breast Cancer Patients Receiving Adjuvant Chemotherapy. Journal of Clinical Oncology, 2007."
-      loading="lazy"
+      loading="lazy" decoding="async"
     />
     <span>Effects of Aerobic and Resistance Exercise in Breast Cancer Patients Receiving Adjuvant Chemotherapy</span>
   </a>

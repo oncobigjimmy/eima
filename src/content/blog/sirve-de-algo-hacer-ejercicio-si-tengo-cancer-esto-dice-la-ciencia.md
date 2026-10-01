@@ -47,7 +47,7 @@ Este estudio analizó cómo el ejercicio afecta al cuerpo a nivel molecular y co
 </ol>
 
 <figure class="expert-quote-card">
-  <img src="/blog/alejandro-lucia.png" alt="Alejandro Lucía, investigador en fisiología del ejercicio" loading="lazy" />
+  <img src="/blog/alejandro-lucia.png" alt="Alejandro Lucía, investigador en fisiología del ejercicio" loading="lazy" decoding="async" />
   <figcaption>
     <p>"El ejercicio es la píldora que mejor estimula la expresión de nuestros genes. Lo que es antinatural es NO moverse".</p>
     <span>Alejandro Lucía</span>
@@ -103,7 +103,7 @@ Recuerda que el ejercicio no compite con la oncología médica; **la potencia.**
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src="/blog/exercise-real-polypill-2013.png" alt="Exercise is the Real Polypill. Physiology, 2013." loading="lazy" />
+    <img src="/blog/exercise-real-polypill-2013.png" alt="Exercise is the Real Polypill. Physiology, 2013." loading="lazy" decoding="async" />
     <span>Exercise is the Real Polypill</span>
   </a>
 </div>
@@ -136,10 +136,10 @@ Recuerda que el ejercicio no compite con la oncología médica; **la potencia.**
 
   .expert-quote-card p {
     color: #233f4e;
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
     font-size: 1.1rem;
     font-style: italic;
-    font-weight: 300;
     line-height: 1.55;
     margin: 0;
   }

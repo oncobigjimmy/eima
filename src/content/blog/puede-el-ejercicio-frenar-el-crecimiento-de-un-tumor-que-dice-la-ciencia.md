@@ -49,7 +49,7 @@ Aquí está el mayor malentendido. Un paseo suave es excelente si estás en un p
 El músculo necesita un estímulo real (fuerza, resistencia) para reaccionar. Por supuesto, esto no significa entrenar al fallo ni prepararse para unas olimpiadas en plena quimioterapia. Significa ajustar la dosis. Como resume perfectamente Mario:
 
 <figure class="expert-quote-card">
-  <img src="/blog/mario-redondo.webp" alt="Mario Redondo, fisiólogo del ejercicio" loading="lazy" />
+  <img src="/blog/mario-redondo.webp" alt="Mario Redondo, fisiólogo del ejercicio" loading="lazy" decoding="async" />
   <figcaption>
     <p>"Hay que entrenar a la intensidad de la que uno se pueda recuperar."</p>
     <span>Mario Redondo</span>
@@ -101,7 +101,7 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
     <img
       src="/blog/hojman-molecular-mechanisms-2018.png"
       alt="Molecular Mechanisms Linking Exercise to Cancer Prevention and Treatment. Cell Metabolism, 2018."
-      loading="lazy"
+      loading="lazy" decoding="async"
     />
     <span>Molecular Mechanisms Linking Exercise to Cancer Prevention and Treatment</span>
   </a>
@@ -115,7 +115,7 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
     <img
       src="/blog/pedersen-running-nk-2016.png"
       alt="Voluntary Running Suppresses Tumor Growth through Epinephrine- and IL-6-Dependent NK Cell Mobilization and Redistribution. Cell Metabolism, 2016."
-      loading="lazy"
+      loading="lazy" decoding="async"
     />
     <span>Voluntary Running Suppresses Tumor Growth through Epinephrine- and IL-6-Dependent NK Cell Mobilization and Redistribution</span>
   </a>
@@ -129,7 +129,7 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
     <img
       src="/blog/can-exercise-kill-tumors-2025.png"
       alt="Can exercise kill tumors? Journal of Sport and Health Science, 2025."
-      loading="lazy"
+      loading="lazy" decoding="async"
     />
     <span>Can exercise kill tumors?</span>
   </a>
@@ -165,10 +165,10 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
 
   .expert-quote-card p {
     color: #233f4e;
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
     font-size: 1.1rem;
     font-style: italic;
-    font-weight: 300;
     line-height: 1.55;
     margin: 0;
   }

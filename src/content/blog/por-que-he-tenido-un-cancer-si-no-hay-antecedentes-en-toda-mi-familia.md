@@ -89,7 +89,7 @@ Recuerda que: *"Aunque no puedas controlarlo todo, sí puedes ayudar a tu cuerpo
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src="/blog/anand-cancer-preventable-2008.png" alt="Primera página del artículo Cancer is a Preventable Disease that Requires Major Lifestyle Changes" />
+    <img src="/blog/anand-cancer-preventable-2008.png" alt="Primera página del artículo Cancer is a Preventable Disease that Requires Major Lifestyle Changes" loading="lazy" decoding="async" />
     <span>Cancer is a Preventable Disease that Requires Major Lifestyle Changes</span>
   </a>
 </div>

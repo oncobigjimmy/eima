@@ -3,7 +3,7 @@
   export let topHtml = '';
   export let middleHtml = '';
   export let bottomHtml = '';
-  export let overlayOpacity = 0.34;
+  export let overlayOpacity = 0.25;
   export let lineGap = 20;
   export let mobileTopSize = 16;
   export let desktopTopSize = 22;
@@ -12,6 +12,7 @@
   export let mobileBottomSize = 22;
   export let desktopBottomSize = 35;
   export let sectionClass = '';
+  export let compact = false;
 
   /**
    * @param {HTMLElement} node
@@ -29,13 +30,13 @@
   }
 </script>
 
-<section class={`bg-[#f8f4f0] pb-10 md:pb-12 ${sectionClass}`.trim()}>
+<section class={`bg-[#f8f4f0] pb-10 md:pb-12 ${sectionClass} ${compact ? 'parallax-slogan--compact' : ''}`.trim()}>
   <div class="parallax-slogan mx-auto max-w-[96rem] overflow-hidden">
     <div
       class="parallax-slogan__image"
       style={`--parallax-overlay: ${overlayOpacity}; --parallax-image: url('${image}');`}
     >
-      <div class="parallax-slogan__overlay" style={`--parallax-gap:${lineGap}px;`}>
+      <div class="parallax-slogan__overlay photo-text-contrast" style={`--parallax-gap:${lineGap}px;`}>
         <p
           class="parallax-slogan__top text-center font-light leading-tight text-white"
           style={`--mobile-top-size:${mobileTopSize}px; --desktop-top-size:${desktopTopSize}px;`}
@@ -62,6 +63,7 @@
 </section>
 
 <style>
+  :global(.home-banner-section), :global(.about-banner-section) { padding-bottom: 0; }
   .parallax-slogan {
     border-radius: 0;
   }
@@ -92,16 +94,28 @@
     padding: 1.1rem 1.5rem 1rem;
   }
 
+  .parallax-slogan--compact .parallax-slogan__image,
+  .parallax-slogan--compact .parallax-slogan__overlay {
+    min-height: 160px;
+  }
+
+  .parallax-slogan--compact .parallax-slogan__overlay {
+    padding: .9rem 1.5rem;
+  }
+
   .parallax-slogan__top {
     font-size: var(--mobile-top-size);
+    font-weight: 200;
   }
 
   .parallax-slogan__middle {
     font-size: var(--mobile-middle-size);
+    font-weight: 200;
   }
 
   .parallax-slogan__bottom {
     font-size: var(--mobile-bottom-size);
+    font-weight: 200;
   }
 
   :global(.parallax-slogan__top strong),
@@ -125,6 +139,15 @@
       padding: 1.75rem 2rem 1.5rem;
     }
 
+    .parallax-slogan--compact .parallax-slogan__image,
+    .parallax-slogan--compact .parallax-slogan__overlay {
+      min-height: 190px;
+    }
+
+    .parallax-slogan--compact .parallax-slogan__overlay {
+      padding: 1.25rem 2rem;
+    }
+
     .parallax-slogan__top {
       font-size: var(--desktop-top-size);
     }
@@ -140,5 +163,8 @@
     :global(.parallax-mobile-break) {
       display: none;
     }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-slogan__image { background-attachment: scroll; }
   }
 </style>

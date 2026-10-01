@@ -1,8 +1,11 @@
 import { error, redirect } from '@sveltejs/kit';
 import { posts, getPost } from '$lib/blog/posts.js';
+import { getLanguageFromPath } from '$lib/i18n/routes';
 
-export const prerender = true;
+// Pre-render published articles and keep SSR for legacy redirects and real 404s.
+export const prerender = 'auto';
 
+/** @type {Record<string, string>} */
 const redirects = {
   'por-que-cada-vez-hay-mas-cancer-en-gente-joven':
     'por-que-cada-vez-hay-mas-gente-joven-con-cancer-que-esta-pasando',
@@ -22,17 +25,21 @@ export function entries() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export function load({ params }) {
+export function load({ params, url }) {
+  const language = getLanguageFromPath(url.pathname) ?? 'es';
   if (redirects[params.slug]) {
-    throw redirect(301, `/blog/${redirects[params.slug]}`);
+    throw redirect(301, `/blog/${redirects[params.slug]}${url.search}`);
   }
 
-  const post = getPost(params.slug);
+  const post = getPost(params.slug, language);
   if (!post) throw error(404, 'Artículo no encontrado');
   return {
+    language,
+    path: post.path,
     slug: post.slug,
     title: post.title,
     description: post.description,
+    seoDescription: post.seoDescription,
     titleAccent: post.titleAccent,
     heroLabel: post.heroLabel,
     heroEmphasis: post.heroEmphasis,

@@ -10,7 +10,7 @@
     aria-hidden="true"
   ></div>
 
-  <div class="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-3 text-lg md:text-2xl font-light">
+  <div class="relative z-10 mx-auto max-w-4xl px-6 text-center space-y-3 text-lg md:text-2xl font-extralight">
     <p>
       <strong class="font-bold">Sin SALUD,</strong> no disfrutas de tu tiempo.
     </p>

@@ -1,10 +1,10 @@
 # Migración a EIMA SALUT
 
-| Elemento | Identidad anterior | Destino |
-| --- | --- | --- |
-| Marca | EIMA Fisioterapia | EIMA SALUT |
-| Dominio | `eimafisioterapia.es` | `eimasalut.es` |
-| Email | `info@eimafisioterapia.es` | `hola@eimasalut.es` |
+| Elemento | Identidad anterior         | Destino             |
+| -------- | -------------------------- | ------------------- |
+| Marca    | EIMA Fisioterapia          | EIMA SALUT          |
+| Dominio  | `eimafisioterapia.es`      | `eimasalut.es`      |
+| Email    | `info@eimafisioterapia.es` | `hola@eimasalut.es` |
 
 ## Estado confirmado
 
@@ -22,3 +22,11 @@ El objetivo final es publicar EIMA SALUT en `eimasalut.es` y retirar progresivam
 La migración deberá revisar nombre, logos, favicon, dominio, email, títulos y descripciones, canonicals, hreflang, Open Graph y metadatos sociales, schema/JSON-LD, sitemap, robots.txt, RSS, textos legales y cualquier referencia técnica al dominio antiguo. Conservar y comprobar las rutas y redirecciones existentes.
 
 **No hacer todavía la migración de dominio ni tocar producción.** La publicación y la transición del dominio antiguo requieren una petición expresa posterior. Documentar estas decisiones no supone implementarlas.
+
+## Preparación del bloque 7 — 1 de octubre de 2026
+
+La revisión local, correcciones y secuencia de lanzamiento/reversión figuran en
+[BLOCK-7.md](BLOCK-7.md). El [mapa de URLs](MIGRATION-MAP.csv) prepara las
+redirecciones entre dominios; no las activa. La consulta pública confirma que
+el dominio nuevo muestra el aparcamiento de Hostinger y la web anterior sigue
+accesible. La configuración privada de hPanel sigue pendiente de revisión.

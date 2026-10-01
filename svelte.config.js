@@ -10,7 +10,8 @@ const config = {
     })
   ],
   kit: {
-    adapter: adapter()
+    adapter: adapter(),
+    prerender: { entries: ['*', '/ca/blog.xml', '/en/blog.xml'] }
   }
 };
 

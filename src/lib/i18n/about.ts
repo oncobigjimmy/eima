@@ -11,13 +11,13 @@ const principleIcons = {
 
 const esAbout = {
   meta: {
-    title: 'EIMA | Quiénes somos | Fisioterapia a Domicilio en Mallorca',
+    title: 'Quiénes somos | Eima Salut',
     description:
       'Somos fisioterapeutas que creemos en el ejercicio como la base para mantener nuestra autonomía. Conoce nuestra historia y nuestra forma de entender la salud.',
-    ogTitle: 'Conoce quiénes somos y nuestra historia | Eima Fisioterapia',
+    ogTitle: 'Conoce quiénes somos y nuestra historia | Eima Salut',
     ogDescription:
       'Conoce al equipo y por qué nuestro enfoque es activo. Nos basamos en ejercicio, educación en hábitos de salud y un seguimiento continuado para recuperar fuerza, energía y autonomía.',
-    imageAlt: 'Jaume y Miquel, fisioterapeutas de EIMA'
+    imageAlt: 'Jaume y Miquel, fisioterapeutas de Eima Salut'
   },
   hero: {
     eyebrow: 'Quiénes somos',
@@ -33,7 +33,7 @@ const esAbout = {
     srSubtitle:
       'Acompañamos a personas con cáncer a moverse con seguridad, recuperar energía y cuidarse sin desplazamientos innecesarios.',
     body:
-      'Somos Miquel y Jaume, fisioterapeutas y fundadores de EIMA. <strong>Acompañamos a personas con cáncer</strong> a moverse con seguridad, recuperar energía y cuidarse sin desplazamientos innecesarios.',
+      'Somos Miquel y Jaume, fisioterapeutas y fundadores de Eima Salut. <strong>Acompañamos a personas con cáncer</strong> a moverse con seguridad, recuperar energía y cuidarse sin desplazamientos innecesarios.',
     prompt: '¿Nos cuentas tu historia?',
     cta: 'Te escuchamos'
   },
@@ -43,9 +43,9 @@ const esAbout = {
     titleMobileLine1: 'De dónde',
     titleMobileLine2Prefix: 'nace',
     intro:
-      'EIMA nace del cansancio.<br />Del cansancio de ver un sistema que, muchas veces, no ayuda a salir de la enfermedad, sino a convivir a diario con ella.',
+      'Eima Salut nace del cansancio.<br />Del cansancio de ver un sistema que, muchas veces, no ayuda a salir de la enfermedad, sino a convivir a diario con ella.',
     introMobile:
-      'EIMA nace del cansancio. Del cansancio de ver un sistema que, muchas veces, no ayuda a salir de la enfermedad, sino a convivir a diario con ella.',
+      'Eima Salut nace del cansancio. Del cansancio de ver un sistema que, muchas veces, no ayuda a salir de la enfermedad, sino a convivir a diario con ella.',
     imageAlt: 'Persona sentada en casa mirando medicación',
     firstParagraphs: [
       'De ver cómo, en este sistema, se normaliza la <strong>dependencia</strong> y se pierde de vista el principal objetivo: recuperar salud, autonomía y calidad de vida a largo plazo.',
@@ -54,7 +54,7 @@ const esAbout = {
     secondParagraphs: [
       'No pretendemos luchar contra el sistema. Sabemos que es demasiado grande para cambiarlo desde dentro.',
       'Por eso decidimos salirnos y construir una forma de trabajar coherente con cómo entendemos la salud.',
-      'Eso es EIMA: hacer las cosas con <strong>conocimiento, criterio y sentido común.</strong> No por costumbre ni por inercia.'
+      'Eso es Eima Salut: hacer las cosas con <strong>conocimiento, criterio y sentido común.</strong> No por costumbre ni por inercia.'
     ]
   },
   dictionary: {
@@ -73,7 +73,7 @@ const esAbout = {
     headingLine3Highlight: 'acompañarte.',
     healthLabel: 'Nuestra forma de entender la salud',
     healthParagraphs: [
-      'En EIMA entendemos que un cáncer <strong>no es solo un diagnóstico</strong>. Es una experiencia que puede afectar al cuerpo, a la mente, a la energía, a la confianza y la forma en que vives tu día a día.',
+      'En Eima Salut entendemos que un cáncer <strong>no es solo un diagnóstico</strong>. Es una experiencia que puede afectar al cuerpo, a la mente, a la energía, a la confianza y la forma en que vives tu día a día.',
       'Por eso no miramos únicamente el síntoma. <strong>Miramos a la persona:</strong> su historia, su contexto, su nivel de actividad, sus miedos, su fatiga, su dolor y lo que necesita para <strong>volver a sentirse más capaz.</strong>',
       'Trabajamos desde un enfoque activo, con <strong>ejercicio adaptado</strong>, educación en hábitos de salud y acompañamiento cercano. No buscamos imponer un ritmo, sino ayudarte a avanzar con criterio, seguridad y objetivos realistas.'
     ],
@@ -111,13 +111,13 @@ const esAbout = {
     ]
   },
   closing: {
-    eyebrow: 'Y así nace EIMA',
+    eyebrow: 'Y así nace Eima Salut',
     prefix: 'Porque la ',
     accentOne: 'salud',
     middle: 'también necesita',
     accentTwo: 'tiempo.',
     paragraphs: [
-      'Creamos EIMA para personas que <strong>no quieren que la vida quede en pausa</strong> durante el tratamiento.',
+      'Creamos <strong>Eima Salut</strong> para personas que <strong>no quieren que la vida quede en pausa</strong> durante el tratamiento.',
       'Personas que quieren seguir haciendo lo que está en su mano para recuperar energía, moverse con más seguridad y <strong>vivir más, sí, pero sobre todo vivir mejor.</strong>',
       'Por eso trabajamos de forma <strong>online</strong>: porque sabemos que el cansancio, las citas médicas y la vida diaria ya ocupan demasiado espacio. Nuestro papel es ayudarte a cuidar tu salud <strong>sin añadir más carga a tu día a día.</strong>'
     ],
@@ -127,13 +127,13 @@ const esAbout = {
 
 const caAbout = {
   meta: {
-    title: 'EIMA | Qui som | Fisioteràpia a domicili a Mallorca',
+    title: 'Qui som | Eima Salut',
     description:
       'Som fisioterapeutes i acompanyam persones amb càncer a moure’s amb seguretat, recuperar energia i cuidar-se sense desplaçaments innecessaris.',
-    ogTitle: 'Qui som | EIMA Fisioteràpia',
+    ogTitle: 'Qui som | Eima Salut',
     ogDescription:
       'Coneix l’equip i la nostra manera d’entendre la salut: exercici adaptat, hàbits de salut i acompanyament proper.',
-    imageAlt: 'Jaume i Miquel, fisioterapeutes d’EIMA'
+    imageAlt: 'Jaume i Miquel, fisioterapeutes d’Eima Salut'
   },
   hero: {
     eyebrow: 'Qui som',
@@ -149,7 +149,7 @@ const caAbout = {
     srSubtitle:
       'Acompanyam persones amb càncer a moure’s amb seguretat, recuperar energia i cuidar-se sense desplaçaments innecessaris.',
     body:
-      'Som en Miquel i en Jaume, fisioterapeutes i fundadors d’EIMA.<br class="hidden md:block" /> <strong>Acompanyam persones amb càncer</strong> a moure’s amb seguretat,<br class="hidden md:block" /> recuperar energia i cuidar-se sense desplaçaments innecessaris.',
+      'Som en Miquel i en Jaume, fisioterapeutes i fundadors d’Eima Salut.<br class="hidden md:block" /> <strong>Acompanyam persones amb càncer</strong> a moure’s amb seguretat,<br class="hidden md:block" /> recuperar energia i cuidar-se sense desplaçaments innecessaris.',
     prompt: 'Ens expliques la teva història?',
     cta: 'T’escoltam'
   },
@@ -159,9 +159,9 @@ const caAbout = {
     titleMobileLine1: 'D’on',
     titleMobileLine2Prefix: 'neix',
     intro:
-      'EIMA neix del cansament.<br />Del cansament de veure un sistema que, moltes vegades, no ajuda a sortir de la malaltia, sinó a conviure-hi cada dia.',
+      'Eima Salut neix del cansament.<br />Del cansament de veure un sistema que, moltes vegades, no ajuda a sortir de la malaltia, sinó a conviure-hi cada dia.',
     introMobile:
-      'EIMA neix del cansament. Del cansament de veure un sistema que, moltes vegades, no ajuda a sortir de la malaltia, sinó a conviure-hi cada dia.',
+      'Eima Salut neix del cansament. Del cansament de veure un sistema que, moltes vegades, no ajuda a sortir de la malaltia, sinó a conviure-hi cada dia.',
     imageAlt: 'Persona asseguda a casa mirant medicació',
     firstParagraphs: [
       'De veure com, en aquest sistema, es normalitza la <strong>dependència</strong> i es perd de vista l’objectiu principal: recuperar salut, autonomia i qualitat de vida a llarg termini.',
@@ -170,7 +170,7 @@ const caAbout = {
     secondParagraphs: [
       'No pretenem lluitar contra el sistema. Sabem que és massa gran per canviar-lo des de dins.',
       'Per això vàrem decidir fer una passa al costat i construir una manera de treballar coherent amb com entenem la salut.',
-      'Això és EIMA: fer les coses amb <strong>coneixement, criteri i sentit comú.</strong> No per costum ni per inèrcia.'
+      'Això és Eima Salut: fer les coses amb <strong>coneixement, criteri i sentit comú.</strong> No per costum ni per inèrcia.'
     ]
   },
   dictionary: {
@@ -189,7 +189,7 @@ const caAbout = {
     headingLine3Highlight: 'acompanyar-te.',
     healthLabel: 'La nostra manera d’entendre la salut',
     healthParagraphs: [
-      'A EIMA entenem que un càncer <strong>no és només un diagnòstic</strong>. És una experiència que pot afectar el cos, la ment, l’energia, la confiança i la manera com vius el teu dia a dia.',
+      'A Eima Salut entenem que un càncer <strong>no és només un diagnòstic</strong>. És una experiència que pot afectar el cos, la ment, l’energia, la confiança i la manera com vius el teu dia a dia.',
       'Per això no miram únicament el símptoma. <strong>Miram la persona:</strong> la seva història, el seu context, el seu nivell d’activitat, les seves pors, la seva fatiga, el seu dolor i el que necessita per tornar a sentir-se més capaç.',
       'Treballam des d’un enfocament actiu, amb <strong>exercici adaptat</strong>, educació en hàbits de salut i acompanyament proper. No cercam imposar un ritme, sinó ajudar-te a avançar amb criteri, seguretat i objectius realistes.'
     ],
@@ -227,14 +227,14 @@ const caAbout = {
     ]
   },
   closing: {
-    eyebrow: 'I així neix EIMA',
+    eyebrow: 'I així neix Eima Salut',
     prefix: 'Perquè la ',
     accentOne: 'salut',
     middle: 'també necessita',
     accentTwo: 'temps.',
     paragraphs: [
-      'Cream EIMA per a persones que <strong>no volen que la vida quedi en pausa</strong> durant el tractament, ni sentir que només poden esperar que les coses passin.',
-      'Persones que volen continuar fent el que està a les seves mans per recuperar energia, moure’s amb més seguretat, guanyar confiança en el seu cos i <strong>viure més, sí, però sobretot viure millor.</strong>',
+      'Cream <strong>Eima Salut</strong> per a persones que <strong>no volen que la vida quedi en pausa</strong> durant el tractament.',
+      'Persones que volen continuar fent el que està a les seves mans per recuperar energia, moure’s amb més seguretat i <strong>viure més, sí, però sobretot viure millor.</strong>',
       'Per això treballam de forma <strong>online</strong>: perquè sabem que el cansament, les cites mèdiques i la vida diària ja ocupen massa espai. El nostre paper és ajudar-te a cuidar la teva salut <strong>sense afegir més càrrega al teu dia a dia.</strong>'
     ],
     cta: 'Explica’ns el teu cas'
@@ -243,13 +243,13 @@ const caAbout = {
 
 const enAbout = {
   meta: {
-    title: 'EIMA | Who we are | Home Physiotherapy in Mallorca',
+    title: 'Who we are | Eima Salut',
     description:
       'We are physiotherapists who support people with cancer so they can move safely, recover energy and take care of themselves without unnecessary journeys.',
-    ogTitle: 'Who we are | EIMA Physiotherapy',
+    ogTitle: 'Who we are | Eima Salut',
     ogDescription:
       'Meet the team and our way of understanding health: adapted exercise, health habits and close support.',
-    imageAlt: 'Jaume and Miquel, EIMA physiotherapists'
+    imageAlt: 'Jaume and Miquel, Eima Salut physiotherapists'
   },
   hero: {
     eyebrow: 'Who we are',
@@ -282,23 +282,23 @@ const enAbout = {
     srSubtitle:
       'We support people with cancer so they can move safely, rebuild energy and take care of their health without unnecessary travel.',
     body:
-      'We are Miquel and Jaume, physiotherapists and founders of EIMA.<br class="hidden md:block" /> <strong>We support people with cancer</strong> so they can move safely, rebuild<br class="hidden md:block" /> energy and take care of their health without unnecessary travel.',
+      'We are Miquel and Jaume, physiotherapists and founders of Eima Salut.<br class="hidden md:block" /> <strong>We support people with cancer</strong> so they can move safely, rebuild<br class="hidden md:block" /> energy and take care of their health without unnecessary travel.',
     prompt: 'Will you tell us your story?',
     cta: 'We listen to you'
   },
   origin: {
     eyebrow: 'Our view of health',
     titleDesktopPrefix: 'Where',
-    titleHighlight: 'EIMA',
+    titleHighlight: 'Eima Salut',
     titleDesktopSuffix: 'comes from',
     titleMobileLine1: 'Where',
     titleMobileLine2Prefix: '',
-    titleMobileLine2Highlight: 'EIMA',
+    titleMobileLine2Highlight: 'Eima Salut',
     titleMobileLine2Suffix: 'comes from',
     intro:
-      'EIMA was born from a clear frustration.<br /><span class="about-origin-nowrap">The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.</span>',
+      'Eima Salut was born from a clear frustration.<br /><span class="about-origin-nowrap">The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.</span>',
     introMobile:
-      'EIMA was born from a clear frustration. The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.',
+      'Eima Salut was born from a clear frustration. The frustration of seeing a system that, too often, does not help people move beyond illness, but simply live with it every day.',
     imageAlt: 'Person sitting at home looking at medication',
     firstParagraphs: [
       'Seeing how, in this system, <strong>dependency</strong> becomes normalised, and the real goal is pushed into the background: recovering health, autonomy and long-term quality of life.',
@@ -307,7 +307,7 @@ const enAbout = {
     secondParagraphs: [
       'We are not here to fight the system. We know it is too big to change from within.',
       'We are here to offer a way of working that is more coherent with how we understand health.',
-      'That is EIMA: doing things with <strong>knowledge, clinical judgement and common sense.</strong> Not out of habit or inertia.'
+      'That is Eima Salut: doing things with <strong>knowledge, clinical judgement and common sense.</strong> Not out of habit or inertia.'
     ]
   },
   dictionary: {
@@ -326,7 +326,7 @@ const enAbout = {
     headingLine3Highlight: 'supporting you.',
     healthLabel: 'Our way of understanding health',
     healthParagraphs: [
-      'At EIMA, we understand that cancer <strong>is not just a diagnosis</strong>. It is an experience that can affect your body, mind, energy, confidence and the way you live your day-to-day life.',
+      'At Eima Salut, we understand that cancer <strong>is not just a diagnosis</strong>. It is an experience that can affect your body, mind, energy, confidence and the way you live your day-to-day life.',
       'That is why we do not look only at the symptom. <strong>We look at the person:</strong> their story, their context, their activity level, their fears, their fatigue, their pain and what they need to <strong>feel more capable again.</strong>',
       'We work from an active approach, using <strong>adapted exercise</strong>, health education and close support. We are not here to impose a pace, but to help you move forward safely, realistically and with clear criteria.'
     ],
@@ -364,15 +364,15 @@ const enAbout = {
     ]
   },
   closing: {
-    eyebrow: 'And that is how EIMA was born',
+    eyebrow: 'And that is how Eima Salut was born',
     prefix: 'Because ',
     accentOne: 'health',
     middle: 'also needs',
     accentTwo: 'time.',
     paragraphs: [
-      'We created EIMA for people who <strong>do not want life to be put on hold</strong> during treatment, or feel stuck waiting for things to change.',
+      'We created <strong>Eima Salut</strong> for people who <strong>do not want life to be put on hold</strong> during treatment.',
       'People who want to keep doing what is within their power to rebuild energy, move with more confidence and <strong>live longer — but above all, live better.</strong>',
-      'That is why we work mainly <strong>online</strong>: to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
+      'That is why we work <strong>online</strong>: because we know that fatigue, medical appointments and daily life already take up too much space. Our role is to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
     ],
     cta: 'Tell us what’s going on'
   }

@@ -1,10 +1,18 @@
+import { site } from '$lib/site';
 import type { Language } from './copy';
+import { getBlogPostId, getBlogPostPath } from './blog-routes';
 
-export const SITE_URL = 'https://eimafisioterapia.es';
+export const SITE_URL = site.url;
 
-export type LocalizedRouteKey = 'home' | 'program' | 'about' | 'story' | 'contact';
+export type LocalizedRouteKey = 'home' | 'program' | 'about' | 'story' | 'contact' | 'testimonials' | 'blog';
 
 export const localizedRoutes: Record<LocalizedRouteKey, Record<Language, string>> = {
+  blog: { es: '/blog', ca: '/ca/blog', en: '/en/blog' },
+  testimonials: {
+    es: '/testimonios',
+    ca: '/ca/testimonis',
+    en: '/en/testimonials'
+  },
   home: {
     es: '/',
     ca: '/ca',
@@ -41,7 +49,9 @@ export const localizedHashes = {
 } satisfies Record<string, Record<Language, string>>;
 
 export function normalizePath(pathname: string) {
-  const normalized = decodeURIComponent(pathname).replace(/\/+$/, '');
+  let decoded = pathname;
+  try { decoded = decodeURIComponent(pathname); } catch { /* Malformed URLs must not turn into server errors. */ }
+  const normalized = decoded.replace(/\/+$/, '');
   return normalized === '' ? '/' : normalized;
 }
 
@@ -62,18 +72,23 @@ export function getLanguageFromPath(pathname: string): Language | null {
 
   if (normalized === '/ca' || normalized.startsWith('/ca/')) return 'ca';
   if (normalized === '/en' || normalized.startsWith('/en/')) return 'en';
-  if (getRouteKey(normalized)) return 'es';
+  if (getRouteKey(normalized) || getBlogPostId(normalized)) return 'es';
 
   return null;
 }
 
 export function getCanonicalPath(pathname: string) {
+  const article = getBlogPostId(normalizePath(pathname));
+  if (article) return getBlogPostPath(article, 'es');
+  if (pathname === '/ca/blog.xml' || pathname === '/en/blog.xml') return '/blog.xml';
   const key = getRouteKey(pathname);
   if (key === 'home') return normalizePath(pathname) === '/' ? '/' : null;
   return key ? localizedRoutes[key].es : null;
 }
 
 export function getLocalizedPath(pathname: string, language: Language) {
+  const article = getBlogPostId(normalizePath(pathname));
+  if (article) return getBlogPostPath(article, language);
   const key = getRouteKey(pathname);
   return key ? localizedRoutes[key][language] : localizedRoutes.home[language];
 }

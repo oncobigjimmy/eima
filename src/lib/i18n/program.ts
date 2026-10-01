@@ -1,4 +1,5 @@
 import type { Language } from './copy';
+import { programReview } from './program-reviewed';
 
 export type ProgramFaq = {
   q: string;
@@ -32,19 +33,16 @@ const icons = {
 
 const esProgram = {
   meta: {
-    title: 'EIMA | Fisioterapia a domicilio para personas con cáncer',
-    description:
-      'Fisioterapia a domicilio en Mallorca para personas en un proceso oncológico. Ejercicio guiado en casa y acompañamiento online continuo, sin desplazamientos.',
-    ogTitle: 'Ejercicio durante y después del cáncer | Eima Fisioterapia',
-    ogDescription:
-      'Fisioterapia a domicilio en Mallorca especializada en ejercicio para personas que atraviesan un proceso oncológico. Te guiamos con ejercicio individualizado y seguro, incluso con dolor o fatiga.',
-    imageAlt: 'EIMA Fisioterapia — Programa Empenta de ejercicio oncológico'
+    title: 'Programa Empenta: ejercicio oncológico en Mallorca | Eima Salut',
+    description: "Programa de ejercicio adaptado para personas con cáncer en Mallorca. Valoración inicial, plan personalizado y seguimiento continuo durante 12 semanas.",
+    ogTitle: 'Ejercicio durante y después del cáncer | Eima Salut',
+    ogDescription: "Conoce cómo funciona Empenta: ejercicio adaptado, seguimiento y ajustes según tu tratamiento, fatiga y respuesta para ayudarte a mantener fuerza y autonomía.",
+    imageAlt: 'Eima Salut — Programa Empenta de ejercicio oncológico'
   },
   hero: {
-    eyebrow:
-      'Servicio especializado de fisioterapia oncológica y ejercicio físico a domicilio en Mallorca.',
+    eyebrow: '',
     srTitle:
-      'Servicio especializado de fisioterapia oncológica y ejercicio físico a domicilio en Mallorca. Menos efectos secundarios durante y después del cáncer',
+      'Más fuerza, menos efectos secundarios y más vitalidad durante y después del cáncer',
     phrases: ['Más vitalidad', 'Más fuerza', 'Menos efectos secundarios'],
     line1: 'durante y después',
     line2: 'del cáncer',
@@ -61,10 +59,10 @@ const esProgram = {
     headingPrefix: 'Cómo funciona',
     headingHighlight: 'Empenta',
     intro:
-      'Un proceso de 12 semanas para que no tengas que improvisar qué hacer, cuánto hacer ni si lo estás haciendo bien.',
-    badge: 'Programa de 12 semanas',
+      'Un proceso para que no tengas que improvisar <strong>qué hacer, cuánto hacer ni cómo saber si lo estás haciendo bien.</strong>',
+    badge: 'Valoración + plan + seguimiento',
     sideParagraphs: [
-      'No trabajamos con sesiones sueltas. <strong>Es un acompañamiento</strong> estructurado para ayudarte a empezar o retomar el ejercicio con seguridad.',
+      'No trabajamos con sesiones sueltas. Es un <strong>acompañamiento estructurado de 12 semanas</strong> para ayudarte a empezar, retomar y adaptar el ejercicio con seguridad.',
       'Donde valoramos tu punto de partida, diseñamos un plan progresivo y lo adaptamos según cómo vas evolucionando.'
     ],
     items: [
@@ -72,35 +70,35 @@ const esProgram = {
         number: '1',
         title: 'Nos cuentas tu caso',
         body:
-          'Empezamos con una <strong>breve llamada</strong> para entender tu situación y ver si Empenta puede ayudarte de verdad. Si vemos que sí, te enviamos un formulario inicial para recoger la <strong>información importante antes de empezar</strong>.',
+          'Empezamos con una <strong>breve llamada</strong> para entender tu situación y ver si podemos ayudarte. Si encaja, te enviamos un formulario para recoger la <strong>información importante antes de empezar</strong>.',
         icon: 'call'
       },
       {
         number: '2',
         title: 'Hacemos una valoración inicial en tu casa',
         body:
-          'Vamos a tu domicilio para conocerte bien y <strong>valorar desde dónde partimos</strong>. Revisamos tu historia, tus síntomas, el momento del proceso oncológico en el que estás (quimioterapia, radioterapia, inmunoterapia, post-cirugía, etc.) y tu condición física actual para <strong>ajustar el plan a ti desde el principio</strong>.',
+          'Vamos a tu domicilio para conocerte y <strong>valorar desde dónde partimos</strong>. Revisamos tu historia, tus síntomas, tu tratamiento y tu condición física para <strong>adaptar el plan a ti desde el principio</strong>.',
         icon: 'home'
       },
       {
         number: '3',
         title: 'Preparamos el terreno para empezar bien',
         body:
-          'Antes de arrancar de verdad, no buscamos que lo hagas perfecto. Te explicamos <strong>cómo funciona el programa</strong>, cómo registrar la actividad en la app y cómo empezar poco a poco para llegar preparado/a a la primera semana real.',
+          'Antes de empezar, te explicamos <strong>cómo funciona el programa</strong>, cómo usar la app y cómo arrancar poco a poco para llegar preparado/a a la primera semana.',
         icon: 'phone'
       },
       {
         number: '4',
         title: 'Empiezas tu plan adaptado',
         body:
-          'Diseñamos un plan de ejercicio ajustado a tu situación actual. Priorizamos una dosis asumible para ti y la vamos adaptando según <strong>tu tolerancia, tus síntomas y tu evolución</strong>.',
+          'Diseñamos un plan de ejercicio ajustado a tu situación y lo vamos adaptando según <strong>tu tolerancia, tus síntomas y tu evolución</strong>.',
         icon: 'checklist'
       },
       {
         number: '5',
         title: 'Te acompañamos y medimos tu evolución',
         body:
-          'Durante el programa hacemos <strong>seguimiento online continuo</strong>, ajustamos la pauta según cómo te encuentras y recogemos datos para valorar tu evolución con criterio. Si lo autorizas, podremos <strong>compartir esa información con tu oncólogo/a</strong> o equipo médico para que también tenga una visión clara de tu progreso.',
+          'Durante las 12 semanas hacemos <strong>seguimiento online</strong>, ajustamos el plan según cómo te encuentras y recogemos datos para valorar tu evolución. Si lo autorizas, podemos <strong>compartir esa información con tu oncólogo/a</strong> o equipo médico.',
         icon: 'support'
       }
     ],
@@ -264,13 +262,11 @@ const esProgram = {
 
 const caProgram = {
   meta: {
-    title: 'EIMA | Com funciona Empenta',
-    description:
-      'Servei especialitzat de fisioteràpia oncològica i exercici físic a domicili a Mallorca. Programa Empenta de 12 setmanes.',
-    ogTitle: 'Com funciona Empenta | EIMA Fisioteràpia',
-    ogDescription:
-      'Ajudam persones amb càncer a recuperar vitalitat i reduir l’impacte dels efectes secundaris amb exercici adaptat a domicili.',
-    imageAlt: 'EIMA Fisioteràpia — Programa Empenta d’exercici oncològic'
+    title: 'Programa Empenta: exercici oncològic a Mallorca | Eima Salut',
+    description: "Programa d’exercici adaptat per a persones amb càncer a Mallorca. Valoració inicial, pla personalitzat i seguiment continu durant 12 setmanes.",
+    ogTitle: 'Com funciona Empenta | Eima Salut',
+    ogDescription: "Coneix com funciona Empenta: exercici adaptat, seguiment i ajustos segons el tractament, la fatiga i la resposta de cada persona.",
+    imageAlt: 'Eima Salut — Programa Empenta d’exercici oncològic'
   },
   hero: {
     eyebrow:
@@ -496,13 +492,11 @@ const caProgram = {
 
 const enProgram = {
   meta: {
-    title: 'EIMA | How Empenta works',
-    description:
-      'Specialist oncology physiotherapy and physical exercise at home in Mallorca. A 12-week Empenta programme with guided exercise and continuous online support.',
-    ogTitle: 'How Empenta works | EIMA Fisioterapia',
-    ogDescription:
-      'We help people with cancer recover vitality and reduce the impact of side effects with adapted exercise at home.',
-    imageAlt: 'EIMA Fisioterapia - Empenta oncology exercise programme'
+    title: 'Empenta Programme: oncology exercise in Mallorca | Eima Salut',
+    description: "Adapted exercise programme for people with cancer in Mallorca. Initial assessment, personalised plan and ongoing support throughout 12 weeks.",
+    ogTitle: 'How Empenta works | Eima Salut',
+    ogDescription: "Discover how Empenta works: adapted exercise, ongoing support and adjustments based on treatment, fatigue and each person’s response.",
+    imageAlt: 'Eima Salut - Empenta oncology exercise programme'
   },
   hero: {
     eyebrow:
@@ -734,5 +728,25 @@ const programByLanguage = {
 };
 
 export function getProgramCopy(language: Language) {
-  return programByLanguage[language] ?? esProgram;
+  const copy = programByLanguage[language] ?? esProgram;
+  if (language === 'es') return copy;
+  const review = programReview[language];
+  return {
+    ...copy,
+    hero: {
+      ...copy.hero,
+      eyebrow: '',
+      srTitle: language === 'ca'
+        ? 'Més força, menys efectes secundaris i més vitalitat durant i després del càncer'
+        : 'More strength, fewer side effects and more vitality during and after cancer',
+      ...(language === 'en' ? {
+        desktopParagraph: ['We help people with cancer regain their vitality', 'and reduce the impact of side effects on daily life', 'with our <strong class="font-semibold">12-week programme</strong>.'],
+        mobileParagraph: 'We help people with cancer regain their vitality and reduce the impact of side effects on daily life with our <strong class="font-semibold">12-week programme</strong>.'
+      } : {})
+    },
+    steps: {
+      ...copy.steps, intro: review.intro, badge: review.badge, sideParagraphs: [review.side],
+      items: copy.steps.items.map((item, i) => ({ ...item, body: review.bodies[i] }))
+    }
+  };
 }

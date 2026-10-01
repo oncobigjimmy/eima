@@ -51,7 +51,7 @@ En definitiva, no se trata solo de sobrevivir al diagnóstico. Se trata de llega
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src="/blog/cifras-cancer-espana-2020.png" alt="Portada del informe Las cifras del cáncer en España 2020 de SEOM" />
+    <img src="/blog/cifras-cancer-espana-2020.png" alt="Portada del informe Las cifras del cáncer en España 2020 de SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2020</span>
   </a>
 
@@ -61,7 +61,7 @@ En definitiva, no se trata solo de sobrevivir al diagnóstico. Se trata de llega
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src="/blog/cifras-cancer-espana-2026.png" alt="Portada del informe Las cifras del cáncer en España 2026 de SEOM" />
+    <img src="/blog/cifras-cancer-espana-2026.png" alt="Portada del informe Las cifras del cáncer en España 2026 de SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2026</span>
   </a>
 </div>

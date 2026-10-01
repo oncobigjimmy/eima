@@ -1,4 +1,5 @@
 <script>
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { onMount } from 'svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
@@ -213,14 +214,7 @@
       <p class="text-[15px] leading-relaxed text-white/84 md:text-[1.05rem]">
         {commonCopy.bottom}
       </p>
-      <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noreferrer"
-        class="common-cta mt-5 inline-flex items-center justify-center rounded-full bg-[#8CD0D6] px-6 py-3 text-[15px] font-medium text-[color:var(--color-brand)] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
-      >
-        {commonCopy.cta}
-      </a>
+      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={commonCopy.cta} class="mt-5" />
     </div>
   </div>
 </section>
@@ -290,7 +284,8 @@
 
   .common-situations-title,
   .common-situations-title * {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-weight: 400 !important;
   }
 
   @media (min-width: 768px) {

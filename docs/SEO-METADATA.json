@@ -1,0 +1,346 @@
+[
+  {
+    "path": "/",
+    "title": "Ejercicio para personas con cáncer en Mallorca | Eima Salut",
+    "description": "Programa de ejercicio adaptado durante y después del cáncer en Mallorca. Valoración inicial, plan personalizado y seguimiento por fisioterapeutas.",
+    "ogTitle": "Ejercicio para personas con cáncer en Mallorca | Eima Salut",
+    "ogDescription": "Ejercicio adaptado a tu situación y tratamiento para ayudarte a tener más energía, menos limitaciones y seguir con tu día a día.",
+    "h1": "Nuestro programa de ejercicio para personas con cáncer en Mallorca"
+  },
+  {
+    "path": "/ca",
+    "title": "Exercici per a persones amb càncer a Mallorca | Eima Salut",
+    "description": "Programa d’exercici adaptat durant i després del càncer a Mallorca. Valoració inicial, pla personalitzat i seguiment per fisioterapeutes.",
+    "ogTitle": "Exercici per a persones amb càncer a Mallorca | Eima Salut",
+    "ogDescription": "Exercici adaptat a la teva situació i tractament per ajudar-te a tenir més energia, menys limitacions i continuar amb el teu dia a dia.",
+    "h1": "El nostre programa d’exercici per a persones amb càncer a Mallorca"
+  },
+  {
+    "path": "/en",
+    "title": "Exercise for people with cancer in Mallorca | Eima Salut",
+    "description": "Adapted exercise during and after cancer in Mallorca. Initial assessment, personalised plan and follow-up by physiotherapists.",
+    "ogTitle": "Exercise for people with cancer in Mallorca | Eima Salut",
+    "ogDescription": "Exercise adapted to your situation and treatment to help you have more energy, fewer limitations and keep going with daily life.",
+    "h1": "Our exercise programme for people with cancer in Mallorca"
+  },
+  {
+    "path": "/como-funciona",
+    "title": "Programa Empenta: ejercicio oncológico en Mallorca | Eima Salut",
+    "description": "Programa de ejercicio adaptado para personas con cáncer en Mallorca. Valoración inicial, plan personalizado y seguimiento continuo durante 12 semanas.",
+    "ogTitle": "Ejercicio durante y después del cáncer | Eima Salut",
+    "ogDescription": "Conoce cómo funciona Empenta: ejercicio adaptado, seguimiento y ajustes según tu tratamiento, fatiga y respuesta para ayudarte a mantener fuerza y autonomía.",
+    "h1": "Más fuerza, menos efectos secundarios y más vitalidad durante y después del cáncer"
+  },
+  {
+    "path": "/ca/com-funciona",
+    "title": "Programa Empenta: exercici oncològic a Mallorca | Eima Salut",
+    "description": "Programa d’exercici adaptat per a persones amb càncer a Mallorca. Valoració inicial, pla personalitzat i seguiment continu durant 12 setmanes.",
+    "ogTitle": "Com funciona Empenta | Eima Salut",
+    "ogDescription": "Coneix com funciona Empenta: exercici adaptat, seguiment i ajustos segons el tractament, la fatiga i la resposta de cada persona.",
+    "h1": "Més força, menys efectes secundaris i més vitalitat durant i després del càncer"
+  },
+  {
+    "path": "/en/how-it-works",
+    "title": "Empenta Programme: oncology exercise in Mallorca | Eima Salut",
+    "description": "Adapted exercise programme for people with cancer in Mallorca. Initial assessment, personalised plan and ongoing support throughout 12 weeks.",
+    "ogTitle": "How Empenta works | Eima Salut",
+    "ogDescription": "Discover how Empenta works: adapted exercise, ongoing support and adjustments based on treatment, fatigue and each person’s response.",
+    "h1": "More strength, fewer side effects and more vitality during and after cancer"
+  },
+  {
+    "path": "/quienes-somos",
+    "title": "Quiénes somos | Eima Salut",
+    "description": "Somos fisioterapeutas que creemos en el ejercicio como la base para mantener nuestra autonomía. Conoce nuestra historia y nuestra forma de entender la salud.",
+    "ogTitle": "Conoce quiénes somos y nuestra historia | Eima Salut",
+    "ogDescription": "Conoce al equipo y por qué nuestro enfoque es activo. Nos basamos en ejercicio, educación en hábitos de salud y un seguimiento continuado para recuperar fuerza, energía y autonomía.",
+    "h1": "Dos fisioterapeutas. Una misma forma de acompañarte."
+  },
+  {
+    "path": "/ca/qui-som",
+    "title": "Qui som | Eima Salut",
+    "description": "Som fisioterapeutes i acompanyam persones amb càncer a moure’s amb seguretat, recuperar energia i cuidar-se sense desplaçaments innecessaris.",
+    "ogTitle": "Qui som | Eima Salut",
+    "ogDescription": "Coneix l’equip i la nostra manera d’entendre la salut: exercici adaptat, hàbits de salut i acompanyament proper.",
+    "h1": "Dos fisioterapeutes. Una mateixa manera d’acompanyar-te."
+  },
+  {
+    "path": "/en/who-we-are",
+    "title": "Who we are | Eima Salut",
+    "description": "We are physiotherapists who support people with cancer so they can move safely, recover energy and take care of themselves without unnecessary journeys.",
+    "ogTitle": "Who we are | Eima Salut",
+    "ogDescription": "Meet the team and our way of understanding health: adapted exercise, health habits and close support.",
+    "h1": "Two physiotherapists. One shared way of supporting you."
+  },
+  {
+    "path": "/quienes-somos/historia",
+    "title": "Nuestra historia | Eima Salut",
+    "description": "Descubre la historia de los fisioterapeutas de Eima Salut y por qué acompañan a personas con cáncer a recuperar energía, confianza y autonomía.",
+    "ogTitle": "Nuestra historia | Jaume y Miquel, fisioterapeutas Eima Salut",
+    "ogDescription": "Conoce el camino de Jaume Sansó y Miquel Galmés, fisioterapeutas fundadores de Eima Salut, y su forma de acompañar a personas con cáncer.",
+    "h1": "Conoce nuestro recorrido"
+  },
+  {
+    "path": "/ca/qui-som/historia",
+    "title": "La nostra història | Eima Salut",
+    "description": "Coneix la història dels fisioterapeutes d’Eima Salut i per què acompanyen persones amb càncer a recuperar energia, confiança i autonomia.",
+    "ogTitle": "La nostra història | Jaume i Miquel, fisioterapeutes Eima Salut",
+    "ogDescription": "Coneix el camí de Jaume Sansó i Miquel Galmés, fisioterapeutes fundadors d’Eima Salut, i la seva manera d’acompanyar persones amb càncer.",
+    "h1": "Coneix el nostre recorregut"
+  },
+  {
+    "path": "/en/who-we-are/story",
+    "title": "Our story | Eima Salut",
+    "description": "Discover the story of Eima Salut’s physiotherapists and why they support people with cancer in recovering energy, confidence and autonomy.",
+    "ogTitle": "Our story | Jaume and Miquel, Eima Salut physiotherapists",
+    "ogDescription": "Discover the path of Jaume Sansó and Miquel Galmés, Eima Salut’s founding physiotherapists, and their way of supporting people with cancer.",
+    "h1": "Discover our journey"
+  },
+  {
+    "path": "/contacto",
+    "title": "Contacto | Eima Salut",
+    "description": "Escríbenos o llámanos para contarnos tu caso. Te diremos con honestidad si Empenta puede ayudarte durante o después del cáncer.",
+    "ogTitle": "Contacto | Eima Salut",
+    "ogDescription": "Cuéntanos tu caso sin compromiso. Te diremos con honestidad si Empenta puede encajar contigo durante o después del cáncer.",
+    "h1": "¿Listo/a para tomar las riendas de tu salud?"
+  },
+  {
+    "path": "/ca/contacte",
+    "title": "Contacte | Eima Salut",
+    "description": "Escriu-nos o telefona’ns per explicar-nos el teu cas. Et direm amb honestedat si Empenta et pot ajudar durant o després del càncer.",
+    "ogTitle": "Contacte | Eima Salut",
+    "ogDescription": "Explica’ns el teu cas sense compromís. Et direm amb honestedat si Empenta pot encaixar amb tu durant o després del càncer.",
+    "h1": "Preparat/ada per agafar les regnes de la teva salut?"
+  },
+  {
+    "path": "/en/contact",
+    "title": "Contact | Eima Salut",
+    "description": "Write to us or call us to tell us about your case. We will honestly tell you whether Empenta can help you during or after cancer.",
+    "ogTitle": "Contact | Eima Salut",
+    "ogDescription": "Tell us about your case with no obligation. We will honestly tell you whether Empenta could be suitable for you during or after cancer.",
+    "h1": "Ready to take control of your health?"
+  },
+  {
+    "path": "/testimonios",
+    "title": "Testimonios | Eima Salut",
+    "description": "Historias reales de personas que han trabajado con Eima Salut y su experiencia con ejercicio adaptado, hábitos y seguimiento durante su proceso.",
+    "ogTitle": "Testimonios | Eima Salut",
+    "ogDescription": "Conoce experiencias reales de personas que han trabajado con Eima Salut y cómo han incorporado ejercicio adaptado, hábitos y seguimiento a su proceso.",
+    "h1": "Historias reales"
+  },
+  {
+    "path": "/ca/testimonis",
+    "title": "Testimonis | Eima Salut",
+    "description": "Històries reals de persones que han treballat amb Eima Salut i la seva experiència amb exercici adaptat, hàbits i seguiment durant el seu procés.",
+    "ogTitle": "Testimonis | Eima Salut",
+    "ogDescription": "Coneix experiències reals de persones que han treballat amb Eima Salut i com han incorporat exercici adaptat, hàbits i seguiment al seu procés.",
+    "h1": "Històries reals"
+  },
+  {
+    "path": "/en/testimonials",
+    "title": "Testimonials | Eima Salut",
+    "description": "Real stories from people who have worked with Eima Salut and their experience with adapted exercise, healthy habits and ongoing support.",
+    "ogTitle": "Testimonials | Eima Salut",
+    "ogDescription": "Discover real experiences from people who have worked with Eima Salut and how adapted exercise, healthy habits and ongoing support became part of their process.",
+    "h1": "Real stories"
+  },
+  {
+    "path": "/blog",
+    "title": "Blog sobre ejercicio y cáncer | Eima Salut",
+    "description": "Artículos sobre ejercicio durante y después del cáncer, fisioterapia oncológica, fatiga, dolor y hábitos para recuperar fuerza y salud.",
+    "ogTitle": "Blog sobre ejercicio y cáncer | Eima Salut",
+    "ogDescription": "Guías de Eima Salut sobre fisioterapia oncológica, ejercicio terapéutico, fatiga, dolor y salud para personas con cáncer en Mallorca.",
+    "h1": "Artículos sobre cáncer, ejercicio y hábitos de salud."
+  },
+  {
+    "path": "/ca/blog",
+    "title": "Blog sobre exercici i càncer | Eima Salut",
+    "description": "Articles sobre exercici durant i després del càncer, fisioteràpia oncològica, fatiga, dolor i hàbits per recuperar força i salut.",
+    "ogTitle": "Blog sobre exercici i càncer | Eima Salut",
+    "ogDescription": "Guies d’Eima Salut sobre fisioteràpia oncològica, exercici terapèutic, fatiga, dolor i salut per a persones amb càncer a Mallorca.",
+    "h1": "Articles sobre càncer, exercici i hàbits de salut."
+  },
+  {
+    "path": "/en/blog",
+    "title": "Blog about exercise and cancer | Eima Salut",
+    "description": "Articles about exercise during and after cancer, oncological physiotherapy, fatigue, pain and habits to regain strength and health.",
+    "ogTitle": "Blog about exercise and cancer | Eima Salut",
+    "ogDescription": "Eima Salut guides on oncological physiotherapy, therapeutic exercise, fatigue, pain and health for people with cancer in Mallorca.",
+    "h1": "Articles about cancer, exercise and healthy habits."
+  },
+  {
+    "path": "/ca/blog/es-segur-fer-exercici-durant-la-quimioterapia-o-hauria-desperar-a-acabar-la",
+    "title": "És segur fer exercici durant la quimioteràpia o hauria d’esperar a acabar-la? | Eima Salut",
+    "description": "Començar a fer exercici durant la quimioteràpia no només és segur, sinó que pot ajudar a combatre la toxicitat i preservar la teva capacitat física.",
+    "ogTitle": "És segur fer exercici durant la quimioteràpia o hauria d’esperar a acabar-la?",
+    "ogDescription": "Començar a fer exercici durant la quimioteràpia no només és segur, sinó que pot ajudar a combatre la toxicitat i preservar la teva capacitat física.",
+    "h1": "És segur fer exercici durant la quimioteràpia o hauria d’esperar a acabar-la?"
+  },
+  {
+    "path": "/ca/blog/pot-lexercici-frenar-el-creixement-dun-tumor-que-diu-la-ciencia",
+    "title": "Pot l’exercici frenar el creixement d’un tumor? Què diu la ciència? | Eima Salut",
+    "description": "L’exercici pot mobilitzar cèl·lules guardianes del sistema immunitari i canviar l’ambient intern del cos per posar-ho més difícil al tumor.",
+    "ogTitle": "Pot l’exercici frenar el creixement d’un tumor? Què diu la ciència?",
+    "ogDescription": "L’exercici pot mobilitzar cèl·lules guardianes del sistema immunitari i canviar l’ambient intern del cos per posar-ho més difícil al tumor.",
+    "h1": "Pot l’exercici frenar el creixement d’un tumor? Què diu la ciència?"
+  },
+  {
+    "path": "/en/blog/is-it-safe-to-exercise-during-chemotherapy-or-should-i-wait-until-it-ends",
+    "title": "Is it safe to exercise during chemotherapy or should I wait until it ends? | Eima Salut",
+    "description": "Starting exercise during chemotherapy is not only safe; it can also help combat toxicity and preserve your physical capacity.",
+    "ogTitle": "Is it safe to exercise during chemotherapy or should I wait until it ends?",
+    "ogDescription": "Starting exercise during chemotherapy is not only safe; it can also help combat toxicity and preserve your physical capacity.",
+    "h1": "Is it safe to exercise during chemotherapy or should I wait until it ends?"
+  },
+  {
+    "path": "/en/blog/can-exercise-slow-tumour-growth-what-does-science-say",
+    "title": "Can exercise slow tumour growth? What does science say? | Eima Salut",
+    "description": "Exercise can mobilise the immune system’s guardian cells and change the body’s internal environment to make things harder for the tumour.",
+    "ogTitle": "Can exercise slow tumour growth? What does science say?",
+    "ogDescription": "Exercise can mobilise the immune system’s guardian cells and change the body’s internal environment to make things harder for the tumour.",
+    "h1": "Can exercise slow tumour growth? What does science say?"
+  },
+  {
+    "path": "/blog/es-seguro-hacer-ejercicio-durante-la-quimioterapia-o-deberia-esperar-a-terminarla",
+    "title": "¿Es seguro hacer ejercicio durante la quimioterapia o debería esperar a terminarla? | Eima Salut",
+    "description": "Empezar a hacer ejercicio durante la quimioterapia no solo es seguro, sino que puede ayudar a combatir la toxicidad y preservar tu capacidad física.",
+    "ogTitle": "¿Es seguro hacer ejercicio durante la quimioterapia o debería esperar a terminarla?",
+    "ogDescription": "Empezar a hacer ejercicio durante la quimioterapia no solo es seguro, sino que puede ayudar a combatir la toxicidad y preservar tu capacidad física.",
+    "h1": "¿Es seguro hacer ejercicio durante la quimioterapia o debería esperar a terminarla?"
+  },
+  {
+    "path": "/blog/puede-el-ejercicio-frenar-el-crecimiento-de-un-tumor-que-dice-la-ciencia",
+    "title": "¿Puede el ejercicio frenar el crecimiento de un tumor? ¿Qué dice la ciencia? | Eima Salut",
+    "description": "El ejercicio puede movilizar células guardianas del sistema inmune y cambiar el ambiente interno del cuerpo para ponérselo más difícil al tumor.",
+    "ogTitle": "¿Puede el ejercicio frenar el crecimiento de un tumor? ¿Qué dice la ciencia?",
+    "ogDescription": "El ejercicio puede movilizar células guardianas del sistema inmune y cambiar el ambiente interno del cuerpo para ponérselo más difícil al tumor.",
+    "h1": "¿Puede el ejercicio frenar el crecimiento de un tumor? ¿Qué dice la ciencia?"
+  },
+  {
+    "path": "/ca/blog/per-que-el-repos-total-ja-no-es-la-millor-recomanacio-si-tens-cancer",
+    "title": "Per què el repòs total ja no és la millor recomanació si tens càncer | Eima Salut",
+    "description": "Durant anys es recomanava descansar per sistema durant el càncer. Avui sabem que l’exercici adaptat pot ajudar el cos a resistir millor el procés.",
+    "ogTitle": "Per què el repòs total ja no és la millor recomanació si tens càncer",
+    "ogDescription": "Durant anys es recomanava descansar per sistema durant el càncer. Avui sabem que l’exercici adaptat pot ajudar el cos a resistir millor el procés.",
+    "h1": "Per què el repòs total ja no és la millor recomanació si tens càncer"
+  },
+  {
+    "path": "/ca/blog/per-que-he-tingut-un-cancer-si-no-hi-ha-antecedents-a-la-meva-familia",
+    "title": "Per què he tingut un càncer si no hi ha antecedents a tota la meva família? | Eima Salut",
+    "description": "La genètica influeix, però el nostre entorn i estil de vida també pesen molt. Entendre-ho ajuda a recuperar marge d’acció durant el procés.",
+    "ogTitle": "Per què he tingut un càncer si no hi ha antecedents a tota la meva família?",
+    "ogDescription": "La genètica influeix, però el nostre entorn i estil de vida també pesen molt. Entendre-ho ajuda a recuperar marge d’acció durant el procés.",
+    "h1": "Per què he tingut un càncer si no hi ha antecedents a tota la meva família?"
+  },
+  {
+    "path": "/ca/blog/serveix-de-res-fer-exercici-si-tinc-cancer-aixo-diu-la-ciencia",
+    "title": "Serveix de res fer exercici si tinc càncer? Això diu la ciència | Eima Salut",
+    "description": "L’exercici físic no és un extra: és una intervenció biològica que pot ajudar-te a tolerar millor el tractament i reduir els efectes secundaris.",
+    "ogTitle": "Serveix de res fer exercici si tinc càncer? Això diu la ciència",
+    "ogDescription": "L’exercici físic no és un extra: és una intervenció biològica que pot ajudar-te a tolerar millor el tractament i reduir els efectes secundaris.",
+    "h1": "Serveix de res fer exercici si tinc càncer? Això diu la ciència"
+  },
+  {
+    "path": "/en/blog/why-complete-rest-is-no-longer-the-best-advice-if-you-have-cancer",
+    "title": "Why complete rest is no longer the best advice if you have cancer | Eima Salut",
+    "description": "For years, rest was routinely recommended during cancer. Today we know that adapted exercise can help the body cope better with the process.",
+    "ogTitle": "Why complete rest is no longer the best advice if you have cancer",
+    "ogDescription": "For years, rest was routinely recommended during cancer. Today we know that adapted exercise can help the body cope better with the process.",
+    "h1": "Why complete rest is no longer the best advice if you have cancer"
+  },
+  {
+    "path": "/en/blog/why-did-i-get-cancer-if-there-is-no-history-in-my-family",
+    "title": "Why did I get cancer if there’s no history of cancer in my family? | Eima Salut",
+    "description": "Genetics play a role, but our environment and lifestyle also matter a great deal. Understanding this helps us regain room for action during the process.",
+    "ogTitle": "Why did I get cancer if there’s no history of cancer in my family?",
+    "ogDescription": "Genetics play a role, but our environment and lifestyle also matter a great deal. Understanding this helps us regain room for action during the process.",
+    "h1": "Why did I get cancer if there’s no history of cancer in my family?"
+  },
+  {
+    "path": "/en/blog/does-exercise-help-if-i-have-cancer-this-is-what-science-says",
+    "title": "Does exercise help if I have cancer? This is what science says | Eima Salut",
+    "description": "Physical exercise is not an extra: it is a biological intervention that can help you tolerate treatment better and reduce side effects.",
+    "ogTitle": "Does exercise help if I have cancer? This is what science says",
+    "ogDescription": "Physical exercise is not an extra: it is a biological intervention that can help you tolerate treatment better and reduce side effects.",
+    "h1": "Does exercise help if I have cancer? This is what science says"
+  },
+  {
+    "path": "/blog/por-que-el-reposo-total-ya-no-es-la-mejor-recomendacion-si-tienes-cancer",
+    "title": "Por qué el reposo total ya no es la mejor recomendación si tienes cáncer | Eima Salut",
+    "description": "Durante años se recomendó descansar por sistema durante el cáncer. Hoy sabemos que el ejercicio adaptado puede ayudar al cuerpo a resistir mejor el proceso.",
+    "ogTitle": "Por qué el reposo total ya no es la mejor recomendación si tienes cáncer",
+    "ogDescription": "Durante años se recomendó descansar por sistema durante el cáncer. Hoy sabemos que el ejercicio adaptado puede ayudar al cuerpo a resistir mejor el proceso.",
+    "h1": "Por qué el reposo total ya no es la mejor recomendación si tienes cáncer"
+  },
+  {
+    "path": "/blog/por-que-he-tenido-un-cancer-si-no-hay-antecedentes-en-toda-mi-familia",
+    "title": "¿Por qué he tenido un cáncer si no hay antecedentes en toda mi familia? | Eima Salut",
+    "description": "La genética influye, pero nuestro entorno y estilo de vida también pesan mucho. Entenderlo ayuda a recuperar margen de acción durante el proceso.",
+    "ogTitle": "¿Por qué he tenido un cáncer si no hay antecedentes en toda mi familia?",
+    "ogDescription": "La genética influye, pero nuestro entorno y estilo de vida también pesan mucho. Entenderlo ayuda a recuperar margen de acción durante el proceso.",
+    "h1": "¿Por qué he tenido un cáncer si no hay antecedentes en toda mi familia?"
+  },
+  {
+    "path": "/blog/sirve-de-algo-hacer-ejercicio-si-tengo-cancer-esto-dice-la-ciencia",
+    "title": "¿Sirve de algo hacer ejercicio si tengo cáncer? Esto dice la ciencia | Eima Salut",
+    "description": "El ejercicio físico no es un extra: es una intervención biológica que puede ayudarte a tolerar mejor el tratamiento y reducir efectos secundarios.",
+    "ogTitle": "¿Sirve de algo hacer ejercicio si tengo cáncer? Esto dice la ciencia",
+    "ogDescription": "El ejercicio físico no es un extra: es una intervención biológica que puede ayudarte a tolerar mejor el tratamiento y reducir efectos secundarios.",
+    "h1": "¿Sirve de algo hacer ejercicio si tengo cáncer? Esto dice la ciencia"
+  },
+  {
+    "path": "/ca/blog/per-que-cada-vegada-hi-ha-mes-gent-jove-amb-cancer-que-esta-passant",
+    "title": "Per què cada vegada hi ha més gent jove amb càncer? Què està passant? | Eima Salut",
+    "description": "Les dades de la SEOM de 2026 apunten a un augment de diagnòstics de càncer abans dels 65 anys. Revisam quins factors hi poden haver darrere i com l’exercici pot ajudar durant el procés.",
+    "ogTitle": "Per què cada vegada hi ha més gent jove amb càncer? Què està passant?",
+    "ogDescription": "Les dades de la SEOM de 2026 apunten a un augment de diagnòstics de càncer abans dels 65 anys. Revisam quins factors hi poden haver darrere i com l’exercici pot ajudar durant el procés.",
+    "h1": "Per què cada vegada hi ha més gent jove amb càncer? Què està passant?"
+  },
+  {
+    "path": "/en/blog/why-are-more-young-people-getting-cancer-what-is-happening",
+    "title": "Why are more young people getting cancer? What is happening? | Eima Salut",
+    "description": "SEOM’s 2026 data point to an increase in cancer diagnoses before the age of 65. We look at the factors that may be behind this and how exercise can help during the process.",
+    "ogTitle": "Why are more young people getting cancer? What is happening?",
+    "ogDescription": "SEOM’s 2026 data point to an increase in cancer diagnoses before the age of 65. We look at the factors that may be behind this and how exercise can help during the process.",
+    "h1": "Why are more young people getting cancer? What is happening?"
+  },
+  {
+    "path": "/blog/por-que-cada-vez-hay-mas-gente-joven-con-cancer-que-esta-pasando",
+    "title": "¿Por qué cada vez hay más gente joven con cáncer? ¿Qué está pasando? | Eima Salut",
+    "description": "Los datos de la SEOM en 2026 apuntan a un aumento de diagnósticos de cáncer antes de los 65 años. Revisamos qué factores pueden estar detrás y cómo el ejercicio puede ayudar durante el proceso.",
+    "ogTitle": "¿Por qué cada vez hay más gente joven con cáncer? ¿Qué está pasando?",
+    "ogDescription": "Los datos de la SEOM en 2026 apuntan a un aumento de diagnósticos de cáncer antes de los 65 años. Revisamos qué factores pueden estar detrás y cómo el ejercicio puede ayudar durante el proceso.",
+    "h1": "¿Por qué cada vez hay más gente joven con cáncer? ¿Qué está pasando?"
+  },
+  {
+    "path": "/aviso-legal",
+    "title": "Aviso Legal | Eima Salut",
+    "description": "Aviso legal de Eima Salut.",
+    "ogTitle": "Aviso Legal | Eima Salut",
+    "ogDescription": "Información legal y condiciones generales del sitio web de Eima Salut.",
+    "h1": "Aviso Legal"
+  },
+  {
+    "path": "/terminos",
+    "title": "Términos y Condiciones | Eima Salut",
+    "description": "Términos y condiciones de uso del sitio y del servicio de Eima Salut.",
+    "ogTitle": "Términos y Condiciones | Eima Salut",
+    "ogDescription": "Consulta los términos y condiciones de uso del sitio web y de los servicios de Eima Salut.",
+    "h1": "Términos y Condiciones"
+  },
+  {
+    "path": "/politica-privacidad",
+    "title": "Política de Privacidad | Eima Salut",
+    "description": "Política de privacidad de Eima Salut.",
+    "ogTitle": "Política de Privacidad | Eima Salut",
+    "ogDescription": "Consulta cómo Eima Salut trata y protege los datos personales de los usuarios.",
+    "h1": "Política de Privacidad"
+  },
+  {
+    "path": "/politica-cookies",
+    "title": "Política de Cookies | Eima Salut",
+    "description": "Política de cookies de Eima Salut.",
+    "ogTitle": "Política de Cookies | Eima Salut",
+    "ogDescription": "Información sobre el uso y la gestión de cookies en el sitio web de Eima Salut.",
+    "h1": "Política de Cookies"
+  }
+]

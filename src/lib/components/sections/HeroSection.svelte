@@ -1,7 +1,12 @@
 <script>
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { onMount } from 'svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
+  import { watchReducedMotion } from '$lib/motion';
+  let reducedMotion = false;
+  /** @type {HTMLVideoElement} */
+  let heroVideo;
 
   /** @param {number} ms */
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,42 +43,58 @@
   let phrases = getCopy('es').home.hero.phrases;
 
   $: hero = getCopy($language).home.hero;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref($language, true);
   $: if (phrases !== hero.phrases) {
     phrases = hero.phrases;
     phraseIndex = 0;
-    typedPhrase = '';
+    typedPhrase = reducedMotion ? phrases[0] : '';
   }
 
   onMount(() => {
     let cancelled = false;
+    let generation = 0;
 
-    async function animate() {
-      while (!cancelled) {
+    /** @param {number} version */
+    async function animate(version) {
+      while (!cancelled && !reducedMotion && version === generation) {
         const phrase = phrases[phraseIndex];
         typedPhrase = '';
 
-        for (let i = 1; i <= phrase.length && !cancelled; i += 1) {
+        for (let i = 1; i <= phrase.length && !cancelled && !reducedMotion && version === generation; i += 1) {
           typedPhrase = phrase.slice(0, i);
           await sleep(90);
         }
 
         await sleep(760);
-
+        if (cancelled || reducedMotion || version !== generation) return;
         phraseIndex = (phraseIndex + 1) % phrases.length;
       }
     }
 
-    animate();
+    const stopMotion = watchReducedMotion((reduced) => {
+      reducedMotion = reduced;
+      generation += 1;
+      if (heroVideo) heroVideo.autoplay = !reduced;
+      if (reduced) {
+        phraseIndex = 0;
+        typedPhrase = phrases[0];
+        heroVideo?.pause();
+      } else {
+        animate(generation);
+        heroVideo?.play().catch(() => {});
+      }
+    });
 
     return () => {
       cancelled = true;
+      stopMotion();
     };
   });
 </script>
 
 <section class="relative w-full overflow-hidden" style="min-height: 92vh;">
   <video
+    bind:this={heroVideo}
     class="absolute inset-0 h-full w-full object-cover"
     autoplay
     muted
@@ -85,32 +106,31 @@
     <source src="/videos/hero.mp4" type="video/mp4" />
   </video>
   <div
-    class="absolute inset-0"
-    style="background: linear-gradient(90deg, rgba(20,38,49,0.92) 0%, rgba(20,38,49,0.78) 55%, rgba(20,38,49,0.55) 100%);"
+    class="site-hero-overlay absolute inset-0"
     aria-hidden="true"
   ></div>
 
-  <div class="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24">
+  <div class={`photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24 lg:pt-[111px]`}>
     <div class="max-w-3xl leading-[1.02] tracking-tight">
-      <h1 class="mb-4 block max-w-xl text-[5px] font-light tracking-wide text-white/10 md:text-[5px]">
-        {hero.eyebrow}
-      </h1>
+
       <span class="block text-[2.1rem] font-normal text-white md:text-6xl">{hero.intro}</span>
       <span
         class="mt-1 block text-5xl font-bold text-white md:mt-2 md:text-[5rem]"
+        class:review-typed={true}
         aria-label={phrases[phraseIndex]}
       >
-        <span class="inline-block min-w-[10ch]">{typedPhrase}</span>
+        <span class="inline-block">{typedPhrase}</span>
       </span>
       <span
         class="hero-accent-line mt-3 block font-serif-italic text-3xl md:text-[3.2rem]"
+        class:home-hero-accent={true}
         style="color: var(--color-brand-accent);"
       >
         {hero.fromHome}
       </span>
     </div>
 
-    <div class="mt-10 max-w-lg text-[15px] font-light leading-relaxed text-white/90 md:text-base">
+    <div class="mt-10 max-w-lg text-[15px] font-light leading-relaxed text-white/96 md:text-base" class:home-hero-copy={true}>
       {#each hero.mobileParagraphs as paragraph, index (paragraph)}
         <p class:mt-4={index > 0} class="md:hidden">
           {#each parseInlineHtml(paragraph) as segment}
@@ -146,59 +166,20 @@
     </div>
 
     <div class="mt-10 flex flex-col items-center gap-4">
-      <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hero-cta inline-flex w-fit items-center justify-center rounded-full border border-white/50 px-7 py-3.5 text-white font-light transition-[background-color,transform,font-weight] duration-300 ease-out hover:scale-[1.03] hover:bg-white/10 hover:font-bold"
-      >
-        {hero.cta}
-      </a>
-      <p class="max-w-md text-center text-xs font-light leading-relaxed text-white/75 md:text-sm">
-        {#if hero.noteLines}
-          {#each hero.noteLines as line, index (line)}
-            {line}{#if index < hero.noteLines.length - 1}<br />{/if}
-          {/each}
-        {:else}
-          {hero.note}
-        {/if}
-      </p>
+      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} shadowless />
+
     </div>
   </div>
 </section>
 
 <style>
-  .hero-cta {
-    isolation: isolate;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .hero-cta::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-180%) skewX(-18deg);
-    transition: transform 420ms ease-out;
-    width: 44%;
-    z-index: 0;
-  }
-
-  .hero-cta:hover::before {
-    transform: translateX(260%) skewX(-18deg);
-  }
-
-  .hero-cta :global(*) {
-    position: relative;
-    z-index: 1;
-  }
-
+  .review-typed { min-height: 1.08em; font-size: clamp(2.5rem, 10vw, 5rem); }
   .hero-accent-line {
-    font-weight: 300;
+    font-weight: 300 !important;
   }
+
+  .home-hero-accent { margin-top: .375rem; }
+  .home-hero-copy { margin-top: 1.75rem; }
 </style>
 
 

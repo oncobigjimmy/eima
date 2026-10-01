@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { tick } from 'svelte';
   import { page } from '$app/stores';
   import { LANGUAGES, type Language } from '$lib/i18n/copy';
   import { language, setLanguage } from '$lib/i18n/language';
@@ -10,9 +11,42 @@
   export let onSelect = () => {};
 
   let dropdownOpen = false;
+  let selector: HTMLDivElement;
+  let trigger: HTMLButtonElement;
+
+  async function openDropdown(last = false) {
+    dropdownOpen = true;
+    await tick();
+    const items = selector.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]');
+    items[last ? items.length - 1 : 0]?.focus();
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && dropdownOpen) {
+      event.preventDefault();
+      event.stopPropagation();
+      dropdownOpen = false;
+      trigger.focus();
+    } else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      if (!dropdownOpen && event.target === trigger && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
+        event.preventDefault();
+        openDropdown(event.key === 'ArrowUp');
+      } else if (dropdownOpen) {
+        event.preventDefault();
+        const items = [...selector.querySelectorAll<HTMLButtonElement>('[role="menuitemradio"]')];
+        const index = items.indexOf(document.activeElement as HTMLButtonElement);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 :
+          (index + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+        items[next]?.focus();
+      }
+    }
+  }
+
+  function handleFocusout(event: FocusEvent) {
+    if (!(event.relatedTarget instanceof Node) || !selector.contains(event.relatedTarget)) closeDropdown();
+  }
 
   $: pathname = $page.url.pathname;
-  $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: routeLanguage = getLanguageFromPath(pathname);
   $: currentLanguageCode = routeLanguage ?? $language;
   $: currentLanguage = LANGUAGES.find((item) => item.code === currentLanguageCode) ?? LANGUAGES[0];
@@ -25,6 +59,7 @@
 
     setLanguage(nextLanguage);
     dropdownOpen = false;
+    trigger?.focus();
     onSelect();
 
     if (nextUrl !== currentUrl) {
@@ -39,17 +74,20 @@
 
 <svelte:window on:click={closeDropdown} />
 
-{#if !isBlog}
   <div
+    bind:this={selector}
+    role="group"
+    on:focusout={handleFocusout}
     class="language-selector flex items-center gap-1.5"
     class:language-selector--compact={compact}
-    aria-label="Idioma"
+    class:language-selector--light={light}
+    aria-label={currentLanguageCode === 'en' ? 'Language' : 'Idioma'}
   >
     <div class="language-selector__mobile flex items-center gap-2">
       {#each LANGUAGES as item (item.code)}
         <button
           type="button"
-          class="language-selector__button inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-light transition-[background-color,color,border-color,opacity] duration-200 hover:opacity-90
+          class="language-selector__button inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-light transition-[background-color,color,border-color,opacity,text-shadow] duration-200 hover:opacity-90
             {light
               ? 'border-white/45 text-white'
               : 'border-[color:var(--color-brand)]/18 text-[color:var(--color-brand)]'}
@@ -61,7 +99,7 @@
                 ? 'bg-white/5'
                 : 'bg-white/45'}"
           aria-pressed={currentLanguageCode === item.code}
-          aria-label={`Cambiar idioma a ${item.name}`}
+          aria-label={`${currentLanguageCode === 'en' ? 'Change language to' : currentLanguageCode === 'ca' ? 'Canvia l’idioma a' : 'Cambiar idioma a'} ${item.name}`}
           on:click={() => chooseLanguage(item.code)}
         >
           <span class={`language-flag language-flag--${item.code}`} aria-hidden="true"></span>
@@ -72,14 +110,16 @@
 
     <div class="language-selector__desktop relative">
       <button
+        bind:this={trigger}
+        on:keydown={handleKeydown}
         type="button"
-        class="language-selector__trigger inline-flex min-w-[8.2rem] items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[12px] font-medium tracking-[0.02em] transition-[background-color,color,border-color,opacity] duration-200 hover:opacity-90
+        class="language-selector__trigger inline-flex min-w-[8.2rem] items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[12px] font-medium tracking-[0.02em] transition-[background-color,color,border-color,opacity,text-shadow] duration-200 hover:opacity-90
           {light
             ? 'border-white/45 bg-white/8 text-white'
             : 'border-[color:var(--color-brand)]/18 bg-white/60 text-[color:var(--color-brand)]'}"
         aria-haspopup="menu"
         aria-expanded={dropdownOpen}
-        on:click|stopPropagation={() => (dropdownOpen = !dropdownOpen)}
+        on:click|stopPropagation={() => dropdownOpen ? closeDropdown() : openDropdown()}
       >
         <span class="inline-flex items-center gap-2">
           <span class={`language-flag language-flag--${currentLanguage.code}`} aria-hidden="true"></span>
@@ -101,6 +141,7 @@
               class="flex w-full items-center gap-2 rounded-[6px] px-3 py-2 text-left text-[12px] font-light tracking-[0.02em] transition-colors hover:bg-[#8CD0D6]
                 {currentLanguageCode === item.code ? 'bg-[#8CD0D6] font-medium' : ''}"
               role="menuitemradio"
+              on:keydown={handleKeydown}
               aria-checked={currentLanguageCode === item.code}
               on:click|stopPropagation={() => chooseLanguage(item.code)}
             >
@@ -112,9 +153,13 @@
       {/if}
     </div>
   </div>
-{/if}
 
 <style>
+  .language-selector--light .language-selector__button,
+  .language-selector--light .language-selector__trigger {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.48), 0 3px 8px rgba(0, 0, 0, 0.28);
+  }
+
   .language-selector--compact {
     flex-wrap: wrap;
     justify-content: center;

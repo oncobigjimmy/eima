@@ -1,7 +1,7 @@
 export const storyProfiles = [
   {
     id: 'jaume',
-    name: 'Jaume Sansó',
+    name: 'Jaume Sansó Servera',
     specialty: 'Fisioterapeuta especializado en ejercicio y cáncer',
     storySections: [
       {
@@ -16,7 +16,7 @@ export const storyProfiles = [
       {
         title: 'Mi frustración',
         paragraphs: [
-          'Y cuando empecé a trabajar en el hospital vi un problema enorme: la dependencia que crea la camilla. Ahí entendí algo que lo cambió todo: gran parte del cambio no está en lo que te hacen, sino en lo que tú mismo haces por TU cuerpo. Quería trasladar a mis pacientes esa sensación de libertad y empoderamiento que yo mismo sentí al recuperarme con ejercicio, rompiendo el paradigma de depender de las manos del fisio para mejorar.',
+          'Y cuando empecé a trabajar en el hospital comprendí que la atención en camilla podía complementarse con un papel más activo de cada persona. Ahí entendí algo que lo cambió todo: gran parte del cambio no está solo en lo que te hacen, sino también en lo que tú mismo haces por TU cuerpo. Quería trasladar a mis pacientes esa sensación de libertad y autonomía que yo mismo sentí al recuperarme con ejercicio, ayudándoles a participar en su propia mejoría.',
           'Con los años, el cáncer volvió a cruzarse en mi camino: pacientes que habían pasado por un proceso oncológico y arrastraban secuelas. Y ahí vi una diferencia muy clara entre quienes hacían ejercicio y quienes no: la calidad de vida no era la misma.'
         ]
       },
@@ -24,8 +24,8 @@ export const storyProfiles = [
         title: 'El porqué de lo que hago',
         paragraphs: [
           'El clic definitivo llegó cuando escuché una entrevista al investigador Thomas Seyfried: ahí vi con claridad el papel del metabolismo en la salud. Desde entonces aprendo día a día de los mejores profesionales que trabajan con este enfoque, para nutrirme de sus conocimientos y aplicarlo en mis pacientes.',
-          'EIMA nace con un objetivo claro: filtrar el ruido. Condensamos la información de los mayores expertos y la transformamos en acciones claras para que tengas tu hoja de ruta bien definida, sin perder meses entre dudas y consejos contradictorios.',
-          'Mi misión es que toda persona que pase por EIMA sea consciente de todo lo que su cuerpo puede hacer para mejorar su salud.'
+          'Eima Salut nace con un objetivo claro: filtrar el ruido. Condensamos la información de los mayores expertos y la transformamos en acciones claras para que tengas tu hoja de ruta bien definida, sin perder meses entre dudas y consejos contradictorios.',
+          'Mi misión es que toda persona que pase por Eima Salut sea consciente de todo lo que su cuerpo puede hacer para mejorar su salud.'
         ]
       }
     ],
@@ -39,39 +39,43 @@ export const storyProfiles = [
       {
         year: '2021',
         items: [
-          'Curso de Razonamiento Clínico y Diagnóstico clínico — Arturo Such (Qeres Formación)',
-          'Curso de Método Científico e Investigación Sanitaria — Fran Gurdiel y Laura Flix (Qeres Formación)'
+          'Razonamiento Clínico y Diagnóstico clínico — Arturo Such',
+          'Método Científico e Investigación Sanitaria — Fran Gurdiel y Laura Flix'
         ]
       },
       {
         year: '2022',
         items: [
-          'Curso de Ejercicio Terapéutico — Fran Gurdiel (Qeres Formación)',
-          'Curso Abordaje de Neuropatías en MMSS y MMII — Arturo Such (Qeres Formación)'
+          'Ejercicio Terapéutico — Fran Gurdiel',
+          'Abordaje de Neuropatías en MMSS y MMII — Arturo Such'
         ]
       },
       {
         year: '2023',
         items: [
-          'Curso Abordaje y Tratamiento de Tendinopatías en MMSS y MMII — Álvaro Altube (Qeres Formación)',
-          'Curso de Reconocimiento de Patrones — Arturo Such (Qeres Formación)',
-          'Curso de Ejercicio, Obesidad y Cáncer (2ª edición) — Mario Redondo y Javi Butragueño (Obesity Management School)'
+          'Abordaje y Tratamiento de Tendinopatías en MMSS y MMII — Álvaro Altube',
+          'Reconocimiento de Patrones — Arturo Such',
+          'Ejercicio, Obesidad y Cáncer (2ª edición) — Mario Redondo y Javi Butragueño'
         ]
       },
       {
         year: '2024',
         items: [
-          'Curso de Abordaje de la Persona con Dolor de Larga Evolución — Mar Flores (acreditado por el Hospital Sant Joan de Déu)',
-          'Curso de Dolor y Movimiento. Neurobiología del Dolor — Arturo Goicoechea (acreditado por el Hospital Sant Joan de Déu)',
-          'Curso de Fisioterapia en el paciente oncológico — Luis Montoya (Qeres Formación)'
+          'Abordaje de la Persona con Dolor de Larga Evolución — Mar Flores',
+          'Dolor y Movimiento. Neurobiología del Dolor — Arturo Goicoechea',
+          'Fisioterapia en el paciente oncológico — Luis Montoya'
         ]
       },
       {
         year: '2025',
         items: [
-          'Curso Dolor de Hombro. Razonamiento Clínico y Abordaje Terapéutico — Tito Pampín (acreditado por el Hospital Sant Joan de Déu)',
-          'Curso de Oncología metabólica — Alfonso Fernández'
+          'Dolor de Hombro. Razonamiento Clínico y Abordaje Terapéutico — Tito Pampín',
+          'Oncología metabólica — Alfonso Fernández'
         ]
+      },
+      {
+        year: '2026',
+        items: ['Abordaje nutricional del cáncer como enfermedad metabólica — Emuná Nutrición Integrativa']
       }
     ],
     readingsTitle: 'Mis lecturas',
@@ -82,12 +86,14 @@ export const storyProfiles = [
       'Medio ambiente y salud: Mujeres y hombres en un mundo de nuevos riesgos — Carme Valls-Llobet ✔️',
       'El ejercicio, un muro contra el cáncer — Adrián Castillo, Javier Morales y Pedro Valenzuela ✔️',
       'La Enciclopedia del Cáncer: Metabolismo, Sistema Inmune y Microbiota — Cáncer Integral (en curso)',
-      'Libérate de tóxicos: Guía para evitar los disruptores endocrinos — Nicolás Olea (en curso)'
+      'Libérate de tóxicos: Guía para evitar los disruptores endocrinos — Nicolás Olea (en curso)',
+      'El ayuno contra el cáncer — Valter Longo',
+      'Ser mujer — Alexandra Henríquez'
     ]
   },
   {
     id: 'miquel',
-    name: 'Miquel Galmés',
+    name: 'Miquel Galmés Vives',
     specialty: 'Fisioterapeuta especializado en ejercicio y dolor oncológico',
     storySections: [
       {
@@ -123,13 +129,13 @@ export const storyProfiles = [
         title: 'Cómo trabajo a día de hoy',
         paragraphs: [
           'Hoy enfoco mi trabajo en trasladar todo este conocimiento a cada persona con la que trabajo, elaborando programas totalmente personalizados y acompañándola en su proceso para recuperar bienestar, movimiento y confianza en su cuerpo.',
-          'Y de ahí nace EIMA.',
-          'De la unión de dos profesionales cansados de trabajar con limitaciones, con el objetivo de mejorar la vida de nuestros pacientes con compromiso real, implicación total y acompañándote paso a paso hacia tu mejor estado de salud.'
+          'Y de ahí nace Eima Salut.',
+          'De la unión de dos profesionales convencidos de que podían acompañar más de cerca, con el objetivo de mejorar la vida de nuestros pacientes con compromiso real, implicación total y acompañándote paso a paso hacia tu mejor estado de salud.'
         ]
       }
     ],
     cta: 'Ahora que sabes mi historia ¿Nos cuentas la tuya?',
-    educationTitle: 'Formación',
+    educationTitle: 'Mi formación',
     education: [
       {
         year: '2017',
@@ -138,9 +144,8 @@ export const storyProfiles = [
       {
         year: '2018',
         items: [
-          'Curso de Punción Seca en el Síndrome de Dolor Miofascial',
-          'Curso de Actualización en la Ley de Protección de Datos',
-          'Curso sobre Nuevas Tecnologías Aplicadas a la Rehabilitación'
+          'Punción Seca en el Síndrome de Dolor Miofascial',
+          'Nuevas Tecnologías Aplicadas a la Rehabilitación'
         ]
       },
       {
@@ -149,33 +154,37 @@ export const storyProfiles = [
       },
       {
         year: '2021',
-        items: ['Curso de Razonamiento y Diagnóstico Clínico — Arturo Such']
+        items: ['Razonamiento y Diagnóstico Clínico — Arturo Such']
       },
       {
         year: '2022',
         items: [
-          'Curso de Abordaje Práctico del Paciente con Dolor Crónico (Nivel Básico) — Rafael Torres',
-          'Curso de Ejercicio Terapéutico en Personas Mayores'
+          'Abordaje Práctico del Paciente con Dolor Crónico (Nivel Básico) — Rafael Torres',
+          'Ejercicio Terapéutico en Personas Mayores'
         ]
       },
       {
         year: '2023',
         items: [
-          'Curso de Abordaje Práctico del Paciente con Dolor Crónico (Nivel Avanzado) — Rafael Torres',
-          'Curso de Abordaje de la Persona con Dolor de Larga Evolución — Mar Flores',
-          'Curso de Abordaje de las Tendinopatías Basado en la Evidencia — Álvaro Altube'
+          'Abordaje Práctico del Paciente con Dolor Crónico (Nivel Avanzado) — Rafael Torres',
+          'Abordaje de la Persona con Dolor de Larga Evolución — Mar Flores',
+          'Abordaje de las Tendinopatías Basado en la Evidencia — Álvaro Altube'
         ]
       },
       {
         year: '2024',
-        items: ['Curso de Dolor y Movimiento. Neurobiología del Dolor — Arturo Goicoechea']
+        items: ['Dolor y Movimiento. Neurobiología del Dolor — Arturo Goicoechea']
       },
       {
         year: '2025',
-        items: ['Curso de Dolor de Hombro. Razonamiento Clínico y Abordaje Terapéutico — Tito Pampín']
+        items: ['Dolor de Hombro. Razonamiento Clínico y Abordaje Terapéutico — Tito Pampín']
+      },
+      {
+        year: '2026',
+        items: ['Abordaje nutricional del cáncer como enfermedad metabólica — Emuná Nutrición Integrativa']
       }
     ],
-    readingsTitle: 'Lecturas',
+    readingsTitle: 'Mis lecturas',
     readings: [
       'Explain Pain — Lorimer Moseley (acabado)',
       'Essential Guide Cervical Spine — Rafael Torres (acabado)',
@@ -186,7 +195,8 @@ export const storyProfiles = [
       'Antifrágil — Nassim Taleb (acabado)',
       'Hábitos atómicos — James Clear (en curso)',
       'El ejercicio, un muro contra el cáncer — Adrián Castillo, Javier Morales y Pedro Valenzuela (acabado)',
-      'El ayuno contra el cáncer — Valter Longo (en curso)'
+      'El ayuno contra el cáncer — Valter Longo (en curso)',
+      'Exercise Oncology — Kathryn H. Schmitz'
     ]
   }
 ];

@@ -1,11 +1,17 @@
+<script>
+  import { site } from '$lib/site';
+</script>
+
 <svelte:head>
-  <title>Términos y Condiciones | EIMA Fisioterapia</title>
-  <meta name="description" content="Términos y condiciones de uso del sitio y del servicio de EIMA Fisioterapia." />
-  <meta name="robots" content="noindex" />
-  <link rel="canonical" href="https://eimafisioterapia.es/terminos" />
+  <title>Términos y Condiciones | Eima Salut</title>
+  <meta name="description" content="Términos y condiciones de uso del sitio y del servicio de Eima Salut." />
+  <meta name="robots" content="noindex, follow" />
+  <meta property="og:title" content="Términos y Condiciones | Eima Salut" />
+  <meta property="og:description" content="Consulta los términos y condiciones de uso del sitio web y de los servicios de Eima Salut." />
+  <link rel="canonical" href={`${site.url}/terminos`} />
 </svelte:head>
 
-<article class="max-w-3xl mx-auto px-6 md:px-8 pt-16 pb-16 prose-blog">
+<article lang="es" class="max-w-3xl mx-auto px-6 md:px-8 pt-24 pb-16 prose-blog">
   <h1>Términos y Condiciones</h1>
   <p class="text-secondary">Última actualización: 17 de abril de 2026</p>
 
@@ -17,7 +23,7 @@
 
   <h2>Servicios</h2>
   <p>
-    EIMA Fisioterapia ofrece fisioterapia y ejercicio terapéutico a domicilio en Mallorca, así como
+    EIMA SALUT ofrece fisioterapia y ejercicio terapéutico a domicilio en Mallorca, así como
     acompañamiento virtual. Las sesiones se concretan tras una primera toma de contacto.
   </p>
 
@@ -29,7 +35,7 @@
 
   <h2>Precios</h2>
   <p>
-    Los precios actuales se indican en la página de inicio. EIMA Fisioterapia se reserva el derecho
+    Los precios actuales se indican en la página de inicio. EIMA SALUT se reserva el derecho
     a modificarlos, informando siempre con antelación a los pacientes activos.
   </p>
 

@@ -3,6 +3,7 @@
   import { getCopy } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { getProgramStepsHash, getRoutePath } from '$lib/i18n/routes';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
 
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
@@ -40,9 +41,13 @@
     };
   }
 
+  /** @type {HTMLElement} */
   let timelineRoot;
+  /** @type {HTMLElement} */
   let timelineLine;
+  /** @type {HTMLElement} */
   let timelineProgress;
+  /** @type {(() => void) | undefined} */
   let requestTimelineUpdate;
 
   $: valueCopy = getCopy($language).home.valueProps;
@@ -56,16 +61,19 @@
   onMount(() => {
     if (!timelineRoot || !timelineLine || !timelineProgress) return;
 
+    /** @param {Element} element */
     const getAbsTop = (element) => element.getBoundingClientRect().top + window.pageYOffset;
     let ticking = false;
+    let disposed = false;
+    let updateFrame = 0;
     let resizeObserver;
 
     const updateLineBounds = () => {
       const items = Array.from(timelineRoot.querySelectorAll('.js-timeline-item'));
       if (!items.length) return;
 
-      const firstPoint = items[0]?.querySelector('.js-timeline-point');
-      const lastPoint = items[items.length - 1]?.querySelector('.js-timeline-point');
+      const firstPoint = /** @type {HTMLElement | null | undefined} */ (items[0]?.querySelector('.js-timeline-point'));
+      const lastPoint = /** @type {HTMLElement | null | undefined} */ (items[items.length - 1]?.querySelector('.js-timeline-point'));
       if (!firstPoint || !lastPoint) return;
 
       const rootTop = getAbsTop(timelineRoot);
@@ -113,21 +121,22 @@
 
     const update = () => {
       ticking = false;
+      if (disposed) return;
       updateLineBounds();
       updateProgressAndStates();
     };
 
     const requestUpdate = () => {
-      if (ticking) return;
+      if (disposed || ticking) return;
       ticking = true;
-      requestAnimationFrame(update);
+      updateFrame = requestAnimationFrame(update);
     };
 
     requestTimelineUpdate = requestUpdate;
     requestUpdate();
-    requestAnimationFrame(requestUpdate);
-    setTimeout(requestUpdate, 60);
-    setTimeout(requestUpdate, 220);
+    const initialFrame = requestAnimationFrame(requestUpdate);
+    const firstRefresh = setTimeout(requestUpdate, 60);
+    const secondRefresh = setTimeout(requestUpdate, 220);
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
     window.addEventListener('orientationchange', requestUpdate);
@@ -137,6 +146,11 @@
     resizeObserver.observe(timelineRoot);
 
     return () => {
+      disposed = true;
+      cancelAnimationFrame(updateFrame);
+      cancelAnimationFrame(initialFrame);
+      clearTimeout(firstRefresh);
+      clearTimeout(secondRefresh);
       requestTimelineUpdate = undefined;
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
@@ -147,44 +161,33 @@
   });
 </script>
 
-<section class="relative bg-[#f8f4f0] pb-24 pt-10 md:pb-28 md:pt-14">
+<section class="relative bg-[#f8f4f0] pb-24 pt-10 md:pb-28 md:pt-14" class:home-es={true}>
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <header class="mx-auto max-w-4xl pb-8 text-center md:pb-10">
       <h2
-        class="font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px]"
+        class={`font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px] section-playfair-desktop`}
       >
-        {#if $language === 'ca'}
+
           {valueCopy.headingBefore}
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
             >{valueCopy.headingHighlight1}</span
-          >, sense descuidar<br class="hidden md:block" />
-          la teva
+          >{#if $language === 'ca'}
+            {valueCopy.headingMiddle.replace(' la teva', '')}<br class="hidden md:block" />{' '}la teva{' '}
+          {:else if $language === 'en'}
+            {valueCopy.headingMiddle.replace(' neglecting your', '')}<br class="hidden md:block" />{' '}neglecting your{' '}
+          {:else}
+            {valueCopy.headingMiddle}{' '}
+          {/if}
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
             >{valueCopy.headingHighlight2}</span
           >
-        {:else if $language === 'en'}
-          {valueCopy.headingBefore}
-          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-          >{valueCopy.headingHighlight1}</span
-          >{valueCopy.headingMiddle}<br class="hidden md:block" /><span class="md:hidden"> </span>
-          {valueCopy.headingSecondLine}{' '}
-          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-            >{valueCopy.headingHighlight2}</span
-          >
-        {:else}
-          {valueCopy.headingBefore}
-          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-            >{valueCopy.headingHighlight1}</span
-          >{valueCopy.headingMiddle}{' '}
-          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-            >{valueCopy.headingHighlight2}</span
-          >
-        {/if}
       </h2>
 
-      <p class="text-muted mx-auto mt-4 max-w-4xl text-[13px] font-light leading-relaxed md:text-base">
-        <span use:htmlContent={valueCopy.intro}></span>
-      </p>
+      {#if valueCopy.intro}
+        <p class="text-muted mx-auto mt-4 max-w-4xl text-[13px] font-light leading-relaxed md:text-base">
+          <span use:htmlContent={valueCopy.intro}></span>
+        </p>
+      {/if}
     </header>
 
     <div bind:this={timelineRoot} class="timeline mt-24 md:mt-28">
@@ -248,24 +251,7 @@
       </div>
 
       <div class="mt-7 flex justify-center">
-        <a
-          href={programHref}
-          class="value-cta cta-arrow-button inline-flex items-center justify-center gap-2 rounded-full bg-[#8CD0D6] px-7 py-3 text-[15px] font-medium text-[color:var(--color-brand)] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
-        >
-          <span class="value-cta__label">{valueCopy.cta}</span>
-          <span class="cta-arrow-swap" aria-hidden="true">
-            <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor">
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-            <svg class="cta-arrow-swap__up" viewBox="0 0 256 256" fill="currentColor">
-              <path
-                d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"
-              ></path>
-            </svg>
-          </span>
-        </a>
+        <PrimaryCta href={programHref} label={valueCopy.cta} />
       </div>
     </div>
   </div>
@@ -329,6 +315,7 @@
 
   .timeline__card {
     position: relative;
+    min-width: 0;
     display: flex;
     flex: 1 1 auto;
     margin-left: 0.7rem;
@@ -356,7 +343,8 @@
   }
 
   .timeline__card-title {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
     font-size: 24px;
     line-height: 1.2;
     color: #ffffff;
@@ -372,8 +360,25 @@
     text-align: center;
   }
 
+  .home-es .timeline__card-content { min-height: 0; }
+  .home-es { overflow-x: clip; padding-top: var(--home-section-start, 3.75rem); padding-bottom: var(--home-section-end, 3.75rem); }
+  .home-es .timeline__card-body {
+    min-height: 6.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .9rem 1.25rem;
+    font-size: 15px;
+    line-height: 1.58;
+  }
+
   .timeline__card-paragraph + .timeline__card-paragraph {
     margin-top: 0.7rem;
+  }
+
+  .home-es :global(.home-desktop-break) { display: none; }
+  @media (min-width: 1100px) {
+    .home-es :global(.home-desktop-break) { display: block; }
   }
 
   .timeline__card-arrow {
@@ -480,7 +485,8 @@
   }
 
   .timeline-summary__line--serif {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400 !important;
     font-size: 20px;
     line-height: 1.45;
     color: var(--color-brand);
@@ -492,32 +498,6 @@
     line-height: 1.55;
     font-weight: 300;
     color: var(--color-brand);
-  }
-
-  .value-cta {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .value-cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 44%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    transform: translateX(-180%) skewX(-18deg);
-    transition: transform 420ms ease-out;
-  }
-
-  .value-cta:hover::before {
-    transform: translateX(260%) skewX(-18deg);
-  }
-
-  .value-cta__label {
-    position: relative;
-    z-index: 1;
   }
 
   @media (max-width: 1023px) {

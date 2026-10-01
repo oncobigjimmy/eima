@@ -1,4 +1,5 @@
 <script>
+  import { site } from '$lib/site';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import ProgramStepsSection from '$lib/components/sections/ProgramStepsSection.svelte';
@@ -9,6 +10,9 @@
   import { language } from '$lib/i18n/language';
   import { getProgramCopy } from '$lib/i18n/program';
   import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import { watchReducedMotion } from '$lib/motion';
+  let reducedMotion = false;
 
   let programCopy = getProgramCopy('es');
   let phrases = programCopy.hero.phrases;
@@ -16,6 +20,7 @@
   /** @param {number} ms */
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  /** @type {HTMLVideoElement} */
   let heroVideo;
   let phraseIndex = 0;
   let typedPhrase = '';
@@ -43,26 +48,29 @@
   $: if (phrases !== hero.phrases) {
     phrases = hero.phrases;
     phraseIndex = 0;
-    typedPhrase = '';
+    typedPhrase = reducedMotion ? phrases[0] : '';
     showUnderscore = false;
   }
 
   onMount(() => {
     let cancelled = false;
+    let generation = 0;
 
-    async function animate() {
-      while (!cancelled) {
+    /** @param {number} version */
+    async function animate(version) {
+      while (!cancelled && !reducedMotion && version === generation) {
         const phrase = phrases[phraseIndex];
         typedPhrase = '';
         showUnderscore = false;
 
-        for (let i = 1; i <= phrase.length && !cancelled; i += 1) {
+        for (let i = 1; i <= phrase.length && !cancelled && !reducedMotion && version === generation; i += 1) {
           typedPhrase = phrase.slice(0, i);
           await sleep(90);
         }
 
+        if (cancelled || reducedMotion || version !== generation) return;
         if (phraseIndex < phrases.length - 1) {
-          for (let pulse = 0; pulse < 2 && !cancelled; pulse += 1) {
+          for (let pulse = 0; pulse < 2 && !cancelled && !reducedMotion && version === generation; pulse += 1) {
             showUnderscore = true;
             await sleep(180);
             showUnderscore = false;
@@ -72,6 +80,7 @@
           await sleep(420);
         }
 
+        if (cancelled || reducedMotion || version !== generation) return;
         phraseIndex = (phraseIndex + 1) % phrases.length;
       }
     }
@@ -79,18 +88,30 @@
     const tryPlay = async () => {
       if (!heroVideo) return;
       try {
-        heroVideo.load();
         await heroVideo.play();
       } catch {
         // Ignore autoplay failures in local preview.
       }
     };
 
-    animate();
-    tryPlay();
+    const stopMotion = watchReducedMotion((reduced) => {
+      reducedMotion = reduced;
+      generation += 1;
+      if (heroVideo) heroVideo.autoplay = !reduced;
+      if (reduced) {
+        phraseIndex = 0;
+        typedPhrase = phrases[0];
+        showUnderscore = false;
+        heroVideo?.pause();
+      } else {
+        animate(generation);
+        tryPlay();
+      }
+    });
 
     return () => {
       cancelled = true;
+      stopMotion();
     };
   });
 </script>
@@ -105,13 +126,14 @@
   <meta property="og:title" content={meta.ogTitle} />
   <meta property="og:description" content={meta.ogDescription} />
   <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:image" content="https://eimafisioterapia.es/og-image.png" />
+  <meta property="og:image" content={`${site.url}/og-image.png`} />
   <meta property="og:image:alt" content={meta.imageAlt} />
   <meta name="twitter:title" content={meta.ogTitle} />
   <meta name="twitter:description" content={meta.ogDescription} />
-  <meta name="twitter:image" content="https://eimafisioterapia.es/og-image.png" />
+  <meta name="twitter:image" content={`${site.url}/og-image.png`} />
 </svelte:head>
 
+<div class:program-es-rhythm={true}>
 <section class="relative w-full overflow-hidden" style="min-height: 88vh;">
   <video
     bind:this={heroVideo}
@@ -128,19 +150,20 @@
   </video>
 
   <div
-    class="absolute inset-0"
-    style="background: linear-gradient(90deg, rgba(20,38,49,0.66) 0%, rgba(20,38,49,0.46) 55%, rgba(20,38,49,0.26) 100%);"
+    class="site-hero-overlay absolute inset-0"
     aria-hidden="true"
   ></div>
 
-  <div class="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-22 md:px-10 md:pt-26">
+  <div class={`photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 md:px-10 pt-18 md:pt-22 lg:pt-[98px]`}>
     <h1 class="sr-only">
       {hero.srTitle}
     </h1>
     <div class="max-w-4xl leading-[1.02] tracking-tight" aria-hidden="true">
-      <span class="mb-4 block max-w-xl text-[5px] font-light tracking-wide text-white/10 md:text-[5px]">
-        {hero.eyebrow}
-      </span>
+      {#if hero.eyebrow}
+        <span class="mb-4 block max-w-xl text-[5px] font-light tracking-wide text-white/10 md:text-[5px]">
+          {hero.eyebrow}
+        </span>
+      {/if}
       <span
         class="hero-typed-line mt-3 block text-[28px] md:mt-3 md:text-[50px]"
         style="color: var(--color-brand-accent);"
@@ -150,13 +173,13 @@
           {typedPhrase}{#if showUnderscore}<span class="typed-underscore">_</span>{/if}
         </span>
       </span>
-      <span class="mt-2 block text-[35px] font-light text-white md:mt-1 md:text-[60px]">
+      <span class={`block text-[35px] font-light text-white md:text-[60px] mt-3 md:mt-3`}>
         {hero.line1}
       </span>
       <span class="mt-1 block text-5xl font-bold text-white md:text-[5rem]">{hero.line2}</span>
     </div>
 
-    <div class="mt-10 max-w-3xl text-[15px] font-light leading-relaxed text-white/92 md:text-[1.08rem]">
+    <div class={`max-w-3xl text-[15px] font-light leading-relaxed text-white/96 md:text-[1.08rem] mt-8`}>
       <p class="hidden md:block">
         {#each hero.desktopParagraph as line, index}
           <span use:htmlContent={line}></span>
@@ -167,14 +190,7 @@
     </div>
 
     <div class="mt-10 flex flex-col items-center gap-4">
-      <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hero-cta inline-flex w-fit items-center justify-center rounded-full border border-white/50 px-7 py-3.5 text-white font-light transition-[background-color,transform,font-weight] duration-300 ease-out hover:scale-[1.03] hover:bg-white/10 hover:font-bold"
-      >
-        {hero.cta}
-      </a>
+      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} shadowless />
     </div>
   </div>
 </section>
@@ -183,6 +199,8 @@
 
 <ParallaxSloganSection
   image="/Gemini_Generated_Image_y50u8jy50u8jy50u-100.png"
+  compact
+  sectionClass="program-banner"
   topHtml={programCopy.slogan1.topHtml}
   bottomHtml={programCopy.slogan1.bottomHtml}
   mobileTopSize={15}
@@ -204,20 +222,15 @@
         {/if}
       </p>
 
-      <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="final-cta inline-flex w-fit items-center justify-center rounded-full bg-[#8CD0D6] px-6 py-3 text-[15px] font-medium text-[#233F4E] transition-[transform,background-color,color,font-weight,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:bg-[#4083A7] hover:font-bold hover:text-white hover:shadow-[0_10px_24px_rgba(64,131,167,0.28)]"
-      >
-        <span class="final-cta__label">{programCopy.doubtCta.cta}</span>
-      </a>
+      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={programCopy.doubtCta.cta} />
     </div>
   </div>
 </section>
 
 <ParallaxSloganSection
   image="/Gemini_Generated_Image_bhw0rlbhw0rlbhw0-70.png"
+  compact
+  sectionClass="program-banner"
   topHtml={programCopy.slogan2.topHtml}
   bottomHtml={programCopy.slogan2.bottomHtml}
   mobileTopSize={18}
@@ -227,69 +240,31 @@
 />
 
 <ProgramFaqSection />
+</div>
 
 <style>
-  .hero-cta {
-    isolation: isolate;
-    overflow: hidden;
-    position: relative;
+  .program-es-rhythm {
+    --program-section-start: clamp(2.75rem, 5vw, 4.75rem);
+    --program-section-end: clamp(3rem, 5vw, 4.75rem);
   }
 
-  .hero-cta::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-180%) skewX(-18deg);
-    transition: transform 420ms ease-out;
-    width: 44%;
-    z-index: 0;
+  :global(.program-es-rhythm .program-steps-section) {
+    padding-top: var(--program-section-start);
+    padding-bottom: var(--program-section-end);
   }
 
-  .hero-cta:hover::before {
-    transform: translateX(260%) skewX(-18deg);
-  }
+  :global(.program-es-rhythm .program-banner) { padding-bottom: 0; }
 
-  .hero-cta :global(*) {
-    position: relative;
-    z-index: 1;
-  }
+  :global(.program-es-rhythm .program-fit-section),
+  :global(.program-es-rhythm #faq) { padding-top: var(--program-section-start); }
 
-  .final-cta {
-    isolation: isolate;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .final-cta::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-180%) skewX(-18deg);
-    transition: transform 420ms ease-out;
-    width: 44%;
-    z-index: 0;
-  }
-
-  .final-cta:hover::before {
-    transform: translateX(260%) skewX(-18deg);
-  }
-
-  .final-cta__label {
-    position: relative;
-    z-index: 1;
-  }
+  :global(.program-es-rhythm #faq) { padding-bottom: var(--program-section-end); }
 
   .hero-typed-line,
   .hero-typed-line * {
-    font-family: 'Noto Serif', Georgia, 'Times New Roman', serif !important;
-    font-style: italic !important;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
     font-weight: 300 !important;
+    font-style: italic !important;
   }
 
   .typed-underscore {
