@@ -759,7 +759,7 @@
     .reading-card:hover h4 { color: #ffffff; }
     .reading-card:hover .reading-author { color: #e8e8f6; }
     .reading-card:hover h4, .reading-card:hover .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
-    .reading-card:hover .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
+    .reading-card:hover .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
     .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: .7; filter: blur(1px); }
 
     .education-item:hover p { transform: scale(1.06); }
@@ -1013,7 +1013,7 @@
     .reading-card:global(.scroll-active) h4 { color: #ffffff; }
     .reading-card:global(.scroll-active) .reading-author { color: #e8e8f6; }
     .reading-card:global(.scroll-active) h4, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
-    .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
+    .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
     .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: blur(1px); }
 
     .story-title {
