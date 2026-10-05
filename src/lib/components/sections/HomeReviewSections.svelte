@@ -255,8 +255,9 @@
   }
   @media (max-width: 767px) {
     .vsl h1 { margin-inline: -12px; }
+    .vsl .section-heading { margin-bottom: 3rem; }
     .programme-line { display: block; white-space: nowrap; }
-    .vsl .section-cta { margin-top: 3rem; }
+    .vsl .section-cta { margin-top: 3rem; display: grid; justify-items: center; }
     .situations-grid, .recovery-grid { grid-template-columns: 1fr; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .recovery-column { min-width: 0; }

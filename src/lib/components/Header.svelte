@@ -53,7 +53,7 @@
   $: transparent = mounted && hasDarkHero && !scrolled && !mobileMenuOpen;
   $: isErrorPage = $page.status >= 400;
   $: lightHeader = transparent || isErrorPage || mobileMenuOpen;
-  $: solidHeaderClass = routeKey === 'testimonials' ? 'bg-[#F4F8F0]' : 'bg-[#F8F4F0]';
+  $: solidHeaderClass = 'bg-[#F8F4F0]';
 </script>
 
 <svelte:window on:scroll={updateScrolled} />

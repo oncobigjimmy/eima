@@ -19,7 +19,7 @@
         {#each layout.lines as line, index}{#if index > 0}{' '}{/if}<span>{@html line}</span>{/each}
       </h1>
 
-      <p class="contact-intro">{@html layout.intro}</p>
+      <div class="contact-intro">{#each layout.intro as paragraph, index}{#if index > 0}{' '}{/if}<p>{@html paragraph}</p>{/each}</div>
 
       <div class="contact-methods photo-text-contrast">
         <a
@@ -139,6 +139,7 @@
     color: white;
     font-weight: 600;
   }
+  .contact-intro > p { display: inline; }
   .contact-methods {
     display: flex;
     flex-direction: column;
@@ -262,6 +263,8 @@
     }
   }
   @media (max-width: 767px) {
+    .contact-intro > p { display: block; }
+    .contact-intro > p + p { margin-top: 8px; }
     .contact-methods { margin-top: calc(2rem + 8px); }
   }
 </style>

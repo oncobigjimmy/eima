@@ -187,7 +187,7 @@
 
     <div class="testimonials-grid">
       {#each visibleTestimonials as testimonial (testimonial.name)}
-        <article class="testimonial-card" class:testimonial-card--josue={testimonial.name === 'Josué'} use:scrollContrast>
+        <article class="testimonial-card" use:scrollContrast>
           <div class="testimonial-card__content">
             <div class="testimonial-card__person">
               <h3 class="section-playfair-desktop">{testimonial.name}</h3>
@@ -256,7 +256,7 @@
               </svg>
             </span>
             {#if testimonial.image}
-              <span class="testimonial-card__caption">{copy.captionBefore}{testimonial.name}{copy.captionAfter}</span>
+              <span class="testimonial-card__caption"><span class="testimonial-card__caption-line">{copy.captionBefore.trim()}</span>{' '}<span class="testimonial-card__caption-line">{testimonial.name}{copy.captionAfter}</span></span>
             {/if}
           </button>
 
@@ -340,7 +340,7 @@
   }
 
   :global(body:has(.testimonials-hero)) {
-    background: #f4f8f0;
+    background: #f8f4f0;
   }
 
   .sr-only {
@@ -426,9 +426,7 @@
   }
 
   .testimonials-section {
-    background:
-      linear-gradient(180deg, rgba(140, 208, 214, 0.12), transparent 18rem),
-      #f4f8f0;
+    background: #f8f4f0;
     padding: 4.4rem 1.25rem 2.5rem;
   }
 
@@ -448,19 +446,21 @@
     --testimonial-accent: #4083a7;
     --testimonial-after: #245b7d;
     --testimonial-body: var(--color-brand);
-    background: color-mix(in srgb, #ffffff 64%, #f4f8f0);
+    background: color-mix(in srgb, #ffffff 64%, #f8f4f0);
     border: 1px solid rgba(140, 208, 214, 0.74);
     border-radius: 8px;
     display: grid;
     gap: 1.15rem;
     grid-template-columns: minmax(11rem, 0.72fr) minmax(0, 1fr);
     min-height: 20rem;
-    overflow: hidden;
+    overflow: visible;
     padding: 1rem;
     transition: background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out;
   }
 
   .testimonial-card__media {
+    border: 0;
+    transition: box-shadow 380ms ease-out;
     align-self: stretch;
     background: #0e1d26;
     border-radius: 8px;
@@ -538,6 +538,10 @@
     position: absolute;
     text-align: left;
     z-index: 2;
+  }
+
+  .testimonial-card__caption-line {
+    font-family: inherit !important;
   }
 
   .testimonial-card__divider {
@@ -626,7 +630,7 @@
 
   .testimonials-cta {
     align-items: center;
-    background: #f4f8f0;
+    background: #f8f4f0;
     color: var(--color-brand);
     display: flex;
     flex-direction: column;
@@ -967,7 +971,7 @@
     transition: color 380ms ease-out;
   }
   @media (min-width: 768px) and (hover: hover) {
-    .testimonial-card--josue:is(:hover, :focus-within) {
+    .testimonial-card:is(:hover, :focus-within) {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);
       box-shadow: var(--eima-card-hover-shadow);
@@ -976,10 +980,13 @@
       --testimonial-body: #fff;
       --testimonial-accent: #8cd0d6;
       --testimonial-after: #8cd0d6;
+    }
+    .testimonial-card:is(:hover, :focus-within) .testimonial-card__media {
+      box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673;
     }
   }
   @media (max-width: 767px) {
-    .testimonial-card--josue:global(.scroll-active) {
+    .testimonial-card:global(.scroll-active) {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);
       box-shadow: var(--eima-card-hover-shadow);
@@ -989,17 +996,29 @@
       --testimonial-accent: #8cd0d6;
       --testimonial-after: #8cd0d6;
     }
-    .testimonial-card--josue .testimonial-card__media {
-      width: 50%;
+    .testimonial-card:global(.scroll-active) .testimonial-card__media {
+      box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673;
+    }
+    .testimonial-card .testimonial-card__media {
+      width: 75%;
+      container-type: inline-size;
       justify-self: center;
       aspect-ratio: 9 / 14;
       min-height: 0;
       align-self: start;
     }
-    .testimonial-card--josue .testimonial-card__caption { font-size: 12px; white-space: normal; }
+    .testimonial-card .testimonial-card__caption {
+      font-size: clamp(11px, 7cqi, 14px);
+      left: 50%;
+      white-space: nowrap;
+      max-width: calc(100% - 1.25rem);
+      text-align: center;
+      transform: translateX(-50%);
+    }
+    .testimonial-card__caption-line { display: inline; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card__media img { transition: none; }
+    .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card__media, .testimonial-card__media img { transition: none; }
     .testimonial-card__media:hover img, .testimonial-card__media:focus-visible img { transform: none; }
   }
 </style>
