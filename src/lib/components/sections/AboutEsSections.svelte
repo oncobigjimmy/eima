@@ -114,7 +114,7 @@
         <p class="team-hint">{@html pageLanguage === 'es' ? ui.hint.replace('para conocer', 'para<br class="about-mobile-break" /> conocer') : ui.hint}</p>
       </div>
       <div class="dictionary-wrap intro-reveal intro-reveal--right" use:revealIntro use:typeOnView={'dictionary'}>
-        <div class="dictionary-card">
+        <div class="dictionary-card" use:scrollContrast>
           <div class="dictionary-card__inner">
           <p class="dictionary-word">eima</p>
           <p class="dictionary-meta">{copy.dictionary.phonetic} <span>·</span> <em>{copy.dictionary.gender}</em> <span>·</span> <strong>{copy.dictionary.region}</strong></p>
@@ -307,8 +307,12 @@
     .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 10px 24px #08121829, 0 3px 8px #0812181f; text-shadow: none; }
     .origin-card:global(.scroll-active) .origin-number { color: #233f4e; }
     .origin-card:global(.scroll-active) h3, .origin-card:global(.scroll-active) p, .origin-card:global(.scroll-active) :global(strong) { color: #245b7d; }
+    .dictionary-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); }
+    .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: scale(1.02); text-shadow: 0 1px 3px #071a2566, 0 4px 12px #071a2540; }
+    .dictionary-card:global(.scroll-active) .dictionary-word, .dictionary-card:global(.scroll-active) .dictionary-meta, .dictionary-card:global(.scroll-active) .dictionary-definitions { color: white; }
+    .dictionary-card:global(.scroll-active) .dictionary-rule { background: #ffffffb3; }
   }
-  @media (prefers-reduced-motion: reduce) { .origin-card:global(.scroll-active) { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .origin-card:global(.scroll-active), .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: none; } }
   @media (min-width: 1024px) { :global(.origin-intro-break) { display: inline; } }
   @media (prefers-reduced-motion: reduce) { .dictionary-cursor, .closing-cursor { animation: none; } .origin-card, .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong), .origin-fade, .team-person span, .dictionary-card, .dictionary-card__inner, .intro-reveal { transition: none; } .origin-card:global(.will-reveal), .origin-fade:global(.will-reveal), .intro-reveal:global(.will-reveal) { opacity: 1; transform: none; } .origin-card:hover, .dictionary-card:hover .dictionary-card__inner { transform: none; } }
 </style>
