@@ -46,7 +46,7 @@ export const aboutSections = {
     hint: 'Haz clic en uno de nosotros para conocer su historia.', view: 'Conoce la historia de',
     bannerTop: 'El <strong>cáncer</strong> puede cambiar tus planes.', bannerBottom: 'Queremos ayudarte a que <strong>no pare tu vida por completo.</strong>',
     originTitle: '¿De dónde nace <span>Eima Salut?</span>',
-    intro: 'Trabajando con personas con cáncer vimos que <strong>el problema no era saber<br class="origin-intro-break" /> que había que moverse.</strong> El problema era todo lo que venía después.',
+    intro: 'Al acompañar a personas con cáncer vimos que <strong>el problema no era saber que había que hacer ejercicio, sino cómo hacerlo.</strong>',
     conclusion: '<strong>Por eso creamos Eima Salut:</strong> para ayudarte a saber qué hacer, adaptarlo cuando sea necesario y conseguir que forme parte de tu vida.',
     sunsetAlt: 'Atardecer junto al mar en Mallorca',
     cards: [
@@ -63,7 +63,7 @@ export const aboutSections = {
     hint: 'Fes clic en un de nosaltres per conèixer la seva història.', view: 'Coneix la història de',
     bannerTop: 'El <strong>càncer</strong> pot canviar els teus plans.', bannerBottom: 'Volem ajudar-te perquè <strong>no aturi la teva vida del tot.</strong>',
     originTitle: 'D’on neix <span>Eima Salut?</span>',
-    intro: 'Treballant amb persones amb càncer vàrem veure que <strong>el problema no era saber<br class="origin-intro-break" /> que calia moure’s.</strong> El problema era tot el que venia després.',
+    intro: 'Acompanyant persones amb càncer vàrem veure que <strong>el problema no era saber que calia fer exercici, sinó com fer-lo.</strong>',
     conclusion: '<strong>Per això vàrem crear Eima Salut:</strong> per ajudar-te a saber què fer, adaptar-ho quan sigui necessari i aconseguir que formi part de la teva vida.',
     sunsetAlt: 'Posta de sol devora la mar a Mallorca',
     cards: [
@@ -80,7 +80,7 @@ export const aboutSections = {
     hint: 'Click on either of us to discover his story.', view: 'Discover the story of',
     bannerTop: '<strong>Cancer</strong> can change your plans.', bannerBottom: 'We want to help you <strong>keep your life from coming to a complete stop.</strong>',
     originTitle: 'How did <span>Eima Salut begin?</span>',
-    intro: 'Working with people with cancer, we saw that <strong>the problem wasn’t knowing<br class="origin-intro-break" /> that they needed to move.</strong> It was everything that came afterwards.',
+    intro: 'Supporting people with cancer, we saw that <strong>the problem wasn’t knowing they needed to exercise, but how to do it.</strong>',
     conclusion: '<strong>That’s why we created Eima Salut:</strong> to help you know what to do, adapt it when needed and make it part of your life.',
     sunsetAlt: 'Sunset by the sea in Mallorca',
     cards: [
