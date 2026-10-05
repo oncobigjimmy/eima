@@ -98,7 +98,7 @@
             {/if}
           </h2>
 
-          <p class={`steps-intro mt-6 text-[16px] font-light leading-[1.6] text-[#245D7B]`}>{@html stepsCopy.intro}</p>
+          <p class={`steps-intro mobile-copy-14 mt-6 text-[16px] font-light leading-[1.6] text-[#245D7B]`}>{@html stepsCopy.intro}</p>
 
           <div class="mt-8 flex justify-center">
             <div
@@ -109,7 +109,7 @@
             </div>
           </div>
 
-          <div class={`mt-10 space-y-4 text-[16px] leading-[1.75] text-[#245D7B]`}>
+          <div class={`mobile-copy-14 mt-10 space-y-4 text-[16px] leading-[1.75] text-[#245D7B]`}>
             {#each sideParagraphs as paragraph}
               <p use:htmlContent={paragraph}></p>
             {/each}
@@ -170,7 +170,7 @@
     <div class="mx-auto mt-12 max-w-4xl px-6 text-center md:mt-16 md:px-10">
       <p
         use:htmlContent={stepsCopy.closing}
-        class="text-[16px] font-light leading-[1.65] text-[#233F4E]"
+        class="mobile-copy-14 text-[16px] font-light leading-[1.65] text-[#233F4E]"
       ></p>
 
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={stepsCopy.cta} class="steps-cta" />

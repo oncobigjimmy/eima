@@ -126,7 +126,7 @@
     {/if}
 
     <div class="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-4 text-center md:mt-12 md:flex-row md:gap-6 md:text-left">
-      <p class="text-[16px] font-light leading-relaxed text-[#233F4E]">{ui.doubt}</p>
+      <p class="mobile-copy-14 text-[16px] font-light leading-relaxed text-[#233F4E]">{ui.doubt}</p>
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ui.cta} />
     </div>
   </div>

@@ -9,6 +9,7 @@
   import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { dialog } from '$lib/actions/dialog';
+  import { scrollContrast } from '$lib/actions/scrollContrast';
   import { motionDuration } from '$lib/motion';
 
   let activeId = 'miquel';
@@ -320,7 +321,7 @@
               <h2 class="story-name story-profile-name text-white">
                 {activeProfile.name}
               </h2>
-              <p class="mx-auto mt-3 max-w-2xl text-[20px] font-light leading-[1.7] text-white/86">
+              <p class="story-profile-specialty mx-auto mt-3 max-w-2xl text-[20px] font-light leading-[1.7] text-white/86">
                 {activeProfile.specialty}
               </p>
             </header>
@@ -369,7 +370,7 @@
                     <div class="education-items">
                       {#each group.items as item}
                         {@const educationItem = parseEducationItem(item)}
-                        <div class="education-item">
+                        <div class="education-item" use:scrollContrast={'.education-timeline'}>
                           <span class="education-dot" aria-hidden="true"></span>
                           <p>
                             <strong>{educationItem.main}</strong>
@@ -403,6 +404,7 @@
                 {#each getDisplayReadings(activeProfile) as reading}
                   {@const parsedReading = parseReading(reading)}
                   <article
+                    use:scrollContrast
                     class:reading-card--compact={true}
                     class="reading-card hover-dim-item"
                   >
@@ -989,6 +991,29 @@
   }
 
   @media (max-width: 767px) {
+    .story-journey-title { font-size: 40px; }
+    .story-profile-name { font-size: 30px; }
+    .story-profile-specialty { font-size: 18px; }
+    .story-section-heading { font-size: 22px; }
+
+    .education-item:global(.scroll-active) p { transform: scale(1.06); }
+    .education-item:global(.scroll-active) .education-dot { transform: scale(1.55); }
+    .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: scale(1.13); }
+    .education-timeline:has(.education-item:global(.scroll-active)) .education-item:not(:global(.scroll-active)),
+    .education-timeline:has(.education-item:global(.scroll-active)) .education-year-block:not(:has(.education-item:global(.scroll-active))) > .education-year { opacity: .5; filter: blur(.7px); }
+
+    .reading-card:global(.scroll-active) {
+      background: #4083a7;
+      border-color: #233f4e;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26;
+    }
+    .reading-card:global(.scroll-active) h4 { color: #ffffff; }
+    .reading-card:global(.scroll-active) .reading-author { color: #e8e8f6; }
+    .reading-card:global(.scroll-active) h4, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
+    .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); }
+    .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: blur(1px); }
+
     .story-title {
       font-size: 2.35rem;
     }
@@ -1049,5 +1074,11 @@
     .reading-card {
       width: min(100%, 18rem);
     }
+  }
+
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .reading-card:global(.scroll-active), .reading-card:global(.scroll-active) .reading-cover-image,
+    .education-item:global(.scroll-active) p, .education-item:global(.scroll-active) .education-dot,
+    .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: none; }
   }
 </style>

@@ -9,6 +9,7 @@
   import { site } from '$lib/site';
   import { dialog } from '$lib/actions/dialog';
   import { motionDuration } from '$lib/motion';
+  import { scrollContrast } from '$lib/actions/scrollContrast';
 
   $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? 'es';
   $: copy = getTestimonialsCopy(pageLanguage);
@@ -186,7 +187,7 @@
 
     <div class="testimonials-grid">
       {#each visibleTestimonials as testimonial (testimonial.name)}
-        <article class="testimonial-card">
+        <article class="testimonial-card" class:testimonial-card--josue={testimonial.name === 'Josué'} use:scrollContrast>
           <div class="testimonial-card__content">
             <div class="testimonial-card__person">
               <h3 class="section-playfair-desktop">{testimonial.name}</h3>
@@ -268,7 +269,7 @@
 
 <section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
   <div>
-    <h2 id="testimonios-cta-title">
+    <h2 id="testimonios-cta-title" class="mobile-copy-14">
       {@html copy.ctaHeading}
     </h2>
   </div>
@@ -442,6 +443,11 @@
   }
 
   .testimonial-card {
+    --testimonial-heading: var(--color-brand);
+    --testimonial-detail: rgba(35, 63, 78, .8);
+    --testimonial-accent: #4083a7;
+    --testimonial-after: #245b7d;
+    --testimonial-body: var(--color-brand);
     background: color-mix(in srgb, #ffffff 64%, #f4f8f0);
     border: 1px solid rgba(140, 208, 214, 0.74);
     border-radius: 8px;
@@ -451,6 +457,7 @@
     min-height: 20rem;
     overflow: hidden;
     padding: 1rem;
+    transition: background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out;
   }
 
   .testimonial-card__media {
@@ -554,7 +561,7 @@
   }
 
   .testimonial-card__person h3 {
-    color: var(--color-brand);
+    color: var(--testimonial-heading);
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
     font-size: 40px;
     font-weight: 400;
@@ -562,7 +569,7 @@
   }
 
   .testimonial-card__condition {
-    color: color-mix(in srgb, var(--color-brand) 80%, transparent);
+    color: var(--testimonial-detail);
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -586,12 +593,12 @@
   }
 
   .testimonial-card__change {
-    border-left: 2px solid #4083a7;
+    border-left: 2px solid var(--testimonial-accent);
     padding-left: 0.9rem;
   }
 
   .testimonial-card__change span {
-    color: #4083a7;
+    color: var(--testimonial-accent);
     display: block;
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
@@ -601,7 +608,7 @@
   }
 
   .testimonial-card__change p {
-    color: var(--color-brand);
+    color: var(--testimonial-body);
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -609,12 +616,12 @@
   }
 
   .testimonial-card__change--after {
-    border-left-color: #245b7d;
+    border-left-color: var(--testimonial-after);
     margin-top: 0.65rem;
   }
 
   .testimonial-card__change--after span {
-    color: #245b7d;
+    color: var(--testimonial-after);
   }
 
   .testimonials-cta {
@@ -883,7 +890,7 @@
     }
 
     .testimonial-card__condition-title {
-      color: #4083a7;
+      color: var(--testimonial-accent);
       display: block;
       font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
@@ -893,7 +900,7 @@
     }
 
     .testimonial-card__condition-detail {
-      color: rgba(35, 63, 78, 0.8);
+      color: var(--testimonial-detail);
       display: block;
       font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 14px;
@@ -906,18 +913,18 @@
     }
 
     .testimonial-card__change {
-      border-left-color: #245b7d;
+      border-left-color: var(--testimonial-after);
       grid-column: 1;
       grid-row: 3;
       margin: 0.15rem 0.2rem 0;
     }
 
     .testimonial-card__change span {
-      color: #245b7d;
+      color: var(--testimonial-after);
     }
 
     .testimonial-card__change p {
-      color: rgba(35, 63, 78, 0.8);
+      color: var(--testimonial-detail);
       font-size: 14px;
     }
 
@@ -926,17 +933,17 @@
     }
 
     .testimonial-card__change--after {
-      border-left-color: #233f4e;
+      border-left-color: var(--testimonial-heading);
       grid-row: 5;
       margin: 0.1rem 0.2rem 0.35rem;
     }
 
     .testimonial-card__change--after span {
-      color: #233f4e;
+      color: var(--testimonial-heading);
     }
 
     .testimonial-card__change--after p {
-      color: rgba(35, 63, 78, 0.8);
+      color: var(--testimonial-detail);
     }
 
     .testimonials-cta {
@@ -955,5 +962,44 @@
       height: 2.15rem;
       width: 2.15rem;
     }
+  }
+  .testimonial-card h3, .testimonial-card p, .testimonial-card span {
+    transition: color 380ms ease-out;
+  }
+  @media (min-width: 768px) and (hover: hover) {
+    .testimonial-card--josue:is(:hover, :focus-within) {
+      background: var(--eima-card-hover-background);
+      border-color: var(--eima-card-hover-border);
+      box-shadow: var(--eima-card-hover-shadow);
+      --testimonial-heading: #fff;
+      --testimonial-detail: #fff;
+      --testimonial-body: #fff;
+      --testimonial-accent: #8cd0d6;
+      --testimonial-after: #8cd0d6;
+    }
+  }
+  @media (max-width: 767px) {
+    .testimonial-card--josue:global(.scroll-active) {
+      background: var(--eima-card-hover-background);
+      border-color: var(--eima-card-hover-border);
+      box-shadow: var(--eima-card-hover-shadow);
+      --testimonial-heading: #fff;
+      --testimonial-detail: #fff;
+      --testimonial-body: #fff;
+      --testimonial-accent: #8cd0d6;
+      --testimonial-after: #8cd0d6;
+    }
+    .testimonial-card--josue .testimonial-card__media {
+      width: 50%;
+      justify-self: center;
+      aspect-ratio: 9 / 14;
+      min-height: 0;
+      align-self: start;
+    }
+    .testimonial-card--josue .testimonial-card__caption { font-size: 12px; white-space: normal; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card__media img { transition: none; }
+    .testimonial-card__media:hover img, .testimonial-card__media:focus-visible img { transform: none; }
   }
 </style>

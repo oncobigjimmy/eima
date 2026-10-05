@@ -52,7 +52,7 @@
     isBlog;
   $: transparent = mounted && hasDarkHero && !scrolled && !mobileMenuOpen;
   $: isErrorPage = $page.status >= 400;
-  $: lightHeader = (transparent || isErrorPage) && !mobileMenuOpen;
+  $: lightHeader = transparent || isErrorPage || mobileMenuOpen;
   $: solidHeaderClass = routeKey === 'testimonials' ? 'bg-[#F4F8F0]' : 'bg-[#F8F4F0]';
 </script>
 
@@ -60,7 +60,7 @@
 
 <header
   class="fixed top-0 z-40 w-full transition-colors duration-300
-    {isErrorPage && !mobileMenuOpen ? 'bg-[#233F4E]' : lightHeader ? 'bg-transparent' : solidHeaderClass}"
+    {mobileMenuOpen || isErrorPage ? 'bg-[#233F4E]' : lightHeader ? 'bg-transparent' : solidHeaderClass}"
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-10">
     <a href={homeHref} aria-label={currentLanguage === 'en' ? 'Home' : currentLanguage === 'ca' ? 'Inici' : 'Inicio'} on:click={() => (mobileMenuOpen = false)} class="ml-1 flex items-center md:ml-2">

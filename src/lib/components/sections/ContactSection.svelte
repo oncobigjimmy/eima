@@ -261,4 +261,7 @@
       transform: none;
     }
   }
+  @media (max-width: 767px) {
+    .contact-methods { margin-top: calc(2rem + 8px); }
+  }
 </style>

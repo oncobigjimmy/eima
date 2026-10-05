@@ -23,6 +23,8 @@ body {
 }
 
 :root {
+  scrollbar-color: #233f4e #f8f4f0;
+  scrollbar-width: thin;
   --section-playfair-desktop-size: 50px;
   --eima-card-hover-background: #334d5b;
   --eima-card-hover-border: #8cd0d6;
@@ -30,6 +32,24 @@ body {
   --site-hero-overlay:
     linear-gradient(90deg, rgba(8, 18, 24, 0.8) 0%, rgba(8, 18, 24, 0.5) 50%, rgba(8, 18, 24, 0.3) 100%),
     linear-gradient(180deg, rgba(8, 18, 24, 0.3) 0%, rgba(8, 18, 24, 0) 100%);
+}
+
+/* Chrome/Edge's standard scrollbar properties override the detailed WebKit
+   parts. Let these parts control their track and arrow buttons explicitly. */
+@supports selector(::-webkit-scrollbar) {
+  :root { scrollbar-color: auto; scrollbar-width: auto; }
+}
+::-webkit-scrollbar { width: 10px; height: 10px; background: #f8f4f0; }
+::-webkit-scrollbar-track { background: #f8f4f0; }
+::-webkit-scrollbar-thumb { background: #233f4e; border-radius: 999px; }
+::-webkit-scrollbar-button:single-button { display: block; height: 12px; width: 10px; background-color: #f8f4f0; background-repeat: no-repeat; background-position: center; background-size: 8px 8px; }
+::-webkit-scrollbar-button:single-button:vertical:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23233f4e' d='m4 1 4 5H0z'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:single-button:vertical:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23233f4e' d='M0 2h8L4 7z'/%3E%3C/svg%3E"); }
+
+@media (max-width: 767px) {
+  :root { scrollbar-width: none; }
+  :root::-webkit-scrollbar { display: none; }
+  .mobile-copy-14 { font-size: 14px !important; }
 }
 
 .site-hero-overlay {

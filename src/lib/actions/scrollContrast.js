@@ -2,6 +2,8 @@
 // All cards share one passive listener and one animation frame per scroll.
 /** @type {Set<HTMLElement>} */
 const cards = new Set();
+/** @type {WeakMap<HTMLElement, Element | null>} */
+const groups = new WeakMap();
 let frame = 0;
 /** @type {MediaQueryList} */
 let mobile;
@@ -16,19 +18,22 @@ function update() {
     const rect = node.getBoundingClientRect();
     if (mobile.matches && rect.top <= height * .55 && rect.bottom >= height * .45) {
       const distance = Math.abs((rect.top + rect.bottom) / 2 - height / 2);
-      const group = node.parentElement;
+      const group = groups.get(node);
       if (!selected.has(group) || distance < selected.get(group).distance) selected.set(group, { node, distance });
     }
   }
-  for (const node of cards) node.classList.toggle('scroll-active', selected.get(node.parentElement)?.node === node);
+  for (const node of cards) node.classList.toggle('scroll-active', selected.get(groups.get(node))?.node === node);
 }
 
 function schedule() {
   if (!frame) frame = requestAnimationFrame(update);
 }
 
-/** @param {HTMLElement} node */
-export function scrollContrast(node) {
+/**
+ * @param {HTMLElement} node
+ * @param {string} [groupSelector] Optional ancestor shared by nested cards.
+ */
+export function scrollContrast(node, groupSelector) {
   if (!cards.size) {
     mobile = window.matchMedia('(max-width: 767px)');
     window.addEventListener('scroll', schedule, { passive: true });
@@ -37,11 +42,13 @@ export function scrollContrast(node) {
     resizeObserver = new ResizeObserver(schedule);
   }
   cards.add(node);
+  groups.set(node, groupSelector ? node.closest(groupSelector) ?? node.parentElement : node.parentElement);
   resizeObserver.observe(node);
   schedule();
   return {
     destroy() {
       cards.delete(node);
+      groups.delete(node);
       resizeObserver.unobserve(node);
       node.classList.remove('scroll-active');
       if (!cards.size) {

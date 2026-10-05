@@ -70,7 +70,7 @@
 >
   <div class="mx-auto max-w-5xl px-6 md:px-10">
     <header class="mx-auto max-w-3xl text-center">
-      <p class="mb-3 text-[16px] font-light leading-relaxed text-[#233F4E]/76">{faqCopy.eyebrow}</p>
+      <p class="mobile-copy-14 mb-3 text-[16px] font-light leading-relaxed text-[#233F4E]/76">{faqCopy.eyebrow}</p>
       <h2
         class={`faq-title text-[35px] font-medium leading-[1.06] tracking-[0] text-[#233F4E] md:text-[48px] section-playfair-desktop`}
         style="font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;"
@@ -163,7 +163,7 @@
     {/key}
 
     <div class="faq-bottom-cta mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-4 text-center md:mt-12 md:flex-row md:gap-6 md:text-left">
-      <p class="text-[16px] font-light leading-relaxed text-[#233F4E]">
+      <p class="mobile-copy-14 text-[16px] font-light leading-relaxed text-[#233F4E]">
         {faqCopy.bottomText}
       </p>
 

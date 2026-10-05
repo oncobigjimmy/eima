@@ -214,7 +214,7 @@
 <section class="bg-[#f8f4f0] pb-12 pt-0 md:pb-16 md:pt-1">
   <div class="mx-auto max-w-6xl px-6 text-center md:px-10">
     <div class="flex flex-col items-center gap-4 md:gap-5">
-      <p class="text-[16px] font-light leading-relaxed text-[#233F4E]">
+      <p class="mobile-copy-14 text-[16px] font-light leading-relaxed text-[#233F4E]">
         {#if pageLanguage === 'en'}
           Still unsure whether Empenta<span class="hidden md:inline"> </span><br class="md:hidden" />is right for you?
         {:else}

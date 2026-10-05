@@ -145,7 +145,7 @@
 <section class="about-origin" aria-labelledby="origin-title">
   <div class="about-container origin-container">
     <h2 id="origin-title" class="section-playfair-desktop">{@html ui.originTitle}</h2>
-    <p class="origin-intro origin-fade" use:reveal>{@html ui.intro}</p>
+    <p class="origin-intro origin-fade mobile-copy-14" use:reveal>{@html ui.intro}</p>
     <div class="origin-grid hover-dim-group">
       {#each originCards as card, index}
         <article class="origin-card hover-dim-item" use:reveal use:scrollContrast style={`--delay:${index < 3 ? index * 50 : 180 + (index - 3) * 50}ms`}>
@@ -157,7 +157,7 @@
         </article>
       {/each}
     </div>
-    <p class="origin-conclusion origin-fade" use:reveal>{@html ui.conclusion}</p>
+    <p class="origin-conclusion origin-fade mobile-copy-14" use:reveal>{@html ui.conclusion}</p>
     <div class="origin-cta origin-fade" use:reveal>
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.closing.cta} />
     </div>
@@ -222,7 +222,7 @@
   .dictionary-card { overflow: hidden; background: #f8f4f0; border-radius: 10px; border: 1px solid #f8f4f080; padding: clamp(1.5rem, 2.5vw, 2rem); transition: background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out; }
   .dictionary-card__inner { transform: scale(1); transform-origin: center; transition: transform 180ms ease-out, text-shadow 380ms ease-out; }
   .dictionary-word { font-family: 'Playfair Display', Georgia, serif; font-size: 70px; font-weight: 500; line-height: .9; color: #233f4e; transition: color 380ms ease-out; }
-  .dictionary-meta { margin-top: 1.1rem; color: #233f4e; transition: color 380ms ease-out; }
+  .dictionary-meta { margin-top: 1.1rem; font-size: 15px; color: #233f4e; transition: color 380ms ease-out; }
   .dictionary-meta span { margin: 0 .35rem; }
   .dictionary-rule { height: 1px; background: #233f4e; margin: 1.25rem 0; transition: background-color 380ms ease-out; }
   .dictionary-definitions { display: grid; gap: 1rem; color: #233f4e; font-size: 15px; line-height: 1.5; transition: color 380ms ease-out; }

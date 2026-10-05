@@ -97,7 +97,7 @@
   <div class="section-inner">
     <header class="section-heading">
       <p class="vsl-headline section-playfair-desktop">{ui.vslBefore} <span>Empenta</span>{ui.vslAfter}</p>
-      <h1 id="vsl-title">{ui.programme}</h1>
+      <h1 id="vsl-title" class="mobile-copy-14">{ui.programme}</h1>
     </header>
     <div class="video-frame" use:nearVideo use:revealVsl>
       {#if videoReady && videoNearby}
@@ -125,7 +125,7 @@
     </div>
     <div class="section-cta">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
-      <p class="cta-note">{note}</p>
+      <p class="cta-note mobile-copy-14">{note}</p>
     </div>
   </div>
 </section>
@@ -134,7 +134,7 @@
   <div class="section-inner">
     <header class="section-heading">
       <h2 id="situations-title" class="section-playfair-desktop">{@html ui.situationTitle}</h2>
-      <p>{@html ui.situationIntro}</p>
+      <p class="mobile-copy-14">{@html ui.situationIntro}</p>
     </header>
     <div class="situations-grid hover-dim-group">
       {#each situations as situation, i}
@@ -145,7 +145,7 @@
       {/each}
     </div>
     <div class="section-cta">
-      <p class="situations-closing">{ui.situationClosing}</p>
+      <p class="situations-closing mobile-copy-14">{ui.situationClosing}</p>
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
     </div>
   </div>
@@ -258,7 +258,7 @@
     .recovery h2 { white-space: normal; }
     .recovery-highlight { max-width: 100%; white-space: nowrap; }
     .section-heading > .recovery-subtitle { font-size: clamp(17px, 5.4vw, 26px); }
-    .goal-subtitle { font-size: clamp(11px, 3.4vw, 17px); }
+    .goal-subtitle { font-size: 13.5px; }
     .recovery-highlight__base, .recovery-highlight__paint { min-width: 0; }
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 5rem; margin-bottom: .8rem; }
@@ -274,7 +274,7 @@
     .poster-title { font-size: 4.7cqw; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     :global(.poster-desktop-break) { display: initial; }
-    .poster-phone { width: 20%; left: 5%; bottom: -13%; }
+    .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: translateY(-8px) scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
   }

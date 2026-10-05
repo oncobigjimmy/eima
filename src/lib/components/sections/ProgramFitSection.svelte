@@ -37,7 +37,7 @@
 
 <section class="program-fit-section bg-[#f8f4f0] pb-10 pt-9 md:pb-14 md:pt-12">
   <div class="mx-auto mb-8 max-w-4xl px-6 text-center md:mb-10 md:px-10">
-    <p class="text-[16px] font-normal leading-relaxed text-[#233F4E]/78">
+    <p class="mobile-copy-14 text-[16px] font-normal leading-relaxed text-[#233F4E]/78">
       {fitCopy.eyebrow}
     </p>
 
