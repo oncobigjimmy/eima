@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { scrollContrast } from '$lib/actions/scrollContrast';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import type { Language } from '$lib/i18n/copy';
   import { homeSections } from '$lib/i18n/reviewed';
@@ -137,7 +138,7 @@
     </header>
     <div class="situations-grid hover-dim-group">
       {#each situations as situation, i}
-        <article class="situation-card hover-dim-item" use:reveal style={`--delay: ${i * 80}ms`}>
+        <article class="situation-card hover-dim-item" use:reveal use:scrollContrast style={`--delay: ${i * 80}ms`}>
           <span class="situation-letter" aria-hidden="true">{situation.letter}</span>
           <h3>{situation.quote}</h3>
         </article>
@@ -253,9 +254,11 @@
     .situations-grid, .recovery-grid { grid-template-columns: 1fr; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .recovery-column { min-width: 0; }
-    .video-frame { aspect-ratio: 4 / 3; }
+    .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
     .recovery h2 { white-space: normal; }
-    .recovery-highlight { max-width: 100%; white-space: normal; }
+    .recovery-highlight { max-width: 100%; white-space: nowrap; }
+    .section-heading > .recovery-subtitle { font-size: clamp(17px, 5.4vw, 26px); }
+    .goal-subtitle { font-size: clamp(11px, 3.4vw, 17px); }
     .recovery-highlight__base, .recovery-highlight__paint { min-width: 0; }
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 5rem; margin-bottom: .8rem; }
@@ -264,22 +267,16 @@
     .recovery-column:global(.is-active) { background: #ffffff8a; border-color: #8cd0d680; box-shadow: 0 10px 24px #233f4e12; }
     .recovery-word { font-size: 32px; }
     .recovery-initial { font-size: 50px; }
-    .poster-copy { width: 66%; height: 78%; padding: 4% 0 0 2.5%; }
+    .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
     .video-poster { background: #fff; }
-    .video-poster > img:first-child { right: -12%; }
-    :global(.poster-brand) { width: 38px; top: 4%; right: 3%; filter: drop-shadow(0 1px 2px #fff); }
-    .poster-title { font-size: clamp(14px, 3.9vw, 24px); margin: .35rem 0 0; }
-    .poster-description { font-size: clamp(.58rem, 1.9vw, .75rem); line-height: 1.35; margin-top: .5rem; }
-    :global(.poster-desktop-break) { display: none; }
-    .poster-phone { width: 20%; left: 8%; bottom: -18%; }
-    .poster-play { width: clamp(48px, 10vw, 64px); left: 69%; }
-  }
-  @media (max-width: 480px) {
-    .video-frame { aspect-ratio: 1 / 1; }
-    .video-poster > img:first-child { right: 0; width: 100%; height: auto; object-fit: contain; }
-    .poster-title { font-size: clamp(15px, 4.6vw, 20px); }
-    .poster-description { font-size: clamp(10px, 2.7vw, 12px); }
-    .poster-play { top: 72%; }
+    .video-poster > img:first-child { right: 0; width: 74%; height: 100%; object-fit: cover; object-position: 54% center; }
+    :global(.poster-brand) { width: 7%; top: 4%; right: 3%; }
+    .poster-title { font-size: 4.7cqw; margin: 0; }
+    .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
+    :global(.poster-desktop-break) { display: initial; }
+    .poster-phone { width: 20%; left: 5%; bottom: -13%; }
+    .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
+    .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: translateY(-8px) scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
   }
   @media (prefers-reduced-motion: reduce) {
     .video-frame:global(.will-reveal), .situation-card:global(.will-reveal) { opacity: 1; transform: none; transition: none; }
@@ -290,5 +287,6 @@
     .recovery-word, .goal-subtitle, .goal-body { background: none; color: #4083a7; -webkit-text-fill-color: #4083a7; }
     .recovery-subtitle:global(.will-reveal) .recovery-highlight__paint { clip-path: none; transition: none; }
     .situations-grid .situation-card:global(.is-visible):hover { transform: none; }
+    .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }
 </style>

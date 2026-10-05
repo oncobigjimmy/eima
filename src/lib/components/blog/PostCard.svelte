@@ -1,4 +1,5 @@
 <script>
+  import { scrollContrast } from '$lib/actions/scrollContrast';
   import { getAuthor } from '$lib/blog/authors.js';
   import { getBlogCopy } from '$lib/i18n/blog';
   /** @type {Omit<ReturnType<typeof import('$lib/blog/posts').getPosts>[number], 'Component' | 'seoDescription' | 'heroLabel' | 'heroEmphasis' | 'heroTitleClass' | 'nextPost' | 'keywords' | 'faq'>} */
@@ -22,6 +23,7 @@
 </script>
 
 <a
+  use:scrollContrast
   href={post.path ?? `/blog/${post.slug}`}
   class="post-card group hover-dim-item flex h-full flex-col rounded-[10px] border border-transparent bg-white p-7 shadow-[0_1px_3px_rgba(14,29,38,0.06)] md:p-6"
 >
@@ -77,4 +79,10 @@
     .post-card:hover .post-card-title, .post-card:focus-visible .post-card-title { color: #fff; }
     .post-card:hover .post-card-title span, .post-card:focus-visible .post-card-title span { color: #8cd0d6; }
   }
+  @media (max-width: 767px) {
+    .post-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); color: #fff; }
+    .post-card:global(.scroll-active) .post-card-title { color: #fff; }
+    .post-card:global(.scroll-active) .post-card-title span { color: #8cd0d6; }
+  }
+  @media (prefers-reduced-motion: reduce) { .post-card, .post-card-title, .post-card-title span { transition: none; } }
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { scrollContrast } from '$lib/actions/scrollContrast';
   import type { Language } from '$lib/i18n/copy';
   import { aboutSections } from '$lib/i18n/reviewed';
   import { getAboutCopy } from '$lib/i18n/about';
@@ -101,7 +102,7 @@
 
 <section id="about-us" class="about-intro" class:about-intro--translated={pageLanguage !== 'es'}>
   <div class="about-container">
-    <h1 class="about-title">{#each ui.title as line, index}{#if index > 0}{' '}{/if}<span class="about-title__line">{@html line}</span>{/each}</h1>
+    <h1 class="about-title">{#each ui.title as line, index}{#if index > 0}{' '}{/if}<span class="about-title__line">{@html pageLanguage === 'es' && index === 1 ? line.replace('forma de', 'forma<br class="about-mobile-break" /> de') : line}</span>{/each}</h1>
     <div class="about-intro-grid">
       <div class="team-block intro-reveal intro-reveal--left" use:revealIntro>
         <div class="team-photo">
@@ -110,7 +111,7 @@
           <a class="team-person team-person--left" href={`${storyPath}#miquel`} aria-label={`${ui.view} Miquel`}><span>Miquel</span></a>
           <a class="team-person team-person--right" href={`${storyPath}#jaume`} aria-label={`${ui.view} Jaume`}><span>Jaume</span></a>
         </div>
-        <p class="team-hint">{ui.hint}</p>
+        <p class="team-hint">{@html pageLanguage === 'es' ? ui.hint.replace('para conocer', 'para<br class="about-mobile-break" /> conocer') : ui.hint}</p>
       </div>
       <div class="dictionary-wrap intro-reveal intro-reveal--right" use:revealIntro use:typeOnView={'dictionary'}>
         <div class="dictionary-card">
@@ -147,10 +148,10 @@
     <p class="origin-intro origin-fade" use:reveal>{@html ui.intro}</p>
     <div class="origin-grid hover-dim-group">
       {#each originCards as card, index}
-        <article class="origin-card hover-dim-item" use:reveal style={`--delay:${index < 3 ? index * 50 : 180 + (index - 3) * 50}ms`}>
+        <article class="origin-card hover-dim-item" use:reveal use:scrollContrast style={`--delay:${index < 3 ? index * 50 : 180 + (index - 3) * 50}ms`}>
           <div class="origin-card-header">
             <span class="origin-number" aria-hidden="true">0{index + 1}</span>
-            <h3>{#each card.titleLines as line}<span class="origin-card-title-line">{line}</span>{/each}</h3>
+            <h3 class:origin-card-title--first={index === 0 && pageLanguage === 'es'}>{#each card.titleLines as line, lineIndex}{#if lineIndex > 0}{' '}{/if}<span class="origin-card-title-line">{@html index === 0 && pageLanguage === 'es' ? line.replace('hagas ejercicio', 'hagas<br class="about-mobile-break" /> ejercicio').replace('explican cómo', '<br class="about-mobile-break" />explican cómo') : line}</span>{/each}</h3>
           </div>
           <p>{@html card.body}</p>
         </article>
@@ -191,6 +192,7 @@
   .about-title, .about-origin h2, .closing-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; line-height: 1.1; }
   .about-title { position: relative; left: calc(50% + .5rem); width: max-content; transform: translateX(-50%); font-size: 60px; text-align: center; color: white; white-space: nowrap; }
   .about-title__line { display: block; }
+  :global(.about-mobile-break) { display: none; }
   .about-title :global(span), .about-origin h2 :global(span), .closing-title span { font-family: inherit; }
   :global(.about-blue), .about-origin h2 :global(span) { color: #8cd0d6; }
   @keyframes blink { 50% { opacity: 0; } }
@@ -295,6 +297,18 @@
     .about-intro--translated .about-title { left: auto; width: auto; max-width: 100%; transform: none; white-space: normal; }
   }
   @media (max-width: 767px) { .about-intro { padding-top: 7rem; } .about-title { font-size: clamp(2rem, 8vw, 2.7rem); } .team-hint { position: static; margin-top: .8rem; } .origin-grid { grid-template-columns: 1fr; grid-auto-rows: auto; } }
+  @media (max-width: 767px) {
+    .about-intro { overflow-x: clip; }
+    :global(.about-mobile-break) { display: initial; }
+    .about-intro:not(.about-intro--translated) .about-title { font-size: clamp(26px, 8vw, 43.2px); }
+    .team-hint { font-size: clamp(11px, 3.3vw, 14px); }
+    .origin-card h3.origin-card-title--first { font-size: clamp(12px, calc(8.5vw - 15px), 18px); }
+    .origin-card-title--first .origin-card-title-line { display: inline; }
+    .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 10px 24px #08121829, 0 3px 8px #0812181f; text-shadow: none; }
+    .origin-card:global(.scroll-active) .origin-number { color: #233f4e; }
+    .origin-card:global(.scroll-active) h3, .origin-card:global(.scroll-active) p, .origin-card:global(.scroll-active) :global(strong) { color: #245b7d; }
+  }
+  @media (prefers-reduced-motion: reduce) { .origin-card:global(.scroll-active) { transform: none; } }
   @media (min-width: 1024px) { :global(.origin-intro-break) { display: inline; } }
   @media (prefers-reduced-motion: reduce) { .dictionary-cursor, .closing-cursor { animation: none; } .origin-card, .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong), .origin-fade, .team-person span, .dictionary-card, .dictionary-card__inner, .intro-reveal { transition: none; } .origin-card:global(.will-reveal), .origin-fade:global(.will-reveal), .intro-reveal:global(.will-reveal) { opacity: 1; transform: none; } .origin-card:hover, .dictionary-card:hover .dictionary-card__inner { transform: none; } }
 </style>

@@ -134,7 +134,7 @@
 </svelte:head>
 
 <div class:program-es-rhythm={true}>
-<section class="relative w-full overflow-hidden" style="min-height: 88vh;">
+<section class="program-hero relative w-full overflow-hidden" style="min-height: 88vh;">
   <video
     bind:this={heroVideo}
     class="absolute inset-0 h-full w-full object-cover"
@@ -154,7 +154,7 @@
     aria-hidden="true"
   ></div>
 
-  <div class={`photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 md:px-10 pt-18 md:pt-22 lg:pt-[98px]`}>
+  <div class={`program-hero-content photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 md:px-10 pt-18 md:pt-22 lg:pt-[98px]`}>
     <h1 class="sr-only">
       {hero.srTitle}
     </h1>
@@ -243,6 +243,10 @@
 </div>
 
 <style>
+  @media (max-width: 767px) {
+    .program-hero { min-height: 0 !important; }
+    .program-hero-content { padding-bottom: 40px; }
+  }
   .program-es-rhythm {
     --program-section-start: clamp(2.75rem, 5vw, 4.75rem);
     --program-section-end: clamp(3rem, 5vw, 4.75rem);

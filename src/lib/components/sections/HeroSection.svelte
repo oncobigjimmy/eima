@@ -92,7 +92,7 @@
   });
 </script>
 
-<section class="relative w-full overflow-hidden" style="min-height: 92vh;">
+<section class="home-hero relative w-full overflow-hidden" style="min-height: 92vh;">
   <video
     bind:this={heroVideo}
     class="absolute inset-0 h-full w-full object-cover"
@@ -110,7 +110,7 @@
     aria-hidden="true"
   ></div>
 
-  <div class={`photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24 lg:pt-[111px]`}>
+  <div class={`home-hero-content photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24 lg:pt-[111px]`}>
     <div class="max-w-3xl leading-[1.02] tracking-tight">
 
       <span class="block text-[2.1rem] font-normal text-white md:text-6xl">{hero.intro}</span>
@@ -180,6 +180,10 @@
 
   .home-hero-accent { margin-top: .375rem; }
   .home-hero-copy { margin-top: 1.75rem; }
+  @media (max-width: 767px) {
+    .home-hero { min-height: 0 !important; }
+    .home-hero-content { padding-bottom: 40px; }
+  }
 </style>
 
 

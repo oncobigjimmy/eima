@@ -1,4 +1,5 @@
 <script>
+  import { scrollContrast } from '$lib/actions/scrollContrast';
   import { language } from '$lib/i18n/language';
   import { getProgramCopy } from '$lib/i18n/program';
 
@@ -106,6 +107,7 @@
   <div class="mx-auto grid max-w-6xl gap-8 px-6 md:px-10 lg:grid-cols-2 lg:gap-10">
     <article
       use:revealOnScroll
+      use:scrollContrast
       class="fit-reveal fit-card fit-card--yes w-full max-w-[34rem] justify-self-center rounded-[14px] bg-white p-7 shadow-[0_16px_36px_rgba(14,29,38,0.08)] transition-[transform,box-shadow,opacity,filter] duration-300 ease-out md:p-8"
       style="--reveal-delay: 0ms"
     >
@@ -150,6 +152,7 @@
 
     <article
       use:revealOnScroll
+      use:scrollContrast
       class="fit-reveal fit-card fit-card--no w-full max-w-[34rem] justify-self-center rounded-[14px] bg-white p-7 shadow-[0_16px_36px_rgba(14,29,38,0.08)] transition-[transform,box-shadow,opacity,filter] duration-300 ease-out md:p-8"
       style="--reveal-delay: 120ms"
     >
@@ -274,6 +277,7 @@
     font-weight: 400 !important;
   }
 
+  @media (min-width: 768px) {
   .fit-card:hover {
     box-shadow: 0 22px 46px rgba(14, 29, 38, 0.14);
     transform: translateY(-6px) scale(1.015);
@@ -307,8 +311,9 @@
   .fit-card:hover .fit-card__bullet {
     color: rgba(255, 255, 255, 0.92);
   }
+  }
 
-  @media (hover: hover) {
+  @media (min-width: 768px) and (hover: hover) {
     .program-fit-section:has(.fit-card:hover) .fit-card:not(:hover) {
       filter: saturate(0.85);
       opacity: 0.38;
@@ -329,4 +334,14 @@
       transform: none;
     }
   }
+  @media (max-width: 767px) {
+    .fit-card:global(.scroll-active) { box-shadow: 0 22px 46px rgba(14, 29, 38, .14); transform: translateY(-6px) scale(1.015); }
+    .fit-card:global(.scroll-active)::before, .fit-card:global(.scroll-active)::after { opacity: 1; }
+    .fit-card:global(.scroll-active)::before { transform: scale(1); }
+    .fit-card:global(.scroll-active) .fit-card__title, .fit-card:global(.scroll-active) .fit-card__item, .fit-card:global(.scroll-active) .fit-card__item :global(em) { color: #fff; text-shadow: 0 1px 3px #0005, 0 4px 12px #0003; }
+    .fit-card:global(.scroll-active) .fit-card__line { background: #ffffffb3; }
+    .fit-card:global(.scroll-active) .fit-card__icon-wrap { background: #ffffff2e; color: #fff; }
+    .fit-card:global(.scroll-active) .fit-card__bullet { color: #ffffffeb; }
+  }
+  @media (prefers-reduced-motion: reduce) { .fit-card:global(.scroll-active), .fit-card:global(.scroll-active)::before { transform: none; } }
 </style>
