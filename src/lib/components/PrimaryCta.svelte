@@ -32,9 +32,10 @@
 <style>
   .primary-cta { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; width: fit-content; align-items: center; justify-content: center; gap: .55rem; border: 0; border-radius: 999px; background: #8cd0d6; padding: .75rem 1.75rem; color: #233f4e; font-family: 'Inter', Arial, sans-serif; font-size: 15px; font-weight: 500; line-height: 1.4; text-align: center; text-decoration: none; cursor: pointer; transition: transform 300ms ease-out, background-color 300ms ease-out, color 300ms ease-out, font-weight 300ms ease-out, box-shadow 300ms ease-out; }
   .primary-cta::before { content: ''; position: absolute; z-index: 0; top: 0; left: 0; width: 44%; height: 100%; background: linear-gradient(90deg, transparent, #ffffff8c, transparent); transform: translateX(-180%) skewX(-18deg); transition: transform 420ms ease-out; }
-  .primary-cta__label { position: relative; z-index: 1; }
+  .primary-cta__label { position: relative; z-index: 1; transition: text-shadow 300ms ease-out; }
+  .primary-cta:is(:hover, :focus-visible) .primary-cta__label { text-shadow: var(--eima-blue-text-shadow); }
   .primary-cta:hover, .primary-cta:focus-visible { transform: translateY(-3px) scale(1.03); background: #4083a7; color: white; font-weight: 700; box-shadow: 0 10px 24px #4083a747; }
   .primary-cta.primary-cta--shadowless, .primary-cta.primary-cta--shadowless:hover, .primary-cta.primary-cta--shadowless:focus-visible { box-shadow: none; text-shadow: none; }
   .primary-cta:hover::before, .primary-cta:focus-visible::before { transform: translateX(260%) skewX(-18deg); }
-  @media (prefers-reduced-motion: reduce) { .primary-cta, .primary-cta::before { transition: none; } .primary-cta:hover, .primary-cta:focus-visible { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .primary-cta, .primary-cta::before, .primary-cta__label { transition: none; } .primary-cta:hover, .primary-cta:focus-visible { transform: none; } }
 </style>

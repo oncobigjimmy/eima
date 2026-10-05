@@ -29,6 +29,7 @@ body {
   --eima-card-hover-background: #334d5b;
   --eima-card-hover-border: #8cd0d6;
   --eima-card-hover-shadow: 0 12px 28px #071a2559, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d;
+  --eima-blue-text-shadow: 0 1px 2px #233f4e66, 0 2px 5px #233f4e26;
   --site-hero-overlay:
     linear-gradient(90deg, rgba(8, 18, 24, 0.8) 0%, rgba(8, 18, 24, 0.5) 50%, rgba(8, 18, 24, 0.3) 100%),
     linear-gradient(180deg, rgba(8, 18, 24, 0.3) 0%, rgba(8, 18, 24, 0) 100%);

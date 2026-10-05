@@ -543,6 +543,7 @@
 
   .profile-card__header--blue {
     background: #4083a7;
+    text-shadow: var(--eima-blue-text-shadow);
   }
 
   .profile-card__body {
@@ -701,7 +702,7 @@
   }
 
   .reading-cover-image {
-    transition: transform 380ms ease-out;
+    transition: transform 380ms ease-out, box-shadow 380ms ease-out;
     display: block;
     width: min(100%, 6.2rem);
     height: 100%;
@@ -753,12 +754,12 @@
       background: #4083a7;
       border-color: #233f4e;
       transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26;
+      box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26, 0 0 22px #8cd0d64d;
     }
     .reading-card:hover h4 { color: #ffffff; }
     .reading-card:hover .reading-author { color: #e8e8f6; }
     .reading-card:hover h4, .reading-card:hover .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
-    .reading-card:hover .reading-cover-image { transform: scale(1.06); }
+    .reading-card:hover .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
     .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: .7; filter: blur(1px); }
 
     .education-item:hover p { transform: scale(1.06); }
@@ -988,6 +989,7 @@
     background: #4083a7;
     color: #ffffff;
     font-weight: 700;
+    text-shadow: var(--eima-blue-text-shadow);
   }
 
   @media (max-width: 767px) {
@@ -1006,12 +1008,12 @@
       background: #4083a7;
       border-color: #233f4e;
       transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26;
+      box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26, 0 0 22px #8cd0d64d;
     }
     .reading-card:global(.scroll-active) h4 { color: #ffffff; }
     .reading-card:global(.scroll-active) .reading-author { color: #e8e8f6; }
     .reading-card:global(.scroll-active) h4, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
-    .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); }
+    .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
     .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: blur(1px); }
 
     .story-title {

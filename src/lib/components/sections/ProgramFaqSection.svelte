@@ -187,6 +187,10 @@
     font-weight: 400;
   }
 
+  .faq-trigger[aria-expanded='true'] .faq-question {
+    text-shadow: var(--eima-blue-text-shadow);
+  }
+
   .faq-question :global(strong) {
     font-weight: 700;
   }

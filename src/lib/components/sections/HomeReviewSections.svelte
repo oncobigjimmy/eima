@@ -231,7 +231,7 @@
   .recovery-highlight { display: inline-grid; font-family: 'Fraunces', Georgia, serif; white-space: nowrap; }
   .recovery-highlight__base, .recovery-highlight__paint { grid-area: 1 / 1; padding: .18em .42em .23em; font-family: 'Fraunces', Georgia, serif; }
   .recovery-highlight__base { color: #233f4e; }
-  .recovery-highlight__paint { position: relative; isolation: isolate; color: #f8f4f0; }
+  .recovery-highlight__paint { position: relative; isolation: isolate; color: #f8f4f0; text-shadow: var(--eima-blue-text-shadow); }
   .recovery-highlight__paint::before { position: absolute; z-index: -1; inset: .02em -.06em .01em; content: ''; background: #4083a7; border-radius: 10px 7px 9px 8px / 7px 9px 8px 10px; }
   .recovery-subtitle:global(.will-reveal) .recovery-highlight__paint { clip-path: inset(0 100% 0 0); transition: clip-path 1150ms cubic-bezier(.22, 1, .36, 1); }
   .recovery-subtitle:global(.is-visible) .recovery-highlight__paint { clip-path: inset(0 0 0 0); }

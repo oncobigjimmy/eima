@@ -304,6 +304,7 @@
     color: #ffffff;
     font-weight: 700;
     transform: scale(1.03);
+    text-shadow: var(--eima-blue-text-shadow);
   }
 
   :global(.prose-blog .blog-program-cta__button:hover::before),
