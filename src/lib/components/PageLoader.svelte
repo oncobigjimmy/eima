@@ -77,10 +77,11 @@
   .page-loader {
     position: fixed;
     z-index: 100;
-    top: 50%;
-    left: 50%;
-    width: clamp(120px, 18vw, 160px);
-    transform: translate(-50%, -50%);
+    inset: 0;
+    display: grid;
+    place-items: center;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     pointer-events: none;
     opacity: 1;
     transition: opacity 220ms ease-out;
@@ -89,7 +90,7 @@
   }
   .page-loader svg {
     display: block;
-    width: 100%;
+    width: clamp(120px, 18vw, 160px);
     overflow: visible;
     filter: drop-shadow(0 3px 5px #071a25b3) drop-shadow(0 8px 20px #071a2580);
   }

@@ -11,6 +11,8 @@
   export let pageLanguage: Language = 'es';
   const ui = homeSections[pageLanguage];
   const homeCopy = getCopy(pageLanguage).home;
+  const programmeBreak = { es: 'con cáncer', ca: 'amb càncer', en: 'with cancer' }[pageLanguage];
+  const programmeLines = ui.programme.replace(` ${programmeBreak}`, `\n${programmeBreak}`).split('\n');
   const whatsappHref = getWhatsAppHref(pageLanguage, true);
   const note = pageLanguage === 'es'
     ? homeCopy.hero.note.replace(' si este acompañamiento', '\nsi este acompañamiento')
@@ -97,7 +99,7 @@
   <div class="section-inner">
     <header class="section-heading">
       <p class="vsl-headline section-playfair-desktop">{ui.vslBefore} <span>Empenta</span>{ui.vslAfter}</p>
-      <h1 id="vsl-title" class="mobile-copy-14">{ui.programme}</h1>
+      <h1 id="vsl-title" class="mobile-copy-14" aria-label={ui.programme}>{#each programmeLines as line, index}{#if index > 0}{' '}{/if}<span class="programme-line">{line}</span>{/each}</h1>
     </header>
     <div class="video-frame" use:nearVideo use:revealVsl>
       {#if videoReady && videoNearby}
@@ -220,7 +222,7 @@
   .situations h2 :global(span) { color: #8cd0d6; }
   .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #e0e9ed; max-width: 1072px; font-size: 16px; }
   .situations-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-  .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transition: opacity 175ms ease, transform 175ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; }
+  .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transform-origin: center; transition: opacity 280ms ease, filter 280ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1), border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 6rem; line-height: 1; color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
   .situation-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
   .situations-closing { color: #e0e9ed; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
@@ -246,11 +248,15 @@
   .situation-card:global(.will-reveal) { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; transition-delay: var(--delay, 0ms); }
   .situation-card:global(.is-visible) { opacity: 1; transform: none; }
   @media (min-width: 768px) and (hover: hover) {
-    .situations-grid .situation-card:global(.is-visible):hover { z-index: 1; transform: translateY(-8px) scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
+    .situations-grid .situation-card:global(.is-visible):hover { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
+    .situations-grid:has(> .situation-card:global(.is-visible):hover) > .situation-card:not(:hover):not(:global(.will-reveal)) { opacity: .42; filter: blur(1px); }
     .recovery-grid:hover .recovery-column:not(:hover) { opacity: .87; }
     .recovery-column:hover { background: #ffffff8a; border-color: #8cd0d680; box-shadow: 0 12px 28px #233f4e14; transform: translateY(-5px); }
   }
   @media (max-width: 767px) {
+    .vsl h1 { margin-inline: -12px; }
+    .programme-line { display: block; white-space: nowrap; }
+    .vsl .section-cta { margin-top: 3rem; }
     .situations-grid, .recovery-grid { grid-template-columns: 1fr; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .recovery-column { min-width: 0; }
@@ -258,7 +264,7 @@
     .recovery h2 { white-space: normal; }
     .recovery-highlight { max-width: 100%; white-space: nowrap; }
     .section-heading > .recovery-subtitle { font-size: clamp(17px, 5.4vw, 26px); }
-    .goal-subtitle { font-size: 13.5px; }
+    .goal-subtitle { font-size: 14px; max-width: calc(100% + 8px); }
     .recovery-highlight__base, .recovery-highlight__paint { min-width: 0; }
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 5rem; margin-bottom: .8rem; }
@@ -276,7 +282,8 @@
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
-    .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: translateY(-8px) scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
+    .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
+    .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .42; filter: blur(1px); }
   }
   @media (prefers-reduced-motion: reduce) {
     .video-frame:global(.will-reveal), .situation-card:global(.will-reveal) { opacity: 1; transform: none; transition: none; }

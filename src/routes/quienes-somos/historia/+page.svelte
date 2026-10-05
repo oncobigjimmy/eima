@@ -993,7 +993,7 @@
   @media (max-width: 767px) {
     .story-journey-title { font-size: 40px; }
     .story-profile-name { font-size: 30px; }
-    .story-profile-specialty { font-size: 18px; }
+    .story-profile-specialty { font-size: 16px; line-height: 1.4; }
     .story-section-heading { font-size: 22px; }
 
     .education-item:global(.scroll-active) p { transform: scale(1.06); }
