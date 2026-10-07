@@ -190,21 +190,19 @@
         <article class="testimonial-card" use:scrollContrast>
           <div class="testimonial-card__content">
             <div class="testimonial-card__person">
-              <h3 class="section-playfair-desktop">{testimonial.name}</h3>
+              <h3>{testimonial.name}</h3>
               <p class="testimonial-card__condition testimonial-card__condition--desktop">
-                {testimonial.condition}
+                {#if testimonial.conditionTitle && testimonial.conditionDetail}
+                  <strong>{testimonial.conditionTitle}.</strong>{' '}{testimonial.conditionDetail}
+                {:else}
+                  {testimonial.condition}
+                {/if}
               </p>
               <p class="testimonial-card__condition testimonial-card__condition--mobile">
                 {#if testimonial.conditionTitle && testimonial.conditionDetail}
-                  <span class="testimonial-card__condition-title">{testimonial.conditionTitle}</span>
+                  <strong class="testimonial-card__condition-title">{testimonial.conditionTitle}.</strong>{' '}
                   <span class="testimonial-card__condition-detail">
-                    {#if testimonial.conditionDetailLines}
-                      {#each testimonial.conditionDetailLines as line, index}
-                        {line}{#if index < testimonial.conditionDetailLines.length - 1}<br />{/if}
-                      {/each}
-                    {:else}
-                      {testimonial.conditionDetail}
-                    {/if}
+                    {testimonial.conditionDetail}
                   </span>
                 {:else}
                   {testimonial.condition}
@@ -215,26 +213,14 @@
             <div class="testimonial-card__change">
               <span>{copy.before}</span>
               <p>
-                {#if testimonial.beforeLines}
-                  {#each testimonial.beforeLines as line, index}
-                    {line}{#if index < testimonial.beforeLines.length - 1}<br class="testimonial-card__mobile-break" />{' '}{/if}
-                  {/each}
-                {:else}
-                  {testimonial.before}
-                {/if}
+                {testimonial.before}
               </p>
             </div>
 
             <div class="testimonial-card__change testimonial-card__change--after">
               <span>{copy.after}</span>
               <p>
-                {#if testimonial.afterLines}
-                  {#each testimonial.afterLines as line, index}
-                    {line}{#if index < testimonial.afterLines.length - 1}<br class="testimonial-card__mobile-break" />{' '}{/if}
-                  {/each}
-                {:else}
-                  {testimonial.after}
-                {/if}
+                {testimonial.after}
               </p>
             </div>
           </div>
@@ -452,7 +438,7 @@
     display: grid;
     gap: 1.15rem;
     grid-template-columns: minmax(11rem, 0.72fr) minmax(0, 1fr);
-    min-height: 20rem;
+    min-height: 0;
     overflow: visible;
     padding: 1rem;
     transition: background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out;
@@ -468,7 +454,7 @@
     display: block;
     grid-column: 1;
     grid-row: 1;
-    min-height: 18.75rem;
+    min-height: 16rem;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -477,7 +463,9 @@
   .testimonial-card__media img {
     display: block;
     height: 100%;
+    inset: 0;
     object-fit: cover;
+    position: absolute;
     transition: transform 320ms ease;
     width: 100%;
   }
@@ -489,10 +477,6 @@
 
   .testimonial-card__media:disabled {
     cursor: default;
-  }
-
-  .testimonial-card__mobile-break {
-    display: none;
   }
 
   .testimonial-card__overlay {
@@ -570,14 +554,19 @@
     font-size: 40px;
     font-weight: 400;
     line-height: 1;
+    text-align: center;
   }
 
   .testimonial-card__condition {
     color: var(--testimonial-detail);
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
-    line-height: 1.55;
+    line-height: 1.45;
+  }
+
+  .testimonial-card__condition strong {
+    font-weight: 700;
   }
 
   .testimonial-card__condition--mobile {
@@ -606,7 +595,7 @@
     display: block;
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 0;
     margin-bottom: 0.32rem;
   }
@@ -614,7 +603,7 @@
   .testimonial-card__change p {
     color: var(--testimonial-body);
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.48;
   }
@@ -795,11 +784,10 @@
   @media (max-width: 1023px) {
     .testimonial-card {
       grid-template-columns: minmax(8.5rem, 0.58fr) minmax(0, 1fr);
-      min-height: 20rem;
     }
 
     .testimonial-card__media {
-      min-height: 18rem;
+      min-height: 16rem;
     }
 
     .testimonial-card__caption {
@@ -835,7 +823,7 @@
 
     .testimonial-card {
       grid-template-columns: 1fr;
-      padding: 0.8rem;
+      padding: 0.6rem;
     }
 
     .testimonial-card__divider {
@@ -847,7 +835,7 @@
     }
 
     .testimonial-card__media {
-      aspect-ratio: 9 / 14;
+      aspect-ratio: 3 / 4;
       grid-column: 1;
       grid-row: 2;
       min-height: auto;
@@ -872,7 +860,7 @@
     .testimonial-card__person {
       grid-column: 1;
       grid-row: 1;
-      padding: 0.15rem 0.2rem 0;
+      padding: 0.15rem 0 0;
     }
 
     .testimonial-card__person h3 {
@@ -886,30 +874,29 @@
     .testimonial-card__condition--mobile {
       border-left: 2px solid #4083a7;
       display: block;
-      font-size: 15px;
-      line-height: 1.48;
+      font-size: 14px;
+      line-height: 1.45;
       margin-top: 0.45rem;
-      padding-left: 0.9rem;
+      padding-left: 0.4rem;
       text-align: left;
     }
 
     .testimonial-card__condition-title {
-      color: var(--testimonial-accent);
-      display: block;
+      color: #4083a7;
+      display: inline;
       font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-    font-weight: 400 !important;
-      font-size: 20px;
-      line-height: 1.25;
-      margin-bottom: 0.35rem;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: inherit;
     }
 
     .testimonial-card__condition-detail {
       color: var(--testimonial-detail);
-      display: block;
+      display: inline;
       font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.48;
+      line-height: inherit;
     }
 
     .testimonial-card__person::after {
@@ -920,7 +907,8 @@
       border-left-color: var(--testimonial-after);
       grid-column: 1;
       grid-row: 3;
-      margin: 0.15rem 0.2rem 0;
+      margin: 0.15rem 0 0;
+      padding-left: 0.4rem;
     }
 
     .testimonial-card__change span {
@@ -929,17 +917,13 @@
 
     .testimonial-card__change p {
       color: var(--testimonial-detail);
-      font-size: 14px;
-    }
-
-    .testimonial-card__mobile-break {
-      display: block;
+      font-size: 12px;
     }
 
     .testimonial-card__change--after {
       border-left-color: var(--testimonial-heading);
       grid-row: 5;
-      margin: 0.1rem 0.2rem 0.35rem;
+      margin: 0.1rem 0 0.35rem;
     }
 
     .testimonial-card__change--after span {
@@ -967,7 +951,7 @@
       width: 2.15rem;
     }
   }
-  .testimonial-card h3, .testimonial-card p, .testimonial-card span {
+  .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card strong {
     transition: color 380ms ease-out;
   }
   @media (min-width: 768px) and (hover: hover) {
@@ -1003,7 +987,7 @@
       width: 75%;
       container-type: inline-size;
       justify-self: center;
-      aspect-ratio: 9 / 14;
+      aspect-ratio: 3 / 4;
       min-height: 0;
       align-self: start;
     }
@@ -1018,7 +1002,7 @@
     .testimonial-card__caption-line { display: inline; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card__media, .testimonial-card__media img { transition: none; }
+    .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card strong, .testimonial-card__media, .testimonial-card__media img { transition: none; }
     .testimonial-card__media:hover img, .testimonial-card__media:focus-visible img { transform: none; }
   }
 </style>
