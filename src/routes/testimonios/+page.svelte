@@ -595,6 +595,10 @@
     text-align: center;
   }
 
+  .testimonial-card__condition--desktop .testimonial-card__condition-detail {
+    text-align: center;
+  }
+
   .testimonial-card__condition-detail {
     display: block;
   }
