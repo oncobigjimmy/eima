@@ -193,14 +193,15 @@
               <h3>{testimonial.name}</h3>
               <p class="testimonial-card__condition testimonial-card__condition--desktop">
                 {#if testimonial.conditionTitle && testimonial.conditionDetail}
-                  <strong>{testimonial.conditionTitle}.</strong>{' '}{testimonial.conditionDetail}
+                  <strong class="testimonial-card__condition-title">{testimonial.conditionTitle}</strong>
+                  <span class="testimonial-card__condition-detail">{testimonial.conditionDetail}</span>
                 {:else}
                   {testimonial.condition}
                 {/if}
               </p>
               <p class="testimonial-card__condition testimonial-card__condition--mobile">
                 {#if testimonial.conditionTitle && testimonial.conditionDetail}
-                  <strong class="testimonial-card__condition-title">{testimonial.conditionTitle}.</strong>{' '}
+                  <strong class="testimonial-card__condition-title">{testimonial.conditionTitle}</strong>
                   <span class="testimonial-card__condition-detail">
                     {testimonial.conditionDetail}
                   </span>
@@ -233,7 +234,12 @@
             on:click={() => hasPlayableVideo(testimonial) && openTestimonial(testimonial)}
           >
             {#if testimonial.image}
-              <img src={testimonial.image} alt="" loading="lazy" />
+              <img
+                class:testimonial-card__image--portrait-crop={testimonial.name === 'Tim'}
+                src={testimonial.image}
+                alt=""
+                loading="lazy"
+              />
               <span class="testimonial-card__overlay" aria-hidden="true"></span>
             {/if}
             <span class="testimonial-card__play" aria-hidden="true">
@@ -430,14 +436,14 @@
     --testimonial-heading: var(--color-brand);
     --testimonial-detail: rgba(35, 63, 78, .8);
     --testimonial-accent: #4083a7;
-    --testimonial-after: #245b7d;
+    --testimonial-after: #4083a7;
     --testimonial-body: var(--color-brand);
     background: color-mix(in srgb, #ffffff 64%, #f8f4f0);
     border: 1px solid rgba(140, 208, 214, 0.74);
     border-radius: 8px;
     display: grid;
     gap: 1.15rem;
-    grid-template-columns: minmax(11rem, 0.72fr) minmax(0, 1fr);
+    grid-template-columns: minmax(13.5rem, 0.58fr) minmax(0, 1fr);
     min-height: 0;
     overflow: visible;
     padding: 1rem;
@@ -468,6 +474,13 @@
     position: absolute;
     transition: transform 320ms ease;
     width: 100%;
+  }
+
+  /* Tim's 480px thumbnail contains a 200px portrait between baked-in side panels. */
+  .testimonial-card__media img.testimonial-card__image--portrait-crop {
+    left: -70%;
+    max-width: none;
+    width: 240%;
   }
 
   .testimonial-card__media:hover img,
@@ -567,6 +580,23 @@
 
   .testimonial-card__condition strong {
     font-weight: 700;
+  }
+
+  .testimonial-card__condition-title {
+    color: var(--testimonial-accent);
+    display: block;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.25;
+    margin-bottom: 0.32rem;
+  }
+
+  .testimonial-card__condition--desktop .testimonial-card__condition-title {
+    text-align: center;
+  }
+
+  .testimonial-card__condition-detail {
+    display: block;
   }
 
   .testimonial-card__condition--mobile {
@@ -872,7 +902,7 @@
     }
 
     .testimonial-card__condition--mobile {
-      border-left: 2px solid #4083a7;
+      border-left: 2px solid var(--testimonial-accent);
       display: block;
       font-size: 14px;
       line-height: 1.45;
@@ -881,18 +911,9 @@
       text-align: left;
     }
 
-    .testimonial-card__condition-title {
-      color: #4083a7;
-      display: inline;
-      font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-      font-weight: 700;
-      font-size: 14px;
-      line-height: inherit;
-    }
-
     .testimonial-card__condition-detail {
       color: var(--testimonial-detail);
-      display: inline;
+      display: block;
       font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 14px;
       font-weight: 400;
@@ -921,13 +942,13 @@
     }
 
     .testimonial-card__change--after {
-      border-left-color: var(--testimonial-heading);
+      border-left-color: var(--testimonial-accent);
       grid-row: 5;
       margin: 0.1rem 0 0.35rem;
     }
 
     .testimonial-card__change--after span {
-      color: var(--testimonial-heading);
+      color: var(--testimonial-accent);
     }
 
     .testimonial-card__change--after p {
