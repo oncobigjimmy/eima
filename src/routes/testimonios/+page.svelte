@@ -436,7 +436,7 @@
     --testimonial-heading: var(--color-brand);
     --testimonial-detail: rgba(35, 63, 78, .8);
     --testimonial-accent: #4083a7;
-    --testimonial-after: #4083a7;
+    --testimonial-after: #245b7d;
     --testimonial-body: var(--color-brand);
     background: color-mix(in srgb, #ffffff 64%, #f8f4f0);
     border: 1px solid rgba(140, 208, 214, 0.74);
@@ -929,7 +929,7 @@
     }
 
     .testimonial-card__change {
-      border-left-color: var(--testimonial-after);
+      border-left-color: var(--testimonial-accent);
       grid-column: 1;
       grid-row: 3;
       margin: 0.15rem 0 0;
@@ -937,7 +937,7 @@
     }
 
     .testimonial-card__change span {
-      color: var(--testimonial-after);
+      color: var(--testimonial-accent);
     }
 
     .testimonial-card__change p {
@@ -946,13 +946,13 @@
     }
 
     .testimonial-card__change--after {
-      border-left-color: var(--testimonial-accent);
+      border-left-color: var(--testimonial-after);
       grid-row: 5;
       margin: 0.1rem 0 0.35rem;
     }
 
     .testimonial-card__change--after span {
-      color: var(--testimonial-accent);
+      color: var(--testimonial-after);
     }
 
     .testimonial-card__change--after p {
