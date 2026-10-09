@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Language } from '$lib/i18n/copy';
+  import { getCopy, getWhatsAppHref, type Language } from '$lib/i18n/copy';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { patientProofCopy, patientResponses } from '$lib/data/patient-responses';
   import PatientResponseCarousel from '$lib/components/PatientResponseCarousel.svelte';
 
@@ -10,6 +11,8 @@
     progress: 'volver a hacer cosas'
   };
   $: copy = patientProofCopy[pageLanguage];
+  $: whatsappHref = getWhatsAppHref(pageLanguage, true);
+  $: ctaLabel = pageLanguage === 'es' ? 'Cuéntanos tu caso' : getCopy(pageLanguage).home.hero.cta;
   $: rows = copy.rows.map(row => ({ ...row, items: patientResponses.filter(item => item.category === row.category) })).filter(row => row.items.length);
 </script>
 
@@ -20,7 +23,7 @@
       {@const emphasis = pageLanguage === 'es' ? titleEmphasis[row.category] : ''}
       <div class="patient-row" class:patient-row--difficult={row.category === 'difficult-day'} class:patient-row--dark={row.category === 'eima-adaptation'}>
         <header class="patient-heading">
-          <h2 id={`patients-${row.category}-title`}>{#if emphasis}{title.split(emphasis)[0]}<span class="title-emphasis">{emphasis}</span>{title.split(emphasis)[1]}{:else}{title}{/if}</h2>
+          <h2 class="section-title-mobile" id={`patients-${row.category}-title`}>{#if emphasis}{title.split(emphasis)[0]}<span class="title-emphasis">{emphasis}</span>{title.split(emphasis)[1]}{:else}{title}{/if}</h2>
           {#if row.subtitle}
             <p class="mobile-copy-14" class:patient-subtitle-lines={pageLanguage === 'es' && row.category === 'difficult-day'}>
               {#if pageLanguage === 'es' && row.category === 'difficult-day'}
@@ -35,6 +38,9 @@
         <div class="patient-inner">
           <PatientResponseCarousel items={row.items} id={`patients-${row.category}`} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={copy.position} expandLabel={copy.expand} closeLabel={copy.close} />
         </div>
+        {#if row.category === 'progress'}
+          <div class="patient-cta"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ctaLabel} /></div>
+        {/if}
       </div>
     {/each}
   </section>
@@ -50,6 +56,7 @@
   .patient-row--dark .title-emphasis { color: #8cd0d6; }
   .subtitle-line { display: block; }
   p { max-width: 750px; margin: 1rem auto 0; font-size: 1rem; line-height: 1.7; color: #233f4e; }
+  .patient-cta { display: flex; justify-content: center; margin: 1.5rem 1.25rem 0; }
   .patient-inner { max-width: 1072px; margin: 0 auto; }
   .patient-row--dark { background: var(--color-brand); }
   .patient-row--dark h2 { color: var(--color-inverse); }

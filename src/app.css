@@ -51,6 +51,7 @@ body {
   :root { scrollbar-width: none; }
   :root::-webkit-scrollbar { display: none; }
   .mobile-copy-14 { font-size: 14px !important; }
+  .section-playfair-desktop, .section-title-mobile { font-size: 32px !important; }
 }
 
 .site-hero-overlay {

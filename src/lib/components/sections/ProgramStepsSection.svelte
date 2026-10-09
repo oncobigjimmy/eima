@@ -68,6 +68,7 @@
 
   $: stepsCopy = getProgramCopy($language).steps;
   $: steps = stepsCopy.items;
+  $: closingHtml = $language === 'es' ? stepsCopy.closing.replace('. Y ', '.<br class="steps-mobile-break" /> Y ') : stepsCopy.closing;
   $: sideParagraphs = stepsCopy.sideParagraphs.slice(0, 1);
   $: whatsappHref = getWhatsAppHref($language);
   $: programStepsId = getProgramStepsHash($language);
@@ -169,7 +170,7 @@
 
     <div class="mx-auto mt-12 max-w-4xl px-6 text-center md:mt-16 md:px-10">
       <p
-        use:htmlContent={stepsCopy.closing}
+        use:htmlContent={closingHtml}
         class="mobile-copy-14 text-[16px] font-light leading-[1.65] text-[#233F4E]"
       ></p>
 
@@ -179,6 +180,8 @@
 </section>
 
 <style>
+  :global(.steps-mobile-break) { display: none; }
+  @media (max-width: 767px) { :global(.steps-mobile-break) { display: block; } }
   :global(.steps-cta) { margin-top: 1.25rem; }
   .steps-intro :global(strong) { font-weight: 700; }
 

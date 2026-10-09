@@ -331,7 +331,7 @@
               {#each activeProfile.storySections as section}
                 <section>
                   <h3
-                    class="story-section-heading text-[25px] leading-[1.2] text-[#4083A7]"
+                    class="story-section-heading section-title-mobile text-[25px] leading-[1.2] text-[#4083A7]"
                   >
                     {section.title}
                   </h3>
@@ -358,7 +358,7 @@
 
           <section class="profile-card">
             <header class="profile-card__header profile-card__header--blue">
-              <h3 class="story-side-title text-[30px] text-white">
+              <h3 class="story-side-title section-title-mobile text-[30px] text-white">
                 {activeProfile.educationTitle}
               </h3>
             </header>
@@ -395,7 +395,7 @@
 
           <section class="profile-card profile-card--readings">
             <header class="profile-card__header profile-card__header--blue">
-              <h3 class="story-side-title text-[30px] text-white">
+              <h3 class="story-side-title section-title-mobile text-[30px] text-white">
                 {activeProfile.readingsTitle}
               </h3>
             </header>

@@ -14,6 +14,9 @@
 
   $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? 'es';
   $: copy = getTestimonialsCopy(pageLanguage);
+  $: ctaHeading = pageLanguage === 'es'
+    ? copy.ctaHeading.replace(', pero ', ',<br class="testimonials-mobile-break" /> pero ')
+    : copy.ctaHeading;
   $: whatsappHref = getWhatsAppHref(pageLanguage);
   $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
   $: alternateLinks = getAlternateLinks('testimonials');
@@ -263,7 +266,7 @@
 <section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
   <div>
     <h2 id="testimonios-cta-title" class="mobile-copy-14">
-      {@html copy.ctaHeading}
+      {@html ctaHeading}
     </h2>
   </div>
   <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} />
@@ -324,6 +327,8 @@
 {/if}
 
 <style>
+  :global(.testimonials-mobile-break) { display: none; }
+  @media (max-width: 767px) { :global(.testimonials-mobile-break) { display: block; } }
   :global(body:has(.testimonial-modal)) {
     overflow: hidden;
   }
