@@ -7,6 +7,7 @@
   import { homeVideoEs } from '$lib/data/home-es';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
+  import PatientProofSection from '$lib/components/sections/PatientProofSection.svelte';
 
   export let pageLanguage: Language = 'es';
   const ui = homeSections[pageLanguage];
@@ -131,6 +132,8 @@
     </div>
   </div>
 </section>
+
+<PatientProofSection {pageLanguage} />
 
 <section class="situations section-space" aria-labelledby="situations-title">
   <div class="section-inner">

@@ -1,4 +1,5 @@
 <script>
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { site } from '$lib/site';
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
@@ -121,16 +122,16 @@
     'The Biomechanics of Low Back Pain': '/book-biomechanics-back-pain.png',
     'El ayuno contra el cáncer': '/book-ayuno-cancer.png',
     'Ser mujer': '/book-ser-mujer.png',
-    'Exercise Oncology': '/book-exercise-oncology.jpg',
+    'Exercise Oncology': '/book-exercise-oncology.png',
     'Fasting Against Cancer': '/book-ayuno-cancer.png',
     'Hábitos atómicos': '/book-habitos-atomicos.png',
     'Atomic Habits': '/book-habitos-atomicos.png',
     'Neurociencia del cuerpo': '/book-neurociencia-cuerpo.png',
     'Neuroscience of the Body': '/book-neurociencia-cuerpo.png',
-    'Essential Guide Cervical Spine': '/book-essential-guide-cervical-spine.jpg',
-    'Antifrágil': '/book-antifragil.jpg',
-    'Antifràgil': '/book-antifragil.jpg',
-    Antifragile: '/book-antifragil.jpg',
+    'Essential Guide Cervical Spine': '/book-essential-guide-cervical-spine.png',
+    'Antifrágil': '/book-antifragil.png',
+    'Antifràgil': '/book-antifragil.png',
+    Antifragile: '/book-antifragil.png',
     'Medio ambiente y salud': '/book-medio-ambiente-salud.png',
     'Environment and Health': '/book-medio-ambiente-salud.png',
     'El ejercicio: Un muro contra el cáncer': '/book-ejercicio-muro-cancer.png',
@@ -463,9 +464,7 @@
     on:keydown={handleCoverModalKeydown}
   >
     <button class="cover-modal__backdrop" type="button" tabindex="-1" aria-label={labels.close} on:click={closeCoverModal}></button>
-    <button class="cover-modal__close" type="button" aria-label={labels.close} on:click={closeCoverModal}>
-      ×
-    </button>
+    <button class="cover-modal__close eima-close" type="button" aria-label={labels.close} on:click={closeCoverModal}><CloseIcon /></button>
     <div class="cover-modal__content">
       <img src={selectedCover.cover} alt={`${labels.coverOf} ${selectedCover.title}`} />
       <p>{selectedCover.title}</p>
@@ -704,13 +703,14 @@
   .reading-cover-image {
     transition: transform 380ms ease-out, box-shadow 380ms ease-out;
     display: block;
-    width: min(100%, 6.2rem);
-    height: 100%;
-    aspect-ratio: 0.72;
+    width: auto;
+    height: auto;
+    max-width: min(100%, 6.2rem);
+    max-height: 100%;
     object-fit: contain;
     object-position: center;
     border-radius: 6px;
-    background: #ffffff;
+    background: transparent;
     box-shadow: 0 10px 22px rgba(14, 29, 38, 0.16);
   }
 
@@ -836,11 +836,13 @@
   .cover-modal {
     position: fixed;
     inset: 0;
-    z-index: 80;
+    z-index: 300;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(8, 18, 24, 0.76);
+    background: #071a25a3;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     padding: 1.5rem;
   }
 
@@ -874,6 +876,8 @@
   }
 
   .cover-modal__close {
+    width: 44px;
+    height: 44px;
     position: fixed;
     right: 1.25rem;
     top: 1rem;

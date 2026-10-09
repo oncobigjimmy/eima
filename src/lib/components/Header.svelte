@@ -98,7 +98,7 @@
       class="transition-opacity hover:opacity-70 min-[1100px]:hidden"
       on:click={() => (mobileMenuOpen = !mobileMenuOpen)}
     >
-      <span class="relative block h-6 w-6" aria-hidden="true">
+      <span class="relative block h-6 w-6" class:menu-close-icon={mobileMenuOpen} aria-hidden="true">
         <span
           class="absolute left-0 right-0 top-1 block h-[2px] rounded transition-transform duration-200
             {lightHeader ? 'bg-white' : 'bg-[color:var(--color-brand)]'}"
@@ -122,6 +122,9 @@
 </header>
 
 <style>
+  button:is(:hover, :focus-visible) .menu-close-icon { animation: menu-close-turn 500ms cubic-bezier(.3,.9,.3,1); }
+  @keyframes menu-close-turn { from { transform: rotate(0); } to { transform: rotate(180deg); } }
+  @media (prefers-reduced-motion: reduce) { button:is(:hover, :focus-visible) .menu-close-icon { animation: none; } }
   .header-link--light {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.48), 0 3px 8px rgba(0, 0, 0, 0.28);
   }

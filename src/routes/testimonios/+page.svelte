@@ -1,4 +1,5 @@
 <script>
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
@@ -285,11 +286,7 @@
       on:click|stopPropagation
       on:keydown|stopPropagation
     >
-      <button class="testimonial-modal__close" type="button" aria-label={copy.close} on:click={closeTestimonial}>
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-        </svg>
-      </button>
+      <button class="testimonial-modal__close eima-close" type="button" aria-label={copy.close} on:click={closeTestimonial}><CloseIcon /></button>
 
       <div class="testimonial-modal__video">
         {#if activeTestimonial.videoUrl}
@@ -679,14 +676,16 @@
 
   .testimonial-modal {
     align-items: center;
-    background: rgba(7, 15, 20, 0.78);
+    background: #071a25a3;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     display: flex;
     inset: 0;
     justify-content: center;
     overflow-y: auto;
     padding: 3.25rem 1.25rem 1.5rem;
     position: fixed;
-    z-index: 60;
+    z-index: 300;
   }
 
   .testimonial-modal__panel {
@@ -711,10 +710,6 @@
     z-index: 3;
   }
 
-  .testimonial-modal__close svg {
-    height: 1.15rem;
-    width: 1.15rem;
-  }
 
   .testimonial-modal__video {
     aspect-ratio: 9 / 16;
@@ -790,10 +785,6 @@
       width: 1.85rem;
     }
 
-    .testimonial-modal__close svg {
-      height: 0.9rem;
-      width: 0.9rem;
-    }
 
     .testimonial-modal__summary-break {
       display: block;
