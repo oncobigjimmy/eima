@@ -30,8 +30,8 @@ export const patientResponses: PatientResponse[] = [
     "image": "/patient-responses/difficult-day-3.jpg",
     "width": 1001,
     "height": 993,
-    "highlight": "No he podido hacer ejercicio esta semana. Esta semana he estado muy negativa",
-    "alt": "Respuesta real de paciente: No he podido hacer ejercicio esta semana. Esta semana he estado muy negativa"
+    "highlight": "No he podido hacer ejercicio esta semana. Esta semana he estado muy negativa...",
+    "alt": "Respuesta real de paciente: No he podido hacer ejercicio esta semana. Esta semana he estado muy negativa..."
   },
   {
     "id": "difficult-day-4",
@@ -259,6 +259,126 @@ export const patientResponses: PatientResponse[] = [
     "alt": "Respuesta real de paciente: Retomar un proyecto de reforma de un piso."
   }
 ];
+
+const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
+  'difficult-day-2': {
+    ca: 'Tot el dia sense energia, amb fàstic i vòmits.',
+    en: 'No energy all day, feeling sick and vomiting.'
+  },
+  'difficult-day-3': {
+    ca: 'No he pogut fer exercici aquesta setmana. Aquesta setmana he estat molt negativa...',
+    en: 'I haven’t been able to exercise this week. I’ve been feeling very negative this week...'
+  },
+  'difficult-day-4': {
+    ca: 'Sensació de malestar tot el dia, panxa dura i sense ganes de menjar.',
+    en: 'Feeling unwell all day, a hard stomach and no appetite.'
+  },
+  'difficult-day-1': {
+    ca: 'Hem anat a caminar, però estava molt cansada. He fet el que he pogut.',
+    en: 'We went for a walk, but I was very tired. I did what I could.'
+  },
+  'difficult-day-5': {
+    ca: 'He estat al llit amb dolors abdominals. No tenc forces per a res.',
+    en: 'I’ve been in bed with abdominal pain. I have no strength for anything.'
+  },
+  'difficult-day-6': {
+    ca: 'Avui ja no he pres les pastilles per als vòmits, però encara tenc moltes nàusees.',
+    en: 'Today I haven’t taken the tablets for vomiting, but I still feel very nauseous.'
+  },
+  'difficult-day-7': {
+    ca: 'Estic molt cansada. Molts dolors musculars.',
+    en: 'I’m very tired. A lot of muscle pain.'
+  },
+  'difficult-day-8': {
+    ca: 'Aquesta setmana pràcticament no he pogut entrenar.',
+    en: 'I’ve barely been able to train this week.'
+  },
+  'eima-adaptation-1': {
+    ca: 'M’encanta que sigui un pla adaptable al dia a dia.',
+    en: 'I love that the plan can adapt from day to day.'
+  },
+  'eima-adaptation-9': {
+    ca: 'M’he sentit acompanyada amb les telefonades.',
+    en: 'The phone calls have made me feel supported.'
+  },
+  'eima-adaptation-3': {
+    ca: 'Crec que sempre que he tingut dubtes, me’ls has resolt al moment.',
+    en: 'I think whenever I’ve had questions, you’ve answered them straight away.'
+  },
+  'eima-adaptation-2': {
+    ca: 'M’agrada saber què he de fer l’endemà.',
+    en: 'I like knowing what I need to do the next day.'
+  },
+  'eima-adaptation-7': {
+    ca: 'El vídeo em va agradar molt i em va ajudar a entendre en quin punt estic i què em queda.',
+    en: 'I really liked the video. It helped me understand where I am and what lies ahead.'
+  },
+  'eima-adaptation-4': {
+    ca: 'L’atenció rebuda, el tracte individual per a cada pacient, molt bo.',
+    en: 'The care received and the individual attention for each patient have been very good.'
+  },
+  'eima-adaptation-6': {
+    ca: 'Saber que cada dia algú es preocupa per la meva salut.',
+    en: 'Knowing that someone cares about my health every day.'
+  },
+  'eima-adaptation-8': {
+    ca: 'Ho deix en mans de Jaime.',
+    en: 'I leave it in Jaime’s hands.'
+  },
+  'progress-12': {
+    ca: 'He pogut tornar a seguir les rutines establertes i a sentir-me «normal».',
+    en: 'I’ve been able to get back to my usual routines and feel ‘normal’ again.'
+  },
+  'progress-2': {
+    ca: 'Tornar a fer classe d’estiraments i veure que puc tornar a la rutina d’abans del càncer.',
+    en: 'Going back to stretching classes and seeing that I can return to my routine from before cancer.'
+  },
+  'progress-3': {
+    ca: 'He pogut anar de viatge a bon ritme i fer tot el que tenia planejat.',
+    en: 'I’ve been able to travel at a good pace and do everything I had planned.'
+  },
+  'progress-9': {
+    ca: 'Aconseguir sortir a caminar cada dia, malgrat el tractament i les injeccions.',
+    en: 'Managing to go for a walk every day, despite the treatment and injections.'
+  },
+  'progress-1': {
+    ca: 'No em pensava que ja podria aixecar tant de pes tan aviat.',
+    en: 'I didn’t think I’d be able to lift so much weight so soon.'
+  },
+  'progress-11': {
+    ca: 'M’he sentit una mica més jo mateixa en poder anar tota sola a Inca i Palma.',
+    en: 'I’ve felt a little more like myself by being able to go to Inca and Palma on my own.'
+  },
+  'progress-6': {
+    ca: 'M’ha donat una mica més de confiança que puc amb això.',
+    en: 'It’s given me a little more confidence that I can handle this.'
+  },
+  'progress-7': {
+    ca: 'Començ a notar-me amb més força en general, fins i tot abans de l’operació.',
+    en: 'I’m starting to feel stronger overall, even before the operation.'
+  },
+  'progress-4': {
+    ca: 'La meva forma física i la meva resistència. Abans de començar em fatigava molt més.',
+    en: 'My fitness and stamina. Before starting, I used to get tired much more easily.'
+  },
+  'progress-5': {
+    ca: 'Després de l’exercici estic molt millor que abans de començar.',
+    en: 'After exercising, I feel much better than before I started.'
+  },
+  'progress-10': {
+    ca: 'Reprendre un projecte de reforma d’un pis.',
+    en: 'Getting back to a flat renovation project.'
+  }
+};
+
+export function getPatientResponses(language: Language): PatientResponse[] {
+  if (language === 'es') return patientResponses;
+  const altPrefix = language === 'ca' ? 'Resposta real de pacient' : 'Real patient response';
+  return patientResponses.map(item => {
+    const highlight = patientCaptionTranslations[item.id][language];
+    return { ...item, highlight, alt: `${altPrefix}: ${highlight}` };
+  });
+}
 
 export const patientProofCopy: Record<Language, {
   label: string;

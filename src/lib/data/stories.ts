@@ -29,7 +29,7 @@ export const storyProfiles = [
         ]
       }
     ],
-    cta: 'Ahora que sabes mi historia ¿Nos cuentas la tuya?',
+    cta: 'Ahora que sabes mi historia, ¿nos cuentas la tuya?',
     educationTitle: 'Mi formación',
     education: [
       {
@@ -134,7 +134,7 @@ export const storyProfiles = [
         ]
       }
     ],
-    cta: 'Ahora que sabes mi historia ¿Nos cuentas la tuya?',
+    cta: 'Ahora que sabes mi historia, ¿nos cuentas la tuya?',
     educationTitle: 'Mi formación',
     education: [
       {

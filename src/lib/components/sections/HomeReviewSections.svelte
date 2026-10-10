@@ -239,7 +239,8 @@
   .recovery-subtitle:global(.will-reveal) .recovery-highlight__paint { clip-path: inset(0 100% 0 0); transition: clip-path 1150ms cubic-bezier(.22, 1, .36, 1); }
   .recovery-subtitle:global(.is-visible) .recovery-highlight__paint { clip-path: inset(0 0 0 0); }
   .recovery-subtitle :global(strong) { font-family: 'Fraunces', Georgia, serif; font-weight: 500; }
-  .recovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .recovery .section-heading { margin-bottom: 2.25rem; }
+  .recovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.25rem; }
   .recovery-column { padding: 1rem; border: 1px solid transparent; border-radius: 12px; transition: opacity 300ms ease, background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease; }
   .recovery-word, .goal-subtitle { width: max-content; max-width: 100%; }
   .recovery-word, .goal-subtitle, .goal-body { background: linear-gradient(to right, #4083a7 0 var(--fill, 0%), #233f4e var(--fill, 0%) 100%); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }

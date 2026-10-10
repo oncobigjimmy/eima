@@ -200,7 +200,7 @@
   </div>
   <div class="highlight-space" aria-live="polite" aria-atomic="true">
     {#if active && nearby}
-      {#key `${active.id}-${settled}`}
+      {#key `${active.id}-${active.highlight}-${settled}`}
         <blockquote class="response-highlight" class:filled class:pending={!settled} aria-hidden={!settled}>
           <span class="highlight-base"><PatientQuoteLines text={`“${active.highlight}”`} /></span>
           <span class="highlight-fill" aria-hidden="true" on:animationend={() => { filled = true; }}>“{active.highlight}”</span>

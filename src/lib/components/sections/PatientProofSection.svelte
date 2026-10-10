@@ -1,26 +1,39 @@
 <script lang="ts">
   import { getCopy, getWhatsAppHref, type Language } from '$lib/i18n/copy';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
-  import { patientProofCopy, patientResponses } from '$lib/data/patient-responses';
+  import { patientProofCopy, getPatientResponses } from '$lib/data/patient-responses';
   import PatientResponseCarousel from '$lib/components/PatientResponseCarousel.svelte';
 
   export let pageLanguage: Language = 'es';
   const titleEmphasis = {
-    'difficult-day': 'No todos los días',
-    'eima-adaptation': 'para esos días',
-    progress: 'volver a hacer cosas'
+    es: {
+      'difficult-day': 'No todos los días',
+      'eima-adaptation': 'para esos días',
+      progress: 'volver a hacer cosas'
+    },
+    ca: {
+      'difficult-day': 'No tots els dies',
+      'eima-adaptation': 'per a aquests dies',
+      progress: 'tornar a fer coses'
+    },
+    en: {
+      'difficult-day': 'Not every day',
+      'eima-adaptation': 'exactly why',
+      progress: 'doing things again'
+    }
   };
   $: copy = patientProofCopy[pageLanguage];
   $: whatsappHref = getWhatsAppHref(pageLanguage, true);
   $: ctaLabel = pageLanguage === 'es' ? 'Cuéntanos tu caso' : getCopy(pageLanguage).home.hero.cta;
-  $: rows = copy.rows.map(row => ({ ...row, items: patientResponses.filter(item => item.category === row.category) })).filter(row => row.items.length);
+  $: localizedResponses = getPatientResponses(pageLanguage);
+  $: rows = copy.rows.map(row => ({ ...row, items: localizedResponses.filter(item => item.category === row.category) })).filter(row => row.items.length);
 </script>
 
 {#if rows.length}
   <section class="patient-proof" aria-label={copy.label}>
     {#each rows as row}
       {@const title = row.title.replace(/\.$/, '')}
-      {@const emphasis = pageLanguage === 'es' ? titleEmphasis[row.category] : ''}
+      {@const emphasis = titleEmphasis[pageLanguage][row.category]}
       <div class="patient-row" class:patient-row--difficult={row.category === 'difficult-day'} class:patient-row--dark={row.category === 'eima-adaptation'}>
         <header class="patient-heading">
           <h2 class="section-title-mobile" id={`patients-${row.category}-title`}>{#if emphasis}{title.split(emphasis)[0]}<span class="title-emphasis">{emphasis}</span>{title.split(emphasis)[1]}{:else}{title}{/if}</h2>
