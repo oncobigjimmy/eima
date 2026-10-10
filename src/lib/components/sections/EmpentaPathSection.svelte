@@ -132,8 +132,10 @@
   .path-subtitle { font-size: 16px; line-height: 1.65; max-width: 760px; margin: 1.25rem auto 0; }
   .path-subtitle :global(strong) { font-weight: 700; }
   :global(.path-desktop-break) { display: none; }
+  :global(.path-mobile-break) { display: block; }
   @media (min-width: 768px) {
     :global(.path-desktop-break) { display: block; }
+    :global(.path-mobile-break) { display: none; }
     li:first-child .path-stage-copy p { max-width: 320px; }
   }
   .path-track { position: relative; margin-top: 2.75rem; }

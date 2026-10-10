@@ -15,7 +15,7 @@ export const empentaPathCopy: Record<Language, {
       { title: 'Consolida', description: 'Reforzamos lo conseguido para mantenerte activo con más autonomía.' }
     ],
     next: '¿Y después?', followUp: 'Seguimiento',
-    closing: 'Si quieres seguir contando con nosotros, podremos valorar un seguimiento<br />adaptado a ti para continuar cuidando y mejorando tu salud.'
+    closing: 'Si quieres seguir contando con nosotros,<br class="path-mobile-break" /> podremos valorar un seguimiento<br />adaptado a ti para continuar cuidando<br class="path-mobile-break" /> y mejorando tu salud.'
   },
   ca: {
     before: 'El ', accent: 'camí', after: ' que seguirem ', endingAccent: 'amb tu',
