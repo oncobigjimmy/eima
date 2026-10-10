@@ -132,7 +132,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 180px;
+    min-height: 150px;
     width: 100%;
   }
 
@@ -142,19 +142,19 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: var(--parallax-gap);
+    gap: calc(var(--parallax-gap) * .55);
     justify-content: center;
-    min-height: 180px;
-    padding: 1.1rem 1.5rem 1rem;
+    min-height: 150px;
+    padding: .9rem 1.5rem .85rem;
   }
 
   .parallax-slogan--compact .parallax-slogan__image,
   .parallax-slogan--compact .parallax-slogan__overlay {
-    min-height: 160px;
+    min-height: 135px;
   }
 
   .parallax-slogan--compact .parallax-slogan__overlay {
-    padding: .9rem 1.5rem;
+    padding: .75rem 1.5rem;
   }
 
   .parallax-slogan__top {
@@ -185,21 +185,21 @@
   @media (min-width: 768px) {
     .parallax-slogan__image {
       background-attachment: fixed;
-      min-height: 220px;
+      min-height: 180px;
     }
 
     .parallax-slogan__overlay {
-      min-height: 220px;
-      padding: 1.75rem 2rem 1.5rem;
+      min-height: 180px;
+      padding: 1.45rem 2rem 1.25rem;
     }
 
     .parallax-slogan--compact .parallax-slogan__image,
     .parallax-slogan--compact .parallax-slogan__overlay {
-      min-height: 190px;
+      min-height: 155px;
     }
 
     .parallax-slogan--compact .parallax-slogan__overlay {
-      padding: 1.25rem 2rem;
+      padding: 1.05rem 2rem;
     }
 
     .parallax-slogan__top {

@@ -6,6 +6,7 @@
   import ProgramFitSection from '$lib/components/sections/ProgramFitSection.svelte';
   import ProgramFaqSection from '$lib/components/sections/ProgramFaqSection.svelte';
   import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
+  import EmpentaPathSection from '$lib/components/sections/EmpentaPathSection.svelte';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { getProgramCopy } from '$lib/i18n/program';
@@ -197,17 +198,7 @@
 
 <ProgramStepsSection />
 
-<ParallaxSloganSection
-  image="/Gemini_Generated_Image_y50u8jy50u8jy50u-100.png"
-  compact
-  sectionClass="program-banner"
-  topHtml={programCopy.slogan1.topHtml}
-  bottomHtml={programCopy.slogan1.bottomHtml}
-  mobileTopSize={15}
-  desktopTopSize={22}
-  mobileBottomSize={21.5}
-  desktopBottomSize={33}
-/>
+<EmpentaPathSection {pageLanguage} />
 
 <ProgramFitSection />
 

@@ -62,7 +62,7 @@ const esProgram = {
       'Un proceso para que no tengas que improvisar <strong>qué hacer, cuánto hacer ni cómo saber si lo estás haciendo bien.</strong>',
     badge: 'Valoración + plan + seguimiento',
     sideParagraphs: [
-      'No trabajamos con sesiones sueltas. Es un <strong>acompañamiento estructurado de 12 semanas</strong> para ayudarte a empezar, retomar y adaptar el ejercicio con seguridad.',
+      'No trabajamos con sesiones sueltas. Empenta es un <strong>acompañamiento estructurado de 12 semanas,</strong> pero tu progreso no sigue un calendario fijo.<br /><br />Por eso, <strong>adaptamos el ejercicio a tu punto de partida</strong>, a cómo evolucionas y a tus objetivos.',
       'Donde valoramos tu punto de partida, diseñamos un plan progresivo y lo adaptamos según cómo vas evolucionando.'
     ],
     items: [

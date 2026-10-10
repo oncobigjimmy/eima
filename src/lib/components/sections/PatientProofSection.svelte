@@ -23,6 +23,8 @@
     }
   };
   $: copy = patientProofCopy[pageLanguage];
+  $: hintLabel = { es: 'Haz clic para ampliar', ca: 'Fes clic per ampliar', en: 'Click to enlarge' }[pageLanguage];
+  $: touchHintLabel = { es: 'Toca para ampliar', ca: 'Toca per ampliar', en: 'Tap to enlarge' }[pageLanguage];
   $: whatsappHref = getWhatsAppHref(pageLanguage, true);
   $: ctaLabel = pageLanguage === 'es' ? 'Cuéntanos tu caso' : getCopy(pageLanguage).home.hero.cta;
   $: localizedResponses = getPatientResponses(pageLanguage);
@@ -49,7 +51,7 @@
           {/if}
         </header>
         <div class="patient-inner">
-          <PatientResponseCarousel items={row.items} id={`patients-${row.category}`} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={copy.position} expandLabel={copy.expand} closeLabel={copy.close} />
+          <PatientResponseCarousel items={row.items} id={`patients-${row.category}`} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={copy.position} expandLabel={copy.expand} closeLabel={copy.close} {hintLabel} {touchHintLabel} />
         </div>
         {#if row.category === 'progress'}
           <div class="patient-cta"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ctaLabel} /></div>
@@ -62,7 +64,7 @@
 <style>
   .patient-proof { width: 100%; overflow: clip; }
   .patient-row { padding: clamp(2rem, 3.5vw, 2.75rem) 0 1rem; background: var(--color-surface); }
-  .patient-row--difficult { background: #e8e8f6; }
+  .patient-row--difficult { background: #f8f4f0; }
   .patient-heading { max-width: 960px; margin: 0 auto 1.25rem; padding: 0 1.5rem; text-align: center; }
   h2 { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: clamp(1.8rem, 3.1vw, 2.5rem); line-height: 1.16; text-wrap: balance; color: var(--color-brand); }
   .title-emphasis { font-family: inherit; font-weight: inherit; color: #4083a7; }
@@ -75,6 +77,7 @@
   .patient-row--dark h2 { color: var(--color-inverse); }
   .patient-row--dark p { color: #e8e8f6; }
   @media (min-width: 768px) {
+    .patient-cta { margin-top: .5rem; }
     .patient-row { padding-bottom: clamp(2rem, 3.5vw, 2.75rem); }
     .patient-heading { max-width: 1072px; }
     .patient-subtitle-lines { max-width: none; }
@@ -85,6 +88,7 @@
     .patient-inner { max-width: none; }
   }
   @media (max-width: 767px) {
+    .patient-cta { margin-top: 2.25rem; }
     .patient-row { padding-top: 2rem; padding-bottom: 2rem; }
     .patient-heading { padding: 0 1.25rem; margin-bottom: 1rem; }
     h2 { font-size: clamp(1.65rem, 6.5vw, 2rem); }

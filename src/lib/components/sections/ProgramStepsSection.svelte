@@ -4,6 +4,7 @@
   import { getProgramCopy } from '$lib/i18n/program';
   import { getProgramStepsHash } from '$lib/i18n/routes';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import ServiceIllustration from '$lib/components/ServiceIllustration.svelte';
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
     requestAnimationFrame(() => {
@@ -68,19 +69,14 @@
 
   $: stepsCopy = getProgramCopy($language).steps;
   $: steps = stepsCopy.items;
+  $: introHtml = $language === 'es'
+    ? 'Un proceso para que no tengas que improvisar <br class="steps-desktop-break" /><strong>qué hacer, cuánto hacer ni cómo</strong> saber <br class="steps-desktop-break" />si lo estás haciendo bien.'
+    : stepsCopy.intro;
   $: closingHtml = $language === 'es' ? stepsCopy.closing.replace('. Y ', '.<br class="steps-mobile-break" /> Y ') : stepsCopy.closing;
   $: sideParagraphs = stepsCopy.sideParagraphs.slice(0, 1);
   $: whatsappHref = getWhatsAppHref($language);
   $: programStepsId = getProgramStepsHash($language);
 
-  /** @type {Record<string, string>} */
-  const iconPaths = {
-    call: 'M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.93,70.35,70.35,0,0,0-50.33-50.34A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.55,26.33,26.34A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm72.43,78.73-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L126.87,168c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L89.54,41.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,24,88c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,214.37,166.46Z',
-    home: 'M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z',
-    phone: 'M224,72H208V64a24,24,0,0,0-24-24H40A24,24,0,0,0,16,64v96a24,24,0,0,0,24,24H152v8a24,24,0,0,0,24,24h48a24,24,0,0,0,24-24V96A24,24,0,0,0,224,72Zm8,120a8,8,0,0,1-8,8H176a8,8,0,0,1-8-8V96a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8Zm-96,16a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h40A8,8,0,0,1,136,208Zm80-96a8,8,0,0,1-8,8H192a8,8,0,0,1,0-16h16A8,8,0,0,1,216,112Z',
-    checklist: 'M200,32H163.74a47.92,47.92,0,0,0-71.48,0H56A16,16,0,0,0,40,48V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm32,128H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Zm0-32H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Z',
-    support: 'M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm32,128H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Zm0-32H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Z'
-  };
 </script>
 
 <section id={programStepsId} class="program-steps-section relative bg-[#f8f4f0] py-16 md:py-20">
@@ -99,7 +95,7 @@
             {/if}
           </h2>
 
-          <p class={`steps-intro mobile-copy-14 mt-6 text-[16px] font-light leading-[1.6] text-[#245D7B]`}>{@html stepsCopy.intro}</p>
+          <p class={`steps-intro mt-6 text-[15px] font-light leading-[1.6] text-[#233F4E]`}>{@html introHtml}</p>
 
           <div class="mt-8 flex justify-center">
             <div
@@ -110,7 +106,7 @@
             </div>
           </div>
 
-          <div class={`mobile-copy-14 mt-10 space-y-4 text-[16px] leading-[1.75] text-[#245D7B]`}>
+          <div class={`mt-10 space-y-4 text-[15px] leading-[1.75] text-[#233F4E]`}>
             {#each sideParagraphs as paragraph}
               <p use:htmlContent={paragraph}></p>
             {/each}
@@ -145,9 +141,7 @@
                   class="flex h-[2.9rem] w-[2.9rem] items-center justify-center text-[#233F4E]"
                   aria-hidden="true"
                 >
-                  <svg viewBox="0 0 256 256" class="h-[2.2rem] w-[2.2rem] fill-current">
-                    <path d={iconPaths[step.icon]}></path>
-                  </svg>
+                  <span class="h-[2.2rem] w-[2.2rem]"><ServiceIllustration icon={step.icon} /></span>
                 </div>
 
                 <h3
@@ -181,6 +175,8 @@
 
 <style>
   :global(.steps-mobile-break) { display: none; }
+  :global(.steps-desktop-break) { display: none; }
+  @media (min-width: 1024px) { :global(.steps-desktop-break) { display: block; } }
   @media (max-width: 767px) { :global(.steps-mobile-break) { display: block; } }
   :global(.steps-cta) { margin-top: 1.25rem; }
   .steps-intro :global(strong) { font-weight: 700; }

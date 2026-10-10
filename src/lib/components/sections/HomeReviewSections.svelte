@@ -8,6 +8,8 @@
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
   import PatientProofSection from '$lib/components/sections/PatientProofSection.svelte';
+  import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
+  import { getProgramCopy } from '$lib/i18n/program';
 
   export let pageLanguage: Language = 'es';
   const ui = homeSections[pageLanguage];
@@ -133,6 +135,18 @@
   </div>
 </section>
 
+<ParallaxSloganSection
+  image="/Gemini_Generated_Image_y50u8jy50u8jy50u-100.png"
+  compact
+  sectionClass="home-banner-section"
+  topHtml={getProgramCopy(pageLanguage).slogan1.topHtml}
+  bottomHtml={getProgramCopy(pageLanguage).slogan1.bottomHtml}
+  mobileTopSize={15}
+  desktopTopSize={22}
+  mobileBottomSize={21.5}
+  desktopBottomSize={33}
+/>
+
 <PatientProofSection {pageLanguage} />
 
 <section class="situations section-space" aria-labelledby="situations-title">
@@ -240,6 +254,7 @@
   .recovery-subtitle:global(.is-visible) .recovery-highlight__paint { clip-path: inset(0 0 0 0); }
   .recovery-subtitle :global(strong) { font-family: 'Fraunces', Georgia, serif; font-weight: 500; }
   .recovery .section-heading { margin-bottom: 2.25rem; }
+  .recovery .section-inner { max-width: 1280px; }
   .recovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.25rem; }
   .recovery-column { padding: 1rem; border: 1px solid transparent; border-radius: 12px; transition: opacity 300ms ease, background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease; }
   .recovery-word, .goal-subtitle { width: max-content; max-width: 100%; }
@@ -247,7 +262,7 @@
   .recovery-word { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1; }
   .recovery-initial { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 65px; line-height: .85; }
   .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 17px; font-weight: 500; line-height: 1.4; margin-top: .15rem; }
-  .goal-body { position: relative; font-family: 'Inter', Arial, sans-serif; font-size: .95rem; line-height: 1.7; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1.5px solid #233f4e; }
+  .goal-body { position: relative; font-family: 'Inter', Arial, sans-serif; font-size: 14px; line-height: 1.7; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1.5px solid #233f4e; background-image: linear-gradient(to right, #233f4e 0 var(--fill, 0%), #4083a7 var(--fill, 0%) 100%); }
   .goal-body::before { content: ''; position: absolute; top: -1.5px; left: 0; width: var(--fill, 0%); height: 1.5px; background: #4083a7; }
   .situation-card:global(.will-reveal) { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; transition-delay: var(--delay, 0ms); }
   .situation-card:global(.is-visible) { opacity: 1; transform: none; }
@@ -297,6 +312,7 @@
     .recovery-column:hover { transform: none; }
     .recovery-grid:hover .recovery-column:not(:hover) { opacity: 1; }
     .recovery-word, .goal-subtitle, .goal-body { background: none; color: #4083a7; -webkit-text-fill-color: #4083a7; }
+    .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
     .recovery-subtitle:global(.will-reveal) .recovery-highlight__paint { clip-path: none; transition: none; }
     .situations-grid .situation-card:global(.is-visible):hover { transform: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }

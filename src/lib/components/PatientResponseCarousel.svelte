@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import PatientQuoteLines from '$lib/components/PatientQuoteLines.svelte';
+
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { watchReducedMotion } from '$lib/motion';
   import { dialog } from '$lib/actions/dialog';
@@ -13,11 +13,13 @@
   export let positionLabel: string;
   export let expandLabel: string;
   export let closeLabel: string;
+  export let hintLabel: string;
+  export let touchHintLabel: string;
 
   let position = 0;
   let target = 0;
   let settled = false;
-  let filled = false;
+
   let nearby = false;
   let reduced = false;
   let stage: HTMLDivElement;
@@ -28,6 +30,14 @@
   let dragging = false;
   let suppressClick = false;
   let enlarged: PatientResponse | null = null;
+  let cursorHint: { x: number; y: number } | null = null;
+  let touchHintReady = false;
+
+  function moveHint(event: PointerEvent, slot: number) {
+    cursorHint = event.pointerType === 'mouse' && settled && slot === target && !dragging
+      ? { x: Math.min(event.clientX + 14, window.innerWidth - 170), y: Math.min(event.clientY + 18, window.innerHeight - 40) }
+      : null;
+  }
 
   const wrap = (value: number) => ((value % items.length) + items.length) % items.length;
   $: looping = items.length >= 4;
@@ -70,7 +80,7 @@
   function finish() {
     position = target;
     settled = true;
-    filled = reduced;
+
     frame = 0;
   }
 
@@ -81,7 +91,7 @@
     if (frame) cancelAnimationFrame(frame);
     target = looping ? Math.round(next) : Math.max(0, Math.min(items.length - 1, Math.round(next)));
     settled = false;
-    filled = false;
+
     if (reduced || !nearby) { finish(); return; }
     const from = position;
     const start = performance.now();
@@ -123,7 +133,7 @@
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
       settled = false;
-      filled = false;
+
       dragging = true;
       suppressClick = true;
     }
@@ -156,7 +166,7 @@
     const stopMotion = watchReducedMotion(value => {
       reduced = value;
       if (value && frame) { cancelAnimationFrame(frame); finish(); }
-      if (value) filled = true;
+
     });
     const breakpoint = window.matchMedia('(min-width: 768px)');
     const updateBreakpoint = () => { desktop = breakpoint.matches; };
@@ -168,7 +178,11 @@
       if (entry.isIntersecting) { nearby = true; settled = true; intersection.disconnect(); }
     }, { rootMargin: '160px' });
     intersection.observe(stage);
-    return () => { stopMotion(); breakpoint.removeEventListener('change', updateBreakpoint); resize.disconnect(); intersection.disconnect(); if (frame) cancelAnimationFrame(frame); };
+    const hintIntersection = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { touchHintReady = true; hintIntersection.disconnect(); }
+    }, { threshold: .4 });
+    hintIntersection.observe(stage);
+    return () => { stopMotion(); breakpoint.removeEventListener('change', updateBreakpoint); resize.disconnect(); intersection.disconnect(); hintIntersection.disconnect(); if (frame) cancelAnimationFrame(frame); };
   });
 </script>
 
@@ -186,29 +200,32 @@
     <div id={`${id}-stage`} class="carousel-stage" class:dragging bind:this={stage} role="group" aria-label={active?.alt} on:pointerdown={pointerDown} on:pointermove={pointerMove} on:pointerup={(event) => pointerEnd(event)} on:pointercancel={(event) => pointerEnd(event, true)}>
       {#each slots as slot (slot)}
         {@const item = items[wrap(slot)]}
-        <button type="button" class="response-slot" style={slotStyle(slot, position, cardWidth)} aria-label={slot === target ? `${item.alt}. ${expandLabel}` : item.alt} aria-haspopup={slot === target ? 'dialog' : undefined} aria-current={slot === target ? 'true' : undefined} tabindex={slot === target ? 0 : -1} on:click={() => select(slot)} on:keydown={keydown}>
+        <button type="button" class="response-slot" style={slotStyle(slot, position, cardWidth)} aria-label={slot === target ? `${item.alt}. ${expandLabel}` : item.alt} aria-haspopup={slot === target ? 'dialog' : undefined} aria-current={slot === target ? 'true' : undefined} tabindex={slot === target ? 0 : -1} on:pointermove={(event) => moveHint(event, slot)} on:pointerleave={() => { cursorHint = null; }} on:click={() => { cursorHint = null; select(slot); }} on:keydown={keydown}>
           <span class="response-card" class:centered={settled && slot === target}>
             {#if nearby && item.image}
+              <span class="image-frame">
               <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading={Math.abs(slot - position) <= 1 ? 'eager' : 'lazy'} fetchpriority={slot === target ? 'high' : 'auto'} decoding="async" draggable="false" />
+              {#if !desktop && touchHintReady && settled && slot === target}
+                {#key item.id}
+                  <span class="touch-frame" aria-hidden="true"></span>
+                  <span class="touch-tooltip" aria-hidden="true">{touchHintLabel}</span>
+                {/key}
+              {/if}
+              </span>
             {:else}
               <span class="image-placeholder" style={`aspect-ratio:${item.width}/${item.height}`} aria-hidden="true"></span>
             {/if}
           </span>
+          {#if settled && slot === target}<span class="expand-tooltip" aria-hidden="true">{hintLabel}</span>{/if}
         </button>
       {/each}
     </div>
   </div>
-  <div class="highlight-space" aria-live="polite" aria-atomic="true">
-    {#if active && nearby}
-      {#key `${active.id}-${active.highlight}-${settled}`}
-        <blockquote class="response-highlight" class:filled class:pending={!settled} aria-hidden={!settled}>
-          <span class="highlight-base"><PatientQuoteLines text={`“${active.highlight}”`} /></span>
-          <span class="highlight-fill" aria-hidden="true" on:animationend={() => { filled = true; }}>“{active.highlight}”</span>
-        </blockquote>
-      {/key}
-    {/if}
-  </div>
 </div>
+
+{#if cursorHint && !enlarged && !dragging}
+  <span class="cursor-tooltip" style={`left:${cursorHint.x}px;top:${cursorHint.y}px`} aria-hidden="true">{hintLabel}</span>
+{/if}
 
 {#if enlarged}
   <div class="response-modal" role="presentation" on:click={() => { enlarged = null; }}>
@@ -238,20 +255,25 @@
   .response-card.centered { transform: rotate(1.2deg) scale(1.045); border-color: var(--eima-card-hover-border); box-shadow: 0 18px 36px #233f4e26, 0 0 22px #8cd0d64d; }
   .response-card img { display: block; width: auto; height: auto; max-width: 100%; max-height: 245px; margin: auto; border-radius: calc(var(--radius-card) - 3px); pointer-events: none; }
   .image-placeholder { display: block; width: 100%; max-height: 245px; border-radius: calc(var(--radius-card) - 3px); background: color-mix(in srgb, var(--color-brand-accent) 18%, var(--color-surface)); }
-  .highlight-space { display: grid; place-items: start center; min-height: 4rem; padding: 0 1.5rem; }
-  .response-highlight { display: grid; margin: 0 auto; max-width: 720px; text-align: center; font-size: clamp(1.05rem, 1.7vw, 1.3rem); font-weight: 400; line-height: 1.55; text-wrap: balance; animation: quote-appear 450ms ease both; }
-  .highlight-base, .highlight-fill { grid-area: 1 / 1; }
-  .highlight-base { color: var(--quote-neutral); }
-  .highlight-fill { color: var(--quote-color); clip-path: inset(100% 0 0); animation: quote-fill 1050ms 220ms cubic-bezier(.25,.6,.3,1) forwards; }
-  .response-highlight.filled { font-weight: 700; }
-  .response-highlight.pending { visibility: hidden; animation: none; }
+  .response-slot[aria-current="true"] { cursor: zoom-in; }
+  .response-slot[aria-current="true"]:focus-visible { outline: none; }
+  .response-slot[aria-current="true"]:is(:hover, :focus-visible) .response-card img { outline: 2px solid #4083a7; outline-offset: -2px; }
+  .expand-tooltip { position: absolute; top: 100%; left: 50%; margin-top: 14px; transform: translate(-50%, -3px); padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 150ms ease, transform 150ms ease; }
+  .response-slot:focus-visible .expand-tooltip { opacity: 1; transform: translate(-50%, 0); }
+  .cursor-tooltip { position: fixed; z-index: 250; padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; }
+  .image-frame { position: relative; display: block; max-width: 100%; }
+  .image-frame img { max-height: var(--row-image-height); }
+  .touch-frame { position: absolute; inset: 0; border: 2px solid #4083a7; border-radius: 10px; pointer-events: none; animation: touch-hint 3s both; }
+  .touch-tooltip { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; animation: touch-hint 3s both; }
+  :global(.patient-row--dark) .touch-tooltip,
+  :global(.patient-row--dark) .cursor-tooltip,
+  :global(.patient-row--dark) .expand-tooltip { background: #8cd0d6; color: #000000; }
+  @keyframes touch-hint { 0% { opacity: 0; } 10%, 85% { opacity: 1; } 100% { opacity: 0; } }
   .response-modal { position: fixed; z-index: 300; inset: 0; display: grid; align-items: start; justify-items: center; overflow-y: auto; background: #071a25a3; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); padding: 4rem 1rem 2rem; }
   .response-modal-panel { position: relative; width: min(720px, 100%); padding: 12px; border-radius: var(--radius-card); background: var(--color-inverse); }
   .response-modal-panel img { display: block; width: 100%; height: auto; border-radius: calc(var(--radius-card) - 3px); }
   .response-modal-close { position: sticky; top: 0; z-index: 1; display: block; width: 44px; height: 44px; margin: -2px 0 10px auto; border-radius: var(--radius-pill); background: var(--color-brand); color: var(--color-inverse); font-size: 30px; line-height: 1; }
   .response-modal-close:focus-visible { outline: 2px solid var(--color-brand-soft); outline-offset: 4px; }
-  @keyframes quote-fill { to { clip-path: inset(0); } }
-  @keyframes quote-appear { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
   :global(.patient-row--dark) .response-carousel { --quote-color: var(--color-brand-accent); --quote-neutral: #e8e8f6; }
   :global(.patient-row--dark) .carousel-arrow { color: var(--color-brand-accent); border-color: #8cd0d670; background: #ffffff08; }
   :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled) { color: var(--color-brand); background: var(--color-brand-accent); }
@@ -279,11 +301,6 @@
     .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 24px 30px #233f4e1c) drop-shadow(0 12px 32px #8cd0d613); }
     .response-card img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
     .image-placeholder { width: 100%; height: 100%; max-height: none; background: transparent; }
-    .response-highlight { max-width: none; font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 300; animation: desktop-quote-appear 400ms cubic-bezier(.25,.6,.3,1) both; }
-    .response-highlight.filled { font-weight: 300; }
-    .highlight-base { min-width: 0; font-family: inherit; color: var(--quote-color); }
-    .highlight-fill { display: none; }
-    .highlight-space { min-height: 0; padding-top: 8px; }
     :global(.patient-row--dark) .carousel-arrow { color: #233f4e; border: 0; background: #8cd0d6; }
     :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled), :global(.patient-row--dark) .carousel-arrow:focus-visible:not(:disabled) { background: #4083a7; color: #ffffff; border: 0; box-shadow: 0 10px 24px #ffffff24; }
     :global(.patient-row--dark) .response-card { background: transparent; border: 0; filter: drop-shadow(0 22px 30px #071a252d); }
@@ -292,13 +309,9 @@
     .response-modal-panel { width: fit-content; max-width: 90vw; padding: 0; background: transparent; }
     .response-modal-panel img { width: auto; max-width: min(720px, 86vw); max-height: calc(100dvh - 140px); object-fit: contain; box-shadow: 0 20px 50px #071a2560; }
     .response-modal-close { position: absolute; top: -54px; right: 0; margin: 0; }
-  @keyframes desktop-quote-appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  @media (min-width: 768px) {
-    .response-highlight { font-size: clamp(13.5px, 1.758vw, 18px); white-space: nowrap; text-wrap: nowrap; }
-  }
+
   @media (max-width: 767px) {
-    .response-highlight { width: 100%; height: 3.1em; font-size: 16px; white-space: normal; text-wrap: balance; }
-    .highlight-space { padding: 8px 1.25rem 0; }
+    .carousel-window { margin-bottom: 28px; }
     .response-modal { padding: 4rem 1.25rem 1.5rem; }
     .response-modal-panel { max-width: 100%; }
     .response-modal-panel img { max-width: calc(100vw - 2.5rem); max-height: calc(100dvh - 120px); }
@@ -306,8 +319,6 @@
   @media (prefers-reduced-motion: reduce) {
     .response-card, .carousel-arrow { transition: none; }
     .response-card.centered { transform: none; }
-    .response-highlight, .highlight-fill { animation: none; }
-    .highlight-fill { clip-path: none; }
     .arrow-icon svg, .arrow-icon svg:last-child { transition: none; }
   }
 </style>
