@@ -1,4 +1,43 @@
 <script>
+  import { onMount } from 'svelte';
+  /** @type {HTMLDivElement} */
+  let photo;
+
+  onMount(() => {
+    const mobile = window.matchMedia('(max-width: 767px)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let visible = false;
+    let frame = 0;
+    function update() {
+      frame = 0;
+      if (!mobile.matches || reduced.matches) {
+        photo.style.setProperty('--mobile-parallax-offset', '0px');
+        return;
+      }
+      if (!visible) return;
+      const rect = photo.getBoundingClientRect();
+      const progress = (window.innerHeight / 2 - rect.top - rect.height / 2) / ((window.innerHeight + rect.height) / 2);
+      photo.style.setProperty('--mobile-parallax-offset', `${Math.max(-80, Math.min(80, progress * 80))}px`);
+    }
+    function schedule() {
+      if (!frame && visible && mobile.matches && !reduced.matches) frame = requestAnimationFrame(update);
+    }
+    function preferenceChanged() { update(); }
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) schedule(); });
+    observer.observe(photo);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    mobile.addEventListener('change', preferenceChanged);
+    reduced.addEventListener('change', preferenceChanged);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      mobile.removeEventListener('change', preferenceChanged);
+      reduced.removeEventListener('change', preferenceChanged);
+    };
+  });
   export let image = '';
   export let topHtml = '';
   export let middleHtml = '';
@@ -34,6 +73,7 @@
   <div class="parallax-slogan mx-auto max-w-[96rem] overflow-hidden">
     <div
       class="parallax-slogan__image"
+      bind:this={photo}
       style={`--parallax-overlay: ${overlayOpacity}; --parallax-image: url('${image}');`}
     >
       <div class="parallax-slogan__overlay photo-text-contrast" style={`--parallax-gap:${lineGap}px;`}>
@@ -79,6 +119,8 @@
   }
 
   .parallax-slogan__image {
+    position: relative;
+    overflow: hidden;
     background-attachment: scroll;
     background-image:
       linear-gradient(
@@ -95,6 +137,8 @@
   }
 
   .parallax-slogan__overlay {
+    position: relative;
+    z-index: 1;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -172,6 +216,18 @@
 
     :global(.parallax-mobile-break) {
       display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .parallax-slogan__image { background-image: none; }
+    .parallax-slogan__image::before {
+      content: '';
+      position: absolute;
+      inset: -84px 0;
+      background-image: linear-gradient(rgba(22, 26, 31, var(--parallax-overlay)), rgba(22, 26, 31, var(--parallax-overlay))), var(--parallax-image);
+      background-position: center;
+      background-size: cover;
+      transform: translateY(var(--mobile-parallax-offset, 0px));
     }
   }
   @media (prefers-reduced-motion: reduce) {
