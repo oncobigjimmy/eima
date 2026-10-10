@@ -107,8 +107,8 @@ const esProgram = {
     cta: 'Cuéntanos tu historia'
   },
   slogan1: {
-    topHtml: 'La <strong>medicina</strong> se centrará en que vivas <strong>MÁS.</strong>',
-    bottomHtml: '<strong>Nosotros</strong> en que vivas <strong>MEJOR.</strong>'
+    topHtml: 'La <strong>medicina</strong> se centrará en que vivas <span class="slogan-accent">más.</span>',
+    bottomHtml: '<strong>Nosotros</strong> en que vivas <span class="slogan-accent">mejor.</span>'
   },
   fit: {
     eyebrow: 'Si tengo cáncer o he pasado un cáncer',
@@ -135,9 +135,9 @@ const esProgram = {
   },
   slogan2: {
     topHtml:
-      "Tu <strong>salud</strong> y tu <strong>tiempo</strong> son lo <br class='parallax-mobile-break' /><strong>más valioso</strong> que tienes.",
+      "Tu <span class='slogan-accent'>salud</span> y tu <span class='slogan-accent'>tiempo</span> son lo <br class='parallax-mobile-break' /><strong>más valioso</strong> que tienes.",
     bottomHtml:
-      'Con nuestro programa <strong>Empenta</strong>, cuidarás de <strong>AMBOS.</strong>'
+      'Con nuestro programa <strong>Empenta</strong>, cuidarás de <span class="slogan-accent">ambos.</span>'
   },
   faq: {
     eyebrow: 'Preguntas frecuentes',
@@ -337,8 +337,8 @@ const caProgram = {
     cta: 'Explica’ns la teva història'
   },
   slogan1: {
-    topHtml: 'La <strong>medicina</strong> se centrarà que visquis <strong>MÉS.</strong>',
-    bottomHtml: '<strong>Nosaltres</strong>, que visquis <strong>MILLOR.</strong>'
+    topHtml: 'La <strong>medicina</strong> se centrarà que visquis <span class="slogan-accent">més.</span>',
+    bottomHtml: '<strong>Nosaltres</strong>, que visquis <span class="slogan-accent">millor.</span>'
   },
   fit: {
     eyebrow: 'Si tenc càncer o he passat un càncer',
@@ -365,9 +365,9 @@ const caProgram = {
   },
   slogan2: {
     topHtml:
-      "La teva <strong>salut</strong> i el teu <strong>temps</strong> són el <br class='parallax-mobile-break' /><strong>més valuós</strong> que tens.",
+      "La teva <span class='slogan-accent'>salut</span> i el teu <span class='slogan-accent'>temps</span> són el <br class='parallax-mobile-break' /><strong>més valuós</strong> que tens.",
     bottomHtml:
-      'Amb el nostre programa <strong>Empenta</strong>, cuidaràs <strong>AMBDÓS.</strong>'
+      'Amb el nostre programa <strong>Empenta</strong>, cuidaràs <span class="slogan-accent">ambdós.</span>'
   },
   faq: {
     eyebrow: 'Preguntes freqüents',
@@ -568,8 +568,8 @@ const enProgram = {
     cta: 'Tell us what’s going on'
   },
   slogan1: {
-    topHtml: 'Medicine will focus on helping you live <strong>LONGER.</strong>',
-    bottomHtml: '<strong>We</strong> focus on helping you live <strong>BETTER.</strong>'
+    topHtml: 'Medicine will focus on helping you live <span class="slogan-accent">longer.</span>',
+    bottomHtml: '<strong>We</strong> focus on helping you live <span class="slogan-accent">better.</span>'
   },
   fit: {
     eyebrow: 'If I have or have had cancer',
@@ -596,9 +596,9 @@ const enProgram = {
   },
   slogan2: {
     topHtml:
-      "Your <strong>health</strong> and your <strong>time</strong> are the <br class='parallax-mobile-break' /><strong>most valuable</strong> things you have.",
+      "Your <span class='slogan-accent'>health</span> and your <span class='slogan-accent'>time</span> are the <br class='parallax-mobile-break' /><strong>most valuable</strong> things you have.",
     bottomHtml:
-      'With our <strong>Empenta Programme</strong>, you will take care of <strong>BOTH.</strong>'
+      'With our <strong>Empenta Programme</strong>, you will take care of <span class="slogan-accent">both.</span>'
   },
   faq: {
     eyebrow: 'Frequently asked questions',

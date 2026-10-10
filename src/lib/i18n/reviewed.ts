@@ -44,7 +44,7 @@ export const aboutSections = {
   es: {
     title: ['Dos <span class="about-blue">fisioterapeutas.</span>', 'Una misma forma de <span class="about-blue">acompañarte.</span>'],
     hint: 'Haz clic en uno de nosotros para conocer su historia.', view: 'Conoce la historia de',
-    bannerTop: 'El <strong>cáncer</strong> puede cambiar tus planes.', bannerBottom: 'Queremos ayudarte a que <strong>no pare tu vida por completo.</strong>',
+    bannerTop: 'El <strong>cáncer</strong> puede cambiar tus planes.', bannerBottom: 'Queremos ayudarte a que <strong>no pare <span class="slogan-accent">tu vida</span> por completo.</strong>',
     originTitle: '¿De dónde nace <span>Eima Salut?</span>',
     intro: 'Al acompañar a personas con cáncer vimos que <strong>el problema no era saber que había que hacer ejercicio, sino cómo hacerlo.</strong>',
     conclusion: '<strong>Por eso creamos Eima Salut:</strong> para ayudarte a saber qué hacer, adaptarlo cuando sea necesario y conseguir que forme parte de tu vida.',
@@ -61,7 +61,7 @@ export const aboutSections = {
   ca: {
     title: ['Dos <span class="about-blue">fisioterapeutes.</span>', 'Una mateixa manera <span class="about-blue">d’acompanyar-te.</span>'],
     hint: 'Fes clic en un de nosaltres per conèixer la seva història.', view: 'Coneix la història de',
-    bannerTop: 'El <strong>càncer</strong> pot canviar els teus plans.', bannerBottom: 'Volem ajudar-te perquè <strong>no aturi la teva vida del tot.</strong>',
+    bannerTop: 'El <strong>càncer</strong> pot canviar els teus plans.', bannerBottom: 'Volem ajudar-te perquè <strong>no aturi <span class="slogan-accent">la teva vida</span> del tot.</strong>',
     originTitle: 'D’on neix <span>Eima Salut?</span>',
     intro: 'Acompanyant persones amb càncer vàrem veure que <strong>el problema no era saber que calia fer exercici, sinó com fer-lo.</strong>',
     conclusion: '<strong>Per això vàrem crear Eima Salut:</strong> per ajudar-te a saber què fer, adaptar-ho quan sigui necessari i aconseguir que formi part de la teva vida.',
@@ -78,7 +78,7 @@ export const aboutSections = {
   en: {
     title: ['Two <span class="about-blue">physiotherapists.</span>', 'One shared way of <span class="about-blue">supporting you.</span>'],
     hint: 'Click on either of us to discover his story.', view: 'Discover the story of',
-    bannerTop: '<strong>Cancer</strong> can change your plans.', bannerBottom: 'We want to help you <strong>keep your life from coming to a complete stop.</strong>',
+    bannerTop: '<strong>Cancer</strong> can change your plans.', bannerBottom: 'We want to help you <strong>keep <span class="slogan-accent">your life</span> from coming to a complete stop.</strong>',
     originTitle: 'How did <span>Eima Salut begin?</span>',
     intro: 'Supporting people with cancer, we saw that <strong>the problem wasn’t knowing they needed to exercise, but how to do it.</strong>',
     conclusion: '<strong>That’s why we created Eima Salut:</strong> to help you know what to do, adapt it when needed and make it part of your life.',

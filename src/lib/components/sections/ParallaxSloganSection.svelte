@@ -63,6 +63,16 @@
 </section>
 
 <style>
+  :global(.parallax-slogan .slogan-accent) {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.20em;
+    color: var(--color-brand-accent);
+  }
+  .parallax-slogan__overlay {
+    text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566;
+  }
   :global(.home-banner-section), :global(.about-banner-section) { padding-bottom: 0; }
   .parallax-slogan {
     border-radius: 0;

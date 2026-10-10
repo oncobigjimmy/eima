@@ -187,8 +187,8 @@ const esCopy = {
       ]
     },
     slogan: {
-      topHtml: '<strong>Sin SALUD,</strong> no disfrutas de tu tiempo.',
-      middleHtml: '<strong>Sin TIEMPO,</strong> no puedes cuidar tu salud.',
+      topHtml: '<strong>Sin <span class="slogan-accent">salud,</span></strong> no disfrutas de tu tiempo.',
+      middleHtml: '<strong>Sin <span class="slogan-accent">tiempo,</span></strong> no puedes cuidar tu salud.',
       bottomHtml:
         'Con nosotros, <strong>cuidarás tu salud sin renunciar a tu tiempo.</strong>'
     },
@@ -417,8 +417,8 @@ const caCopy = {
       ]
     },
     slogan: {
-      topHtml: '<strong>Sense SALUT,</strong> no gaudeixes del teu temps.',
-      middleHtml: '<strong>Sense TEMPS,</strong> no pots cuidar la teva salut.',
+      topHtml: '<strong>Sense <span class="slogan-accent">salut,</span></strong> no gaudeixes del teu temps.',
+      middleHtml: '<strong>Sense <span class="slogan-accent">temps,</span></strong> no pots cuidar la teva salut.',
       bottomHtml:
         'Amb nosaltres, <strong>cuidaràs la teva salut sense renunciar al teu temps.</strong>'
     },
@@ -651,8 +651,8 @@ const enCopy = {
       ]
     },
     slogan: {
-      topHtml: '<strong>Without HEALTH,</strong> you cannot enjoy your time.',
-      middleHtml: '<strong>Without TIME,</strong> you cannot take care of your health.',
+      topHtml: '<strong>Without <span class="slogan-accent">health,</span></strong> you cannot enjoy your time.',
+      middleHtml: '<strong>Without <span class="slogan-accent">time,</span></strong> you cannot take care of your health.',
       bottomHtml:
         'With us, <strong>you will take care of your health without giving up your time.</strong>'
     },

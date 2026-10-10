@@ -170,13 +170,13 @@
 
           {valueCopy.headingBefore}
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-            >{valueCopy.headingHighlight1}</span
+            >{valueCopy.headingHighlight1}{valueCopy.headingMiddle.startsWith(',') ? ',' : ''}</span
           >{#if $language === 'ca'}
-            {valueCopy.headingMiddle.replace(' la teva', '')}<br class="hidden md:block" />{' '}la teva{' '}
+            {valueCopy.headingMiddle.replace(/^,/, '').replace(' la teva', '')}<br class="hidden md:block" />{' '}la teva{' '}
           {:else if $language === 'en'}
-            {valueCopy.headingMiddle.replace(' neglecting your', '')}<br class="hidden md:block" />{' '}neglecting your{' '}
+            {valueCopy.headingMiddle.replace(/^,/, '').replace(' neglecting your', '')}<br class="hidden md:block" />{' '}neglecting your{' '}
           {:else}
-            {valueCopy.headingMiddle}{' '}
+            {valueCopy.headingMiddle.replace(/^,/, '')}{' '}
           {/if}
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
             >{valueCopy.headingHighlight2}</span
