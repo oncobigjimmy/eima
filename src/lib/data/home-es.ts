@@ -34,7 +34,8 @@ export const homeEsReview = {
     summaryStrong: '',
     summaryLines: [
       'Nuestro <strong class="text-[#4083A7]">Programa Empenta</strong> consta de un <strong class="text-[#4083A7]">acompañamiento de 12 semanas.</strong>',
-      '<strong>No trabajamos a base de sesiones sueltas</strong> porque no basta con saber qué ejercicios hacer el primer día. Necesitamos conocer tu punto de partida, acompañarte mientras los incorporas a tu rutina, adaptarlos cuando sea necesario y comprobar cómo evolucionas.'
+      '<strong>No trabajamos a base de sesiones sueltas</strong> porque no basta con saber qué ejercicios hacer el primer día.',
+      'Necesitamos <strong>conocer tu punto de partida,</strong> acompañarte mientras los <strong>incorporas a tu rutina,</strong> adaptarlos cuando sea necesario y comprobar <strong>cómo evolucionas.</strong>'
     ],
     cta: 'Ver cómo funciona Empenta'
   }

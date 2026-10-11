@@ -54,7 +54,7 @@
       const type = () => {
         length += 1;
         ink.textContent = captionText.slice(0, length);
-        if (length < captionText.length) timer = window.setTimeout(type, 14);
+        if (length < captionText.length) timer = window.setTimeout(type, 28);
         else finish();
       };
       type();
@@ -207,8 +207,7 @@
       <p class="recovery-subtitle" use:revealGoal>
         <span class="recovery-brush">
           <svg class="brush-stroke" viewBox="0 0 500 70" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M12 14 Q110 7 240 11 T489 10 L483 16 496 19 486 24 499 28 487 33 497 38 484 43 491 50 479 55 Q350 62 240 58 T10 60 L15 53 6 47 12 41 4 35 11 28 6 21Z" />
-            <path d="M22 7 Q160 3 308 7 L481 6 M14 64 Q150 61 307 65 L471 62" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <path d="M18 13 Q126 6 248 11 T481 10 Q490 10 493 17 Q498 34 491 51 Q488 57 478 57 Q353 62 244 58 T18 60 Q9 59 7 51 Q3 34 9 21 Q12 15 18 13Z" />
           </svg>
           <span class="brush-label">{@html ui.recoverySubtitle}</span>
           <span class="brush-white" aria-hidden="true">{@html ui.recoverySubtitle}</span>
@@ -218,16 +217,19 @@
     <div class="recovery-grid">
       {#each goals as goal, i}
         <article class="recovery-row" use:revealGoal>
-          <div class="recovery-concept">
-            <svg class="recovery-symbol" viewBox="0 0 180 180" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              {#if i === 0}
-                <path d="M42 36 90 79 138 36 M42 94 90 137 138 94" />
-              {:else if i === 1}
-                <path d="M42 86 90 43 138 86 M42 144 90 101 138 144" />
-              {:else}
+          <svg class="recovery-symbol" viewBox="0 0 300 180" aria-hidden="true">
+            {#if i < 2}
+              <g transform={i === 0 ? 'translate(0 180) scale(1 -1)' : undefined}>
+                <path d="M25 145 55 119 81 134 117 97 146 116 183 73 213 93 265 39" fill="none" stroke="currentColor" stroke-width="16" stroke-linejoin="miter" />
+                <path d="M242 34 290 17 277 66Z" fill="currentColor" />
+              </g>
+            {:else}
+              <g transform="translate(60 0)" fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M140 61A62 62 0 1 0 149 103 M140 25V63H102" />
-              {/if}
-            </svg>
+              </g>
+            {/if}
+          </svg>
+          <div class="recovery-concept">
             <h3 class="recovery-word">{goal.title}</h3>
           </div>
           <div class="goal-content">
@@ -304,9 +306,11 @@
   .recovery-subtitle:global(.goal-visible) .brush-white { clip-path: inset(0); }
   .recovery .section-heading { margin-bottom: 2.25rem; }
   .recovery-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .recovery-row { position: relative; display: grid; grid-template-columns: minmax(0, .73fr) minmax(0, 2.12fr); align-items: start; gap: clamp(1rem, 2.5vw, 2.25rem); padding: 2rem 0; }
+  .recovery-row { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .73fr) minmax(0, 2.12fr); align-items: start; gap: clamp(1rem, 2.5vw, 2.25rem); padding: 2rem 0; }
   .recovery-concept { position: relative; isolation: isolate; }
-  .recovery-symbol { position: absolute; z-index: -1; width: 142px; height: 142px; left: 24%; top: 50%; transform: translate(-50%, -50%); color: #e8e8f6; opacity: .65; filter: blur(1.5px); pointer-events: none; }
+  .recovery-symbol { position: absolute; z-index: -1; width: 250px; height: 150px; left: 0; top: 50%; transform: translateY(-50%); color: #e8e8f6; opacity: .65; filter: blur(2px); pointer-events: none; }
+  .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: 0; transition: opacity 650ms ease; }
+  .recovery-row:global(.goal-visible) > .recovery-symbol { opacity: .65; }
   .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: #233f4e30; transform-origin: left; }
   .recovery-word { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
   .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
@@ -337,12 +341,13 @@
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 5rem; margin-bottom: .8rem; }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1.75rem 0; }
+    .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(3px); }
     .recovery-word { font-size: 32px; }
     .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
     .video-poster { background: #fff; }
     .video-poster > img:first-child { right: 0; width: 74%; height: 100%; object-fit: cover; object-position: 54% center; }
     :global(.poster-brand) { width: 7%; top: 4%; right: 3%; }
-    .poster-title { font-size: clamp(16px, 4.7cqw, 17px); margin: 0; }
+    .poster-title { font-size: clamp(16px, 4.7cqw, 17px); line-height: 1.18; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
     .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #233f4e; }
@@ -360,6 +365,7 @@
     .situation-card { transition: none; }
     .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
     .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
+    .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: .65; transition: none; }
     .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: none; transition: none; }
     .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: none; transition: none; }
     .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
