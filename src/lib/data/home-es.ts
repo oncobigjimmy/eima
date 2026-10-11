@@ -28,13 +28,13 @@ export const homeEsReview = {
     steps: [
       { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración vemos tu situación, tus objetivos y qué necesitas ahora mismo para que sepas <strong>qué hacer, cuánto hacer y cómo adaptarlo</strong>.'], icon: 'list' },
       { title: 'Menos desplazamientos', bodyLines: ['La <strong>primera valoración</strong> la hacemos <strong>en tu casa</strong> <strong>y después</strong><br class="home-desktop-break"> te acompañamos <strong>online</strong>, para ajustar el plan sin<br class="home-desktop-break"> sumar más desplazamientos a tu semana.'], icon: 'car' },
-      { title: 'Apoyo cuando lo necesitas', bodyLines: ['Si aparece una duda, dolor o fatiga con algún ejercicio,<br class="home-desktop-break"> no tienes que esperar a la siguiente cita para resolverlo.<br class="home-desktop-break"> Nos escribes y ajustamos tu plan contigo.'], icon: 'support' },
+      { title: 'Apoyo cuando lo necesitas', bodyLines: ['Si aparece una duda, dolor o fatiga con algún ejercicio,<br class="home-desktop-break"> <strong>no tienes que esperar a la siguiente cita para resolverlo.</strong><br class="home-desktop-break"> Nos escribes y ajustamos tu plan contigo.'], icon: 'support' },
       { title: 'Se adapta a ti, no al revés', bodyLines: ['Tu cuerpo no está igual todas las semanas. Este formato<br class="home-desktop-break"> nos permite <strong>adaptar el plan según tus síntomas,<br class="home-desktop-break"> tus horarios y tus tratamientos.</strong>'], icon: 'calendar' }
     ],
     summaryStrong: '',
     summaryLines: [
       'Nuestro <strong class="text-[#4083A7]">Programa Empenta</strong> consta de un <strong class="text-[#4083A7]">acompañamiento de 12 semanas.</strong>',
-      'No trabajamos a base de sesiones sueltas porque no basta con saber qué ejercicios hacer el primer día. Necesitamos conocer tu punto de partida, acompañarte mientras los incorporas a tu rutina, adaptarlos cuando sea necesario y comprobar cómo evolucionas.'
+      '<strong>No trabajamos a base de sesiones sueltas</strong> porque no basta con saber qué ejercicios hacer el primer día. Necesitamos conocer tu punto de partida, acompañarte mientras los incorporas a tu rutina, adaptarlos cuando sea necesario y comprobar cómo evolucionas.'
     ],
     cta: 'Ver cómo funciona Empenta'
   }

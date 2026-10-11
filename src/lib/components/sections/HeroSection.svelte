@@ -65,7 +65,7 @@
           if (i < phrase.length) await sleep(90);
         }
 
-        await sleep(4000);
+        await sleep(2000);
         if (cancelled || reducedMotion || version !== generation) return;
         phraseIndex = (phraseIndex + 1) % phrases.length;
       }
@@ -184,7 +184,8 @@
 
   .home-hero-accent { margin-top: .375rem; }
   .home-hero-copy { margin-top: 1.75rem; }
-  @media (max-width: 767px) {
+  @media (max-width: 767.98px) {
+    .home-hero-copy { font-size: 14.8px; }
     .home-hero { min-height: 0 !important; }
     .home-hero-content { padding-bottom: 40px; }
   }

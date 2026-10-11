@@ -28,6 +28,51 @@
   const situations = ui.situations.map((quote, index) => ({ letter: 'ABC'[index], quote }));
   let videoNearby = false;
   const videoReady = Boolean(homeVideoEs.src && homeVideoEs.captions);
+  const captionText = ui.posterDescription.replace(/<br[^>]*>/g, '');
+
+  function writeCaption(node: HTMLElement) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobile = window.matchMedia('(max-width: 767.98px)');
+    const ink = node.querySelector<HTMLElement>('.caption-typed');
+    if (!ink || !('IntersectionObserver' in window) || reduced.matches) return {};
+    let timer = 0;
+    let started = false;
+    if (mobile.matches) ink.textContent = '';
+    const finish = () => {
+      window.clearTimeout(timer);
+      ink.textContent = captionText;
+      ink.classList.remove('is-writing');
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || !mobile.matches || started) return;
+      started = true;
+      observer.disconnect();
+      if (reduced.matches) { finish(); return; }
+      let length = 0;
+      ink.textContent = '';
+      ink.classList.add('is-writing');
+      const type = () => {
+        length += 1;
+        ink.textContent = captionText.slice(0, length);
+        if (length < captionText.length) timer = window.setTimeout(type, 14);
+        else finish();
+      };
+      type();
+    }, { threshold: .6 });
+    const changed = () => {
+      if (reduced.matches || !mobile.matches) finish();
+      else if (!started) ink.textContent = '';
+    };
+    observer.observe(node);
+    reduced.addEventListener('change', changed);
+    mobile.addEventListener('change', changed);
+    return { destroy() {
+      observer.disconnect();
+      window.clearTimeout(timer);
+      reduced.removeEventListener('change', changed);
+      mobile.removeEventListener('change', changed);
+    } };
+  }
 
   function nearVideo(node: HTMLElement) {
     if (!('IntersectionObserver' in window)) { videoNearby = true; return {}; }
@@ -107,7 +152,11 @@
       {/if}
     </div>
     {#if pageLanguage === 'es'}
-      <p class="mobile-video-caption">{@html ui.posterDescription}</p>
+      <p class="mobile-video-caption" use:writeCaption>
+        <span class="sr-only">{captionText}</span>
+        <span class="caption-space" aria-hidden="true">{captionText}</span>
+        <span class="caption-typed" aria-hidden="true">{captionText}</span>
+      </p>
     {/if}
     <div class="section-cta">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
@@ -155,12 +204,32 @@
   <div class="section-inner">
     <header class="section-heading">
       <h2 id="recovery-title" class="section-playfair-desktop">{@html ui.recoveryTitle}</h2>
-      <p class="recovery-subtitle">{@html ui.recoverySubtitle}</p>
+      <p class="recovery-subtitle" use:revealGoal>
+        <span class="recovery-brush">
+          <svg class="brush-stroke" viewBox="0 0 500 70" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M12 14 Q110 7 240 11 T489 10 L483 16 496 19 486 24 499 28 487 33 497 38 484 43 491 50 479 55 Q350 62 240 58 T10 60 L15 53 6 47 12 41 4 35 11 28 6 21Z" />
+            <path d="M22 7 Q160 3 308 7 L481 6 M14 64 Q150 61 307 65 L471 62" fill="none" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          <span class="brush-label">{@html ui.recoverySubtitle}</span>
+          <span class="brush-white" aria-hidden="true">{@html ui.recoverySubtitle}</span>
+        </span>
+      </p>
     </header>
     <div class="recovery-grid">
       {#each goals as goal, i}
         <article class="recovery-row" use:revealGoal>
-          <h3 class="recovery-word">{goal.title}</h3>
+          <div class="recovery-concept">
+            <svg class="recovery-symbol" viewBox="0 0 180 180" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              {#if i === 0}
+                <path d="M42 36 90 79 138 36 M42 94 90 137 138 94" />
+              {:else if i === 1}
+                <path d="M42 86 90 43 138 86 M42 144 90 101 138 144" />
+              {:else}
+                <path d="M140 61A62 62 0 1 0 149 103 M140 25V63H102" />
+              {/if}
+            </svg>
+            <h3 class="recovery-word">{goal.title}</h3>
+          </div>
           <div class="goal-content">
             <p class="goal-subtitle">{goal.subtitle}</p>
             <p class="goal-body">{goal.body}</p>
@@ -224,15 +293,26 @@
   .recovery h2 { color: #233f4e; }
   .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 26px; margin: 1.25rem auto 0; }
   .recovery-subtitle :global(strong) { font-family: inherit; font-weight: 500; }
+  .recovery-brush { position: relative; display: inline-grid; isolation: isolate; font-family: 'Fraunces', Georgia, serif; padding: .3em .7em .35em; }
+  .brush-stroke { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; color: #245b7d; fill: currentColor; }
+  .brush-label, .brush-white { grid-area: 1 / 1; font-family: inherit; }
+  .brush-label { color: #233f4e; }
+  .brush-white { color: #fff; }
+  .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
+  .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
+  .recovery-subtitle:global(.goal-visible) .brush-stroke { clip-path: inset(0); }
+  .recovery-subtitle:global(.goal-visible) .brush-white { clip-path: inset(0); }
   .recovery .section-heading { margin-bottom: 2.25rem; }
   .recovery-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .recovery-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr); align-items: start; gap: clamp(2rem, 5vw, 4.5rem); padding: 2rem 0; }
+  .recovery-row { position: relative; display: grid; grid-template-columns: minmax(0, .73fr) minmax(0, 2.12fr); align-items: start; gap: clamp(1rem, 2.5vw, 2.25rem); padding: 2rem 0; }
+  .recovery-concept { position: relative; isolation: isolate; }
+  .recovery-symbol { position: absolute; z-index: -1; width: 142px; height: 142px; left: 24%; top: 50%; transform: translate(-50%, -50%); color: #e8e8f6; opacity: .65; filter: blur(1.5px); pointer-events: none; }
   .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: #233f4e30; transform-origin: left; }
   .recovery-word { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
-  .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 21px; font-weight: 500; line-height: 1.4; color: #233f4e; }
-  .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 14px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
-  .recovery-row:global(.goal-pending) > h3, .recovery-row:global(.goal-pending) > div { opacity: 0; transform: translateY(8px); transition: opacity 650ms ease, transform 650ms ease; }
-  .recovery-row:global(.goal-visible) > h3, .recovery-row:global(.goal-visible) > div { opacity: 1; transform: none; }
+  .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
+  .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 16px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
+  .recovery-row:global(.goal-pending) > div { opacity: 0; transform: translateY(8px); transition: opacity 650ms ease, transform 650ms ease; }
+  .recovery-row:global(.goal-visible) > div { opacity: 1; transform: none; }
   .recovery-row:global(.goal-pending)::before { transform: scaleX(0); transition: transform 800ms ease; }
   .recovery-row:global(.goal-visible)::before { transform: scaleX(1); }
   .mobile-video-caption { display: none; }
@@ -262,11 +342,13 @@
     .video-poster { background: #fff; }
     .video-poster > img:first-child { right: 0; width: 74%; height: 100%; object-fit: cover; object-position: 54% center; }
     :global(.poster-brand) { width: 7%; top: 4%; right: 3%; }
-    .poster-title { font-size: 4.7cqw; margin: 0; }
+    .poster-title { font-size: clamp(16px, 4.7cqw, 17px); margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
-    .mobile-video-caption { display: block; margin: 1rem auto 0; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #233f4e; }
-    .mobile-video-caption :global(.poster-desktop-break) { display: none; }
+    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #233f4e; }
+    .caption-space { visibility: hidden; }
+    .caption-typed { position: absolute; inset: 0; }
+    .caption-typed:global(.is-writing)::after { content: ''; display: inline-block; width: 1px; height: .9em; margin-left: 2px; background: currentColor; opacity: .5; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
@@ -276,8 +358,10 @@
   @media (prefers-reduced-motion: reduce) {
     .video-frame:global(.will-reveal), .situation-card:global(.will-reveal) { opacity: 1; transform: none; transition: none; }
     .situation-card { transition: none; }
-    .recovery-row:global(.goal-pending) > h3, .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
+    .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
     .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
+    .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: none; transition: none; }
+    .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: none; transition: none; }
     .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
     .situations-grid .situation-card:global(.is-visible):hover { transform: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
