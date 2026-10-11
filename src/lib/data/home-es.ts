@@ -13,12 +13,12 @@ export const homeEsReview = {
     phrases: ['Más energía.', 'Más salud.', 'Más vida.'],
     fromHome: 'En tu día a día.',
     mobileParagraphs: [
-      'Si estás pasando por un <strong class="font-semibold">cáncer</strong> (o ya lo has pasado), te ayudamos a empezar o retomar el <strong class="font-semibold">ejercicio</strong> con un acompañamiento de 12 semanas adaptado a ti.',
-      'Incluso si tienes <strong class="font-semibold">fatiga, dolor o dudas</strong> sobre cuánto puedes hacer durante o después del tratamiento.'
+      'Si tienes o has tenido <strong class="font-semibold">cáncer</strong>, te ayudamos a empezar o retomar el <strong class="font-semibold">ejercicio</strong> con un acompañamiento de <strong class="font-semibold">12 semanas</strong> adaptado a ti.',
+      'También si <strong class="font-semibold">la fatiga, el dolor o las dudas</strong> sobre cuánto puedes hacer te están frenando.'
     ],
     desktopParagraphs: [
-      ['Si estás pasando por un <strong class="font-semibold">cáncer</strong> (o ya lo has pasado), te ayudamos a empezar o retomar el <strong class="font-semibold">ejercicio</strong> con un acompañamiento de 12 semanas adaptado a ti.'],
-      ['Incluso si tienes <strong class="font-semibold">fatiga, dolor o dudas</strong> sobre cuánto puedes hacer durante o después del tratamiento.']
+      ['Si tienes o has tenido <strong class="font-semibold">cáncer</strong>, te ayudamos a empezar', 'o retomar el <strong class="font-semibold">ejercicio</strong> con un acompañamiento', 'de <strong class="font-semibold">12 semanas</strong> adaptado a ti.'],
+      ['También si <strong class="font-semibold">la fatiga, el dolor o las dudas</strong> sobre cuánto', 'puedes hacer te están frenando.']
     ],
     cta: 'Cuéntanos tu caso',
     note: 'Valoraremos tu caso, resolveremos tus dudas y te diremos si este acompañamiento encaja contigo.'
@@ -28,13 +28,13 @@ export const homeEsReview = {
     steps: [
       { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración vemos tu situación, tus objetivos y qué necesitas ahora mismo para que sepas <strong>qué hacer, cuánto hacer y cómo adaptarlo</strong>.'], icon: 'list' },
       { title: 'Menos desplazamientos', bodyLines: ['La <strong>primera valoración</strong> la hacemos <strong>en tu casa</strong> <strong>y después</strong><br class="home-desktop-break"> te acompañamos <strong>online</strong>, para ajustar el plan sin<br class="home-desktop-break"> sumar más desplazamientos a tu semana.'], icon: 'car' },
-      { title: 'Apoyo cuando lo necesitas', bodyLines: ['Si aparece una duda, dolor, fatiga o un mal día, <strong>no tienes<br class="home-desktop-break"> que esperar a la siguiente cita para resolverlo.</strong> Nos<br class="home-desktop-break"> escribes y ajustamos el plan contigo.'], icon: 'support' },
+      { title: 'Apoyo cuando lo necesitas', bodyLines: ['Si aparece una duda, dolor o fatiga con algún ejercicio,<br class="home-desktop-break"> no tienes que esperar a la siguiente cita para resolverlo.<br class="home-desktop-break"> Nos escribes y ajustamos tu plan contigo.'], icon: 'support' },
       { title: 'Se adapta a ti, no al revés', bodyLines: ['Tu cuerpo no está igual todas las semanas. Este formato<br class="home-desktop-break"> nos permite <strong>adaptar el plan según tus síntomas,<br class="home-desktop-break"> tus horarios y tus tratamientos.</strong>'], icon: 'calendar' }
     ],
-    summaryStrong: 'Por eso no trabajamos a base de sesiones sueltas.',
+    summaryStrong: '',
     summaryLines: [
-      'Nuestro <strong class="text-[#4083A7]">Programa Empenta</strong> consta de un acompañamiento de <strong class="text-[#4083A7]">12 semanas.</strong>',
-      'Porque <strong>una visita aislada no basta:</strong> necesitamos tiempo para conocerte, poner el plan en marcha, ir ajustándolo según lo que ocurra y volver a medir cómo evolucionas.'
+      'Nuestro <strong class="text-[#4083A7]">Programa Empenta</strong> consta de un <strong class="text-[#4083A7]">acompañamiento de 12 semanas.</strong>',
+      'No trabajamos a base de sesiones sueltas porque no basta con saber qué ejercicios hacer el primer día. Necesitamos conocer tu punto de partida, acompañarte mientras los incorporas a tu rutina, adaptarlos cuando sea necesario y comprobar cómo evolucionas.'
     ],
     cta: 'Ver cómo funciona Empenta'
   }

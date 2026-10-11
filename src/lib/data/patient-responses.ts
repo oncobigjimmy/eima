@@ -25,15 +25,6 @@ export const patientResponses: PatientResponse[] = [
     "alt": "Respuesta real de paciente: Todo el día sin energía y con asco y vómitos."
   },
   {
-    "id": "difficult-day-3",
-    "category": "difficult-day",
-    "image": "/patient-responses/difficult-day-3.jpg",
-    "width": 1001,
-    "height": 993,
-    "highlight": "No he podido hacer ejercicio esta semana. Esta semana he estado muy negativa...",
-    "alt": "Respuesta real de paciente: No he podido hacer ejercicio esta semana. Esta semana he estado muy negativa..."
-  },
-  {
     "id": "difficult-day-4",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-4.jpg",
@@ -265,10 +256,6 @@ const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
     ca: 'Tot el dia sense energia, amb fàstic i vòmits.',
     en: 'No energy all day, feeling sick and vomiting.'
   },
-  'difficult-day-3': {
-    ca: 'No he pogut fer exercici aquesta setmana. Aquesta setmana he estat molt negativa...',
-    en: 'I haven’t been able to exercise this week. I’ve been feeling very negative this week...'
-  },
   'difficult-day-4': {
     ca: 'Sensació de malestar tot el dia, panxa dura i sense ganes de menjar.',
     en: 'Feeling unwell all day, a hard stomach and no appetite.'
@@ -392,8 +379,8 @@ export const patientProofCopy: Record<Language, {
   es: {
     label: 'Respuestas de nuestros pacientes', previous: 'Respuesta anterior', next: 'Respuesta siguiente', position: 'de', expand: 'Ampliar respuesta', close: 'Cerrar respuesta',
     rows: [
-      { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: 'Durante el tratamiento habrá días en que puedas hacer más y otros en que toque bajar el ritmo. Y ahí, saber qué hacer evita que una mala semana te haga parar más de la cuenta.' },
-      { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario para que no tengas que decidir tú solo qué hacer.' },
+      { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: 'Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar. Lo importante es saber cómo adaptar el ejercicio a cada momento, sin exigirte de más.' },
+      { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario para que no tengas que decidir tú solo/a qué hacer.' },
       { category: 'progress', title: 'Y poco a poco, volver a hacer cosas que antes parecían lejos.' }
     ]
   },

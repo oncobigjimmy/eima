@@ -42,10 +42,10 @@
           {#if row.subtitle}
             <p class="mobile-copy-14" class:patient-subtitle-lines={pageLanguage === 'es' && row.category === 'difficult-day'}>
               {#if pageLanguage === 'es' && row.category === 'difficult-day'}
-                <span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en que toque bajar el ritmo.</span>
-                <span class="subtitle-line">Y ahí, saber qué hacer evita que <strong>una mala semana te haga parar más de la cuenta.</strong></span>
+                <span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar.</span>
+                <span class="subtitle-line">Lo importante es saber <strong>cómo adaptar el ejercicio</strong> a cada momento, <strong>sin exigirte de más.</strong></span>
               {:else if pageLanguage === 'es' && row.category === 'eima-adaptation'}
-                Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir</strong> tú solo qué hacer.
+                Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir</strong> tú solo/a qué hacer.
               {:else}{row.subtitle}{/if}
             </p>
           {/if}
@@ -88,6 +88,8 @@
     .patient-inner { max-width: none; }
   }
   @media (max-width: 767px) {
+    .subtitle-line { display: inline; }
+    .subtitle-line + .subtitle-line::before { content: " "; }
     .patient-cta { margin-top: 2.25rem; }
     .patient-row { padding-top: 2rem; padding-bottom: 2rem; }
     .patient-heading { padding: 0 1.25rem; margin-bottom: 1rem; }

@@ -62,10 +62,10 @@
 
         for (let i = 1; i <= phrase.length && !cancelled && !reducedMotion && version === generation; i += 1) {
           typedPhrase = phrase.slice(0, i);
-          await sleep(90);
+          if (i < phrase.length) await sleep(90);
         }
 
-        await sleep(760);
+        await sleep(4000);
         if (cancelled || reducedMotion || version !== generation) return;
         phraseIndex = (phraseIndex + 1) % phrases.length;
       }
@@ -119,7 +119,7 @@
         class:review-typed={true}
         aria-label={phrases[phraseIndex]}
       >
-        <span class="inline-block">{typedPhrase}</span>
+        <span class="typed-text">{typedPhrase}</span>
       </span>
       <span
         class="hero-accent-line mt-3 block font-serif-italic text-3xl md:text-[3.2rem]"
@@ -165,7 +165,7 @@
       {/each}
     </div>
 
-    <div class="mt-10 flex flex-col items-center gap-4">
+    <div class="hero-cta mt-10 flex flex-col items-center gap-4">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} shadowless />
 
     </div>
@@ -174,6 +174,10 @@
 
 <style>
   .review-typed { min-height: 1.08em; font-size: clamp(2.5rem, 10vw, 5rem); }
+  .typed-text::after { content: ''; display: inline-block; width: 2px; height: .82em; margin-left: .08em; vertical-align: -.02em; background: currentColor; animation: hero-cursor 1200ms steps(1, end) infinite; }
+  @keyframes hero-cursor { 0%, 55%, 100% { opacity: .65; } 56%, 99% { opacity: 0; } }
+  @media (min-width: 768px) { .hero-cta { max-width: 32rem; } }
+  @media (prefers-reduced-motion: reduce) { .typed-text::after { display: none; animation: none; } }
   .hero-accent-line {
     font-weight: 300 !important;
   }

@@ -63,38 +63,16 @@
     return { destroy() { observer.disconnect(); } };
   }
 
-  function fillConcept(node: HTMLElement) {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const rect = node.getBoundingClientRect();
-      const height = window.innerHeight;
-      const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, (height * .93 - rect.top) / (height * .73)));
-      node.style.setProperty('--fill', `${progress * 100}%`);
-      node.classList.toggle('is-active', window.innerWidth < 768 && rect.top < height * .65 && rect.bottom > height * .35);
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    reducedMotion.addEventListener('change', schedule);
-    return { destroy() {
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      reducedMotion.removeEventListener('change', schedule);
-      if (frame) cancelAnimationFrame(frame);
-    } };
-  }
-
-  function revealHighlight(node: HTMLElement) {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
-    node.classList.add('will-reveal');
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { node.classList.add('is-visible'); observer.disconnect(); }
-    }, { threshold: 0.25 });
+  function revealGoal(node: HTMLElement) {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!('IntersectionObserver' in window) || preference.matches) return {};
+    node.classList.add('goal-pending');
+    const show = () => { node.classList.add('goal-visible'); observer.disconnect(); };
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) show(); }, { threshold: 0.15 });
+    const motionChanged = () => { if (preference.matches) show(); };
+    preference.addEventListener('change', motionChanged);
     observer.observe(node);
-    return { destroy() { observer.disconnect(); } };
+    return { destroy() { observer.disconnect(); preference.removeEventListener('change', motionChanged); } };
   }
 </script>
 
@@ -116,7 +94,7 @@
           <BrandLogo class="poster-brand" id="vsl-poster-logo" />
           <div class="poster-copy">
             <p class="poster-title"><span class="poster-title__first">{ui.posterFirst}</span><span class="poster-title__middle">{ui.posterMiddle}</span><span class="poster-title__last">Empenta</span></p>
-            <p class="poster-description">{@html ui.posterDescription}</p>
+            <p class="poster-description" class:poster-description--review={pageLanguage === 'es'}>{@html ui.posterDescription}</p>
           </div>
           <div class="poster-phone" role="img" aria-label={ui.phoneAlt}>
             <img class="poster-phone-base" src="/vsl-harbiz-hand.webp" alt="" width="898" height="1751" loading="lazy" />
@@ -128,6 +106,9 @@
         </div>
       {/if}
     </div>
+    {#if pageLanguage === 'es'}
+      <p class="mobile-video-caption">{@html ui.posterDescription}</p>
+    {/if}
     <div class="section-cta">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
       <p class="cta-note mobile-copy-14">{note}</p>
@@ -144,7 +125,7 @@
   mobileTopSize={15}
   desktopTopSize={22}
   mobileBottomSize={21.5}
-  desktopBottomSize={33}
+  desktopBottomSize={35}
 />
 
 <PatientProofSection {pageLanguage} />
@@ -174,19 +155,16 @@
   <div class="section-inner">
     <header class="section-heading">
       <h2 id="recovery-title" class="section-playfair-desktop">{@html ui.recoveryTitle}</h2>
-      <p class="recovery-subtitle" use:revealHighlight>
-        <span class="recovery-highlight">
-          <span class="recovery-highlight__base" aria-hidden="true">{@html ui.recoverySubtitle}</span>
-          <span class="recovery-highlight__paint">{@html ui.recoverySubtitle}</span>
-        </span>
-      </p>
+      <p class="recovery-subtitle">{@html ui.recoverySubtitle}</p>
     </header>
     <div class="recovery-grid">
       {#each goals as goal, i}
-        <article class="recovery-column" use:fillConcept>
-          <h3 class="recovery-word"><span class="recovery-initial">R</span>{goal.title.slice(1)}</h3>
-          <p class="goal-subtitle">{goal.subtitle}</p>
-          <p class="goal-body">{goal.body}</p>
+        <article class="recovery-row" use:revealGoal>
+          <h3 class="recovery-word">{goal.title}</h3>
+          <div class="goal-content">
+            <p class="goal-subtitle">{goal.subtitle}</p>
+            <p class="goal-body">{goal.body}</p>
+          </div>
         </article>
       {/each}
     </div>
@@ -243,77 +221,64 @@
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 6rem; line-height: 1; color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
   .situation-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
   .situations-closing { color: #e0e9ed; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
-  .recovery h2 { color: #233f4e; white-space: nowrap; }
-  .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; font-weight: 400; color: #233f4e; font-size: 26px; margin: 1.25rem auto 0; }
-  .recovery-highlight { display: inline-grid; font-family: 'Fraunces', Georgia, serif; white-space: nowrap; }
-  .recovery-highlight__base, .recovery-highlight__paint { grid-area: 1 / 1; padding: .18em .42em .23em; font-family: 'Fraunces', Georgia, serif; }
-  .recovery-highlight__base { color: #233f4e; }
-  .recovery-highlight__paint { position: relative; isolation: isolate; color: #f8f4f0; text-shadow: var(--eima-blue-text-shadow); }
-  .recovery-highlight__paint::before { position: absolute; z-index: -1; inset: .02em -.06em .01em; content: ''; background: #4083a7; border-radius: 10px 7px 9px 8px / 7px 9px 8px 10px; }
-  .recovery-subtitle:global(.will-reveal) .recovery-highlight__paint { clip-path: inset(0 100% 0 0); transition: clip-path 1150ms cubic-bezier(.22, 1, .36, 1); }
-  .recovery-subtitle:global(.is-visible) .recovery-highlight__paint { clip-path: inset(0 0 0 0); }
-  .recovery-subtitle :global(strong) { font-family: 'Fraunces', Georgia, serif; font-weight: 500; }
+  .recovery h2 { color: #233f4e; }
+  .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 26px; margin: 1.25rem auto 0; }
+  .recovery-subtitle :global(strong) { font-family: inherit; font-weight: 500; }
   .recovery .section-heading { margin-bottom: 2.25rem; }
-  .recovery .section-inner { max-width: 1280px; }
-  .recovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.25rem; }
-  .recovery-column { padding: 1rem; border: 1px solid transparent; border-radius: 12px; transition: opacity 300ms ease, background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease; }
-  .recovery-word, .goal-subtitle { width: max-content; max-width: 100%; }
-  .recovery-word, .goal-subtitle, .goal-body { background: linear-gradient(to right, #4083a7 0 var(--fill, 0%), #233f4e var(--fill, 0%) 100%); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
-  .recovery-word { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1; }
-  .recovery-initial { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 65px; line-height: .85; }
-  .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 17px; font-weight: 500; line-height: 1.4; margin-top: .15rem; }
-  .goal-body { position: relative; font-family: 'Inter', Arial, sans-serif; font-size: 14px; line-height: 1.7; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1.5px solid #233f4e; background-image: linear-gradient(to right, #233f4e 0 var(--fill, 0%), #4083a7 var(--fill, 0%) 100%); }
-  .goal-body::before { content: ''; position: absolute; top: -1.5px; left: 0; width: var(--fill, 0%); height: 1.5px; background: #4083a7; }
+  .recovery-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .recovery-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr); align-items: start; gap: clamp(2rem, 5vw, 4.5rem); padding: 2rem 0; }
+  .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: #233f4e30; transform-origin: left; }
+  .recovery-word { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
+  .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 21px; font-weight: 500; line-height: 1.4; color: #233f4e; }
+  .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 14px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
+  .recovery-row:global(.goal-pending) > h3, .recovery-row:global(.goal-pending) > div { opacity: 0; transform: translateY(8px); transition: opacity 650ms ease, transform 650ms ease; }
+  .recovery-row:global(.goal-visible) > h3, .recovery-row:global(.goal-visible) > div { opacity: 1; transform: none; }
+  .recovery-row:global(.goal-pending)::before { transform: scaleX(0); transition: transform 800ms ease; }
+  .recovery-row:global(.goal-visible)::before { transform: scaleX(1); }
+  .mobile-video-caption { display: none; }
+  @media (min-width: 768px) { .poster-description--review { font-size: 13px; max-width: none; white-space: nowrap; } }
   .situation-card:global(.will-reveal) { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; transition-delay: var(--delay, 0ms); }
   .situation-card:global(.is-visible) { opacity: 1; transform: none; }
   @media (min-width: 768px) and (hover: hover) {
     .situations-grid .situation-card:global(.is-visible):hover { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
-    .situations-grid:has(> .situation-card:global(.is-visible):hover) > .situation-card:not(:hover):not(:global(.will-reveal)) { opacity: .42; filter: blur(1px); }
-    .recovery-grid:hover .recovery-column:not(:hover) { opacity: .87; }
-    .recovery-column:hover { background: #ffffff8a; border-color: #8cd0d680; box-shadow: 0 12px 28px #233f4e14; transform: translateY(-5px); }
+    .situations-grid:has(> .situation-card:global(.is-visible):hover) > .situation-card:not(:hover):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.98px) {
     .vsl h1 { margin-inline: -12px; }
     .vsl .section-heading { margin-bottom: 3rem; }
     .programme-line { display: block; white-space: nowrap; }
     .vsl .section-cta { margin-top: 3rem; display: grid; justify-items: center; }
-    .situations-grid, .recovery-grid { grid-template-columns: 1fr; }
+    .situations-grid { grid-template-columns: 1fr; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
-    .recovery-column { min-width: 0; }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
     .recovery h2 { white-space: normal; }
-    .recovery-highlight { max-width: 100%; white-space: nowrap; }
     .section-heading > .recovery-subtitle { font-size: clamp(17px, 5.4vw, 26px); }
-    .goal-subtitle { font-size: 14px; max-width: calc(100% + 8px); }
-    .recovery-highlight__base, .recovery-highlight__paint { min-width: 0; }
+    .goal-subtitle { font-size: 18px; }
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 5rem; margin-bottom: .8rem; }
-    .recovery-grid { gap: 2.5rem; }
-    .recovery-column { max-width: 460px; margin: 0 auto; width: 100%; }
-    .recovery-column:global(.is-active) { background: #ffffff8a; border-color: #8cd0d680; box-shadow: 0 10px 24px #233f4e12; }
+    .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1.75rem 0; }
     .recovery-word { font-size: 32px; }
-    .recovery-initial { font-size: 50px; }
     .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
     .video-poster { background: #fff; }
     .video-poster > img:first-child { right: 0; width: 74%; height: 100%; object-fit: cover; object-position: 54% center; }
     :global(.poster-brand) { width: 7%; top: 4%; right: 3%; }
     .poster-title { font-size: 4.7cqw; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
+    .poster-description--review { display: none; }
+    .mobile-video-caption { display: block; margin: 1rem auto 0; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #233f4e; }
+    .mobile-video-caption :global(.poster-desktop-break) { display: none; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
-    .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .42; filter: blur(1px); }
+    .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
   @media (prefers-reduced-motion: reduce) {
     .video-frame:global(.will-reveal), .situation-card:global(.will-reveal) { opacity: 1; transform: none; transition: none; }
     .situation-card { transition: none; }
-    .recovery-column { transition: none; }
-    .recovery-column:hover { transform: none; }
-    .recovery-grid:hover .recovery-column:not(:hover) { opacity: 1; }
-    .recovery-word, .goal-subtitle, .goal-body { background: none; color: #4083a7; -webkit-text-fill-color: #4083a7; }
+    .recovery-row:global(.goal-pending) > h3, .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
+    .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
     .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
-    .recovery-subtitle:global(.will-reveal) .recovery-highlight__paint { clip-path: none; transition: none; }
     .situations-grid .situation-card:global(.is-visible):hover { transform: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }

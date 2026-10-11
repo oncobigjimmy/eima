@@ -4,6 +4,7 @@
   import { language } from '$lib/i18n/language';
 
   $: pathname = $page.url.pathname;
+  $: isHome = ['/', '/ca', '/ca/', '/en', '/en/'].includes(pathname);
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: currentLanguage = isBlog ? 'es' : $language;
   $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
@@ -13,6 +14,45 @@
       : currentLanguage === 'ca'
         ? 'Obrir WhatsApp'
         : 'Abrir WhatsApp';
+
+  // Keep the mobile Home shortcut clear of nearby interactive controls.
+  /** @param {HTMLElement} node @param {boolean} enabled */
+  function avoidControls(node, enabled) {
+    let frame = 0;
+    function updatePosition() {
+      frame = 0;
+      if (!enabled || window.innerWidth >= 768) {
+        node.style.removeProperty('bottom');
+        return;
+      }
+      node.style.removeProperty('bottom');
+      const base = node.getBoundingClientRect();
+      let top = base.top;
+      const controls = [...document.querySelectorAll('main a[href], main button, footer a[href], footer button')]
+        .map(control => control.getBoundingClientRect())
+        .filter(rect => rect.width && rect.height && rect.right > base.left - 8 && rect.left < base.right + 8);
+      // Move only when a control actually intersects the shortcut's corner.
+      for (let pass = 0; pass <= controls.length; pass += 1) {
+        const collision = controls.find(rect => rect.top < top + base.height + 8 && rect.bottom > top - 8);
+        if (!collision) break;
+        top = collision.top - base.height - 8;
+      }
+      if (top < base.top) node.style.bottom = `${window.innerHeight - top - base.height}px`;
+    }
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(updatePosition); };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    schedule();
+    return {
+      /** @param {boolean} value */
+      update(value) { enabled = value; schedule(); },
+      destroy() {
+        window.removeEventListener('scroll', schedule);
+        window.removeEventListener('resize', schedule);
+        cancelAnimationFrame(frame);
+      }
+    };
+  }
 </script>
 
 <a
@@ -20,6 +60,8 @@
   target="_blank"
   rel="noopener noreferrer"
   aria-label={whatsappLabel}
+  class:home-whatsapp={isHome}
+  use:avoidControls={isHome}
   class="floating-whatsapp fixed bottom-4 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_rgba(14,29,38,0.22)] transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.04] hover:shadow-[0_18px_34px_rgba(14,29,38,0.28)] md:bottom-5 md:right-5"
 >
   <span class="sr-only">{whatsappLabel}</span>
@@ -29,3 +71,10 @@
     />
   </svg>
 </a>
+
+<style>
+  @media (max-width: 767.98px) {
+    .home-whatsapp { width: 48px; height: 48px; right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); }
+    .home-whatsapp svg { width: 28px; height: 28px; }
+  }
+</style>

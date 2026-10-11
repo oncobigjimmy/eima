@@ -242,9 +242,11 @@
 
     <div use:revealOnScroll class="timeline-summary mx-auto mt-14 max-w-5xl md:mt-16">
       <div class="timeline-summary__content">
-        <p class="timeline-summary__line timeline-summary__line--strong">
-          {valueCopy.summaryStrong}
-        </p>
+        {#if valueCopy.summaryStrong}
+          <p class="timeline-summary__line timeline-summary__line--strong">
+            {valueCopy.summaryStrong}
+          </p>
+        {/if}
         {#each valueCopy.summaryLines as line}
           <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}></p>
         {/each}
