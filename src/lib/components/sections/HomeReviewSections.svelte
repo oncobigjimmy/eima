@@ -293,22 +293,24 @@
   .recovery h2 { color: #233f4e; }
   .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 26px; margin: 1.25rem auto 0; }
   .recovery-subtitle :global(strong) { font-family: inherit; font-weight: 500; }
+  .recovery-subtitle :global(.brush-accent) { font: inherit; }
   .recovery-brush { position: relative; display: inline-grid; isolation: isolate; font-family: 'Fraunces', Georgia, serif; padding: .3em .7em .35em; }
   .brush-stroke { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; color: #245b7d; fill: currentColor; }
   .brush-label, .brush-white { grid-area: 1 / 1; font-family: inherit; }
   .brush-label { color: #233f4e; }
   .brush-white { color: #fff; }
+  .brush-white :global(.brush-accent) { color: #8cd0d6; }
   .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
   .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
   .recovery-subtitle:global(.goal-visible) .brush-stroke { clip-path: inset(0); }
   .recovery-subtitle:global(.goal-visible) .brush-white { clip-path: inset(0); }
-  .recovery .section-heading { margin-bottom: 2.25rem; }
+  .recovery .section-heading { margin-bottom: .75rem; }
   .recovery-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
   .recovery-row { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .73fr) minmax(0, 2.12fr); align-items: start; gap: clamp(1rem, 2.5vw, 2.25rem); padding: 2rem 0; }
-  .recovery-concept { position: relative; isolation: isolate; }
-  .recovery-symbol { position: absolute; z-index: -1; width: 250px; height: 150px; left: 0; top: 50%; transform: translateY(-50%); color: #e8e8f6; opacity: .65; filter: blur(2px); pointer-events: none; }
+  .recovery-concept { position: relative; isolation: isolate; align-self: center; }
+  .recovery-symbol { position: absolute; z-index: -1; width: 250px; height: 150px; left: 0; top: 50%; transform: translateY(-50%); color: #e8e8f6; opacity: .78; filter: blur(1px); pointer-events: none; }
   .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: 0; transition: opacity 650ms ease; }
-  .recovery-row:global(.goal-visible) > .recovery-symbol { opacity: .65; }
+  .recovery-row:global(.goal-visible) > .recovery-symbol { opacity: .78; }
   .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: #233f4e30; transform-origin: left; }
   .recovery-word { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
   .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
@@ -339,7 +341,7 @@
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 5rem; margin-bottom: .8rem; }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1.75rem 0; }
-    .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(3px); }
+    .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { font-size: 32px; }
     .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
     .video-poster { background: #fff; }
@@ -363,7 +365,7 @@
     .situation-card { transition: none; }
     .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
     .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
-    .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: .65; transition: none; }
+    .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: .78; transition: none; }
     .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: none; transition: none; }
     .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: none; transition: none; }
     .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }

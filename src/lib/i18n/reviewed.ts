@@ -10,7 +10,7 @@ export const homeSections = {
     situationIntro: 'Quizá tu cuerpo ya no responde como antes, o <strong>tu oncólogo/a te ha recomendado moverte</strong>, pero no sabes qué hacer ni cuánto.',
     situations: ['“Nunca he hecho ejercicio y no sabría por dónde empezar.”', '“Ya hago ejercicio, pero no sé cómo adaptarlo ahora al tratamiento.”', '“Quiero moverme, pero la fatiga, el dolor o el miedo a pasarme me frenan.”'],
     situationClosing: 'Sea cual sea tu punto de partida, primero necesitamos entender tu situación.',
-    recoveryTitle: '¿Qué queremos que <span>consigas?</span>', recoverySubtitle: '<strong>Las 3R de tu progreso</strong>',
+    recoveryTitle: '¿Qué queremos que <span>consigas?</span>', recoverySubtitle: '<strong>Las <span class="brush-accent">3R</span> de tu progreso</strong>',
     firstGoalBody: 'Buscamos que te muevas con menos fatiga, menos rigidez, menos miedo y más sensación de control sobre tu cuerpo y tu rutina del día a día.',
     thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Poco a poco, buscamos que vuelvas a hacer con más seguridad esas actividades que ahora te cuestan, te cansan o te generan dudas.'
   },
@@ -22,7 +22,7 @@ export const homeSections = {
     situationIntro: 'Potser el teu cos ja no respon com abans, o <strong>el teu oncòleg/òloga t’ha recomanat moure’t</strong>, però no saps què fer ni quant.',
     situations: ['“Mai he fet exercici i no sabria per on començar.”', '“Ja faig exercici, però no sé com adaptar-lo ara al tractament.”', '“Vull moure’m, però la fatiga, el dolor o la por de passar-me em frenen.”'],
     situationClosing: 'Sigui quin sigui el teu punt de partida, primer necessitam entendre la teva situació.',
-    recoveryTitle: 'Què volem que <span>aconsegueixis?</span>', recoverySubtitle: '<strong>Les 3R del teu progrés</strong>',
+    recoveryTitle: 'Què volem que <span>aconsegueixis?</span>', recoverySubtitle: '<strong>Les <span class="brush-accent">3R</span> del teu progrés</strong>',
     firstGoalBody: 'Cercam que et moguis amb menys fatiga, menys rigidesa, menys por i més sensació de control sobre el teu cos i la teva rutina del dia a dia.',
     thirdGoalSubtitle: 'amb confiança allò que és important per a tu', thirdGoalBody: 'A poc a poc, cercam que tornis a fer amb més seguretat aquelles activitats que ara et costen, et cansen o et generen dubtes.'
   },
@@ -34,7 +34,7 @@ export const homeSections = {
     situationIntro: 'Perhaps your body no longer responds as it used to, or <strong>your oncologist has recommended moving more</strong>,<br class="desktop-only-break" /> but you don’t know what to do or how much.',
     situations: ['“I’ve never exercised and wouldn’t know where to start.”', '“I already exercise, but don’t know how to adapt it to treatment now.”', '“I want to move, but fatigue, pain or fear of overdoing it hold me back.”'],
     situationClosing: 'Whatever your starting point, we first need to understand your situation.',
-    recoveryTitle: 'What do we want you to <span>achieve?</span>', recoverySubtitle: '<strong>The 3Rs of your progress</strong>',
+    recoveryTitle: 'What do we want you to <span>achieve?</span>', recoverySubtitle: '<strong>The <span class="brush-accent">3Rs</span> of your progress</strong>',
     firstGoalBody: 'We want you to move with less fatigue, less stiffness, less fear and a greater sense of control over your body and your daily routine.',
     thirdGoalSubtitle: 'with confidence to what matters to you', thirdGoalBody: 'Step by step, we want you to return more safely to the activities that now feel difficult, tiring or uncertain.'
   }
