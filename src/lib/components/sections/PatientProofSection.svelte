@@ -40,13 +40,8 @@
         <header class="patient-heading">
           <h2 class="section-title-mobile" id={`patients-${row.category}-title`}>{#if emphasis}{title.split(emphasis)[0]}<span class="title-emphasis">{emphasis}</span>{title.split(emphasis)[1]}{:else}{title}{/if}</h2>
           {#if row.subtitle}
-            <p class="mobile-copy-14" class:patient-subtitle-lines={pageLanguage === 'es' && row.category === 'difficult-day'}>
-              {#if pageLanguage === 'es' && row.category === 'difficult-day'}
-                <span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar.</span>
-                <span class="subtitle-line">Lo importante es saber <strong>cómo adaptar el ejercicio</strong> a cada momento, <strong>sin exigirte de más.</strong></span>
-              {:else if pageLanguage === 'es' && row.category === 'eima-adaptation'}
-                Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir</strong> tú solo/a qué hacer.
-              {:else}{row.subtitle}{/if}
+            <p class="mobile-copy-14" class:patient-subtitle-lines={row.category === 'difficult-day'}>
+              {@html row.subtitle}
             </p>
           {/if}
         </header>
@@ -69,7 +64,7 @@
   h2 { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: clamp(1.8rem, 3.1vw, 2.5rem); line-height: 1.16; text-wrap: balance; color: var(--color-brand); }
   .title-emphasis { font-family: inherit; font-weight: inherit; color: #4083a7; }
   .patient-row--dark .title-emphasis { color: #8cd0d6; }
-  .subtitle-line { display: block; }
+  .patient-heading :global(.subtitle-line) { display: block; }
   p { max-width: 750px; margin: 1rem auto 0; font-size: 1rem; line-height: 1.7; color: #233f4e; }
   .patient-cta { display: flex; justify-content: center; margin: 1.5rem 1.25rem 0; }
   .patient-inner { max-width: 1072px; margin: 0 auto; }
@@ -81,15 +76,15 @@
     .patient-row { padding-bottom: clamp(2rem, 3.5vw, 2.75rem); }
     .patient-heading { max-width: 1072px; }
     .patient-subtitle-lines { max-width: none; }
-    .subtitle-line { display: block; }
+    .patient-heading :global(.subtitle-line) { display: block; }
     h2 { font-size: 50px; }
     .title-emphasis { font-family: inherit; color: #4083a7; }
     .patient-row--dark .title-emphasis { color: #8cd0d6; }
     .patient-inner { max-width: none; }
   }
   @media (max-width: 767px) {
-    .subtitle-line { display: inline; }
-    .subtitle-line + .subtitle-line::before { content: " "; }
+    .patient-heading :global(.subtitle-line) { display: inline; }
+    .patient-heading :global(.subtitle-line + .subtitle-line)::before { content: " "; }
     .patient-cta { margin-top: 2.25rem; }
     .patient-row { padding-top: 2rem; padding-bottom: 2rem; }
     .patient-heading { padding: 0 1.25rem; margin-bottom: 1rem; }

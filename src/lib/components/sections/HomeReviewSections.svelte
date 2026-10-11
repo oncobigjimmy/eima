@@ -139,7 +139,7 @@
           <BrandLogo class="poster-brand" id="vsl-poster-logo" />
           <div class="poster-copy">
             <p class="poster-title"><span class="poster-title__first">{ui.posterFirst}</span><span class="poster-title__middle">{ui.posterMiddle}</span><span class="poster-title__last">Empenta</span></p>
-            <p class="poster-description" class:poster-description--review={pageLanguage === 'es'}>{@html ui.posterDescription}</p>
+            <p class="poster-description poster-description--review">{@html ui.posterDescription}</p>
           </div>
           <div class="poster-phone" role="img" aria-label={ui.phoneAlt}>
             <img class="poster-phone-base" src="/vsl-harbiz-hand.webp" alt="" width="898" height="1751" loading="lazy" />
@@ -151,13 +151,11 @@
         </div>
       {/if}
     </div>
-    {#if pageLanguage === 'es'}
       <p class="mobile-video-caption" use:writeCaption>
         <span class="sr-only">{captionText}</span>
         <span class="caption-space" aria-hidden="true">{captionText}</span>
         <span class="caption-typed" aria-hidden="true">{captionText}</span>
       </p>
-    {/if}
     <div class="section-cta">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
       <p class="cta-note mobile-copy-14">{note}</p>

@@ -379,24 +379,24 @@ export const patientProofCopy: Record<Language, {
   es: {
     label: 'Respuestas de nuestros pacientes', previous: 'Respuesta anterior', next: 'Respuesta siguiente', position: 'de', expand: 'Ampliar respuesta', close: 'Cerrar respuesta',
     rows: [
-      { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: 'Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar. Lo importante es saber cómo adaptar el ejercicio a cada momento, sin exigirte de más.' },
-      { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario para que no tengas que decidir tú solo/a qué hacer.' },
+      { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: '<span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar.</span><span class="subtitle-line">Lo importante es saber <strong>cómo adaptar el ejercicio</strong> a cada momento, <strong>sin exigirte de más.</strong></span>' },
+      { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir</strong> tú solo/a qué hacer.' },
       { category: 'progress', title: 'Y poco a poco, volver a hacer cosas que antes parecían lejos.' }
     ]
   },
   ca: {
     label: 'Respostes dels nostres pacients', previous: 'Resposta anterior', next: 'Resposta següent', position: 'de', expand: 'Ampliar resposta', close: 'Tancar resposta',
     rows: [
-      { category: 'difficult-day', title: 'No tots els dies seran iguals.', subtitle: 'Durant el tractament hi haurà dies en què podràs fer més i altres en què tocarà baixar el ritme. Tenir clar què fer llavors evita que una mala setmana et tregui del camí.' },
-      { category: 'eima-adaptation', title: 'Precisament per a aquests dies existeix Empenta.', subtitle: 'Ens expliques com estàs i ajustam el que calgui perquè no hagis de decidir tot sol què fer.' },
+      { category: 'difficult-day', title: 'No tots els dies seran iguals.', subtitle: '<span class="subtitle-line">Durant el tractament hi haurà dies en què podràs fer més i altres en què necessitaràs descansar.</span><span class="subtitle-line">L’important és saber <strong>com adaptar l’exercici</strong> a cada moment, <strong>sense exigir-te de més.</strong></span>' },
+      { category: 'eima-adaptation', title: 'Precisament per a aquests dies existeix Empenta.', subtitle: 'Veim com vas i ajustam el que calgui <strong>perquè no hagis de decidir</strong> tot sol/a què fer.' },
       { category: 'progress', title: 'I a poc a poc, tornar a fer coses que creies que trigarien molt més.' }
     ]
   },
   en: {
     label: 'Responses from our patients', previous: 'Previous response', next: 'Next response', position: 'of', expand: 'Enlarge response', close: 'Close response',
     rows: [
-      { category: 'difficult-day', title: 'Not every day will be the same.', subtitle: 'During treatment, some days you will be able to do more, and on others you will need to slow down. Knowing what to do then helps keep a difficult week from taking you off track.' },
-      { category: 'eima-adaptation', title: 'That is exactly why Empenta exists.', subtitle: 'You tell us how you are feeling, and we make the adjustments you need so you do not have to decide what to do on your own.' },
+      { category: 'difficult-day', title: 'Not every day will be the same.', subtitle: '<span class="subtitle-line">During treatment, some days you’ll be able to do more and others you’ll need to rest.</span><span class="subtitle-line">What matters is knowing <strong>how to adapt exercise</strong> at each stage, <strong>without pushing yourself too hard.</strong></span>' },
+      { category: 'eima-adaptation', title: 'That is exactly why Empenta exists.', subtitle: 'We see how you’re doing and adjust what’s needed <strong>so you don’t have to decide</strong> what to do on your own.' },
       { category: 'progress', title: 'And little by little, doing things again that you thought would take much longer.' }
     ]
   }

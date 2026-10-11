@@ -16,25 +16,25 @@ export const homeSections = {
   },
   ca: {
     vslBefore: 'T’explicam com funciona', vslAfter: '', programme: 'El nostre programa d’exercici per a persones amb càncer a Mallorca',
-    posterFirst: 'Així funciona', posterMiddle: 'el programa', posterDescription: 'Quin exercici fer, quant i com<br class="poster-desktop-break" /> adaptar-lo als teus tractaments.',
+    posterFirst: 'Així funciona', posterMiddle: 'el programa', posterDescription: 'Quin exercici fer, quant i com adaptar-lo<br class="poster-desktop-break" /> durant i després del tractament.',
     peopleAlt: 'Jaume i Miquel, fisioterapeutes d’Eima Salut', phoneAlt: 'Mòbil amb l’agenda d’exercicis de l’app del client', play: 'Coneix com funciona Empenta',
     situationTitle: 'Et veus reflectit/ida en alguna<br class="desktop-only-break" /> <span>d’aquestes situacions?</span>',
     situationIntro: 'Potser el teu cos ja no respon com abans, o <strong>el teu oncòleg/òloga t’ha recomanat moure’t</strong>, però no saps què fer ni quant.',
     situations: ['“Mai he fet exercici i no sabria per on començar.”', '“Ja faig exercici, però no sé com adaptar-lo ara al tractament.”', '“Vull moure’m, però la fatiga, el dolor o la por de passar-me em frenen.”'],
     situationClosing: 'Sigui quin sigui el teu punt de partida, primer necessitam entendre la teva situació.',
-    recoveryTitle: 'Què volem que <span>aconsegueixis?</span>', recoverySubtitle: 'Les <strong>3R</strong> de la teva recuperació',
+    recoveryTitle: 'Què volem que <span>aconsegueixis?</span>', recoverySubtitle: '<strong>Les 3R del teu progrés</strong>',
     firstGoalBody: 'Cercam que et moguis amb menys fatiga, menys rigidesa, menys por i més sensació de control sobre el teu cos i la teva rutina del dia a dia.',
     thirdGoalSubtitle: 'amb confiança allò que és important per a tu', thirdGoalBody: 'A poc a poc, cercam que tornis a fer amb més seguretat aquelles activitats que ara et costen, et cansen o et generen dubtes.'
   },
   en: {
     vslBefore: 'We explain how', vslAfter: ' works', programme: 'Our exercise programme for people with cancer in Mallorca',
-    posterFirst: 'How it works', posterMiddle: 'the programme', posterDescription: 'What exercise to do, how much and how<br class="poster-desktop-break" /> to adapt it during your treatments.',
+    posterFirst: 'How it works', posterMiddle: 'the programme', posterDescription: 'What exercise to do, how much and how to adapt it<br class="poster-desktop-break" /> during and after treatment.',
     peopleAlt: 'Jaume and Miquel, Eima Salut physiotherapists', phoneAlt: 'Phone showing the client app’s exercise agenda', play: 'Discover how Empenta works',
     situationTitle: 'Do you recognise yourself in<br class="desktop-only-break" /> <span>any of these situations?</span>',
     situationIntro: 'Perhaps your body no longer responds as it used to, or <strong>your oncologist has recommended moving more</strong>,<br class="desktop-only-break" /> but you don’t know what to do or how much.',
     situations: ['“I’ve never exercised and wouldn’t know where to start.”', '“I already exercise, but don’t know how to adapt it to treatment now.”', '“I want to move, but fatigue, pain or fear of overdoing it hold me back.”'],
     situationClosing: 'Whatever your starting point, we first need to understand your situation.',
-    recoveryTitle: 'What do we want you to <span>achieve?</span>', recoverySubtitle: 'The <strong>3Rs</strong> of your recovery',
+    recoveryTitle: 'What do we want you to <span>achieve?</span>', recoverySubtitle: '<strong>The 3Rs of your progress</strong>',
     firstGoalBody: 'We want you to move with less fatigue, less stiffness, less fear and a greater sense of control over your body and your daily routine.',
     thirdGoalSubtitle: 'with confidence to what matters to you', thirdGoalBody: 'Step by step, we want you to return more safely to the activities that now feel difficult, tiring or uncertain.'
   }

@@ -1,11 +1,11 @@
 // Translations of the approved Spanish home, consumed by the same components.
 const caParagraphs = [
-  'Si estàs passant per un <strong class="font-semibold">càncer</strong> (o ja l’has passat), t’ajudam a començar o reprendre l’<strong class="font-semibold">exercici</strong> amb un acompanyament de 12 setmanes adaptat a tu.',
-  'Encara que tenguis <strong class="font-semibold">fatiga, dolor o dubtes</strong> sobre quant pots fer durant o després del tractament.'
+  'Si tens o has tingut <strong class="font-semibold">càncer</strong>, t’ajudam a començar o reprendre l’<strong class="font-semibold">exercici</strong> amb un acompanyament de <strong class="font-semibold">12 setmanes</strong> adaptat a tu.',
+  'També si <strong class="font-semibold">la fatiga, el dolor o els dubtes</strong> sobre quant pots fer t’estan frenant.'
 ];
 const enParagraphs = [
-  'If you’re going through <strong class="font-semibold">cancer</strong> (or have already been through it), we help you start or return to <strong class="font-semibold">exercise</strong> with 12 weeks of support adapted to you.',
-  'Even if you have <strong class="font-semibold">fatigue, pain or questions</strong> about how much you can do during or after treatment.'
+  'If you have or have had <strong class="font-semibold">cancer</strong>, we help you start or return to <strong class="font-semibold">exercise</strong> with <strong class="font-semibold">12 weeks</strong> of support adapted to you.',
+  'Also if <strong class="font-semibold">fatigue, pain or uncertainty</strong> about how much you can do are holding you back.'
 ];
 
 export const translatedHomeReview = {
@@ -20,7 +20,10 @@ export const translatedHomeReview = {
     hero: {
       eyebrow: 'Programa d’exercici per a persones amb càncer a Mallorca',
       intro: 'Menys limitacions.', phrases: ['Més energia.', 'Més salut.', 'Més vida.'], fromHome: 'En el teu dia a dia.',
-      mobileParagraphs: caParagraphs, desktopParagraphs: caParagraphs.map(p => [p]),
+      mobileParagraphs: caParagraphs, desktopParagraphs: [
+        ['Si tens o has tingut <strong class="font-semibold">càncer</strong>, t’ajudam a començar', 'o reprendre l’<strong class="font-semibold">exercici</strong> amb un acompanyament', 'de <strong class="font-semibold">12 setmanes</strong> adaptat a tu.'],
+        ['També si <strong class="font-semibold">la fatiga, el dolor o els dubtes</strong> sobre quant', 'pots fer t’estan frenant.']
+      ],
       cta: 'Conta’ns el teu cas', note: 'Valorarem el teu cas, resoldrem els teus dubtes i et direm si aquest acompanyament encaixa amb tu.'
     },
     valueProps: {
@@ -28,11 +31,15 @@ export const translatedHomeReview = {
       steps: [
         { title: 'Claredat des del principi', bodyLines: ['A la primera valoració veim la teva situació, els teus objectius i què necessites ara mateix perquè sàpigues <strong>què fer, quant fer i com adaptar-ho</strong>.'], icon: 'list' },
         { title: 'Menys desplaçaments', bodyLines: ['La <strong>primera valoració</strong> la feim <strong>a ca teva</strong> <strong>i després</strong> t’acompanyam <strong>online</strong>, per ajustar el pla sense afegir més desplaçaments a la teva setmana.'], icon: 'car' },
-        { title: 'Suport quan el necessites', bodyLines: ['Si apareix un dubte, dolor, fatiga o un mal dia, <strong>no has d’esperar a la següent cita per resoldre-ho.</strong> Ens escrius i ajustam el pla amb tu.'], icon: 'support' },
+        { title: 'Suport quan el necessites', bodyLines: ['Si apareix un dubte, dolor o fatiga amb algun exercici,<br class="home-desktop-break"> <strong>no has d’esperar a la següent cita per resoldre-ho.</strong><br class="home-desktop-break"> Ens escrius i ajustam el teu pla amb tu.'], icon: 'support' },
         { title: 'S’adapta a tu, no a l’inrevés', bodyLines: ['El teu cos no està igual totes les setmanes. Aquest format ens permet <strong>adaptar el pla segons els teus símptomes, els teus horaris i els teus tractaments.</strong>'], icon: 'calendar' }
       ],
-      summaryStrong: 'Per això no treballam a base de sessions soltes.',
-      summaryLines: ['El nostre <strong class="text-[#4083A7]">Programa Empenta</strong> consta d’un acompanyament de <strong class="text-[#4083A7]">12 setmanes.</strong>', 'Perquè <strong>una visita aïllada no basta:</strong> necessitam temps per conèixer-te, posar el pla en marxa, anar-lo ajustant segons el que passi i tornar a mesurar com evoluciones.'],
+      summaryStrong: '',
+      summaryLines: [
+        'El nostre <strong class="text-[#4083A7]">Programa Empenta</strong> consta d’un <strong class="text-[#4083A7]">acompanyament de 12 setmanes.</strong>',
+        '<strong>No treballam a base de sessions soltes</strong> perquè no basta saber quins exercicis fer el primer dia.',
+        'Necessitam <strong>conèixer el teu punt de partida,</strong> acompanyar-te mentre els <strong>incorpores a la teva rutina,</strong> adaptar-los quan sigui necessari i comprovar <strong>com evoluciones.</strong>'
+      ],
       cta: 'Veure com funciona Empenta'
     }
   },
@@ -47,7 +54,10 @@ export const translatedHomeReview = {
     hero: {
       eyebrow: 'Exercise programme for people with cancer in Mallorca',
       intro: 'Fewer limitations.', phrases: ['More energy.', 'More health.', 'More life.'], fromHome: 'In your daily life.',
-      mobileParagraphs: enParagraphs, desktopParagraphs: enParagraphs.map(p => [p]),
+      mobileParagraphs: enParagraphs, desktopParagraphs: [
+        ['If you have or have had <strong class="font-semibold">cancer</strong>, we help you start', 'or return to <strong class="font-semibold">exercise</strong> with support', 'over <strong class="font-semibold">12 weeks</strong>, adapted to you.'],
+        ['Also if <strong class="font-semibold">fatigue, pain or uncertainty</strong> about how much', 'you can do are holding you back.']
+      ],
       cta: 'Tell us about your situation', note: 'We’ll assess your situation, answer your questions and tell you whether this support is right for you.'
     },
     valueProps: {
@@ -55,11 +65,15 @@ export const translatedHomeReview = {
       steps: [
         { title: 'Clarity from the start', bodyLines: ['At the first assessment, we look at your situation, goals and current needs so you know <strong>what to do, how much and how to adapt it</strong>.'], icon: 'list' },
         { title: 'Less travelling', bodyLines: ['We do the <strong>first assessment</strong> <strong>at your home</strong> <strong>and then</strong> support you <strong>online</strong>, adjusting the plan without adding more travelling to your week.'], icon: 'car' },
-        { title: 'Support when you need it', bodyLines: ['If a question, pain, fatigue or a bad day comes up, <strong>you don’t have to wait until your next appointment to address it.</strong> Write to us and we’ll adjust the plan with you.'], icon: 'support' },
+        { title: 'Support when you need it', bodyLines: ['If a question, pain or fatigue comes up with an exercise,<br class="home-desktop-break"> <strong>you don’t have to wait until your next appointment to address it.</strong><br class="home-desktop-break"> Write to us and we’ll adjust your plan with you.'], icon: 'support' },
         { title: 'It adapts to you', bodyLines: ['Your body isn’t the same every week. This format lets us <strong>adapt the plan to your symptoms, schedule and treatments.</strong>'], icon: 'calendar' }
       ],
-      summaryStrong: 'That’s why we don’t work through isolated sessions.',
-      summaryLines: ['Our <strong class="text-[#4083A7]">Empenta Programme</strong> provides <strong class="text-[#4083A7]">12 weeks</strong> of support.', 'Because <strong>a single visit isn’t enough:</strong> we need time to get to know you, put the plan into action, keep adjusting it as things change and measure your progress again.'],
+      summaryStrong: '',
+      summaryLines: [
+        'Our <strong class="text-[#4083A7]">Empenta Programme</strong> provides <strong class="text-[#4083A7]">12 weeks of support.</strong>',
+        '<strong>We don’t work through individual sessions</strong> because knowing which exercises to do on the first day isn’t enough.',
+        'We need to <strong>understand your starting point,</strong> support you as you <strong>build them into your routine,</strong> adapt them when needed and check <strong>how you progress.</strong>'
+      ],
       cta: 'See how Empenta works'
     }
   }
