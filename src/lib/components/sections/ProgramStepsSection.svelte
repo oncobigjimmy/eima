@@ -261,12 +261,6 @@
     opacity: .88;
   }
 
-  @media (min-width: 1024px) and (hover: hover) {
-    .program-steps-track:has(.program-step:hover) .program-step__surface { opacity: .88; transform: none; border-color: transparent; box-shadow: 0 16px 36px rgba(14, 29, 38, .08); }
-    .program-steps-track:has(.program-step:hover) .program-step__point { border-color: transparent; }
-    .program-steps-track .program-step:hover .program-step__surface { opacity: 1 !important; transform: translateY(-5px) !important; border-color: #8cd0d6 !important; box-shadow: 0 22px 44px rgba(14, 29, 38, .15) !important; }
-    .program-steps-track .program-step:hover .program-step__point { border-color: #8cd0d6; }
-  }
 
   :global(.program-step[data-ready='true'][data-visible='false']) {
     opacity: 0;
@@ -370,8 +364,7 @@
     .program-step__surface,
     .program-step__point-mobile,
     .program-step__point { transition: none; }
-    :global(.program-step[data-scroll-active='true']) .program-step__surface,
-    .program-steps-track .program-step:hover .program-step__surface { transform: none !important; }
+    :global(.program-step[data-scroll-active='true']) .program-step__surface { transform: none !important; }
   }
 </style>
 
