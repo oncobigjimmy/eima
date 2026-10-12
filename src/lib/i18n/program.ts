@@ -119,7 +119,7 @@ const esProgram = {
       'Te han dicho que te iría bien hacer ejercicio, pero no sabes bien por dónde empezar.',
       'Te notas con menos fuerza, menos energía o más inseguridad desde el diagnóstico y los tratamientos.',
       'Quieres recuperar <em>cosas normales</em> como: subir escaleras, llevar la compra o jugar con tus hijos/nietos.',
-      'Buscas una guía clara y un seguimiento real para no ir a ciegas.'
+      'Buscas una guía clara y un seguimiento continuado para no tener que ir a ciegas.'
     ],
     noItems: [
       'Buscas únicamente sesiones presenciales puntuales, sin un programa de seguimiento.',

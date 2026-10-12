@@ -110,16 +110,16 @@
       <div class="fit-card__inner">
         <div class="flex items-center gap-3">
           <div
-            class="fit-card__icon-wrap flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#E7F3E8] text-[#3F8A57]"
+            class="fit-card__icon-wrap flex h-[35.2px] w-[35.2px] shrink-0 items-center justify-center rounded-full bg-[#E7F3E8] text-[#3F8A57]"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-none stroke-current stroke-[2.4]">
+            <svg viewBox="0 0 24 24" class="h-[19.2px] w-[19.2px] fill-none stroke-current stroke-[2.4]">
               <path d="M5 12.5 9.2 16.7 19 6.9" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[22px] leading-[1.2] text-[#233F4E]">
+            <h3 class="fit-card__title text-[24px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
@@ -154,17 +154,17 @@
       <div class="fit-card__inner">
         <div class="flex items-center gap-3">
           <div
-            class="fit-card__icon-wrap flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FCE4E4] text-[#C64A4A]"
+            class="fit-card__icon-wrap flex h-[35.2px] w-[35.2px] shrink-0 items-center justify-center rounded-full bg-[#FCE4E4] text-[#C64A4A]"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-none stroke-current stroke-[2.4]">
+            <svg viewBox="0 0 24 24" class="h-[19.2px] w-[19.2px] fill-none stroke-current stroke-[2.4]">
               <path d="M7 7 17 17" stroke-linecap="round"></path>
               <path d="M17 7 7 17" stroke-linecap="round"></path>
             </svg>
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[22px] leading-[1.2] text-[#233F4E]">
+            <h3 class="fit-card__title text-[24px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
