@@ -272,7 +272,7 @@
   .video-notice p { margin: 1.25rem 0 1.75rem; font-size: 16px; line-height: 1.65; }
   .video-notice-close { position: absolute; top: .4rem; right: .4rem; width: 44px; height: 44px; border: 0; background: transparent; color: #233f4e; font-size: 30px; cursor: pointer; border-radius: 50%; }
   .video-notice-close:focus-visible { outline: 2px solid #245b7d; outline-offset: -4px; }
-  @media (max-width: 767px) { .video-notice { padding: 3rem 1.25rem 1.75rem; } .video-notice h2 { font-size: 25px; } .video-notice p { font-size: 15px; } }
+  @media (max-width: 767px) { .video-notice { padding: 3rem 1.25rem 1.75rem; } .video-notice h2 { font-size: 22px; } .video-notice p { font-size: 14px; } }
 
   .section-space { padding: var(--home-section-start, 3.75rem) 1.5rem var(--home-section-end, 3.75rem); }
   .section-inner { max-width: 1072px; margin: 0 auto; }
