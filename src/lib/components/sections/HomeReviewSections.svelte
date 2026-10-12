@@ -269,7 +269,7 @@
   .video-notice h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
   .notice-desktop-break { display: none; }
   @media (min-width: 768px) { .notice-desktop-break { display: block; } }
-  .notice-video-accent { color: #4083a7; }
+  .video-notice h2 .notice-video-accent { font-family: inherit; color: #4083a7; }
   .notice-mobile-break { display: none; }
   .video-notice p { margin: 1.25rem 0 1.75rem; font-size: 16px; line-height: 1.65; }
   .video-notice-close { position: absolute; top: .4rem; right: .4rem; width: 44px; height: 44px; border: 0; background: transparent; color: #233f4e; font-size: 30px; cursor: pointer; border-radius: 50%; }
