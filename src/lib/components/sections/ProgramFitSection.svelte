@@ -112,31 +112,30 @@
       style="--reveal-delay: 0ms"
     >
       <div class="fit-card__inner">
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-3">
           <div
-            class="fit-card__icon-wrap flex h-18 w-18 shrink-0 items-center justify-center rounded-full bg-[#E7F3E8] text-[#3F8A57]"
+            class="fit-card__icon-wrap flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#E7F3E8] text-[#3F8A57]"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" class="h-10 w-10 fill-none stroke-current stroke-[2.4]">
+            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-none stroke-current stroke-[2.4]">
               <path d="M5 12.5 9.2 16.7 19 6.9" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[25px] leading-[1.05] text-[#233F4E]">
+            <h3 class="fit-card__title text-[18px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
                 >{@html fitCopy.yesTitle}</span
               >
             </h3>
-            <div class="fit-card__line mt-3 h-px w-18 bg-[#9FD2AB]"></div>
           </div>
         </div>
 
-        <ul class="mt-7 space-y-4">
+        <ul class="mt-6 space-y-4">
           {#each yesItems as item}
-            <li class="fit-card__item grid grid-cols-[1.9rem_1fr] items-start gap-3 text-[15px] leading-[1.65] text-[#245B7D]">
+            <li class="fit-card__item grid grid-cols-[1.9rem_1fr] items-center gap-3 text-[15px] leading-[1.65] text-[#245B7D]">
               <span class="fit-card__bullet self-center text-[#59A873]" aria-hidden="true">
                 <svg viewBox="0 0 24 24" class="h-[1.65rem] w-[1.65rem] fill-none stroke-current stroke-[2.2]">
                   <circle cx="12" cy="12" r="8.2"></circle>
@@ -157,32 +156,31 @@
       style="--reveal-delay: 60ms"
     >
       <div class="fit-card__inner">
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-3">
           <div
-            class="fit-card__icon-wrap flex h-18 w-18 shrink-0 items-center justify-center rounded-full bg-[#FCE4E4] text-[#C64A4A]"
+            class="fit-card__icon-wrap flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FCE4E4] text-[#C64A4A]"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" class="h-10 w-10 fill-none stroke-current stroke-[2.4]">
+            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-none stroke-current stroke-[2.4]">
               <path d="M7 7 17 17" stroke-linecap="round"></path>
               <path d="M17 7 7 17" stroke-linecap="round"></path>
             </svg>
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[23px] leading-[1.05] text-[#233F4E] md:text-[25px]">
+            <h3 class="fit-card__title text-[18px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
                 >{@html fitCopy.noTitle}</span
               >
             </h3>
-            <div class="fit-card__line mt-3 h-px w-18 bg-[#F3B1B1]"></div>
           </div>
         </div>
 
-        <ul class="mt-7 space-y-4">
+        <ul class="mt-6 space-y-4">
           {#each noItems as item}
-            <li class="fit-card__item grid grid-cols-[1.9rem_1fr] items-start gap-3 text-[15px] leading-[1.65] text-[#245B7D]">
+            <li class="fit-card__item grid grid-cols-[1.9rem_1fr] items-center gap-3 text-[15px] leading-[1.65] text-[#245B7D]">
               <span class="fit-card__bullet self-center text-[#D55B5B]" aria-hidden="true">
                 <svg viewBox="0 0 24 24" class="h-[1.65rem] w-[1.65rem] fill-none stroke-current stroke-[2.2]">
                   <circle cx="12" cy="12" r="8.2"></circle>
@@ -299,9 +297,6 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.32), 0 4px 12px rgba(0, 0, 0, 0.18);
   }
 
-  .fit-card:hover .fit-card__line {
-    background: rgba(255, 255, 255, 0.7);
-  }
 
   .fit-card:hover .fit-card__icon-wrap {
     background: rgba(255, 255, 255, 0.18);
@@ -315,8 +310,8 @@
 
   @media (min-width: 768px) and (hover: hover) {
     .program-fit-section:has(.fit-card:hover) .fit-card:not(:hover) {
-      filter: saturate(0.85);
-      opacity: 0.38;
+      filter: saturate(0.96);
+      opacity: 0.88;
       transform: scale(0.988);
     }
   }
@@ -339,7 +334,6 @@
     .fit-card:global(.scroll-active)::before, .fit-card:global(.scroll-active)::after { opacity: 1; }
     .fit-card:global(.scroll-active)::before { transform: scale(1); }
     .fit-card:global(.scroll-active) .fit-card__title, .fit-card:global(.scroll-active) .fit-card__item, .fit-card:global(.scroll-active) .fit-card__item :global(em) { color: #fff; text-shadow: 0 1px 3px #0005, 0 4px 12px #0003; }
-    .fit-card:global(.scroll-active) .fit-card__line { background: #ffffffb3; }
     .fit-card:global(.scroll-active) .fit-card__icon-wrap { background: #ffffff2e; color: #fff; }
     .fit-card:global(.scroll-active) .fit-card__bullet { color: #ffffffeb; }
   }

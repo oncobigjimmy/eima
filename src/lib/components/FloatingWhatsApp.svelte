@@ -5,6 +5,8 @@
 
   $: pathname = $page.url.pathname;
   $: isHome = ['/', '/ca', '/ca/', '/en', '/en/'].includes(pathname);
+  $: isProgram = ['/como-funciona', '/ca/com-funciona', '/en/how-it-works'].includes(pathname.replace(/\/$/, ''));
+  $: compactShortcut = isHome || isProgram;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: currentLanguage = isBlog ? 'es' : $language;
   $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
@@ -60,8 +62,8 @@
   target="_blank"
   rel="noopener noreferrer"
   aria-label={whatsappLabel}
-  class:home-whatsapp={isHome}
-  use:avoidControls={isHome}
+  class:home-whatsapp={compactShortcut}
+  use:avoidControls={compactShortcut}
   class="floating-whatsapp fixed bottom-4 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_rgba(14,29,38,0.22)] transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.04] hover:shadow-[0_18px_34px_rgba(14,29,38,0.28)] md:bottom-5 md:right-5"
 >
   <span class="sr-only">{whatsappLabel}</span>

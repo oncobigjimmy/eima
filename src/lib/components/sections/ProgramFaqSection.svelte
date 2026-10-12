@@ -151,7 +151,7 @@
 
                   {#if faq.cta}
                     <div class="mt-5">
-                      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={faq.cta} />
+                      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={faq.cta} class="program-faq-cta" />
                     </div>
                   {/if}
                 </div>
@@ -236,6 +236,9 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .faq-answer :global(.program-faq-cta) { max-width: 100%; white-space: nowrap; }
+  @media (max-width: 767px) { .faq-answer :global(.program-faq-cta) { padding-inline: 1.25rem; min-height: 44px; } }
 
   .faq-answer p {
     width: 100%;

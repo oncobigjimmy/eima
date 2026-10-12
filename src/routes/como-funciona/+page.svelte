@@ -66,20 +66,14 @@
 
         for (let i = 1; i <= phrase.length && !cancelled && !reducedMotion && version === generation; i += 1) {
           typedPhrase = phrase.slice(0, i);
-          await sleep(90);
+          if (i < phrase.length) await sleep(90);
         }
 
         if (cancelled || reducedMotion || version !== generation) return;
-        if (phraseIndex < phrases.length - 1) {
-          for (let pulse = 0; pulse < 2 && !cancelled && !reducedMotion && version === generation; pulse += 1) {
-            showUnderscore = true;
-            await sleep(180);
-            showUnderscore = false;
-            await sleep(180);
-          }
-        } else {
-          await sleep(420);
-        }
+        showUnderscore = true;
+        // Original complete-phrase dwell included the final 90 ms typing delay: 810 / 510 ms.
+        await sleep(phraseIndex < phrases.length - 1 ? 2810 : 2510);
+        showUnderscore = false;
 
         if (cancelled || reducedMotion || version !== generation) return;
         phraseIndex = (phraseIndex + 1) % phrases.length;
@@ -190,7 +184,7 @@
       <p class="md:hidden" use:htmlContent={hero.mobileParagraph}></p>
     </div>
 
-    <div class="mt-10 flex flex-col items-center gap-4">
+    <div class="program-hero-cta mt-10 flex flex-col items-center gap-4">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} shadowless />
     </div>
   </div>
@@ -262,11 +256,19 @@
     font-style: italic !important;
   }
 
+  @media (min-width: 768px) {
+    .program-hero-cta { max-width: 48rem; }
+  }
+  .hero-typed-line { min-height: 2.04em; }
+  @media (min-width: 768px) { .hero-typed-line { min-height: 1.02em; } }
   .typed-underscore {
     display: inline-block;
     margin-left: 0.02em;
+    animation: program-cursor 1200ms steps(1, end) infinite;
   }
 
+  @keyframes program-cursor { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .typed-underscore { animation: none; } }
 </style>
 
 

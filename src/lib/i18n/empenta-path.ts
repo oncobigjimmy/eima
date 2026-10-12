@@ -7,7 +7,7 @@ export const empentaPathCopy: Record<Language, {
 }> = {
   es: {
     before: 'El ', accent: 'camino', after: ' que seguiremos ', endingAccent: 'contigo',
-    subtitle: 'Tu camino, a tu ritmo. Nosotros te damos <strong>el empujón</strong> que necesitas para seguir avanzando.',
+    subtitle: 'Los cinco pasos anteriores explican cómo trabajaremos contigo. <strong>Estas 4 etapas muestran cómo iremos progresando con el ejercicio a lo largo del programa.</strong>',
     stages: [
       { title: 'Arranca', description: 'Damos los primeros pasos adaptándonos<br class="path-desktop-break" /> a cómo te encuentras.' },
       { title: 'Construye', description: 'Creamos una base de fuerza y confianza para seguir avanzando.' },

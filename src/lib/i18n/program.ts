@@ -43,17 +43,15 @@ const esProgram = {
     eyebrow: '',
     srTitle:
       'Más fuerza, menos efectos secundarios y más vitalidad durante y después del cáncer',
-    phrases: ['Más vitalidad', 'Más fuerza', 'Menos efectos secundarios'],
+    phrases: ['Más vitalidad.', 'Más fuerza.', 'Menos efectos secundarios.'],
     line1: 'durante y después',
     line2: 'del cáncer',
     desktopParagraph: [
-      'Ayudamos a personas con cáncer a recuperar su vitalidad',
-      'y a reducir el impacto de los efectos secundarios en su día a día',
-      'con nuestro <strong class="font-semibold">programa de 12 semanas</strong>.'
+      'Te acompañamos <strong class="font-semibold">durante 12 semanas</strong> con un programa de ejercicio adaptado a tu situación, tus tratamientos y tus objetivos.'
     ],
     mobileParagraph:
-      'Ayudamos a personas con cáncer a recuperar su vitalidad y a reducir el impacto de los efectos secundarios en su día a día con nuestro <strong class="font-semibold">programa de 12 semanas</strong>.',
-    cta: 'Hablemos de tu caso'
+      'Te acompañamos <strong class="font-semibold">durante 12 semanas</strong> con un programa de ejercicio adaptado a tu situación, tus tratamientos y tus objetivos.',
+    cta: 'Cuéntanos tu caso'
   },
   steps: {
     headingPrefix: 'Cómo funciona',
@@ -62,7 +60,7 @@ const esProgram = {
       'Un proceso para que no tengas que improvisar <strong>qué hacer, cuánto hacer ni cómo saber si lo estás haciendo bien.</strong>',
     badge: 'Valoración + plan + seguimiento',
     sideParagraphs: [
-      'No trabajamos con sesiones sueltas. Empenta es un <strong>acompañamiento estructurado de 12 semanas,</strong> pero tu progreso no sigue un calendario fijo.<br /><br />Por eso, <strong>adaptamos el ejercicio a tu punto de partida</strong>, a cómo evolucionas y a tus objetivos.',
+      '<strong>Empenta es un programa de acompañamiento de 12 semanas.</strong> Pero eso no significa que tengas que avanzar al mismo ritmo que otra persona.<br /><br />Adaptamos el ejercicio a <strong>tu punto de partida, tu evolución y tus objetivos.</strong>',
       'Donde valoramos tu punto de partida, diseñamos un plan progresivo y lo adaptamos según cómo vas evolucionando.'
     ],
     items: [
@@ -84,21 +82,21 @@ const esProgram = {
         number: '3',
         title: 'Preparamos el terreno para empezar bien',
         body:
-          'Antes de empezar, te explicamos <strong>cómo funciona el programa</strong>, cómo usar la app y cómo arrancar poco a poco para llegar preparado/a a la primera semana.',
+          'Antes de empezar, te enseñamos a utilizar la aplicación, a consultar tus ejercicios y a comunicarte con nosotros. Así <strong>sabrás qué hacer desde el primer día.</strong>',
         icon: 'phone'
       },
       {
         number: '4',
         title: 'Empiezas tu plan adaptado',
         body:
-          'Diseñamos un plan de ejercicio ajustado a tu situación y lo vamos adaptando según <strong>tu tolerancia, tus síntomas y tu evolución</strong>.',
+          'Preparamos un <strong>plan de fuerza, ejercicio aeróbico y movilidad</strong> adaptado a tu situación y a las actividades que quieres recuperar o mantener. Lo ajustamos según cómo te encuentres y evoluciones.',
         icon: 'checklist'
       },
       {
         number: '5',
         title: 'Te acompañamos y medimos tu evolución',
         body:
-          'Durante las 12 semanas hacemos <strong>seguimiento online</strong>, ajustamos el plan según cómo te encuentras y recogemos datos para valorar tu evolución. Si lo autorizas, podemos <strong>compartir esa información con tu oncólogo/a</strong> o equipo médico.',
+          'Durante las 12 semanas revisamos cómo te encuentras, resolvemos tus dudas y ajustamos el plan. Si tienes dudas con la técnica, podemos <strong>revisar vídeos de tus ejercicios para ayudarte a corregirlos.</strong> También repetimos algunas pruebas físicas para que puedas ver tus progresos. Con tu autorización, podemos <strong>compartir esa información con tu oncólogo/a.</strong>',
         icon: 'support'
       }
     ],
@@ -115,7 +113,7 @@ const esProgram = {
     titlePrefix: '¿Cómo sé si',
     titleHighlight: 'este programa es para mí?',
     yesTitle: 'Esto encaja contigo si...',
-    noTitle: 'Esto <span class="font-bold">NO</span> encaja contigo si...',
+    noTitle: 'Esto quizá no sea lo que buscas si...',
     yesItems: [
       'Te han dicho que te iría bien hacer ejercicio, pero no sabes bien por dónde empezar.',
       'Te notas con menos fuerza, menos energía o más inseguridad desde el diagnóstico y los tratamientos.',
@@ -123,10 +121,9 @@ const esProgram = {
       'Buscas una guía clara y un seguimiento real para no ir a ciegas.'
     ],
     noItems: [
-      'Buscas sesiones sueltas sin implicarte en lo que haces fuera de ellas.',
-      'No quieres reservar un mínimo de tiempo al día para moverte por tu cuenta.',
-      'Esperas mejorar sin constancia, sin adaptación y sin revisar hábitos.',
-      'Prefieres una solución pasiva en lugar de participar en tu proceso.'
+      'Buscas únicamente sesiones presenciales puntuales, sin un programa de seguimiento.',
+      'Prefieres que todo el ejercicio se haga acompañado presencialmente, sin realizar actividades por tu cuenta.',
+      'No quieres trabajar con un plan que se revise y adapte a lo largo de las semanas.'
     ]
   },
   doubtCta: {
@@ -155,7 +152,7 @@ const esProgram = {
           'La idea no es exigirte más porque sí, sino ayudarte a <strong>moverte con criterio y seguridad, para que el ejercicio sume</strong> dentro del proceso en lugar de convertirse en una carga más.',
           'Si esta es una de las dudas que te frena, podemos orientarte antes de empezar.'
         ],
-        cta: 'Quiero saber si esto encaja conmigo',
+        cta: 'Cuéntanos tu caso',
         icon: icons.shield
       },
       {
@@ -166,7 +163,7 @@ const esProgram = {
           'No significa que el cansancio desaparezca de golpe, ni que todos los días vayas a sentirte igual. Pero con una pauta bien ajustada, el ejercicio puede ayudarte a conservar <strong>fuerza</strong>, tolerar mejor el <strong>esfuerzo</strong> y sentir que recuperas algo de <strong>control</strong> sobre tu cuerpo.',
           'Si la fatiga te está limitando, podemos ayudarte a valorar por dónde empezar.'
         ],
-        cta: 'Quiero orientación para empezar',
+        cta: 'Cuéntanos tu caso',
         icon: icons.battery
       },
       {
@@ -199,7 +196,7 @@ const esProgram = {
           'Mucha gente piensa que online significa distante. En Empenta lo usamos justo para lo contrario: para poder estar más pendientes de <strong>cómo evolucionas entre una visita y otra.</strong>',
           'Antes de empezar, te explicamos cómo sería el proceso en tu caso.'
         ],
-        cta: 'Quiero que me expliquéis el proceso',
+        cta: 'Cuéntanos tu caso',
         icon: icons.home
       },
       {
@@ -211,7 +208,7 @@ const esProgram = {
           'La parte online no está pensada para complicarte la vida, sino para <strong>acompañarte mejor sin obligarte a desplazarte más.</strong>',
           'Si esto es una de las cosas que te frena, lo vemos contigo desde el principio.'
         ],
-        cta: 'Quiero resolver mis dudas',
+        cta: 'Cuéntanos tu caso',
         icon: icons.chat
       },
       {
@@ -219,6 +216,7 @@ const esProgram = {
         a: [
           '<strong>Precisamente por eso no damos pautas genéricas.</strong>',
           'Si tienes dolor, anemia, metástasis óseas, bajada importante de defensas, neuropatía u otros efectos secundarios del tratamiento, el ejercicio no se elimina automáticamente, pero sí <strong>debe adaptarse con más precisión.</strong>',
+          '<strong>En situaciones como metástasis óseas, anemia importante o dolor nuevo, puede ser necesaria una valoración médica antes de empezar o continuar determinados ejercicios. Y si aparecen fiebre u otros síntomas agudos, lo prioritario es consultar con tu equipo médico antes de entrenar.</strong>',
           'En algunos casos habrá que bajar la intensidad. En otros, cambiar el tipo de ejercicio, reducir la duración, modificar posiciones o evitar ciertos movimientos. Y en momentos concretos, puede tener sentido pausar, priorizar movilidad suave o centrarnos solo en mantener actividad básica.',
           'No se trata de forzar ni de entrenar pase lo que pase. Se trata de encontrar la forma más <strong>segura, útil y realista</strong> de moverte según tu situación actual.',
           'Si tienes dudas sobre tu caso concreto, puedes explicarnos tu situación {{situationLink}}.'
@@ -230,7 +228,7 @@ const esProgram = {
         a: [
           'En general, si tu situación lo permite, suele tener más sentido <strong>empezar poco a poco durante el tratamiento oncológico</strong> que esperar al momento perfecto.',
           'Muchas veces ese momento perfecto tarda mucho en llegar. Y mientras tanto, pueden pasar semanas o meses en los que podrías haber empezado a moverte, aunque fuera poco, para conservar mejor tu <strong>fuerza, movilidad, energía y autonomía.</strong>',
-          'No se trata de empezar fuerte, sino de empezar con <strong>una dosis adaptada a ti.</strong> Esperar solo tendría sentido si hay una limitación concreta o una situación clínica que obligue a modificar el plan. Por eso primero valoramos tu caso y, a partir de ahí, decidimos qué tiene sentido para ti.',
+          'No se trata de empezar fuerte, sino de empezar con <strong>una dosis adaptada a ti.</strong> <strong>En algunas situaciones puede ser necesario esperar, modificar el ejercicio o consultar previamente con tu equipo médico. Por eso valoramos tu caso y decidimos qué tiene sentido para ti.</strong>',
           'Si no sabes si es buen momento para empezar, puedes preguntarnos {{askLink}}.'
         ],
         icon: icons.hourglass
@@ -253,7 +251,7 @@ const esProgram = {
           'Si tienes más fatiga, dolor, mal descanso, efectos secundarios o menos energía, bajamos la carga, modificamos los ejercicios o cambiamos el objetivo de esa semana. Ya <strong>volveremos a progresar cuando tu cuerpo esté preparado.</strong>',
           'La idea no es que tú encajes en una rutina cerrada, sino que <strong>el plan encaje contigo.</strong> Nuestro objetivo es que puedas seguir avanzando sin sentir que estás fallando cada vez que tienes una semana complicada.'
         ],
-        cta: 'Quiero saber cómo sería mi plan',
+        cta: 'Cuéntanos tu caso',
         icon: icons.refresh
       }
     ]
