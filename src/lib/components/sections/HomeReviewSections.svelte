@@ -140,7 +140,7 @@
 <dialog class="video-notice" bind:this={videoNotice} use:noticeLifecycle on:close={restoreNoticeScroll} aria-labelledby="video-notice-title" aria-describedby="video-notice-description">
   <button class="video-notice-close" type="button" aria-label={noticeCopy.close} on:click={() => videoNotice.close()}>×</button>
   <h2 id="video-notice-title">{noticeCopy.title}</h2>
-  <p id="video-notice-description">{noticeCopy.body}</p>
+  <p id="video-notice-description">{#if pageLanguage === 'es'}En unos días volveremos a subir el vídeo debido a<br class="notice-desktop-break" /> problemas técnicos. Disculpa las molestias.{:else}{noticeCopy.body}{/if}</p>
   <PrimaryCta href={getRoutePath('program', pageLanguage) + '#program-steps'} label={noticeCopy.cta} />
 </dialog>
 
@@ -267,6 +267,8 @@
   .video-notice { position: fixed; inset: 0; margin: auto; height: fit-content; box-sizing: border-box; width: min(540px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; border: 0; border-radius: 16px; padding: 3rem 2rem 2.25rem; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 20px 70px #071a2540; }
   .video-notice::backdrop { background: #071a25a3; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
   .video-notice h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
+  .notice-desktop-break { display: none; }
+  @media (min-width: 768px) { .notice-desktop-break { display: block; } }
   .video-notice p { margin: 1.25rem 0 1.75rem; font-size: 16px; line-height: 1.65; }
   .video-notice-close { position: absolute; top: .4rem; right: .4rem; width: 44px; height: 44px; border: 0; background: transparent; color: #233f4e; font-size: 30px; cursor: pointer; border-radius: 50%; }
   .video-notice-close:focus-visible { outline: 2px solid #245b7d; outline-offset: -4px; }
