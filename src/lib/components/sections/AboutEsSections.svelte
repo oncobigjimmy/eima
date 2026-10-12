@@ -144,7 +144,7 @@
 
 <section class="about-origin" aria-labelledby="origin-title">
   <div class="about-container origin-container">
-    <h2 id="origin-title" class="section-playfair-desktop">{@html ui.originTitle}</h2>
+    <h2 id="origin-title" class="section-playfair-desktop" class:origin-title-es={pageLanguage === 'es'}>{@html ui.originTitle}</h2>
     <p class="origin-intro origin-fade mobile-copy-14" use:reveal>{@html ui.intro}</p>
     <div class="origin-grid hover-dim-group">
       {#each originCards as card, index}
@@ -300,7 +300,8 @@
   @media (max-width: 767px) {
     .about-intro { overflow-x: clip; }
     :global(.about-mobile-break) { display: initial; }
-    .about-intro:not(.about-intro--translated) .about-title { font-size: clamp(26px, 8vw, 43.2px); }
+    .about-intro:not(.about-intro--translated) .about-title { font-size: 32px; }
+    .origin-title-es :global(span) { display: block; }
     .team-hint { font-size: clamp(11px, 3.3vw, 14px); }
     .origin-card h3.origin-card-title--first { font-size: clamp(12px, calc(8.5vw - 15px), 18px); }
     .origin-card-title--first .origin-card-title-line { display: inline; }
