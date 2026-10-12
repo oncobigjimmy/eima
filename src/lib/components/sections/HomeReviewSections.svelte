@@ -139,8 +139,8 @@
 
 <dialog class="video-notice" bind:this={videoNotice} use:noticeLifecycle on:close={restoreNoticeScroll} aria-labelledby="video-notice-title" aria-describedby="video-notice-description">
   <button class="video-notice-close" type="button" aria-label={noticeCopy.close} on:click={() => videoNotice.close()}>×</button>
-  <h2 id="video-notice-title">{noticeCopy.title}</h2>
-  <p id="video-notice-description">{#if pageLanguage === 'es'}En unos días volveremos a subir el vídeo debido a<br class="notice-desktop-break" /> problemas técnicos. Disculpa las molestias.{:else}{noticeCopy.body}{/if}</p>
+  <h2 id="video-notice-title">{noticeCopy.title.slice(0, noticeCopy.title.lastIndexOf(pageLanguage === 'en' ? 'the video' : 'el vídeo'))}<span class="notice-video-accent">{pageLanguage === 'en' ? 'the video' : 'el vídeo'}</span></h2>
+  <p id="video-notice-description">{#if pageLanguage === 'es'}En unos días volveremos a subir el vídeo<br class="notice-mobile-break" /> debido a<br class="notice-desktop-break" /> problemas técnicos.<br class="notice-mobile-break" /> Disculpa las molestias.{:else}{noticeCopy.body}{/if}</p>
   <PrimaryCta href={getRoutePath('program', pageLanguage) + '#' + getProgramStepsHash(pageLanguage)} label={noticeCopy.cta} />
 </dialog>
 
@@ -269,10 +269,12 @@
   .video-notice h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
   .notice-desktop-break { display: none; }
   @media (min-width: 768px) { .notice-desktop-break { display: block; } }
+  .notice-video-accent { color: #4083a7; }
+  .notice-mobile-break { display: none; }
   .video-notice p { margin: 1.25rem 0 1.75rem; font-size: 16px; line-height: 1.65; }
   .video-notice-close { position: absolute; top: .4rem; right: .4rem; width: 44px; height: 44px; border: 0; background: transparent; color: #233f4e; font-size: 30px; cursor: pointer; border-radius: 50%; }
   .video-notice-close:focus-visible { outline: 2px solid #245b7d; outline-offset: -4px; }
-  @media (max-width: 767px) { .video-notice { padding: 3rem 1.25rem 1.75rem; } .video-notice h2 { font-size: 22px; } .video-notice p { font-size: 14px; } }
+  @media (max-width: 767px) { .video-notice { padding: 3rem 1.25rem 1.75rem; } .notice-mobile-break { display: block; } .video-notice h2 { font-size: 24px; } .video-notice p { font-size: 14px; } }
 
   .section-space { padding: var(--home-section-start, 3.75rem) 1.5rem var(--home-section-end, 3.75rem); }
   .section-inner { max-width: 1072px; margin: 0 auto; }
