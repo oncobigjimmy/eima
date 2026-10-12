@@ -4,12 +4,31 @@
   import type { Language } from '$lib/i18n/copy';
   import { empentaPathCopy } from '$lib/i18n/empenta-path';
 
-  function readingState(node: HTMLElement) {
+  function readingState(node: HTMLElement, state: { progress: number; finalThreshold: number }) {
+    const mobile = window.matchMedia('(max-width: 767px)');
+    let intersects = false;
+    function sync() {
+      const bounds = node.getBoundingClientRect();
+      const reading = mobile.matches
+        ? state.progress >= state.finalThreshold && bounds.top <= window.innerHeight * .4 && bounds.bottom >= window.innerHeight * .25
+        : intersects;
+      node.classList.toggle('scroll-reading', reading);
+    }
     const observer = new IntersectionObserver(([entry]) => {
-      node.classList.toggle('scroll-reading', entry.isIntersecting);
+      intersects = entry.isIntersecting;
+      sync();
     }, { rootMargin: '-25% 0px -35% 0px', threshold: 0 });
     observer.observe(node);
-    return { destroy() { observer.disconnect(); } };
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    return {
+      update(next: typeof state) { state = next; sync(); },
+      destroy() {
+        observer.disconnect();
+        window.removeEventListener('scroll', sync);
+        window.removeEventListener('resize', sync);
+      }
+    };
   }
 
   export let pageLanguage: Language = 'es';
@@ -115,7 +134,7 @@
     </ol>
   </div>
   {#if pageLanguage === 'es'}
-    <aside class="path-clarification" use:readingState>
+    <aside class="path-clarification" use:readingState={{ progress, finalThreshold: thresholds[3] }}>
       <p>No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.</p>
       <p>Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. Avanzamos según cómo te encuentres, cómo respondes al ejercicio y qué objetivos quieras alcanzar.</p>
     </aside>
