@@ -28,6 +28,22 @@
   const situations = ui.situations.map((quote, index) => ({ letter: 'ABC'[index], quote }));
   let videoNearby = false;
   const videoReady = Boolean(homeVideoEs.src && homeVideoEs.captions);
+  let videoNotice: HTMLDialogElement;
+  let previousOverflow = '';
+  const noticeCopy = {
+    es: { title: 'Estamos actualizando el vídeo', body: 'En unos días volveremos a subir el vídeo debido a problemas técnicos. Disculpa las molestias.', cta: 'Ver los pasos de Empenta', close: 'Cerrar aviso' },
+    ca: { title: 'Estam actualitzant el vídeo', body: 'D’aquí a uns dies tornarem a pujar el vídeo a causa de problemes tècnics. Disculpa les molèsties.', cta: 'Veure els passos d’Empenta', close: 'Tancar avís' },
+    en: { title: 'We’re updating the video', body: 'We’ll upload the video again in a few days due to technical issues. Sorry for the inconvenience.', cta: 'See the Empenta steps', close: 'Close notice' }
+  }[pageLanguage];
+  function openVideoNotice() {
+    previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    videoNotice.showModal();
+  }
+  function restoreNoticeScroll() { document.body.style.overflow = previousOverflow; }
+  function noticeLifecycle(node: HTMLDialogElement) {
+    return { destroy() { if (node.open) restoreNoticeScroll(); } };
+  }
   const captionText = ui.posterDescription.replace(/<br[^>]*>/g, '');
 
   function writeCaption(node: HTMLElement) {
@@ -121,6 +137,13 @@
   }
 </script>
 
+<dialog class="video-notice" bind:this={videoNotice} use:noticeLifecycle on:close={restoreNoticeScroll} aria-labelledby="video-notice-title" aria-describedby="video-notice-description">
+  <button class="video-notice-close" type="button" aria-label={noticeCopy.close} on:click={() => videoNotice.close()}>×</button>
+  <h2 id="video-notice-title">{noticeCopy.title}</h2>
+  <p id="video-notice-description">{noticeCopy.body}</p>
+  <PrimaryCta href={getRoutePath('program', pageLanguage) + '#program-steps'} label={noticeCopy.cta} />
+</dialog>
+
 <section class="vsl section-space" aria-labelledby="vsl-title">
   <div class="section-inner">
     <header class="section-heading">
@@ -145,9 +168,9 @@
             <img class="poster-phone-base" src="/vsl-harbiz-hand.webp" alt="" width="898" height="1751" loading="lazy" />
             <img class="poster-phone-screen" src="/harbiz-client-agenda.png" alt="" width="576" height="1280" loading="lazy" />
           </div>
-          <a class="poster-play" href={getRoutePath('program', pageLanguage)} aria-label={ui.play}>
+          <button type="button" class="poster-play" on:click={openVideoNotice} aria-label={ui.play} aria-haspopup="dialog">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.7a1 1 0 0 1 1.5-.86l9.2 6.3a1 1 0 0 1 0 1.72l-9.2 6.3A1 1 0 0 1 8 18.3V5.7Z" /></svg>
-          </a>
+          </button>
         </div>
       {/if}
     </div>
@@ -241,6 +264,14 @@
 </section>
 
 <style>
+  .video-notice { position: fixed; inset: 0; margin: auto; height: fit-content; box-sizing: border-box; width: min(540px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; border: 0; border-radius: 16px; padding: 3rem 2rem 2.25rem; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 20px 70px #071a2540; }
+  .video-notice::backdrop { background: #071a25a3; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .video-notice h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
+  .video-notice p { margin: 1.25rem 0 1.75rem; font-size: 16px; line-height: 1.65; }
+  .video-notice-close { position: absolute; top: .4rem; right: .4rem; width: 44px; height: 44px; border: 0; background: transparent; color: #233f4e; font-size: 30px; cursor: pointer; border-radius: 50%; }
+  .video-notice-close:focus-visible { outline: 2px solid #245b7d; outline-offset: -4px; }
+  @media (max-width: 767px) { .video-notice { padding: 3rem 1.25rem 1.75rem; } .video-notice h2 { font-size: 25px; } .video-notice p { font-size: 15px; } }
+
   .section-space { padding: var(--home-section-start, 3.75rem) 1.5rem var(--home-section-end, 3.75rem); }
   .section-inner { max-width: 1072px; margin: 0 auto; }
   .vsl, .recovery { background: #f8f4f0; }
@@ -272,7 +303,7 @@
   .poster-phone { position: absolute; z-index: 2; left: 5.5%; bottom: -16%; width: 19%; transform: rotate(-9deg); filter: drop-shadow(0 8px 10px rgba(35, 63, 78, .18)); pointer-events: none; }
   .poster-phone-base { display: block; width: 100%; height: auto; }
   .poster-phone-screen { position: absolute; top: 7.8%; left: 24.2%; width: 61.8%; height: 68.1%; object-fit: fill; border-radius: 10% 10% 8% 8% / 5% 5% 3% 3%; }
-  .poster-play { position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(64px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform 220ms ease, box-shadow 220ms ease; }
+  .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(64px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform 220ms ease, box-shadow 220ms ease; }
   .poster-play svg { width: 88%; height: 88%; filter: drop-shadow(0 2px 3px rgba(35, 63, 78, .4)); }
   .poster-play:hover, .poster-play:focus-visible { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); }
   .poster-play:focus-visible { outline: 2px solid #233f4e; outline-offset: 5px; }
