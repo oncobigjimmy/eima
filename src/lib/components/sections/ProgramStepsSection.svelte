@@ -1,5 +1,6 @@
 <script>
   import { getWhatsAppHref } from '$lib/i18n/copy';
+  import { watchReducedMotion } from '$lib/motion';
   import { language } from '$lib/i18n/language';
   import { getProgramCopy } from '$lib/i18n/program';
   import { getProgramStepsHash } from '$lib/i18n/routes';
@@ -31,6 +32,7 @@
   /** @param {HTMLElement} node */
   function trackActiveStep(node) {
     let frame = 0;
+    let reducedMotion = false;
     const update = () => {
       frame = 0;
       const cards = /** @type {HTMLElement[]} */ (Array.from(node.querySelectorAll('.program-step')));
@@ -46,13 +48,33 @@
           if (distance < closestDistance) { active = card; closestDistance = distance; }
         }
       }
+      if (window.innerWidth >= 1024) {
+        const line = node.querySelector('.program-line');
+        const lineBounds = line?.getBoundingClientRect();
+        if (lineBounds) {
+          const drawn = Math.max(0, Math.min(1, (focusY - lineBounds.top) / lineBounds.height));
+          node.style.setProperty('--program-line-progress', String(reducedMotion ? 1 : drawn));
+          if (!reducedMotion) {
+            // Activate the card and circle together only when the drawn line reaches its centre.
+            active = null;
+            for (const card of cards) {
+              const circle = card.querySelector('.program-step__point')?.getBoundingClientRect();
+              if (circle && circle.top + circle.height / 2 <= focusY) active = card;
+            }
+            if (bounds.bottom <= 0) active = null;
+          }
+        }
+      }
       cards.forEach((card) => { card.dataset.scrollActive = card === active ? 'true' : 'false'; });
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const stopMotion = watchReducedMotion((value) => { reducedMotion = value; schedule(); });
+    const resizeObserver = new ResizeObserver(schedule);
+    resizeObserver.observe(node);
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
-    return { destroy() { window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
+    return { destroy() { stopMotion(); resizeObserver.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
   }
 
   /** @param {HTMLElement} node @param {string} value */
@@ -296,9 +318,22 @@
       left: var(--program-axis);
       top: 2.2rem;
       bottom: 2.2rem;
-      width: 2px;
+      width: 1px;
       transform: translateX(-50%);
-      background: #8cd0d6;
+      background: #e8e8f6;
+    }
+
+    .program-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: #4083a7;
+      transform: translateX(-50%) scaleY(var(--program-line-progress, 0));
+      transform-origin: top;
+      pointer-events: none;
     }
 
     .program-step {

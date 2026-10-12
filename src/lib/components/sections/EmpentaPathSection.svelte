@@ -170,7 +170,7 @@
   .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 400; }
   .path-clarification p + p { margin-top: .7rem; }
   .path-clarification strong { font-weight: 700; transition: color 260ms ease-out; }
-  @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } .path-clarification:hover strong { color: #245B7D; } }
+  @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } .path-clarification:hover strong { color: #4083a7; } }
   @media (max-width: 1048px) { .path-clarification { margin-inline: 1.5rem; } }
   @media (max-width: 767px) { .path-clarification { margin: 1.75rem 1.25rem 0; padding: 1.25rem; } }
   @media (prefers-reduced-motion: reduce) { .path-clarification, .path-clarification strong { transition: none; } }
