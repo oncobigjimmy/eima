@@ -114,7 +114,7 @@ const esProgram = {
     titlePrefix: '¿Cómo sé si',
     titleHighlight: 'este programa es para mí?',
     yesTitle: 'Esto encaja contigo si...',
-    noTitle: 'Esto quizá no sea lo que buscas si...',
+    noTitle: 'Quizá <strong>no</strong> sea lo que buscas si...',
     yesItems: [
       'Te han dicho que te iría bien hacer ejercicio, pero no sabes bien por dónde empezar.',
       'Te notas con menos fuerza, menos energía o más inseguridad desde el diagnóstico y los tratamientos.',
@@ -124,7 +124,8 @@ const esProgram = {
     noItems: [
       'Buscas únicamente sesiones presenciales puntuales, sin un programa de seguimiento.',
       'Prefieres que todo el ejercicio se haga acompañado presencialmente, sin realizar actividades por tu cuenta.',
-      'No quieres trabajar con un plan que se revise y adapte a lo largo de las semanas.'
+      'No quieres trabajar con un plan que se revise y adapte a lo largo de las semanas.',
+      'Esperas mejorar sin constancia, sin adaptación y sin revisar tus hábitos del día a día.'
     ]
   },
   doubtCta: {

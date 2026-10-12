@@ -119,7 +119,7 @@
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[18px] leading-[1.2] md:text-[22px] text-[#233F4E]">
+            <h3 class="fit-card__title text-[22px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
@@ -164,7 +164,7 @@
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[18px] leading-[1.2] md:text-[22px] text-[#233F4E]">
+            <h3 class="fit-card__title text-[22px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
@@ -194,7 +194,6 @@
 </section>
 
 <style>
-  @media (min-width: 1024px) and (max-width: 1199px) { .fit-card__title { font-size: 20px; } }
   .fit-card {
     overflow: hidden;
     position: relative;
@@ -271,6 +270,8 @@
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
   }
+
+  .fit-card__title :global(strong) { font-weight: 700 !important; }
 
   @media (min-width: 768px) {
   .fit-card:hover {

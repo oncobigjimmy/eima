@@ -108,8 +108,8 @@
   </div>
   {#if pageLanguage === 'es'}
     <aside class="path-clarification">
-      <p><strong>No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.</strong></p>
-      <p>Las cuatro etapas <strong>no son periodos fijos ni tienes que completarlas todas en 12 semanas.</strong> Avanzamos según cómo te encuentres, cómo respondes al ejercicio y qué objetivos quieras alcanzar.</p>
+      <p>No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.</p>
+      <p>Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. Avanzamos según cómo te encuentres, cómo respondes al ejercicio y qué objetivos quieras alcanzar.</p>
     </aside>
   {/if}
   <footer class="path-follow-up" bind:this={followUp} class:enhanced class:revealed={closingRevealed} class:flying={sectionVisible && closingRevealed} class:reached={!enhanced || closingRevealed}>
@@ -167,13 +167,13 @@
   .reached .path-stage-copy p { color: #f8f4f0; }
   .path-clarification { max-width: 1000px; margin: 2.75rem auto 0; padding: 1.75rem 2rem; border: 1px solid #8cd0d63d; border-radius: 9px; background: #245b7d; color: #f8f4f0; font-size: 16px; text-align: center; line-height: 1.65; transition: background-color 260ms ease-out, color 260ms ease-out; }
   .path-clarification p { margin: 0; }
-  .path-clarification p:first-child { font-size: 18px; }
+  .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 400; }
   .path-clarification p + p { margin-top: .7rem; }
-  .path-clarification strong { font-weight: 700; }
-  @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } }
+  .path-clarification strong { font-weight: 700; transition: color 260ms ease-out; }
+  @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } .path-clarification:hover strong { color: #245B7D; } }
   @media (max-width: 1048px) { .path-clarification { margin-inline: 1.5rem; } }
   @media (max-width: 767px) { .path-clarification { margin: 1.75rem 1.25rem 0; padding: 1.25rem; } }
-  @media (prefers-reduced-motion: reduce) { .path-clarification { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .path-clarification, .path-clarification strong { transition: none; } }
   .path-follow-up { max-width: 710px; text-align: center; margin: 2.75rem auto 0; padding: 1.5rem 1.5rem 0; border-top: 1px solid #4083a766; transition: opacity 600ms ease, transform 600ms ease; }
   .path-follow-up.enhanced:not(.revealed) { opacity: 0; transform: translateY(18px); }
   .path-follow-up h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 500; color: #f8f4f0; margin: 0; }

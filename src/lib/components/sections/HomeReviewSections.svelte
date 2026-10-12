@@ -284,12 +284,12 @@
   .situations .section-heading { max-width: 1072px; }
   .situations h2 { color: #fff; }
   .situations h2 :global(span) { color: #8cd0d6; }
-  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #e0e9ed; max-width: 1072px; font-size: 16px; }
+  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #e8f8e0; max-width: 1072px; font-size: 16px; }
   .situations-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
   .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transform-origin: center; transition: opacity 280ms ease, filter 280ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1), border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 6rem; line-height: 1; color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
   .situation-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
-  .situations-closing { color: #e0e9ed; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
+  .situations-closing { color: #e8f8e0; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
   .recovery h2 { color: #233f4e; }
   .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 26px; margin: 1.25rem auto 0; }
   .recovery-subtitle :global(strong) { font-family: inherit; font-weight: 500; }

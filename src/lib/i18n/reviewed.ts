@@ -7,7 +7,7 @@ export const homeSections = {
     posterFirst: 'Así funciona', posterMiddle: 'el programa', posterDescription: 'Qué ejercicio hacer, cuánto y cómo adaptarlo<br class="poster-desktop-break" /> durante y después del tratamiento.',
     peopleAlt: 'Jaume y Miquel, fisioterapeutas de EIMA SALUT', phoneAlt: 'Móvil con la agenda de ejercicios de la app del cliente', play: 'Conoce cómo funciona Empenta',
     situationTitle: '¿Te ves reflejado/a en alguna<br class="desktop-only-break" /> de <span>estas situaciones?</span>',
-    situationIntro: 'Quizá tu cuerpo ya no responde como antes, o <strong>tu oncólogo/a te ha recomendado moverte</strong>, pero no sabes qué hacer ni cuánto.',
+    situationIntro: 'Quizá tu cuerpo ya no responde como antes, o <strong><span style="color: #8cd0d6;">tu oncólogo/a</span> te ha recomendado moverte</strong>, pero no sabes qué hacer ni cuánto.',
     situations: ['“Nunca he hecho ejercicio y no sabría por dónde empezar.”', '“Ya hago ejercicio, pero no sé cómo adaptarlo ahora al tratamiento.”', '“Quiero moverme, pero la fatiga, el dolor o el miedo a pasarme me frenan.”'],
     situationClosing: 'Sea cual sea tu punto de partida, primero necesitamos entender tu situación.',
     recoveryTitle: '¿Qué queremos que <span>consigas?</span>', recoverySubtitle: '<strong>Las <span class="brush-accent">3R</span> de tu progreso</strong>',
