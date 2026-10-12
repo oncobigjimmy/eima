@@ -177,12 +177,12 @@
   .path-clarification:global(.scroll-reading) { background: #f8f4f0; color: #233f4e; }
   .path-clarification:global(.scroll-reading) strong { color: #4083a7; }
   .path-clarification p { margin: 0; }
-  .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 400; }
+  .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 500; }
   .path-clarification p + p { margin-top: .7rem; }
   .path-clarification strong { font-weight: 700; transition: color 260ms ease-out; }
   @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } .path-clarification:hover strong { color: #4083a7; } }
   @media (max-width: 1048px) { .path-clarification { margin-inline: 1.5rem; } }
-  @media (max-width: 767px) { .path-clarification { margin: 1.75rem 1.25rem 0; padding: 1.25rem; } }
+  @media (max-width: 767px) { .path-clarification { margin: 1.75rem 1.25rem 0; padding: 1.25rem; font-size: 15px; } .path-clarification p:first-child { line-height: 1.25; } }
   @media (prefers-reduced-motion: reduce) { .path-clarification, .path-clarification strong { transition: none; } }
   .path-follow-up { max-width: 710px; text-align: center; margin: 2.75rem auto 0; padding: 1.5rem 1.5rem 0; border-top: 1px solid #4083a766; transition: opacity 600ms ease, transform 600ms ease; }
   .path-follow-up.enhanced:not(.revealed) { opacity: 0; transform: translateY(18px); }
@@ -218,13 +218,13 @@
     .path-track:not(.enhanced)::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(1.25rem + 38px); border-left: 2px dashed #8cd0d6; }
     .path-track:not(.enhanced) .path-line { display: none; }
     .path-stages { grid-template-columns: 1fr; padding: 1rem 1.25rem; gap: 1.75rem; }
-    li, li:nth-child(even) { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 1.25rem; align-items: center; padding-top: 0; text-align: left; min-height: 104px; }
+    li, li:nth-child(even) { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: .75rem; align-items: center; padding-top: 0; text-align: left; min-height: 104px; }
     .path-circle { width: 76px; height: 76px; margin: 0; }
     .path-circle span { font-size: 34px; }
     .path-stage-copy { margin-top: 0; }
-    .path-stage-copy h3, .follow-up-label { font-size: 25px; }
-    .stage-initial { font-size: 36px; }
-    .path-stage-copy p { margin: .5rem 0 0; max-width: none; }
+    .path-stage-copy h3 { font-size: 30px; } .follow-up-label { font-size: 25px; }
+    .stage-initial { font-size: 40px; }
+    .path-stage-copy p { margin: .5rem 0 0; max-width: none; font-size: 15px; }
     .path-follow-up { margin: 1.5rem 1.25rem 0; padding-inline: 0; }
   }
   @media (prefers-reduced-motion: reduce) {

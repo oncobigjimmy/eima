@@ -9,10 +9,10 @@ export const empentaPathCopy: Record<Language, {
     before: 'El ', accent: 'camino', after: ' que seguiremos ', endingAccent: 'contigo',
     subtitle: 'Los cinco pasos anteriores explican cómo trabajaremos contigo. <strong>Estas <span class="path-etapas-accent">4 etapas</span> muestran<br class="path-desktop-break" /> cómo iremos progresando con el ejercicio a lo largo del programa.</strong>',
     stages: [
-      { title: 'Arranca', description: 'Damos los primeros pasos adaptándonos<br class="path-desktop-break" /> a cómo te encuentras.' },
-      { title: 'Construye', description: 'Creamos una base de fuerza y confianza para seguir avanzando.' },
-      { title: 'Desarrolla', description: 'Avanzamos hacia las actividades que quieres recuperar o mantener.' },
-      { title: 'Consolida', description: 'Reforzamos lo conseguido para mantenerte activo con más autonomía.' }
+      { title: 'Arranca', description: 'Damos los primeros pasos<br class="path-mobile-break" /> adaptándonos<br class="path-desktop-break" /> a cómo<br class="path-mobile-break" /> te encuentras.' },
+      { title: 'Construye', description: 'Creamos una base de<br class="path-mobile-break" /> fuerza y confianza para<br class="path-mobile-break" /> seguir avanzando.' },
+      { title: 'Desarrolla', description: 'Avanzamos hacia las<br class="path-mobile-break" /> actividades que quieres<br class="path-mobile-break" /> recuperar o mantener.' },
+      { title: 'Consolida', description: 'Reforzamos lo conseguido<br class="path-mobile-break" /> para mantenerte activo<br class="path-mobile-break" /> con más autonomía.' }
     ],
     next: '¿Y después?', followUp: 'Seguimiento',
     closing: 'Si quieres seguir contando con nosotros,<br class="path-mobile-break" /> podremos valorar un seguimiento<br />adaptado a ti para continuar cuidando<br class="path-mobile-break" /> y mejorando tu salud.'

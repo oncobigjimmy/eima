@@ -262,8 +262,8 @@
     .program-hero-copy { width: fit-content; max-width: 42rem; }
     .program-hero-description, .program-hero-cta { width: 100%; }
   }
-  .hero-typed-line { min-height: 2.04em; }
-  @media (min-width: 768px) { .hero-typed-line { min-height: 1.02em; } }
+  .hero-typed-line { min-height: 2.04em; display: flex; align-items: flex-end; }
+  @media (min-width: 768px) { .hero-typed-line { min-height: 1.02em; display: block; } }
   .typed-underscore {
     display: inline-block;
     margin-left: 0.02em;
