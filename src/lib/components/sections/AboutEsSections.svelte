@@ -144,7 +144,7 @@
 
 <section class="about-origin" aria-labelledby="origin-title">
   <div class="about-container origin-container">
-    <h2 id="origin-title" class="section-playfair-desktop" class:origin-title-es={pageLanguage === 'es'}>{@html ui.originTitle}</h2>
+    <h2 id="origin-title" class="section-playfair-desktop origin-title-mobile">{@html ui.originTitle}</h2>
     <p class="origin-intro origin-fade mobile-copy-14" use:reveal>{@html ui.intro}</p>
     <div class="origin-grid hover-dim-group">
       {#each originCards as card, index}
@@ -186,7 +186,7 @@
 
 <style>
   .about-intro { background: #233f4e; padding: clamp(6rem, 9vw, 8rem) 1.5rem clamp(3rem, 5vw, 4.75rem); }
-  @media (min-width: 1024px) { .about-intro { padding-top: 102px; } }
+  @media (min-width: 1024px) { .about-intro { padding-top: 102px; padding-bottom: calc(clamp(3rem, 5vw, 4.75rem) + 20px); } }
   .about-closing { background: #f8f4f0; }
   .about-container { max-width: 1120px; margin: auto; }
   .about-title, .about-origin h2, .closing-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; line-height: 1.1; }
@@ -216,7 +216,7 @@
   .team-person--right span { top: max(1px, calc(13.1% - 47px)); left: 41.2%; }
   .team-person:hover span, .team-person:focus-visible span { opacity: 1; transform: translate(-50%, 0); }
   .team-photo:has(.team-person--left:hover, .team-person--left:focus-visible) .team-photo-person--right,
-  .team-photo:has(.team-person--right:hover, .team-person--right:focus-visible) .team-photo-person--left { filter: blur(3.5px); }
+  .team-photo:has(.team-person--right:hover, .team-person--right:focus-visible) .team-photo-person--left { filter: blur(2.7px); }
   .team-hint { position: absolute; top: 100%; width: 100%; margin-top: .8rem; color: #e4edef; font-size: 14px; font-style: italic; text-align: center; }
   .dictionary-wrap { width: 100%; }
   .dictionary-card { overflow: hidden; background: #f8f4f0; border-radius: 10px; border: 1px solid #f8f4f080; padding: clamp(1.5rem, 2.5vw, 2rem); transition: background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out; }
@@ -281,9 +281,9 @@
   .closing-photo { width: 100%; height: 100%; min-height: 400px; object-fit: cover; }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .origin-card:hover { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 10px 24px #08121829, 0 3px 8px #0812181f; text-shadow: none; }
-    .origin-card:hover .origin-number { color: #233f4e; }
-    .origin-card:hover h3 { color: #245b7d; }
-    .origin-card:hover p, .origin-card:hover :global(strong) { color: #245b7d; }
+    .origin-card:hover .origin-number { color: #245b7d; }
+    .origin-card:hover h3 { color: #233f4e; }
+    .origin-card:hover p, .origin-card:hover :global(strong) { color: #233f4e; }
     .origin-grid:global(.hover-dim-group):has(> .origin-card:hover) > .origin-card:not(:hover):not(:global(.will-reveal)) { opacity: .8; filter: blur(.6px); }
   }
   @media (hover: none), (pointer: coarse) {
@@ -300,14 +300,14 @@
   @media (max-width: 767px) {
     .about-intro { overflow-x: clip; }
     :global(.about-mobile-break) { display: initial; }
-    .about-intro:not(.about-intro--translated) .about-title { font-size: 32px; }
-    .origin-title-es :global(span) { display: block; }
+    .about-intro .about-title { font-size: 32px; }
+    .origin-title-mobile :global(span) { display: block; }
     .team-hint { font-size: clamp(11px, 3.3vw, 14px); }
     .origin-card h3.origin-card-title--first { font-size: clamp(12px, calc(8.5vw - 15px), 18px); }
     .origin-card-title--first .origin-card-title-line { display: inline; }
     .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 10px 24px #08121829, 0 3px 8px #0812181f; text-shadow: none; }
-    .origin-card:global(.scroll-active) .origin-number { color: #233f4e; }
-    .origin-card:global(.scroll-active) h3, .origin-card:global(.scroll-active) p, .origin-card:global(.scroll-active) :global(strong) { color: #245b7d; }
+    .origin-card:global(.scroll-active) .origin-number { color: #245b7d; }
+    .origin-card:global(.scroll-active) h3, .origin-card:global(.scroll-active) p, .origin-card:global(.scroll-active) :global(strong) { color: #233f4e; }
     .dictionary-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); }
     .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: scale(1.02); text-shadow: 0 1px 3px #071a2566, 0 4px 12px #071a2540; }
     .dictionary-card:global(.scroll-active) .dictionary-word, .dictionary-card:global(.scroll-active) .dictionary-meta, .dictionary-card:global(.scroll-active) .dictionary-definitions { color: white; }

@@ -332,6 +332,7 @@
                 <section>
                   <h3
                     class="story-section-heading section-title-mobile text-[25px] leading-[1.2] text-[#4083A7]"
+                    class:jaume-story-heading={activeProfile.id === 'jaume'}
                   >
                     {section.title}
                   </h3>
@@ -522,6 +523,8 @@
   .story-journey-title span { color: #4083a7; font-family: inherit; }
   @media (min-width: 1024px) { .story-journey-title { font-size: 60px; } }
 
+  @media (min-width: 1024px) { .profile-card { width: 100%; max-width: 900px; margin-inline: auto; } }
+
   .profile-card {
     overflow: hidden;
     border-radius: 8px;
@@ -646,7 +649,7 @@
 
   .readings-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     align-items: start;
   }
@@ -950,7 +953,7 @@
   }
 
   .story-person.inactive-person {
-    filter: blur(3px) saturate(0.7);
+    filter: blur(2.3px) saturate(0.7);
     opacity: 0.38;
     transform: scale(1.08);
   }
@@ -1001,12 +1004,13 @@
     .story-profile-name { font-size: 30px; }
     .story-profile-specialty { font-size: 16px; line-height: 1.4; }
     .story-section-heading { font-size: 22px; }
+    .story-section-heading.jaume-story-heading { font-size: 24px !important; }
 
     .education-item:global(.scroll-active) p { transform: scale(1.06); }
     .education-item:global(.scroll-active) .education-dot { transform: scale(1.55); }
     .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: scale(1.13); }
     .education-timeline:has(.education-item:global(.scroll-active)) .education-item:not(:global(.scroll-active)),
-    .education-timeline:has(.education-item:global(.scroll-active)) .education-year-block:not(:has(.education-item:global(.scroll-active))) > .education-year { opacity: .5; filter: blur(.7px); }
+    .education-timeline:has(.education-item:global(.scroll-active)) .education-year-block:not(:has(.education-item:global(.scroll-active))) > .education-year { opacity: .5; filter: blur(.54px); }
 
     .reading-card:global(.scroll-active) {
       background: #4083a7;
@@ -1018,7 +1022,7 @@
     .reading-card:global(.scroll-active) .reading-author { color: #e8e8f6; }
     .reading-card:global(.scroll-active) h4, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
     .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
-    .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: blur(1px); }
+    .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: blur(.77px); }
 
     .story-title {
       font-size: 2.35rem;

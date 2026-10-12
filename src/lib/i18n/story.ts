@@ -63,7 +63,7 @@ const caProfiles = [
         paragraphs: [
           'El clic definitiu va arribar quan vaig escoltar una entrevista a l’investigador Thomas Seyfried: allà vaig veure amb claredat el paper del metabolisme en la salut. Des de llavors aprenc dia a dia dels millors professionals que treballen amb aquest enfocament, per nodrir-me dels seus coneixements i aplicar-los als meus pacients.',
           'Eima Salut neix amb un objectiu clar: filtrar el renou. Condensam la informació dels majors experts i la transformam en accions clares perquè tenguis el teu full de ruta ben definit, sense perdre mesos entre dubtes i consells contradictoris.',
-          'La meva missió és que tota persona que passi per Eima Salut sigui conscient de tot el que el seu cos pot fer per millorar la seva salut.'
+          'La meva missió és que tota persona que passi per Eima Salut entengui què pot fer per la seva salut, fins i tot quan el càncer i els seus tractaments li posen les coses difícils.'
         ]
       }
     ],
@@ -119,7 +119,7 @@ const caProfiles = [
     readingsTitle: 'Les meves lectures',
     readings: [
       'Explain Pain — Lorimer Moseley (acabat)',
-      'Aches & Pains — Luis Gifford (acabat)',
+      'Aches & Pains — Louis Gifford (acabat)',
       'Medio ambiente y salud — Carme Valls-Llobet (acabat)',
       'El ejercicio: Un muro contra el cáncer — Adrián Castillo, Javier Morales i Pedro Valenzuela (acabat)',
       'La Enciclopedia del Cáncer: Metabolismo, Sistema Inmune y Microbiota — Alfonso Fernández (Cáncer Integral) (en curs)',
@@ -297,7 +297,7 @@ const enProfiles = [
         paragraphs: [
           'The definitive turning point came when I listened to an interview with researcher Thomas Seyfried: that is when I clearly saw the role of metabolism in health. Since then, I have been learning day by day from some of the best professionals working with this approach, absorbing their knowledge and applying it with my patients.',
           'Eima Salut was born with a clear goal: to filter out the noise. We condense information from leading experts and transform it into clear actions so that you have a well-defined roadmap, without losing months among doubts and contradictory advice.',
-          'My mission is for every person who comes to Eima Salut to become aware of everything their body can do to improve their health.'
+          'My mission is for every person who comes to Eima Salut to understand what they can do for their health, even when cancer and its treatments make things difficult.'
         ]
       }
     ],
@@ -353,7 +353,7 @@ const enProfiles = [
     readingsTitle: 'My reading',
     readings: [
       'Explain Pain — Lorimer Moseley (finished)',
-      'Aches & Pains — Luis Gifford (finished)',
+      'Aches & Pains — Louis Gifford (finished)',
       'Environment and Health — Carme Valls-Llobet (finished)',
       'Exercise: A Wall Against Cancer — Adrián Castillo, Javier Morales and Pedro Valenzuela (finished)',
       'The Cancer Encyclopedia: Metabolism, Immune System and Microbiota — Alfonso Fernández (Cáncer Integral) (in progress)',

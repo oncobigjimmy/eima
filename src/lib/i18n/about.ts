@@ -117,9 +117,9 @@ const esAbout = {
     middle: 'también necesita',
     accentTwo: 'tiempo.',
     paragraphs: [
-      'Creamos <strong>Eima Salut</strong> para personas que <strong>no quieren que la vida quede en pausa</strong> durante el tratamiento.',
-      'Personas que quieren seguir haciendo lo que está en su mano para recuperar energía, moverse con más seguridad y <strong>vivir más, sí, pero sobre todo vivir mejor.</strong>',
-      'Por eso trabajamos de forma <strong>online</strong>: porque sabemos que el cansancio, las citas médicas y la vida diaria ya ocupan demasiado espacio. Nuestro papel es ayudarte a cuidar tu salud <strong>sin añadir más carga a tu día a día.</strong>'
+      'Creamos <strong style="color: #4083A7;">Eima Salut</strong> para personas que <strong>no quieren que la vida quede en pausa</strong> y desean seguir cuidándose durante y después del cáncer, sin que el ejercicio se convierta en una carga más.',
+      'Por eso <strong>combinamos una primera valoración en casa con un seguimiento online</strong>: sabemos que el cansancio, las citas médicas y la vida diaria ya ocupan demasiado espacio.',
+      'Así podemos adaptar el ejercicio <strong>sin añadir desplazamientos innecesarios ni más carga a tu día a día.</strong>'
     ],
     cta: 'Cuéntanos tu caso'
   }
@@ -233,9 +233,9 @@ const caAbout = {
     middle: 'també necessita',
     accentTwo: 'temps.',
     paragraphs: [
-      'Cream <strong>Eima Salut</strong> per a persones que <strong>no volen que la vida quedi en pausa</strong> durant el tractament.',
-      'Persones que volen continuar fent el que està a les seves mans per recuperar energia, moure’s amb més seguretat i <strong>viure més, sí, però sobretot viure millor.</strong>',
-      'Per això treballam de forma <strong>online</strong>: perquè sabem que el cansament, les cites mèdiques i la vida diària ja ocupen massa espai. El nostre paper és ajudar-te a cuidar la teva salut <strong>sense afegir més càrrega al teu dia a dia.</strong>'
+      'Cream <strong style="color: #4083A7;">Eima Salut</strong> per a persones que <strong>no volen que la vida quedi en pausa</strong> i volen continuar cuidant-se durant i després del càncer, sense que l’exercici es converteixi en una càrrega més.',
+      'Per això <strong>combinam una primera valoració a casa amb un seguiment online</strong>: sabem que el cansament, les cites mèdiques i la vida diària ja ocupen massa espai.',
+      'Així podem adaptar l’exercici <strong>sense afegir desplaçaments innecessaris ni més càrrega al teu dia a dia.</strong>'
     ],
     cta: 'Explica’ns el teu cas'
   }
@@ -370,9 +370,9 @@ const enAbout = {
     middle: 'also needs',
     accentTwo: 'time.',
     paragraphs: [
-      'We created <strong>Eima Salut</strong> for people who <strong>do not want life to be put on hold</strong> during treatment.',
-      'People who want to keep doing what is within their power to rebuild energy, move with more confidence and <strong>live longer — but above all, live better.</strong>',
-      'That is why we work <strong>online</strong>: because we know that fatigue, medical appointments and daily life already take up too much space. Our role is to help you take care of your health <strong>without adding more burden to your day-to-day life.</strong>'
+      'We created <strong style="color: #4083A7;">Eima Salut</strong> for people who <strong>do not want life to be put on hold</strong> and want to keep looking after themselves during and after cancer, without exercise becoming another burden.',
+      'That is why <strong>we combine an initial assessment at home with online follow-up</strong>: we know that fatigue, medical appointments and daily life already take up too much space.',
+      'This lets us adapt exercise <strong>without adding unnecessary journeys or more burden to your daily life.</strong>'
     ],
     cta: 'Tell us what’s going on'
   }

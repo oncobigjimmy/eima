@@ -25,7 +25,7 @@ export const storyProfiles = [
         paragraphs: [
           'El clic definitivo llegó cuando escuché una entrevista al investigador Thomas Seyfried: ahí vi con claridad el papel del metabolismo en la salud. Desde entonces aprendo día a día de los mejores profesionales que trabajan con este enfoque, para nutrirme de sus conocimientos y aplicarlo en mis pacientes.',
           'Eima Salut nace con un objetivo claro: filtrar el ruido. Condensamos la información de los mayores expertos y la transformamos en acciones claras para que tengas tu hoja de ruta bien definida, sin perder meses entre dudas y consejos contradictorios.',
-          'Mi misión es que toda persona que pase por Eima Salut sea consciente de todo lo que su cuerpo puede hacer para mejorar su salud.'
+          'Mi misión es que toda persona que pase por Eima Salut entienda qué puede hacer por su salud, incluso cuando el cáncer y sus tratamientos le ponen las cosas difíciles.'
         ]
       }
     ],
@@ -81,8 +81,8 @@ export const storyProfiles = [
     readingsTitle: 'Mis lecturas',
     readings: [
       'Explain Pain — Lorimer Moseley ✔️',
-      'Aches & Pains 1 — Luis Gifford ✔️',
-      'Aches & Pains 2-3 — Luis Gifford (en curso)',
+      'Aches & Pains 1 — Louis Gifford ✔️',
+      'Aches & Pains 2-3 — Louis Gifford (en curso)',
       'Medio ambiente y salud: Mujeres y hombres en un mundo de nuevos riesgos — Carme Valls-Llobet ✔️',
       'El ejercicio, un muro contra el cáncer — Adrián Castillo, Javier Morales y Pedro Valenzuela ✔️',
       'La Enciclopedia del Cáncer: Metabolismo, Sistema Inmune y Microbiota — Cáncer Integral (en curso)',

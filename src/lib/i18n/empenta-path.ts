@@ -4,8 +4,11 @@ export const empentaPathCopy: Record<Language, {
   before: string; accent: string; after: string; endingAccent: string; subtitle: string;
   stages: { title: string; description: string }[];
   next: string; followUp: string; closing: string;
+  clarificationTitle: string; clarificationBody: string;
 }> = {
   es: {
+    clarificationTitle: 'No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.',
+    clarificationBody: 'Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. Avanzamos según cómo te encuentres, cómo respondes al ejercicio y qué objetivos quieras alcanzar.',
     before: 'El ', accent: 'camino', after: ' que seguiremos ', endingAccent: 'contigo',
     subtitle: 'Los cinco pasos anteriores explican cómo trabajaremos contigo. <strong>Estas <span class="path-etapas-accent">4 etapas</span> muestran<br class="path-desktop-break" /> cómo iremos progresando con el ejercicio a lo largo del programa.</strong>',
     stages: [
@@ -18,25 +21,29 @@ export const empentaPathCopy: Record<Language, {
     closing: 'Si quieres seguir contando con nosotros,<br class="path-mobile-break" /> podremos valorar un seguimiento<br />adaptado a ti para continuar cuidando<br class="path-mobile-break" /> y mejorando tu salud.'
   },
   ca: {
+    clarificationTitle: 'No tots començam des del mateix lloc ni avançam al mateix ritme.',
+    clarificationBody: 'Les quatre etapes <strong>no són períodes fixos</strong> ni les has de completar totes en 12 setmanes. Avançam segons com et trobes, com respons a l’exercici i quins objectius vols assolir.',
     before: 'El ', accent: 'camí', after: ' que seguirem ', endingAccent: 'amb tu',
-    subtitle: 'El teu camí, al teu ritme. Nosaltres et donam <strong>l’empenta</strong> que necessites per seguir avançant.',
+    subtitle: 'Les cinc passes anteriors expliquen com treballarem amb tu. <strong>Aquestes <span class="path-etapas-accent">4 etapes</span> mostren<br class="path-desktop-break" /> com anirem progressant amb l’exercici al llarg del programa.</strong>',
     stages: [
-      { title: 'Arrenca', description: 'Feim les primeres passes adaptant-nos a com et trobes.' },
-      { title: 'Construeix', description: 'Cream una base de força i confiança per seguir avançant.' },
-      { title: 'Desenvolupa', description: 'Avançam cap a les activitats que vols recuperar o mantenir.' },
-      { title: 'Consolida', description: 'Reforçam el que has aconseguit per mantenir-te actiu amb més autonomia.' }
+      { title: 'Arrenca', description: 'Feim les primeres passes<br class="path-mobile-break" /> adaptant-nos a com<br class="path-mobile-break" /> et trobes.' },
+      { title: 'Construeix', description: 'Cream una base de<br class="path-mobile-break" /> força i confiança per<br class="path-mobile-break" /> seguir avançant.' },
+      { title: 'Desenvolupa', description: 'Avançam cap a les<br class="path-mobile-break" /> activitats que vols<br class="path-mobile-break" /> recuperar o mantenir.' },
+      { title: 'Consolida', description: 'Reforçam el que has<br class="path-mobile-break" /> aconseguit per mantenir-te<br class="path-mobile-break" /> actiu amb més autonomia.' }
     ],
     next: 'I després?', followUp: 'Seguiment',
     closing: 'Si vols seguir comptant amb nosaltres, podrem valorar un seguiment<br />adaptat a tu per continuar cuidant i millorant la teva salut.'
   },
   en: {
+    clarificationTitle: 'We don’t all start from the same place or progress at the same pace.',
+    clarificationBody: 'The four stages <strong>are not fixed periods</strong> and you do not have to complete them all in 12 weeks. We progress according to how you feel, how you respond to exercise and the goals you want to achieve.',
     before: 'The ', accent: 'path', after: ' we’ll follow ', endingAccent: 'together',
-    subtitle: 'Your path, at your pace. We give you <strong>the encouragement</strong> you need to keep moving forward.',
+    subtitle: 'The five steps above explain how we’ll work with you. <strong>These <span class="path-etapas-accent">4 stages</span> show<br class="path-desktop-break" /> how we’ll progress with exercise throughout the programme.</strong>',
     stages: [
-      { title: 'Begin', description: 'We take the first steps, adapting to how you feel.' },
-      { title: 'Build', description: 'We build a foundation of strength and confidence to keep moving forward.' },
-      { title: 'Develop', description: 'We work towards the activities you want to regain or maintain.' },
-      { title: 'Consolidate', description: 'We reinforce your progress so you can stay active with more independence.' }
+      { title: 'Begin', description: 'We take the first steps,<br class="path-mobile-break" /> adapting to<br class="path-mobile-break" /> how you feel.' },
+      { title: 'Build', description: 'We build a foundation<br class="path-mobile-break" /> of strength and confidence<br class="path-mobile-break" /> to keep moving forward.' },
+      { title: 'Develop', description: 'We work towards the<br class="path-mobile-break" /> activities you want<br class="path-mobile-break" /> to regain or maintain.' },
+      { title: 'Consolidate', description: 'We reinforce your progress<br class="path-mobile-break" /> so you can stay active<br class="path-mobile-break" /> with more independence.' }
     ],
     next: 'What comes next?', followUp: 'Follow-up',
     closing: 'If you’d like to keep working with us, we can discuss follow-up support<br />adapted to you so you can keep caring for and improving your health.'

@@ -4,9 +4,6 @@
   import { language } from '$lib/i18n/language';
 
   $: pathname = $page.url.pathname;
-  $: isHome = ['/', '/ca', '/ca/', '/en', '/en/'].includes(pathname);
-  $: isProgram = ['/como-funciona', '/ca/com-funciona', '/en/how-it-works'].includes(pathname.replace(/\/$/, ''));
-  $: compactShortcut = isHome || isProgram;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: currentLanguage = isBlog ? 'es' : $language;
   $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
@@ -17,7 +14,7 @@
         ? 'Obrir WhatsApp'
         : 'Abrir WhatsApp';
 
-  // Keep the mobile Home shortcut clear of nearby interactive controls.
+  // Keep the mobile shortcut clear of nearby interactive controls.
   /** @param {HTMLElement} node @param {boolean} enabled */
   function avoidControls(node, enabled) {
     let frame = 0;
@@ -62,8 +59,7 @@
   target="_blank"
   rel="noopener noreferrer"
   aria-label={whatsappLabel}
-  class:home-whatsapp={compactShortcut}
-  use:avoidControls={compactShortcut}
+  use:avoidControls={true}
   class="floating-whatsapp fixed bottom-4 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_rgba(14,29,38,0.22)] transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.04] hover:shadow-[0_18px_34px_rgba(14,29,38,0.28)] md:bottom-5 md:right-5"
 >
   <span class="sr-only">{whatsappLabel}</span>
@@ -76,7 +72,7 @@
 
 <style>
   @media (max-width: 767.98px) {
-    .home-whatsapp { width: 48px; height: 48px; right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); }
-    .home-whatsapp svg { width: 28px; height: 28px; }
+    .floating-whatsapp { width: 48px; height: 48px; right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); }
+    .floating-whatsapp svg { width: 28px; height: 28px; }
   }
 </style>

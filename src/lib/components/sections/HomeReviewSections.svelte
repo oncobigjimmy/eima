@@ -3,7 +3,7 @@
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import type { Language } from '$lib/i18n/copy';
   import { homeSections } from '$lib/i18n/reviewed';
-  import { getRoutePath } from '$lib/i18n/routes';
+  import { getRoutePath, getProgramStepsHash } from '$lib/i18n/routes';
   import { homeVideoEs } from '$lib/data/home-es';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
@@ -141,7 +141,7 @@
   <button class="video-notice-close" type="button" aria-label={noticeCopy.close} on:click={() => videoNotice.close()}>×</button>
   <h2 id="video-notice-title">{noticeCopy.title}</h2>
   <p id="video-notice-description">{#if pageLanguage === 'es'}En unos días volveremos a subir el vídeo debido a<br class="notice-desktop-break" /> problemas técnicos. Disculpa las molestias.{:else}{noticeCopy.body}{/if}</p>
-  <PrimaryCta href={getRoutePath('program', pageLanguage) + '#program-steps'} label={noticeCopy.cta} />
+  <PrimaryCta href={getRoutePath('program', pageLanguage) + '#' + getProgramStepsHash(pageLanguage)} label={noticeCopy.cta} />
 </dialog>
 
 <section class="vsl section-space" aria-labelledby="vsl-title">

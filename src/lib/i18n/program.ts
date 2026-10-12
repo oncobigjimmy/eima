@@ -739,10 +739,22 @@ export function getProgramCopy(language: Language) {
       srTitle: language === 'ca'
         ? 'Més força, menys efectes secundaris i més vitalitat durant i després del càncer'
         : 'More strength, fewer side effects and more vitality during and after cancer',
-      ...(language === 'en' ? {
-        desktopParagraph: ['We help people with cancer regain their vitality', 'and reduce the impact of side effects on daily life', 'with our <strong class="font-semibold">12-week programme</strong>.'],
-        mobileParagraph: 'We help people with cancer regain their vitality and reduce the impact of side effects on daily life with our <strong class="font-semibold">12-week programme</strong>.'
-      } : {})
+      ...review.hero
+    },
+    fit: {
+      ...copy.fit,
+      noTitle: review.fit.noTitle,
+      yesItems: copy.fit.yesItems.map((item, index) => index === 3 ? review.fit.positiveLast : item),
+      noItems: review.fit.noItems
+    },
+    faq: {
+      ...copy.faq,
+      faqs: copy.faq.faqs.map((faq, index) => ({
+        ...faq,
+        ...(faq.cta ? { cta: review.hero.cta } : {}),
+        a: index === 6 ? [...faq.a.slice(0, 2), review.medicalNote, ...faq.a.slice(2)]
+          : index === 7 ? faq.a.map(paragraph => paragraph.replace(review.oldTiming, review.newTiming)) : faq.a
+      }))
     },
     steps: {
       ...copy.steps, intro: review.intro, badge: review.badge, sideParagraphs: [review.side],
