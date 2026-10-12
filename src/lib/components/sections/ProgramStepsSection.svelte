@@ -152,7 +152,7 @@
                 </h3>
                 <p
                   use:htmlContent={step.body}
-                  class="mt-3 text-[16px] font-light leading-[1.65] text-[#245B7D]"
+                  class="mt-3 text-[15px] font-light leading-[1.65] text-[#245B7D]"
                 ></p>
                 </div>
               </div>

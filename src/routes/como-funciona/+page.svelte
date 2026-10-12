@@ -174,7 +174,8 @@
       <span class="mt-1 block text-5xl font-bold text-white md:text-[5rem]">{hero.line2}</span>
     </div>
 
-    <div class={`max-w-3xl text-[15px] font-light leading-relaxed text-white/96 md:text-[1.08rem] mt-8`}>
+    <div class="program-hero-copy">
+    <div class={`program-hero-description max-w-3xl text-[15px] font-light leading-relaxed text-white/96 md:text-[1.08rem] mt-8`}>
       <p class="hidden md:block">
         {#each hero.desktopParagraph as line, index}
           <span use:htmlContent={line}></span>
@@ -186,6 +187,7 @@
 
     <div class="program-hero-cta mt-10 flex flex-col items-center gap-4">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} shadowless />
+    </div>
     </div>
   </div>
 </section>
@@ -257,7 +259,8 @@
   }
 
   @media (min-width: 768px) {
-    .program-hero-cta { max-width: 48rem; }
+    .program-hero-copy { width: fit-content; max-width: 42rem; }
+    .program-hero-description, .program-hero-cta { width: 100%; }
   }
   .hero-typed-line { min-height: 2.04em; }
   @media (min-width: 768px) { .hero-typed-line { min-height: 1.02em; } }

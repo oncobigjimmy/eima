@@ -37,12 +37,8 @@
 
 <section class="program-fit-section bg-[#f8f4f0] pb-10 pt-9 md:pb-14 md:pt-12">
   <div class="mx-auto mb-8 max-w-4xl px-6 text-center md:mb-10 md:px-10">
-    <p class="mobile-copy-14 text-[16px] font-normal leading-relaxed text-[#233F4E]/78">
-      {fitCopy.eyebrow}
-    </p>
-
     <h2
-      class={`program-fit-title mx-auto mt-3 max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[48px] section-playfair-desktop`}
+      class={`program-fit-title mx-auto max-w-[22rem] font-display-serif text-[33px] font-medium leading-[1.04] tracking-[0] text-[#233F4E] md:max-w-none md:text-[48px] section-playfair-desktop`}
       style="font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;"
     >
       <span class="md:hidden">
@@ -123,7 +119,7 @@
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[18px] leading-[1.2] text-[#233F4E]">
+            <h3 class="fit-card__title text-[18px] leading-[1.2] md:text-[22px] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
@@ -168,7 +164,7 @@
           </div>
 
           <div>
-            <h3 class="fit-card__title text-[18px] leading-[1.2] text-[#233F4E]">
+            <h3 class="fit-card__title text-[18px] leading-[1.2] md:text-[22px] text-[#233F4E]">
               <span
                 class="font-display-serif"
                 style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
@@ -198,6 +194,7 @@
 </section>
 
 <style>
+  @media (min-width: 1024px) and (max-width: 1199px) { .fit-card__title { font-size: 20px; } }
   .fit-card {
     overflow: hidden;
     position: relative;

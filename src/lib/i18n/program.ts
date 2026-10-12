@@ -43,11 +43,12 @@ const esProgram = {
     eyebrow: '',
     srTitle:
       'Más fuerza, menos efectos secundarios y más vitalidad durante y después del cáncer',
-    phrases: ['Más vitalidad.', 'Más fuerza.', 'Menos efectos secundarios.'],
+    phrases: ['Más vitalidad', 'Más fuerza', 'Menos efectos secundarios'],
     line1: 'durante y después',
     line2: 'del cáncer',
     desktopParagraph: [
-      'Te acompañamos <strong class="font-semibold">durante 12 semanas</strong> con un programa de ejercicio adaptado a tu situación, tus tratamientos y tus objetivos.'
+      'Te acompañamos <strong class="font-semibold">durante 12 semanas</strong> con un programa de',
+      'ejercicio adaptado a tu situación, tus tratamientos y tus objetivos.'
     ],
     mobileParagraph:
       'Te acompañamos <strong class="font-semibold">durante 12 semanas</strong> con un programa de ejercicio adaptado a tu situación, tus tratamientos y tus objetivos.',
@@ -60,7 +61,7 @@ const esProgram = {
       'Un proceso para que no tengas que improvisar <strong>qué hacer, cuánto hacer ni cómo saber si lo estás haciendo bien.</strong>',
     badge: 'Valoración + plan + seguimiento',
     sideParagraphs: [
-      '<strong>Empenta es un programa de acompañamiento de 12 semanas.</strong> Pero eso no significa que tengas que avanzar al mismo ritmo que otra persona.<br /><br />Adaptamos el ejercicio a <strong>tu punto de partida, tu evolución y tus objetivos.</strong>',
+      '<strong style="color: #4083a7;">Empenta</strong> es un programa de <strong>acompañamiento de 12 semanas.</strong> Pero eso no significa que tengas que avanzar al mismo ritmo que otra persona.<br /><br />Adaptamos el ejercicio a <strong>tu punto de partida, tu evolución y tus objetivos.</strong>',
       'Donde valoramos tu punto de partida, diseñamos un plan progresivo y lo adaptamos según cómo vas evolucionando.'
     ],
     items: [
