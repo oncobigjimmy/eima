@@ -110,10 +110,10 @@
       <div class="fit-card__inner">
         <div class="flex items-center gap-3">
           <div
-            class="fit-card__icon-wrap flex h-[49.28px] w-[49.28px] shrink-0 items-center justify-center rounded-full bg-[#E7F3E8] text-[#3F8A57]"
+            class="fit-card__icon-wrap flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#E7F3E8] text-[#3F8A57]"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" class="h-[26.88px] w-[26.88px] fill-none stroke-current stroke-[2.4]">
+            <svg viewBox="0 0 24 24" class="h-[30.5px] w-[30.5px] fill-none stroke-current stroke-[2.4]">
               <path d="M5 12.5 9.2 16.7 19 6.9" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </div>
@@ -154,10 +154,10 @@
       <div class="fit-card__inner">
         <div class="flex items-center gap-3">
           <div
-            class="fit-card__icon-wrap flex h-[49.28px] w-[49.28px] shrink-0 items-center justify-center rounded-full bg-[#FCE4E4] text-[#C64A4A]"
+            class="fit-card__icon-wrap flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#FCE4E4] text-[#C64A4A]"
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" class="h-[26.88px] w-[26.88px] fill-none stroke-current stroke-[2.4]">
+            <svg viewBox="0 0 24 24" class="h-[30.5px] w-[30.5px] fill-none stroke-current stroke-[2.4]">
               <path d="M7 7 17 17" stroke-linecap="round"></path>
               <path d="M17 7 7 17" stroke-linecap="round"></path>
             </svg>

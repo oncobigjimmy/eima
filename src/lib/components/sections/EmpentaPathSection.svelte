@@ -4,6 +4,14 @@
   import type { Language } from '$lib/i18n/copy';
   import { empentaPathCopy } from '$lib/i18n/empenta-path';
 
+  function readingState(node: HTMLElement) {
+    const observer = new IntersectionObserver(([entry]) => {
+      node.classList.toggle('scroll-reading', entry.isIntersecting);
+    }, { rootMargin: '-25% 0px -35% 0px', threshold: 0 });
+    observer.observe(node);
+    return { destroy() { observer.disconnect(); } };
+  }
+
   export let pageLanguage: Language = 'es';
   $: copy = empentaPathCopy[pageLanguage];
   let track: HTMLDivElement;
@@ -107,7 +115,7 @@
     </ol>
   </div>
   {#if pageLanguage === 'es'}
-    <aside class="path-clarification">
+    <aside class="path-clarification" use:readingState>
       <p>No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.</p>
       <p>Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. Avanzamos según cómo te encuentres, cómo respondes al ejercicio y qué objetivos quieras alcanzar.</p>
     </aside>
@@ -166,6 +174,8 @@
   .enhanced li:not(.reached) .path-stage-copy p { opacity: 0; transform: translateY(12px); }
   .reached .path-stage-copy p { color: #f8f4f0; }
   .path-clarification { max-width: 1000px; margin: 2.75rem auto 0; padding: 1.75rem 2rem; border: 1px solid #8cd0d63d; border-radius: 9px; background: #245b7d; color: #f8f4f0; font-size: 16px; text-align: center; line-height: 1.65; transition: background-color 260ms ease-out, color 260ms ease-out; }
+  .path-clarification:global(.scroll-reading) { background: #f8f4f0; color: #233f4e; }
+  .path-clarification:global(.scroll-reading) strong { color: #4083a7; }
   .path-clarification p { margin: 0; }
   .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 400; }
   .path-clarification p + p { margin-top: .7rem; }

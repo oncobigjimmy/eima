@@ -330,7 +330,7 @@
       left: 50%;
       width: 2px;
       height: 100%;
-      background: #4083a7;
+      background: #8cd0d6;
       transform: translateX(-50%) scaleY(var(--program-line-progress, 0));
       transform-origin: top;
       pointer-events: none;
