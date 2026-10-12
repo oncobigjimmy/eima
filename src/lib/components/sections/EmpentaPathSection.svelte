@@ -178,7 +178,7 @@
   .path-clarification:global(.scroll-reading) strong { color: #4083a7; }
   .path-clarification p { margin: 0; }
   .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 500; }
-  .path-clarification p + p { margin-top: .7rem; }
+  .path-clarification p + p { margin-top: 1.1rem; }
   .path-clarification strong { font-weight: 700; transition: color 260ms ease-out; }
   @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } .path-clarification:hover strong { color: #4083a7; } }
   @media (max-width: 1048px) { .path-clarification { margin-inline: 1.5rem; } }
