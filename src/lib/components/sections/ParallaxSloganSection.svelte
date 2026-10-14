@@ -81,21 +81,21 @@
           class="parallax-slogan__top text-center font-light leading-tight text-white"
           style={`--mobile-top-size:${mobileTopSize}px; --desktop-top-size:${desktopTopSize}px;`}
         >
-          <span use:htmlContent={topHtml}></span>
+          <span use:htmlContent={topHtml}>{@html topHtml}</span>
         </p>
         {#if middleHtml}
           <p
             class="parallax-slogan__middle text-center font-light leading-tight text-white"
             style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px;`}
           >
-            <span use:htmlContent={middleHtml}></span>
+            <span use:htmlContent={middleHtml}>{@html middleHtml}</span>
           </p>
         {/if}
         <p
           class="parallax-slogan__bottom text-center font-light leading-tight text-white"
           style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px; --mobile-bottom-size:${mobileBottomSize}px; --desktop-bottom-size:${desktopBottomSize}px;`}
         >
-          <span use:htmlContent={bottomHtml}></span>
+          <span use:htmlContent={bottomHtml}>{@html bottomHtml}</span>
         </p>
       </div>
     </div>

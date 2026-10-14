@@ -178,11 +178,11 @@
     <div class={`program-hero-description max-w-3xl text-[15px] font-light leading-relaxed text-white/96 md:text-[1.08rem] mt-8`}>
       <p class="hidden md:block">
         {#each hero.desktopParagraph as line, index}
-          <span use:htmlContent={line}></span>
+          <span use:htmlContent={line}>{@html line}</span>
           {#if index < hero.desktopParagraph.length - 1}<br />{/if}
         {/each}
       </p>
-      <p class="md:hidden" use:htmlContent={hero.mobileParagraph}></p>
+      <p class="md:hidden" use:htmlContent={hero.mobileParagraph}>{@html hero.mobileParagraph}</p>
     </div>
 
     <div class="program-hero-cta mt-10 flex flex-col items-center gap-4">

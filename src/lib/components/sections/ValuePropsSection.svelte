@@ -185,7 +185,7 @@
 
       {#if valueCopy.intro}
         <p class="text-muted mx-auto mt-4 max-w-4xl text-[13px] font-light leading-relaxed md:text-base">
-          <span use:htmlContent={valueCopy.intro}></span>
+          <span use:htmlContent={valueCopy.intro}>{@html valueCopy.intro}</span>
         </p>
       {/if}
     </header>
@@ -206,7 +206,7 @@
                   </div>
                   <div class="timeline__card-body">
                     {#each step.bodyLines as line}
-                      <p class="timeline__card-paragraph" use:htmlContent={line}></p>
+                      <p class="timeline__card-paragraph" use:htmlContent={line}>{@html line}</p>
                     {/each}
                   </div>
                 </div>
@@ -248,7 +248,7 @@
           </p>
         {/if}
         {#each valueCopy.summaryLines as line}
-          <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}></p>
+          <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}>{@html line}</p>
         {/each}
       </div>
 

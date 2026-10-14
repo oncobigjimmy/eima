@@ -130,7 +130,7 @@
 
           <div class={`mt-10 space-y-4 text-[15px] leading-[1.75] text-[#233F4E]`}>
             {#each sideParagraphs as paragraph}
-              <p use:htmlContent={paragraph}></p>
+              <p use:htmlContent={paragraph}>{@html paragraph}</p>
             {/each}
           </div>
         </div>
@@ -175,7 +175,7 @@
                 <p
                   use:htmlContent={step.body}
                   class="mt-3 text-[14px] md:text-[15px] font-light leading-[1.65] text-[#245B7D]"
-                ></p>
+                >{@html step.body}</p>
                 </div>
               </div>
             </article>
@@ -188,7 +188,7 @@
       <p
         use:htmlContent={closingHtml}
         class="mobile-copy-14 text-[16px] font-light leading-[1.65] text-[#233F4E]"
-      ></p>
+      >{@html closingHtml}</p>
 
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={stepsCopy.cta} class="steps-cta" />
     </div>

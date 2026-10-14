@@ -123,7 +123,7 @@
                 class={`faq-question flex-1 text-[16px] leading-[1.3] md:text-[16px] ${
                   openIndex === index ? 'text-white' : 'text-[#4083A7]'
                 }`}
-              ></span>
+              >{@html faq.q}</span>
 
               <span
                 class={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-250 ${
@@ -145,7 +145,7 @@
               >
                 <div class="faq-answer text-[14px] font-light leading-[1.75] text-[#245B7D] md:text-[14px]">
                   {#each faq.a as paragraph}
-                    <p use:htmlContent={renderFaqParagraph(paragraph)}></p>
+                    <p use:htmlContent={renderFaqParagraph(paragraph)}>{@html renderFaqParagraph(paragraph)}</p>
                   {/each}
 
                   {#if faq.cta}
@@ -154,6 +154,12 @@
                     </div>
                   {/if}
                 </div>
+              </div>
+            {:else}
+              <div hidden>
+                {#each faq.a as paragraph}
+                  <p>{@html renderFaqParagraph(paragraph)}</p>
+                {/each}
               </div>
             {/if}
           </article>

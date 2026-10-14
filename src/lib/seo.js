@@ -1,3 +1,4 @@
+import { getProgramCopy } from '$lib/i18n/program';
 import { site } from '$lib/site';
 import { getAbsoluteUrl, getRouteKey, getRoutePath, normalizePath } from '$lib/i18n/routes';
 
@@ -86,6 +87,36 @@ export function getSiteSchema(pathname, language) {
       publisher: { '@id': organizationId }
     }
   ];
+  if (key === 'home' || key === 'program') {
+    const serviceId = site.url + '/#empenta';
+    const descriptions = {
+      es: 'Programa de acompañamiento de 12 semanas para personas con cáncer en Mallorca, durante y después del tratamiento. Valoración inicial presencial en casa, plan de ejercicio personalizado y seguimiento principalmente online, con ajustes según síntomas, tratamiento y evolución.',
+      ca: 'Programa d’acompanyament de 12 setmanes per a persones amb càncer a Mallorca, durant i després del tractament. Valoració inicial presencial a casa, pla d’exercici personalitzat i seguiment principalment online, amb ajustos segons els símptomes, el tractament i l’evolució.',
+      en: 'A 12-week support programme for people with cancer in Mallorca, during and after treatment. Initial in-person assessment at home, a personalised exercise plan and mainly online follow-up, with adjustments based on symptoms, treatment and progress.'
+    };
+    graph.push({
+      '@type': 'Service', '@id': serviceId, name: 'Programa Empenta',
+      url: getAbsoluteUrl(getRoutePath('program', language)),
+      description: descriptions[language], provider: { '@id': organizationId },
+      areaServed: { '@type': 'Place', name: 'Mallorca' }
+    });
+    graph[2].about = { '@id': serviceId };
+    if (key === 'program') {
+      const plainText = (/** @type {string} */ html) => html
+        .replace(/<br[^>]*>/gi, ' ').replace(/<[^>]*>/g, '')
+        .replace(/\{\{[^}]+\}\}/g, language === 'en' ? 'here' : 'aquí')
+        .replace(/\s+/g, ' ').trim();
+      graph.push({
+        '@type': 'FAQPage', '@id': canonical + '#faq', url: canonical + '#faq',
+        inLanguage: language === 'es' ? 'es-ES' : language,
+        isPartOf: { '@id': canonical },
+        mainEntity: getProgramCopy(language).faq.faqs.map((faq) => ({
+          '@type': 'Question', name: plainText(faq.q),
+          acceptedAnswer: { '@type': 'Answer', text: faq.a.map(plainText).join('\n\n') }
+        }))
+      });
+    }
+  }
   if (key === 'about' || key === 'story') {
     graph.push(
       ...[
