@@ -8,7 +8,7 @@ export const empentaPathCopy: Record<Language, {
 }> = {
   es: {
     clarificationTitle: 'No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.',
-    clarificationBody: 'Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. Avanzamos según cómo te encuentres, cómo respondes al ejercicio y qué objetivos quieras alcanzar.',
+    clarificationBody: 'Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. <strong style="color: inherit;">Avanzamos según cómo te encuentres</strong>, cómo respondes al ejercicio y qué objetivos quieras alcanzar.',
     before: 'El ', accent: 'camino', after: ' que seguiremos ', endingAccent: 'contigo',
     subtitle: 'Los cinco pasos anteriores explican cómo trabajaremos contigo. <strong>Estas <span class="path-etapas-accent">4 etapas</span> muestran<br class="path-desktop-break" /> cómo iremos progresando con el ejercicio a lo largo del programa.</strong>',
     stages: [
@@ -22,7 +22,7 @@ export const empentaPathCopy: Record<Language, {
   },
   ca: {
     clarificationTitle: 'No tots començam des del mateix lloc ni avançam al mateix ritme.',
-    clarificationBody: 'Les quatre etapes <strong>no són períodes fixos</strong> ni les has de completar totes en 12 setmanes. Avançam segons com et trobes, com respons a l’exercici i quins objectius vols assolir.',
+    clarificationBody: 'Les quatre etapes <strong>no són períodes fixos</strong> ni les has de completar totes en 12 setmanes. <strong style="color: inherit;">Avançam segons com et trobes</strong>, com respons a l’exercici i quins objectius vols assolir.',
     before: 'El ', accent: 'camí', after: ' que seguirem ', endingAccent: 'amb tu',
     subtitle: 'Les cinc passes anteriors expliquen com treballarem amb tu. <strong>Aquestes <span class="path-etapas-accent">4 etapes</span> mostren<br class="path-desktop-break" /> com anirem progressant amb l’exercici al llarg del programa.</strong>',
     stages: [
@@ -36,7 +36,7 @@ export const empentaPathCopy: Record<Language, {
   },
   en: {
     clarificationTitle: 'We don’t all start from the same place or progress at the same pace.',
-    clarificationBody: 'The four stages <strong>are not fixed periods</strong> and you do not have to complete them all in 12 weeks. We progress according to how you feel, how you respond to exercise and the goals you want to achieve.',
+    clarificationBody: 'The four stages <strong>are not fixed periods</strong> and you do not have to complete them all in 12 weeks. <strong style="color: inherit;">We progress according to how you feel</strong>, how you respond to exercise and the goals you want to achieve.',
     before: 'The ', accent: 'path', after: ' we’ll follow ', endingAccent: 'together',
     subtitle: 'The five steps above explain how we’ll work with you. <strong>These <span class="path-etapas-accent">4 stages</span> show<br class="path-desktop-break" /> how we’ll progress with exercise throughout the programme.</strong>',
     stages: [

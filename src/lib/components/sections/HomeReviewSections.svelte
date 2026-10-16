@@ -392,12 +392,12 @@
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
     .situation-card { padding: 1.75rem 1.25rem; }
-    .situation-letter { font-size: 6rem; line-height: .8; margin-bottom: .8rem; }
-    .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .375rem; padding: 1.75rem 0; }
+    .situation-letter { font-size: 6rem; line-height: .8; margin-bottom: .8rem; transform: translateY(-6px); }
+    .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }
     .recovery-word:global(.word-pending) { color: #233f4e; }
-    .recovery-word:global(.word-pending) .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; clip-path: inset(0 100% 0 0); transition: clip-path 550ms cubic-bezier(.22, 1, .36, 1); }
+    .recovery-word:global(.word-pending) .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; clip-path: inset(0 100% 0 0); transition: clip-path 1400ms linear; }
     .recovery-word-ink::first-letter { color: #233f4e; }
     .recovery-word:global(.word-painted) .recovery-word-ink { clip-path: inset(0); }
     .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
