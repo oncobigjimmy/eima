@@ -8,7 +8,7 @@ export const empentaPathCopy: Record<Language, {
 }> = {
   es: {
     clarificationTitle: 'No todos empezamos desde el mismo lugar ni avanzamos al mismo ritmo.',
-    clarificationBody: 'Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas<br class="clarification-desktop-break" /> en 12 semanas. <strong style="color: inherit;">Avanzamos según cómo te encuentres</strong>, cómo respondes<br class="clarification-desktop-break" /> al ejercicio y qué objetivos quieras alcanzar.',
+    clarificationBody: 'Las cuatro etapas <strong>no son periodos fijos</strong> ni tienes que completarlas todas en 12 semanas. <strong style="color: inherit;">Avanzamos según cómo te encuentres</strong>, cómo respondes al ejercicio y qué objetivos quieras alcanzar.',
     before: 'El ', accent: 'camino', after: ' que seguiremos ', endingAccent: 'contigo',
     subtitle: 'Los cinco pasos anteriores explican cómo trabajaremos contigo. <strong>Estas <span class="path-etapas-accent">4 etapas</span> muestran<br class="path-desktop-break" /> cómo iremos progresando con el ejercicio a lo largo del programa.</strong>',
     stages: [
