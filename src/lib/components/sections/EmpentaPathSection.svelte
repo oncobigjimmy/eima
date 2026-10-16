@@ -134,7 +134,7 @@
     </ol>
   </div>
   <aside class="path-clarification" use:readingState={{ progress, finalThreshold: thresholds[3] }}>
-    <p>{copy.clarificationTitle}</p>
+    <p>{@html copy.clarificationTitle}</p>
     <p>{@html copy.clarificationBody}</p>
   </aside>
   <footer class="path-follow-up" bind:this={followUp} class:enhanced class:revealed={closingRevealed} class:flying={sectionVisible && closingRevealed} class:reached={!enhanced || closingRevealed}>
@@ -193,15 +193,19 @@
   .path-clarification { max-width: 1000px; margin: 2.75rem auto 0; padding: 1.75rem 2rem; border: 1px solid #8cd0d63d; border-radius: 9px; background: #245b7d; color: #f8f4f0; font-size: 16px; text-align: center; line-height: 1.65; transition: background-color 260ms ease-out, color 260ms ease-out; }
   .path-clarification:global(.scroll-reading) { background: #f8f4f0; color: #233f4e; }
   .path-clarification:global(.scroll-reading) :global(strong) { color: #4083a7; }
+  :global(.clarification-desktop-break) { display: none; }
+  .path-clarification :global(.clarification-title-accent) { font: inherit; color: inherit; transition: color 260ms ease-out; }
+  .path-clarification:global(.scroll-reading) :global(.clarification-title-accent) { color: #4083a7; }
+  @media (min-width: 768px) and (hover: hover) { .path-clarification:hover :global(.clarification-title-accent) { color: #4083a7; } }
   .path-clarification p { margin: 0; }
   .path-clarification p:first-child { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 500; }
   .path-clarification p + p { margin-top: 1.1rem; }
   .path-clarification :global(strong) { font-weight: 700; transition: color 260ms ease-out; }
-  @media (min-width: 1024px) { .path-clarification { max-width: 850px; font-size: 15px; } }
+  @media (min-width: 1024px) { .path-clarification { max-width: 850px; font-size: 15px; } :global(.clarification-desktop-break) { display: block; } }
   @media (min-width: 768px) and (hover: hover) { .path-clarification:hover { background: #f8f4f0; color: #233f4e; } .path-clarification:hover :global(strong) { color: #4083a7; } }
   @media (max-width: 1048px) { .path-clarification { margin-inline: 1.5rem; } }
   @media (max-width: 767px) { .path-clarification { margin: 1.75rem 1.25rem 0; padding: 1.25rem; font-size: 15px; } .path-clarification p:first-child { line-height: 1.25; } }
-  @media (prefers-reduced-motion: reduce) { .path-clarification, .path-clarification :global(strong) { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .path-clarification, .path-clarification :global(strong), .path-clarification :global(.clarification-title-accent) { transition: none; } }
   .path-follow-up { max-width: 710px; text-align: center; margin: 2.75rem auto 0; padding: 1.5rem 1.5rem 0; border-top: 1px solid #4083a766; transition: opacity 600ms ease, transform 600ms ease; }
   .path-follow-up.enhanced:not(.revealed) { opacity: 0; transform: translateY(18px); }
   .path-follow-up h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 500; color: #f8f4f0; margin: 0; }
