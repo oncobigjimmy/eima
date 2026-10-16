@@ -126,16 +126,27 @@
 
   function paintRecoveryWord(node: HTMLElement) {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (motion.matches || !('IntersectionObserver' in window)) return {};
     node.classList.add('word-pending');
-    const finish = () => { node.classList.add('word-painted'); observer.disconnect(); };
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) finish();
-    }, { threshold: 1, rootMargin: '0px 0px -20% 0px' });
-    const changed = () => { if (motion.matches) finish(); };
-    observer.observe(node);
-    motion.addEventListener('change', changed);
-    return { destroy() { observer.disconnect(); motion.removeEventListener('change', changed); } };
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const bounds = node.getBoundingClientRect();
+      // Start at the same 80% viewport threshold; paint over the next quarter screen.
+      const progress = motion.matches ? 1 : Math.max(0, Math.min(1,
+        (window.innerHeight * .8 - bounds.bottom) / (window.innerHeight * .25)));
+      node.style.setProperty('--word-unpainted', ((1 - progress) * 100) + '%');
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    motion.addEventListener('change', schedule);
+    return { destroy() {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      motion.removeEventListener('change', schedule);
+    } };
   }
 
   function revealGoal(node: HTMLElement) {
@@ -364,9 +375,8 @@
   .recovery-word { position: relative; width: fit-content; font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
   .recovery-word-ink { display: none; }
     .recovery-word:global(.word-pending) { color: #233f4e; }
-    .recovery-word:global(.word-pending) .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; clip-path: inset(0 100% 0 0); transition: clip-path 1400ms linear; }
+    .recovery-word:global(.word-pending) .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; clip-path: inset(-.2em var(--word-unpainted, 100%) -.2em -.05em); }
     .recovery-word-ink::first-letter { color: #233f4e; }
-    .recovery-word:global(.word-painted) .recovery-word-ink { clip-path: inset(0); }
   .recovery-word::first-letter { color: #233f4e; }
   .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
   .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 16px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
