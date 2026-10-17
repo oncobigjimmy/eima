@@ -416,7 +416,8 @@
     .poster-title { font-size: clamp(16px, 4.7cqw, 17px); line-height: 1.18; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
-    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #233f4e; }
+    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
+    .mobile-video-caption span { font-family: inherit; }
     .caption-space { visibility: hidden; }
     .caption-typed { position: absolute; inset: 0; }
     .caption-typed:global(.is-writing)::after { content: ''; display: inline-block; width: 1px; height: .9em; margin-left: 2px; background: currentColor; opacity: .5; }
