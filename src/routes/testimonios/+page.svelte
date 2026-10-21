@@ -543,6 +543,12 @@
     font-family: inherit !important;
   }
 
+  .testimonial-card__caption-name {
+    color: #8cd0d6;
+    font: inherit;
+    font-family: inherit !important;
+  }
+
   .testimonial-card__divider {
     display: none;
   }
@@ -1021,7 +1027,6 @@
       transform: translateX(-50%);
     }
     .testimonial-card__caption-line { display: inline; }
-    .testimonial-card__caption-name { color: #8cd0d6; font: inherit; }
   }
   @media (prefers-reduced-motion: reduce) {
     .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card strong, .testimonial-card__media, .testimonial-card__media img { transition: none; }
