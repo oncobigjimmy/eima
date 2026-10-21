@@ -302,6 +302,7 @@
     .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; transform: scale(var(--response-zoom, 1)); filter: drop-shadow(0 18px 24px #233f4e12); transition: filter 420ms ease-out; }
     .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 24px 30px #233f4e1c) drop-shadow(0 12px 32px #8cd0d613); }
     .response-card img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
+    .response-card.centered img { box-shadow: 0 0 0 1px #4083a7; }
     .image-placeholder { width: 100%; height: 100%; max-height: none; background: transparent; }
     :global(.patient-row--dark) .carousel-arrow { color: #233f4e; border: 0; background: #8cd0d6; }
     :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled), :global(.patient-row--dark) .carousel-arrow:focus-visible:not(:disabled) { background: #4083a7; color: #ffffff; border: 0; box-shadow: 0 10px 24px #ffffff24; }
