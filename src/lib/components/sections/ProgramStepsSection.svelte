@@ -254,7 +254,7 @@
   :global(.program-step[data-scroll-active='true']) .program-step__surface {
     transform: translateY(-4px);
     border-color: #8cd0d6;
-    box-shadow: 0 20px 40px rgba(14, 29, 38, .13);
+    box-shadow: var(--eima-halo-light);
   }
 
   :global(.program-steps-track:has(.program-step[data-scroll-active='true']) .program-step[data-scroll-active='false'] .program-step__surface) {

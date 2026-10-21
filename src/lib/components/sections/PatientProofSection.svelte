@@ -69,8 +69,8 @@
   .patient-cta { display: flex; justify-content: center; margin: 1.5rem 1.25rem 0; }
   .patient-inner { max-width: 1072px; margin: 0 auto; }
   .patient-row--dark { background: var(--color-brand); }
-  .patient-row--dark h2 { color: var(--color-inverse); }
-  .patient-row--dark p { color: #e8e8f6; }
+  .patient-row--dark h2 { color: var(--color-inverse); text-shadow: var(--eima-dark-copy-shadow); }
+  .patient-row--dark p { color: #e8e8f6; text-shadow: var(--eima-dark-copy-shadow); }
   @media (min-width: 768px) {
     .patient-cta { margin-top: .5rem; }
     .patient-row { padding-bottom: clamp(2rem, 3.5vw, 2.75rem); }

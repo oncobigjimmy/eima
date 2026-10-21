@@ -275,7 +275,7 @@
 
   @media (min-width: 768px) {
   .fit-card:hover {
-    box-shadow: 0 22px 46px rgba(14, 29, 38, 0.14);
+    box-shadow: var(--eima-halo-light);
     transform: translateY(-6px) scale(1.015);
   }
 
@@ -292,7 +292,7 @@
   .fit-card:hover .fit-card__item,
   .fit-card:hover .fit-card__item :global(em) {
     color: #ffffff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.32), 0 4px 12px rgba(0, 0, 0, 0.18);
+    text-shadow: var(--eima-dark-copy-shadow);
   }
 
 
@@ -328,10 +328,10 @@
     }
   }
   @media (max-width: 767px) {
-    .fit-card:global(.scroll-active) { box-shadow: 0 22px 46px rgba(14, 29, 38, .14); transform: translateY(-6px) scale(1.015); }
+    .fit-card:global(.scroll-active) { box-shadow: var(--eima-halo-light); transform: translateY(-6px) scale(1.015); }
     .fit-card:global(.scroll-active)::before, .fit-card:global(.scroll-active)::after { opacity: 1; }
     .fit-card:global(.scroll-active)::before { transform: scale(1); }
-    .fit-card:global(.scroll-active) .fit-card__title, .fit-card:global(.scroll-active) .fit-card__item, .fit-card:global(.scroll-active) .fit-card__item :global(em) { color: #fff; text-shadow: 0 1px 3px #0005, 0 4px 12px #0003; }
+    .fit-card:global(.scroll-active) .fit-card__title, .fit-card:global(.scroll-active) .fit-card__item, .fit-card:global(.scroll-active) .fit-card__item :global(em) { color: #fff; text-shadow: var(--eima-dark-copy-shadow); }
     .fit-card:global(.scroll-active) .fit-card__icon-wrap { background: #ffffff2e; color: #fff; }
     .fit-card:global(.scroll-active) .fit-card__bullet { color: #ffffffeb; }
   }

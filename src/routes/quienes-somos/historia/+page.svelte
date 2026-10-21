@@ -541,6 +541,7 @@
 
   .profile-card__header--dark {
     background: #233f4e;
+    text-shadow: var(--eima-dark-copy-shadow);
   }
 
   .profile-card__header--blue {

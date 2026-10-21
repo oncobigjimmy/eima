@@ -190,7 +190,8 @@
   .about-closing { background: #f8f4f0; }
   .about-container { max-width: 1120px; margin: auto; }
   .about-title, .about-origin h2, .closing-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; line-height: 1.1; }
-  .about-title { position: relative; left: calc(50% + .5rem); width: max-content; transform: translateX(-50%); font-size: 60px; text-align: center; color: white; white-space: nowrap; }
+  .about-title { position: relative; left: calc(50% + .5rem); width: max-content; transform: translateX(-50%); font-size: 60px; text-align: center; color: white; white-space: nowrap; text-shadow: var(--eima-dark-copy-shadow); }
+  .team-hint, .about-origin h2, .origin-intro, .origin-conclusion { text-shadow: var(--eima-dark-copy-shadow); }
   .about-title__line { display: block; }
   :global(.about-mobile-break) { display: none; }
   .about-title :global(span), .about-origin h2 :global(span), .closing-title span { font-family: inherit; }
@@ -236,7 +237,7 @@
   .origin-intro :global(strong) { font-weight: 700; }
   :global(.origin-intro-break) { display: none; }
   .origin-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; align-items: stretch; gap: 1rem; margin-top: var(--origin-surrounding-gap); }
-  .origin-card { border: 1px solid #8cd0d63d; border-radius: 9px; padding: 1.25rem; background: #ffffff0a; text-shadow: 0 1px 3px #08121866; transition: opacity 175ms ease, filter 175ms ease-out, transform 360ms ease-out, background-color 260ms ease-out, border-color 260ms ease, box-shadow 260ms ease-out, text-shadow 260ms ease-out; }
+  .origin-card { border: 1px solid #8cd0d63d; border-radius: 9px; padding: 1.25rem; background: #ffffff0a; text-shadow: var(--eima-dark-copy-shadow); transition: opacity 175ms ease, filter 175ms ease-out, transform 360ms ease-out, background-color 260ms ease-out, border-color 260ms ease, box-shadow 260ms ease-out, text-shadow 260ms ease-out; }
   .origin-card-header { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); align-items: start; gap: 1.375rem; }
   .origin-number { color: #8cd0d6; font-family: 'Fraunces', Georgia, serif; font-size: 52px; font-weight: 400; line-height: .84; }
   .origin-card h3 { font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 500; line-height: 1.25; color: white; }
@@ -280,7 +281,7 @@
   :global(.closing-cta) { align-self: center; margin-top: 1.75rem; }
   .closing-photo { width: 100%; height: 100%; min-height: 400px; object-fit: cover; }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .origin-card:hover { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 10px 24px #08121829, 0 3px 8px #0812181f; text-shadow: none; }
+    .origin-card:hover { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: var(--eima-halo-light); text-shadow: none; }
     .origin-card:hover .origin-number { color: #245b7d; }
     .origin-card:hover h3 { color: #233f4e; }
     .origin-card:hover p, .origin-card:hover :global(strong) { color: #233f4e; }
@@ -289,7 +290,7 @@
   @media (hover: none), (pointer: coarse) {
     .origin-grid:global(.hover-dim-group):has(> .origin-card:hover) > .origin-card:not(:hover):not(:global(.will-reveal)) { opacity: 1; filter: none; }
   }
-  @media (min-width: 768px) and (hover: hover) { .dictionary-card:hover { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); } .dictionary-card:hover .dictionary-card__inner { transform: scale(1.02); text-shadow: 0 1px 3px #071a2566, 0 4px 12px #071a2540; } .dictionary-card:hover .dictionary-word { color: #ffffff; } .dictionary-card:hover .dictionary-meta, .dictionary-card:hover .dictionary-definitions { color: white; } .dictionary-card:hover .dictionary-rule { background: #ffffffb3; } }
+  @media (min-width: 768px) and (hover: hover) { .dictionary-card:hover { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-halo-dark); } .dictionary-card:hover .dictionary-card__inner { transform: scale(1.02); text-shadow: var(--eima-dark-copy-shadow); } .dictionary-card:hover .dictionary-word { color: #ffffff; } .dictionary-card:hover .dictionary-meta, .dictionary-card:hover .dictionary-definitions { color: white; } .dictionary-card:hover .dictionary-rule { background: #ffffffb3; } }
   @media (max-width: 1199px) { .origin-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 900px) { .about-title { left: auto; width: auto; transform: none; white-space: normal; } .about-intro-grid { grid-template-columns: 1fr; max-width: 640px; margin-inline: auto; } .closing-grid { grid-template-columns: 1fr; } .closing-photo { max-height: 440px; } }
   @media (min-width: 901px) and (max-width: 1199px) {
@@ -305,11 +306,11 @@
     .team-hint { font-size: clamp(11px, 3.3vw, 14px); }
     .origin-card h3.origin-card-title--first { font-size: clamp(12px, calc(8.5vw - 15px), 18px); }
     .origin-card-title--first .origin-card-title-line { display: inline; }
-    .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 10px 24px #08121829, 0 3px 8px #0812181f; text-shadow: none; }
+    .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: var(--eima-halo-light); text-shadow: none; }
     .origin-card:global(.scroll-active) .origin-number { color: #245b7d; }
     .origin-card:global(.scroll-active) h3, .origin-card:global(.scroll-active) p, .origin-card:global(.scroll-active) :global(strong) { color: #233f4e; }
-    .dictionary-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); }
-    .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: scale(1.02); text-shadow: 0 1px 3px #071a2566, 0 4px 12px #071a2540; }
+    .dictionary-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-halo-dark); }
+    .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: scale(1.02); text-shadow: var(--eima-dark-copy-shadow); }
     .dictionary-card:global(.scroll-active) .dictionary-word, .dictionary-card:global(.scroll-active) .dictionary-meta, .dictionary-card:global(.scroll-active) .dictionary-definitions { color: white; }
     .dictionary-card:global(.scroll-active) .dictionary-rule { background: #ffffffb3; }
   }

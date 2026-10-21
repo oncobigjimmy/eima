@@ -125,7 +125,7 @@
 </footer>
 
 <style>
-  .footer { text-shadow: 0 1px 3px #0005, 0 3px 10px #0002; }
+  .footer { text-shadow: var(--eima-dark-copy-shadow); }
   .footer-heading { font-family: 'Playfair Display', Georgia, serif; }
   @media (min-width: 1024px) { .footer-contact-column { padding-top: 12px; } }
   .footer-page-links { display: grid; grid-auto-flow: column; grid-template-columns: repeat(2, max-content); grid-template-rows: repeat(3, auto); gap: .5rem 1rem; width: max-content; }

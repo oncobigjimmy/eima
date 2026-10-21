@@ -72,7 +72,7 @@
     .post-card:hover, .post-card:focus-visible {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);
-      box-shadow: var(--eima-card-hover-shadow);
+      box-shadow: var(--eima-card-hover-shadow); text-shadow: var(--eima-dark-copy-shadow);
       color: #fff;
     }
 
@@ -80,7 +80,7 @@
     .post-card:hover .post-card-title span, .post-card:focus-visible .post-card-title span { color: #8cd0d6; }
   }
   @media (max-width: 767px) {
-    .post-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); color: #fff; }
+    .post-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); text-shadow: var(--eima-dark-copy-shadow); color: #fff; }
     .post-card:global(.scroll-active) .post-card-title { color: #fff; }
     .post-card:global(.scroll-active) .post-card-title span { color: #8cd0d6; }
   }

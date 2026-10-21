@@ -315,7 +315,7 @@
   .vsl h1 { font-family: 'Inter', Arial, sans-serif; font-weight: 300; font-size: 16px; line-height: 1.7; color: #233f4e; margin: 1rem 0 0; }
   .video-frame:global(.will-reveal) { opacity: 0; transform: translateY(-30px); transition: opacity 700ms ease-out, transform 700ms ease-out; }
   .video-frame:global(.is-visible) { opacity: 1; transform: none; }
-  .video-frame { max-width: 850px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #e9eeee; box-shadow: -5px -5px 18px rgba(35, 63, 78, .11), 0 0 0 1px rgba(35, 63, 78, .06), 0 18px 45px rgba(35, 63, 78, .18), 0 4px 14px rgba(35, 63, 78, .1); }
+  .video-frame { max-width: 850px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #e9eeee; box-shadow: -5px -5px 18px rgba(35, 63, 78, .11), 0 0 0 1px rgba(35, 63, 78, .06), 0 18px 45px rgba(35, 63, 78, .18), 0 4px 14px rgba(35, 63, 78, .1), 0 0 24px #8cd0d626; }
   video, .video-poster { width: 100%; height: 100%; }
   video { display: block; }
   .video-poster { position: relative; background: #fff; }
@@ -341,6 +341,7 @@
   :global(.desktop-only-break) { display: none; }
   @media (min-width: 768px) { .cta-note { white-space: pre-line; } :global(.desktop-only-break) { display: inline; } }
   .situations { background: #233f4e; }
+  .situations :is(h2, h3, p) { text-shadow: var(--eima-dark-copy-shadow); }
   .situations .section-heading { max-width: 1072px; }
   .situations h2 { color: #fff; }
   .situations h2 :global(span) { color: #8cd0d6; }
@@ -357,8 +358,8 @@
   .recovery-brush { position: relative; display: inline-grid; isolation: isolate; font-family: 'Fraunces', Georgia, serif; padding: .3em .7em .35em; }
   .brush-stroke { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; color: #245b7d; fill: currentColor; }
   .brush-label, .brush-white { grid-area: 1 / 1; font-family: inherit; }
-  .brush-label { color: #233f4e; }
-  .brush-white { color: #fff; }
+  .brush-label { color: #233f4e; text-shadow: 0 0 4px #233f4e26; }
+  .brush-white { color: #fff; text-shadow: var(--eima-active-text-shadow); }
   .brush-white :global(.brush-accent) { color: #8cd0d6; }
   .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
   .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
@@ -389,7 +390,7 @@
   .situation-card:global(.will-reveal) { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; transition-delay: var(--delay, 0ms); }
   .situation-card:global(.is-visible) { opacity: 1; transform: none; }
   @media (min-width: 768px) and (hover: hover) {
-    .situations-grid .situation-card:global(.is-visible):hover { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
+    .situations-grid .situation-card:global(.is-visible):hover { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: var(--eima-halo-dark); }
     .situations-grid:has(> .situation-card:global(.is-visible):hover) > .situation-card:not(:hover):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
   @media (max-width: 767.98px) {
@@ -424,7 +425,7 @@
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
-    .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: 0 18px 38px #071a2580, 0 0 0 1px #8cd0d680, 0 0 22px #8cd0d64d; }
+    .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: var(--eima-halo-dark); }
     .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
   @media (prefers-reduced-motion: reduce) {

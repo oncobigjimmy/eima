@@ -979,7 +979,7 @@
     .testimonial-card:is(:hover, :focus-within) {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);
-      box-shadow: var(--eima-card-hover-shadow);
+      box-shadow: var(--eima-card-hover-shadow); text-shadow: var(--eima-dark-copy-shadow);
       --testimonial-heading: #fff;
       --testimonial-detail: #fff;
       --testimonial-body: #fff;
@@ -994,7 +994,7 @@
     .testimonial-card:global(.scroll-active) {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);
-      box-shadow: var(--eima-card-hover-shadow);
+      box-shadow: var(--eima-card-hover-shadow); text-shadow: var(--eima-dark-copy-shadow);
       --testimonial-heading: #fff;
       --testimonial-detail: #fff;
       --testimonial-body: #fff;
