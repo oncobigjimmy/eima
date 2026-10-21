@@ -304,7 +304,10 @@
     :global(.patient-row--dark) .carousel-arrow { color: #233f4e; border: 0; background: #8cd0d6; }
     :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled), :global(.patient-row--dark) .carousel-arrow:focus-visible:not(:disabled) { background: #4083a7; color: #ffffff; border: 0; box-shadow: 0 10px 24px #ffffff24; }
     :global(.patient-row--dark) .response-card { background: transparent; border: 0; filter: drop-shadow(0 22px 30px #071a252d); }
-    :global(.patient-row--dark) .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 24px 34px #071a2538) drop-shadow(0 0 24px #ffffff1c) drop-shadow(0 12px 32px #8cd0d623); }
+    :global(.patient-row--dark) .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 20px 28px #071a2538) drop-shadow(0 0 10px #8cd0d65c) drop-shadow(0 0 32px #8cd0d638); }
+    :global(.patient-row--dark) .response-card.centered img { box-shadow: 0 0 0 2px #8cd0d6; }
+    :global(.patient-row--dark) .response-slot[aria-current="true"]:is(:hover, :focus-visible) .response-card img { outline-color: #8cd0d6; }
+    :global(.patient-row--dark) .touch-frame { border-color: #8cd0d6; }
     .response-modal { align-items: center; overflow: hidden; padding: 4rem 2rem 2rem; }
     .response-modal-panel { width: fit-content; max-width: 90vw; padding: 0; background: transparent; }
     .response-modal-panel img { width: auto; max-width: min(720px, 86vw); max-height: calc(100dvh - 140px); object-fit: contain; box-shadow: 0 20px 50px #071a2560; }

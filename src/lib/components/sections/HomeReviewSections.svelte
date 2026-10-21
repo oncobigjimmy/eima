@@ -372,12 +372,12 @@
   .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: 0; transition: opacity 650ms ease; }
   .recovery-row:global(.goal-visible) > .recovery-symbol { opacity: .78; }
   .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: #233f4e30; transform-origin: left; }
-  .recovery-word { position: relative; width: fit-content; font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
+  .recovery-word { position: relative; width: fit-content; font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
   .recovery-word-ink { display: none; }
     .recovery-word:global(.word-pending) { color: #233f4e; }
     .recovery-word:global(.word-pending) .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; clip-path: inset(-.2em var(--word-unpainted, 100%) -.2em -.05em); }
-    .recovery-word-ink::first-letter { color: #233f4e; }
-  .recovery-word::first-letter { color: #233f4e; }
+    .recovery-word-ink::first-letter { color: #233f4e; font-weight: 400; }
+  .recovery-word::first-letter { color: #233f4e; font-weight: 400; }
   .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
   .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 16px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
   .recovery-row:global(.goal-pending) > div { opacity: 0; transform: translateY(8px); transition: opacity 650ms ease, transform 650ms ease; }
