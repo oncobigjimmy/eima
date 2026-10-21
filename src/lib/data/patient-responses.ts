@@ -151,6 +151,15 @@ export const patientResponses: PatientResponse[] = [
     "height": 459
   },
   {
+    "id": "eima-adaptation-10",
+    "category": "eima-adaptation",
+    "image": "/patient-responses/eima-adaptation-10.jpg",
+    "width": 972,
+    "height": 543,
+    "highlight": "Tengo fe absoluta en que lo que hacemos es bueno para mi.",
+    "alt": "Respuesta real de paciente: Tengo fe absoluta en que lo que hacemos es bueno para mi, así que estoy en tus manos para seguir al menos 3 meses más. Seguro que valdrá la pena."
+  },
+  {
     "id": "progress-12",
     "category": "progress",
     "image": "/patient-responses/progress-12.jpg",
@@ -351,6 +360,10 @@ const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
   'progress-5': {
     ca: 'Després de l’exercici estic molt millor que abans de començar.',
     en: 'After exercising, I feel much better than before I started.'
+  },
+  'eima-adaptation-10': {
+    ca: 'Tenc plena confiança que el que feim és bo per a mi.',
+    en: 'I have complete faith that what we are doing is good for me.'
   },
   'progress-10': {
     ca: 'Reprendre un projecte de reforma d’un pis.',
