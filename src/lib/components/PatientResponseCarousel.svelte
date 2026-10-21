@@ -209,7 +209,6 @@
               <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading={Math.abs(slot - position) <= 1 ? 'eager' : 'lazy'} fetchpriority={slot === target ? 'high' : 'auto'} decoding="async" draggable="false" />
               {#if !desktop && touchHintReady && settled && slot === target}
                 {#key item.id}
-                  <span class="touch-frame" aria-hidden="true"></span>
                   <span class="touch-tooltip" aria-hidden="true">{touchHintLabel}</span>
                 {/key}
               {/if}
@@ -265,7 +264,6 @@
   .cursor-tooltip { position: fixed; z-index: 250; padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; }
   .image-frame { position: relative; display: block; max-width: 100%; }
   .image-frame img { max-height: var(--row-image-height); }
-  .touch-frame { position: absolute; inset: 0; border: 2px solid #4083a7; border-radius: 10px; pointer-events: none; animation: touch-hint 3s both; }
   .touch-tooltip { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; animation: touch-hint 3s both; }
   :global(.patient-row--dark) .touch-tooltip,
   :global(.patient-row--dark) .cursor-tooltip,
@@ -310,7 +308,6 @@
     :global(.patient-row--dark) .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 20px 28px #071a2538) drop-shadow(0 0 10px #8cd0d65c) drop-shadow(0 0 32px #8cd0d638); }
     :global(.patient-row--dark) .response-card.centered img { box-shadow: 0 0 0 2px #8cd0d6; }
     :global(.patient-row--dark) .response-slot[aria-current="true"]:is(:hover, :focus-visible) .response-card img { outline-color: #8cd0d6; }
-    :global(.patient-row--dark) .touch-frame { border-color: #8cd0d6; }
     .response-modal { align-items: center; overflow: hidden; padding: 4rem 2rem 2rem; }
     .response-modal-panel { width: fit-content; max-width: 90vw; padding: 0; background: transparent; }
     .response-modal-panel img { width: auto; max-width: min(720px, 86vw); max-height: calc(100dvh - 140px); object-fit: contain; box-shadow: 0 20px 50px #071a2560; }
