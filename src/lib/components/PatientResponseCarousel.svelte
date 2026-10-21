@@ -48,7 +48,7 @@
   // active slide. Shorter captures then fit without changing the carousel height.
   $: imageHeightLimit = desktop ? 320 : Math.max(220, Math.min(260, stageWidth * 2 / 3));
   $: rowImageHeight = Math.max(0, ...items.map(item => Math.min(imageHeightLimit, cardWidth * item.height / item.width)));
-  $: rowStageHeight = Math.ceil(rowImageHeight * 1.045 + cardWidth * .022 + (desktop ? 40 : 32));
+  $: rowStageHeight = Math.ceil(rowImageHeight * 1.08 + cardWidth * .022 + (desktop ? 40 : 32));
   // Seven visual slots give desktop three neighbours on each side. The outer
   // slots can repeat the start/end of a short circular list; the data stays unique.
   $: radius = desktop && looping ? 3 : Math.floor((Math.min(items.length, 7) - 1) / 2);
@@ -74,7 +74,8 @@
   function slotStyle(slot: number, currentPosition: number, width: number) {
     const distance = slot - currentPosition;
     const amount = Math.abs(distance);
-    return `width:${width}px;transform:translate(calc(-50% + ${offsetAt(distance, width)}px),calc(-50% + ${Math.min(amount, 2) * 7}px)) scale(${scaleAt(amount)});opacity:${Math.max(0, 1 - amount * .2)};filter:blur(${Math.min(6, Math.max(0, amount - .35) * 2.2)}px);z-index:${Math.round(100 - amount * 10)};`;
+    const zoom = reduced ? 1 : 1 + .08 * Math.max(0, 1 - amount);
+    return `--response-zoom:${zoom};width:${width}px;transform:translate(calc(-50% + ${offsetAt(distance, width)}px),calc(-50% + ${Math.min(amount, 2) * 7}px)) scale(${scaleAt(amount)});opacity:${Math.max(0, 1 - amount * .2)};filter:blur(${Math.min(6, Math.max(0, amount - .35) * 2.2)}px);z-index:${Math.round(100 - amount * 10)};`;
   }
 
   function finish() {
@@ -253,7 +254,7 @@
   .carousel-stage.dragging { cursor: grabbing; }
   .response-slot { position: absolute; left: 50%; top: 50%; border: 0; padding: 0; background: transparent; transform-origin: center; }
   .response-card { display: block; padding: 10px; border: 1px solid color-mix(in srgb, var(--color-brand) 10%, transparent); border-radius: var(--radius-card); background: var(--color-inverse); box-shadow: 0 10px 28px #233f4e1f; transition: transform 650ms cubic-bezier(.3,.9,.3,1), box-shadow 650ms ease, border-color 650ms ease; }
-  .response-card.centered { transform: scale(1.045); border-color: var(--eima-card-hover-border); box-shadow: 0 18px 36px #233f4e26, 0 0 22px #8cd0d64d; }
+  .response-card.centered { border-color: var(--eima-card-hover-border); box-shadow: 0 18px 36px #233f4e26, 0 0 22px #8cd0d64d; }
   .response-card img { display: block; width: auto; height: auto; max-width: 100%; max-height: 245px; margin: auto; border-radius: calc(var(--radius-card) - 3px); pointer-events: none; }
   .image-placeholder { display: block; width: 100%; max-height: 245px; border-radius: calc(var(--radius-card) - 3px); background: color-mix(in srgb, var(--color-brand-accent) 18%, var(--color-surface)); }
   .response-slot[aria-current="true"] { cursor: zoom-in; }
@@ -298,7 +299,7 @@
     .carousel-window { overflow: visible; mask-image: none; }
     .carousel-stage { height: var(--row-stage-height); }
     .response-slot { top: 50%; }
-    .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; filter: drop-shadow(0 18px 24px #233f4e12); transition: transform 420ms cubic-bezier(.22,.61,.36,1), filter 420ms ease-out; }
+    .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; transform: scale(var(--response-zoom, 1)); filter: drop-shadow(0 18px 24px #233f4e12); transition: filter 420ms ease-out; }
     .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 24px 30px #233f4e1c) drop-shadow(0 12px 32px #8cd0d613); }
     .response-card img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
     .image-placeholder { width: 100%; height: 100%; max-height: none; background: transparent; }
