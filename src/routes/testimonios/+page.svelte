@@ -252,7 +252,7 @@
               </svg>
             </span>
             {#if testimonial.image}
-              <span class="testimonial-card__caption"><span class="testimonial-card__caption-line">{copy.captionBefore.trim()}</span>{' '}<span class="testimonial-card__caption-line">{testimonial.name}{copy.captionAfter}</span></span>
+              <span class="testimonial-card__caption"><span class="testimonial-card__caption-line">{copy.captionBefore.trim()}</span>{' '}<span class="testimonial-card__caption-line"><span class="testimonial-card__caption-name">{testimonial.name}</span>{copy.captionAfter}</span></span>
             {/if}
           </button>
 
@@ -1021,6 +1021,7 @@
       transform: translateX(-50%);
     }
     .testimonial-card__caption-line { display: inline; }
+    .testimonial-card__caption-name { color: #8cd0d6; font: inherit; }
   }
   @media (prefers-reduced-motion: reduce) {
     .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card strong, .testimonial-card__media, .testimonial-card__media img { transition: none; }
