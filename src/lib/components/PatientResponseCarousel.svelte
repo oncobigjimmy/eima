@@ -253,7 +253,7 @@
   .carousel-stage.dragging { cursor: grabbing; }
   .response-slot { position: absolute; left: 50%; top: 50%; border: 0; padding: 0; background: transparent; transform-origin: center; }
   .response-card { display: block; padding: 10px; border: 1px solid color-mix(in srgb, var(--color-brand) 10%, transparent); border-radius: var(--radius-card); background: var(--color-inverse); box-shadow: 0 10px 28px #233f4e1f; transition: transform 650ms cubic-bezier(.3,.9,.3,1), box-shadow 650ms ease, border-color 650ms ease; }
-  .response-card.centered { transform: rotate(1.2deg) scale(1.045); border-color: var(--eima-card-hover-border); box-shadow: 0 18px 36px #233f4e26, 0 0 22px #8cd0d64d; }
+  .response-card.centered { transform: scale(1.045); border-color: var(--eima-card-hover-border); box-shadow: 0 18px 36px #233f4e26, 0 0 22px #8cd0d64d; }
   .response-card img { display: block; width: auto; height: auto; max-width: 100%; max-height: 245px; margin: auto; border-radius: calc(var(--radius-card) - 3px); pointer-events: none; }
   .image-placeholder { display: block; width: 100%; max-height: 245px; border-radius: calc(var(--radius-card) - 3px); background: color-mix(in srgb, var(--color-brand-accent) 18%, var(--color-surface)); }
   .response-slot[aria-current="true"] { cursor: zoom-in; }
