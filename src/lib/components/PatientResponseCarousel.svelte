@@ -95,10 +95,11 @@
     if (reduced || !nearby) { finish(); return; }
     const from = position;
     const start = performance.now();
-    const duration = 450;
+    // A short drag snap should not take as long as a full card change.
+    const duration = Math.max(160, Math.min(380, Math.abs(target - from) * 380));
     function step(now: number) {
       const progress = Math.min(1, (now - start) / duration);
-      position = from + (target - from) * (1 - Math.pow(1 - progress, 4));
+      position = from + (target - from) * (1 - Math.pow(1 - progress, 3));
       if (progress < 1) frame = requestAnimationFrame(step);
       else finish();
     }
@@ -297,7 +298,7 @@
     .carousel-window { overflow: visible; mask-image: none; }
     .carousel-stage { height: var(--row-stage-height); }
     .response-slot { top: 50%; }
-    .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; filter: drop-shadow(0 18px 24px #233f4e12); transition: transform 650ms cubic-bezier(.3,.9,.3,1), filter 650ms ease; }
+    .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; filter: drop-shadow(0 18px 24px #233f4e12); transition: transform 420ms cubic-bezier(.22,.61,.36,1), filter 420ms ease-out; }
     .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 24px 30px #233f4e1c) drop-shadow(0 12px 32px #8cd0d613); }
     .response-card img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
     .image-placeholder { width: 100%; height: 100%; max-height: none; background: transparent; }
