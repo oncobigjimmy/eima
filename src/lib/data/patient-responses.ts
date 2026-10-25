@@ -21,6 +21,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-2",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-2.jpg",
+    "underlines": [
+      {"x": 25.86, "y": 88.09, "width": 21.55, "height": 6.17},
+      {"x": 59.66, "y": 88.09, "width": 30.69, "height": 6.17}
+    ],
     "width": 995,
     "height": 807,
     "highlight": "Todo el día sin energía y con asco y vómitos.",
@@ -30,6 +34,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-4",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-4.jpg",
+    "underlines": [
+      {"x": 28.45, "y": 75.33, "width": 39.83, "height": 6.44}
+    ],
     "width": 1003,
     "height": 779,
     "highlight": "Sensación de malestar todo el día, estómago duro sin ganas de comer.",
@@ -39,6 +46,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-1",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-1.jpg",
+    "underlines": [
+      {"x": 66.9, "y": 81.07, "width": 28.28, "height": 6.78},
+      {"x": 3.1, "y": 89.02, "width": 52.93, "height": 6.78}
+    ],
     "width": 1002,
     "height": 740,
     "highlight": "Hemos ido a caminar pero estaba muy cansada. He hecho lo que he podido.",
@@ -48,6 +59,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-5",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-5.jpg",
+    "underlines": [
+      {"x": 20.0, "y": 91.57, "width": 55.0, "height": 4.99}
+    ],
     "width": 1003,
     "height": 1005,
     "highlight": "He estado en la cama con dolores abdominales. No tengo fuerzas para nada.",
@@ -83,6 +97,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-8",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-8.png",
+    "underlines": [
+      {"x": 27.59, "y": 4.74, "width": 69.66, "height": 6.87}
+    ],
     "width": 1072,
     "height": 780,
     "highlight": "Esta semana prácticamente no he podido entrenar.",
@@ -92,6 +109,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-1",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-1.jpg",
+    "underlines": [
+      {"x": 43.62, "y": 49.32, "width": 50.34, "height": 10.14},
+      {"x": 2.93, "y": 61.15, "width": 6.38, "height": 10.14}
+    ],
     "width": 983,
     "height": 502,
     "highlight": "Me encanta que sea un plan adaptable al día a día.",
@@ -101,6 +122,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-9",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-9.png",
+    "underlines": [
+      {"x": 3.1, "y": 45.89, "width": 51.72, "height": 9.18}
+    ],
     "width": 1065,
     "height": 580,
     "highlight": "Me he sentido acompañada con las llamadas telefónicas.",
@@ -110,6 +134,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-3",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-3.jpg",
+    "underlines": [
+      {"x": 67.24, "y": 67.52, "width": 13.1, "height": 10.58},
+      {"x": 3.28, "y": 79.93, "width": 49.66, "height": 10.58}
+    ],
     "width": 979,
     "height": 462,
     "highlight": "Creo que siempre que he tenido dudas, me las has resuelto al momento.",
@@ -119,6 +147,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-2",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-2.jpg",
+    "underlines": [
+      {"x": 30.17, "y": 61.08, "width": 65.86, "height": 9.18},
+      {"x": 3.1, "y": 71.84, "width": 42.59, "height": 9.18}
+    ],
     "width": 986,
     "height": 537,
     "highlight": "Me gusta saber lo que tengo que hacer al día siguiente.",
@@ -128,6 +160,11 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-11",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-11.jpg",
+    "underlines": [
+      {"x": 70.34, "y": 66.16, "width": 26.72, "height": 9.15},
+      {"x": 3.1, "y": 76.52, "width": 43.45, "height": 9.15},
+      {"x": 3.1, "y": 87.2, "width": 36.21, "height": 8.84}
+    ],
     "width": 981,
     "height": 554,
     "highlight": "Agradezco de corazón la dedicación, porque es por mi bien y veo los resultados.",
@@ -137,6 +174,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-7",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-7.jpg",
+    "underlines": [
+      {"x": 2.93, "y": 79.91, "width": 92.93, "height": 12.82}
+    ],
     "width": 939,
     "height": 379,
     "highlight": "El video me gustó mucho y me ayudó a entender por donde estoy y lo que me queda.",
@@ -146,6 +186,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-4",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-4.png",
+    "underlines": [
+      {"x": 2.76, "y": 32.91, "width": 91.72, "height": 9.58},
+      {"x": 2.76, "y": 43.45, "width": 16.9, "height": 9.58}
+    ],
     "width": 1073,
     "height": 579,
     "highlight": "La atención recibida, el trato individual para cada paciente, muy bueno.",
@@ -155,6 +199,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-6",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-6.jpg",
+    "underlines": [
+      {"x": 58.62, "y": 63.71, "width": 36.21, "height": 12.66},
+      {"x": 3.62, "y": 78.48, "width": 43.97, "height": 12.66}
+    ],
     "width": 976,
     "height": 399,
     "highlight": "Saber que a diario alguien se preocupa de mi salud.",
@@ -164,6 +212,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-8",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-8.jpg",
+    "underlines": [
+      {"x": 2.93, "y": 55.11, "width": 55.34, "height": 11.31}
+    ],
     "highlight": "Lo dejo en manos de Jaime.",
     "alt": "Respuesta real de paciente: Lo dejo en manos de Jaime.",
     "width": 970,
@@ -173,6 +224,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "eima-adaptation-10",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-10.jpg",
+    "underlines": [
+      {"x": 2.41, "y": 54.01, "width": 35.86, "height": 9.26}
+    ],
     "width": 972,
     "height": 543,
     "highlight": "Tengo fe absoluta en que lo que hacemos es bueno para mi.",
@@ -182,6 +236,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-12",
     "category": "progress",
     "image": "/patient-responses/progress-12.jpg",
+    "underlines": [
+      {"x": 2.76, "y": 37.92, "width": 36.38, "height": 5.37}
+    ],
     "width": 968,
     "height": 933,
     "highlight": "He podido volver a seguir las rutinas establecidas y a sentirme «normal».",
@@ -191,6 +248,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-2",
     "category": "progress",
     "image": "/patient-responses/progress-2.jpg",
+    "underlines": [
+      {"x": 3.28, "y": 87.96, "width": 84.66, "height": 6.45}
+    ],
     "width": 1002,
     "height": 803,
     "highlight": "Volver a hacer clase de estiramientos y ver que puedo volver a la rutina de antes del cáncer.",
@@ -200,6 +260,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-3",
     "category": "progress",
     "image": "/patient-responses/progress-3.jpg",
+    "underlines": [
+      {"x": 2.93, "y": 83.1, "width": 67.41, "height": 6.11}
+    ],
     "width": 985,
     "height": 834,
     "highlight": "He podido ir de viaje a buen ritmo y hacer todas las cosas que tenía planeadas.",
@@ -209,6 +272,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-9",
     "category": "progress",
     "image": "/patient-responses/progress-9.png",
+    "underlines": [
+      {"x": 18.79, "y": 47.75, "width": 51.38, "height": 13.51}
+    ],
     "width": 1088,
     "height": 416,
     "highlight": "Lograr salir a caminar todos los días, a pesar del tratamiento y las inyecciones.",
@@ -218,6 +284,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-1",
     "category": "progress",
     "image": "/patient-responses/progress-1.jpg",
+    "underlines": [
+      {"x": 47.24, "y": 37.33, "width": 46.72, "height": 10.0},
+      {"x": 2.76, "y": 48.67, "width": 13.79, "height": 10.0}
+    ],
     "width": 983,
     "height": 508,
     "highlight": "No creía que ya podría levantar tanto peso tan pronto.",
@@ -227,6 +297,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-11",
     "category": "progress",
     "image": "/patient-responses/progress-11.png",
+    "underlines": [
+      {"x": 3.28, "y": 49.1, "width": 57.24, "height": 13.51}
+    ],
     "width": 1085,
     "height": 416,
     "highlight": "Me he sentido un poco más yo al poder ir sola a Inca y Palma.",
@@ -236,6 +309,11 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-6",
     "category": "progress",
     "image": "/patient-responses/progress-6.jpg",
+    "underlines": [
+      {"x": 55.52, "y": 50.0, "width": 23.28, "height": 9.93},
+      {"x": 57.07, "y": 72.52, "width": 36.55, "height": 9.93},
+      {"x": 2.59, "y": 83.44, "width": 31.9, "height": 9.93}
+    ],
     "width": 986,
     "height": 513,
     "highlight": "Me ha dado un punto más de confianza en que puedo con esto.",
@@ -245,6 +323,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-7",
     "category": "progress",
     "image": "/patient-responses/progress-7.jpg",
+    "underlines": [
+      {"x": 48.45, "y": 62.5, "width": 45.0, "height": 12.92}
+    ],
     "width": 995,
     "height": 411,
     "highlight": "Empiezo a notarme con más fuerza en general, incluso antes de la operación.",
@@ -254,6 +335,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-4",
     "category": "progress",
     "image": "/patient-responses/progress-4.png",
+    "underlines": [
+      {"x": 8.28, "y": 29.9, "width": 63.79, "height": 6.26}
+    ],
     "width": 1059,
     "height": 904,
     "highlight": "Mi físico y mi aguante. Antes de empezar me fatigaba mucho más.",
@@ -263,6 +347,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-5",
     "category": "progress",
     "image": "/patient-responses/progress-5.jpg",
+    "underlines": [
+      {"x": 2.59, "y": 64.17, "width": 88.79, "height": 12.92},
+      {"x": 2.59, "y": 78.75, "width": 35.52, "height": 12.92}
+    ],
     "width": 984,
     "height": 407,
     "highlight": "Después del ejercicio estoy mucho mejor que antes de empezar.",
@@ -272,6 +360,9 @@ export const patientResponses: PatientResponse[] = [
     "id": "progress-10",
     "category": "progress",
     "image": "/patient-responses/progress-10.png",
+    "underlines": [
+      {"x": 3.97, "y": 67.44, "width": 80.69, "height": 18.02}
+    ],
     "width": 1083,
     "height": 322,
     "highlight": "Retomar un proyecto de reforma de un piso.",
