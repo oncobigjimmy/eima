@@ -32,6 +32,7 @@
   let enlarged: PatientResponse | null = null;
   let cursorHint: { x: number; y: number } | null = null;
   let touchHintReady = false;
+  const highlightDuration = 850;
 
   function moveHint(event: PointerEvent, slot: number) {
     cursorHint = event.pointerType === 'mouse' && settled && slot === target && !dragging
@@ -208,7 +209,7 @@
               <span class="image-frame">
               <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading={Math.abs(slot - position) <= 1 ? 'eager' : 'lazy'} fetchpriority={slot === target ? 'high' : 'auto'} decoding="async" draggable="false" />
               {#each item.underlines ?? [] as line, index}
-                <span class="response-underline" aria-hidden="true" style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--underline-delay:${index * 220}ms`}></span>
+                <span class="response-underline" aria-hidden="true" style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--underline-duration:${highlightDuration}ms;--underline-delay:${index * highlightDuration}ms`}></span>
               {/each}
               {#if !desktop && touchHintReady && settled && slot === target}
                 {#key item.id}
@@ -238,7 +239,7 @@
       <span class="modal-image-frame">
         <img src={enlarged.image} alt={enlarged.alt} width={enlarged.width} height={enlarged.height} />
         {#each enlarged.underlines ?? [] as line, index}
-          <span class="response-underline" aria-hidden="true" style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--underline-delay:${index * 220}ms`}></span>
+          <span class="response-underline" aria-hidden="true" style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--underline-duration:${highlightDuration}ms;--underline-delay:${index * highlightDuration}ms`}></span>
         {/each}
       </span>
     </div>
@@ -273,9 +274,9 @@
   .image-frame { position: relative; display: block; max-width: 100%; }
   .image-frame img { max-height: var(--row-image-height); }
   .response-underline { position: absolute; pointer-events: none; background: #4083a752; border-radius: 2px 5px 3px 2px; clip-path: polygon(1% 4%, 99% 0, 100% 94%, 0 100%); mix-blend-mode: multiply; transform: scaleX(0); transform-origin: left center; transition: transform 180ms ease-out; }
-  .centered .response-underline { transform: scaleX(1); transition: transform 650ms cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms); }
+  .centered .response-underline { transform: scaleX(1); transition: transform var(--underline-duration, 850ms) cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms); }
   .modal-image-frame { position: relative; display: block; width: fit-content; max-width: 100%; }
-  .modal-image-frame .response-underline { animation: underline-draw 650ms cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms) both; }
+  .modal-image-frame .response-underline { animation: underline-draw var(--underline-duration, 850ms) cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms) both; }
   @keyframes underline-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   .touch-tooltip { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; animation: touch-hint 3s both; }
   :global(.patient-row--dark) .touch-tooltip,
