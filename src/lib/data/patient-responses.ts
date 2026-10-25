@@ -58,8 +58,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-bad-day.jpg",
     "underlines": [
-      { "x": 60.2, "y": 29.9, "width": 33.9, "height": 2.5 },
-      { "x": 2.9, "y": 44.9, "width": 27.8, "height": 2.5 }
+      { "x": 60.0, "y": 21.6, "width": 34.3, "height": 10.4 },
+      { "x": 2.7, "y": 36.5, "width": 28.2, "height": 10.4 }
     ],
     "width": 943,
     "height": 394,
@@ -71,8 +71,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-mental-fog.jpg",
     "underlines": [
-      { "x": 80.6, "y": 35.0, "width": 14.8, "height": 2.8 },
-      { "x": 4.1, "y": 52.0, "width": 24.3, "height": 2.8 }
+      { "x": 80.4, "y": 26.3, "width": 15.2, "height": 11.3 },
+      { "x": 3.9, "y": 43.2, "width": 24.7, "height": 11.3 }
     ],
     "highlight": "Sigo con bastante “niebla” en la cabeza.",
     "alt": "Respuesta real de paciente: Caminata de la hora. Sigo con bastante “niebla” en la cabeza y quizás no voy suficientemente rápido, ya que estoy casi todo el rato en zona 0. Ojalá me vaya despejando.",

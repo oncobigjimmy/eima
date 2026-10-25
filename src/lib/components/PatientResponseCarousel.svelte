@@ -272,7 +272,7 @@
   .cursor-tooltip { position: fixed; z-index: 250; padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; }
   .image-frame { position: relative; display: block; max-width: 100%; }
   .image-frame img { max-height: var(--row-image-height); }
-  .response-underline { position: absolute; pointer-events: none; background: #4083a752; border-radius: 45% 20% 35% 15%; mix-blend-mode: multiply; transform: scaleX(0); transform-origin: left center; transition: transform 180ms ease-out; }
+  .response-underline { position: absolute; pointer-events: none; background: #4083a752; border-radius: 2px 5px 3px 2px; clip-path: polygon(1% 4%, 99% 0, 100% 94%, 0 100%); mix-blend-mode: multiply; transform: scaleX(0); transform-origin: left center; transition: transform 180ms ease-out; }
   .centered .response-underline { transform: scaleX(1); transition: transform 650ms cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms); }
   .modal-image-frame { position: relative; display: block; width: fit-content; max-width: 100%; }
   .modal-image-frame .response-underline { animation: underline-draw 650ms cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms) both; }
