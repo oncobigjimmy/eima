@@ -54,20 +54,20 @@ export const patientResponses: PatientResponse[] = [
   {
     "id": "difficult-day-6",
     "category": "difficult-day",
-    "image": "/patient-responses/difficult-day-6.jpg",
-    "width": 981,
-    "height": 760,
-    "highlight": "Hoy ya no he tomado las pastillas para los vómitos, pero sigo teniendo muchas náuseas.",
-    "alt": "Respuesta real de paciente: Hoy ya no he tomado las pastillas para los vómitos, pero sigo teniendo muchas náuseas."
+    "image": "/patient-responses/difficult-day-bad-day.jpg",
+    "width": 943,
+    "height": 394,
+    "highlight": "Hoy no ha sido un buen día. Me he levantado muy mareado, me ha costado trabajar y sigo aún así.",
+    "alt": "Respuesta real de paciente: Hoy no ha sido un buen día. Me he levantado muy mareado, me ha costado trabajar y sigo aún así. He podido solo caminar 45’ a no muy alto ritmo. No se si ya puedes ver los datos de la Whoop. Si no, te los paso."
   },
   {
     "id": "difficult-day-7",
     "category": "difficult-day",
-    "image": "/patient-responses/difficult-day-7.jpg",
-    "highlight": "Estoy muy cansada. Muchos dolores musculares.",
-    "alt": "Respuesta real de paciente: Estoy muy cansada. Muchos dolores musculares.",
-    "width": 1007,
-    "height": 919
+    "image": "/patient-responses/difficult-day-mental-fog.jpg",
+    "highlight": "Sigo con bastante “niebla” en la cabeza.",
+    "alt": "Respuesta real de paciente: Caminata de la hora. Sigo con bastante “niebla” en la cabeza y quizás no voy suficientemente rápido, ya que estoy casi todo el rato en zona 0. Ojalá me vaya despejando.",
+    "width": 993,
+    "height": 346
   },
   {
     "id": "difficult-day-8",
@@ -287,12 +287,12 @@ const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
     en: 'I’ve been in bed with abdominal pain. I have no strength for anything.'
   },
   'difficult-day-6': {
-    ca: 'Avui ja no he pres les pastilles per als vòmits, però encara tenc moltes nàusees.',
-    en: 'Today I haven’t taken the tablets for vomiting, but I still feel very nauseous.'
+    ca: 'Avui no ha estat un bon dia. M’he aixecat molt marejat, m’ha costat fer feina i encara seguesc igual.',
+    en: 'Today has not been a good day. I woke up very dizzy, found it hard to work and still feel that way.'
   },
   'difficult-day-7': {
-    ca: 'Estic molt cansada. Molts dolors musculars.',
-    en: 'I’m very tired. A lot of muscle pain.'
+    ca: 'Seguesc amb bastanta “boira” al cap.',
+    en: 'I still have quite a lot of “fog” in my head.'
   },
   'difficult-day-8': {
     ca: 'Aquesta setmana pràcticament no he pogut entrenar.',
