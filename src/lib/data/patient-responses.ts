@@ -35,7 +35,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-4.jpg",
     "underlines": [
-      {"x": 30.409, "y": 75.33, "width": 37.787, "height": 6.44}
+      {"x": 30.409, "y": 75.33, "width": 37.787, "height": 6.44},
+      {"x": 13.46, "y": 83.312, "width": 37.687, "height": 6.162}
     ],
     "width": 1003,
     "height": 779,
@@ -60,7 +61,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-5.jpg",
     "underlines": [
-      {"x": 20.638, "y": 91.57, "width": 53.639, "height": 4.99}
+      {"x": 12.463, "y": 86.368, "width": 77.567, "height": 4.876},
+      {"x": 4.187, "y": 92.139, "width": 70.09, "height": 4.876}
     ],
     "width": 1003,
     "height": 1005,
@@ -85,7 +87,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-mental-fog.jpg",
     "underlines": [
-      {"x": 80.765, "y": 26.3, "width": 14.703, "height": 11.3},
+      {"x": 62.941, "y": 25.723, "width": 32.528, "height": 12.139},
       {"x": 4.23, "y": 43.2, "width": 24.068, "height": 11.3}
     ],
     "highlight": "Sigo con bastante “niebla” en la cabeza.",
