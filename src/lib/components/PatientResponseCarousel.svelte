@@ -33,7 +33,7 @@
   let enlarged: PatientResponse | null = null;
   let cursorHint: { x: number; y: number } | null = null;
   let touchHintReady = false;
-  const highlightDuration = 500;
+  const highlightDuration = 700;
 
   function moveHint(event: PointerEvent, slot: number) {
     cursorHint = event.pointerType === 'mouse' && settled && slot === target && !dragging
