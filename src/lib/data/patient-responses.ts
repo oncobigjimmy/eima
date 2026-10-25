@@ -22,8 +22,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-2.jpg",
     "underlines": [
-      {"x": 25.86, "y": 88.09, "width": 21.55, "height": 6.17},
-      {"x": 59.66, "y": 88.09, "width": 30.69, "height": 6.17}
+      {"x": 26.332, "y": 88.09, "width": 20.603, "height": 6.17},
+      {"x": 60.101, "y": 88.09, "width": 29.548, "height": 6.17}
     ],
     "width": 995,
     "height": 807,
@@ -35,7 +35,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-4.jpg",
     "underlines": [
-      {"x": 28.45, "y": 75.33, "width": 39.83, "height": 6.44}
+      {"x": 30.409, "y": 75.33, "width": 37.787, "height": 6.44}
     ],
     "width": 1003,
     "height": 779,
@@ -47,8 +47,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-1.jpg",
     "underlines": [
-      {"x": 66.9, "y": 81.07, "width": 28.28, "height": 6.78},
-      {"x": 3.1, "y": 89.02, "width": 52.93, "height": 6.78}
+      {"x": 68.663, "y": 81.07, "width": 26.048, "height": 6.78},
+      {"x": 3.693, "y": 89.02, "width": 51.896, "height": 6.78}
     ],
     "width": 1002,
     "height": 740,
@@ -60,7 +60,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-5.jpg",
     "underlines": [
-      {"x": 20.0, "y": 91.57, "width": 55.0, "height": 4.99}
+      {"x": 20.638, "y": 91.57, "width": 53.639, "height": 4.99}
     ],
     "width": 1003,
     "height": 1005,
@@ -72,8 +72,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-bad-day.jpg",
     "underlines": [
-      { "x": 60.0, "y": 21.6, "width": 34.3, "height": 10.4 },
-      { "x": 2.7, "y": 36.5, "width": 28.2, "height": 10.4 }
+      {"x": 60.657, "y": 21.6, "width": 33.086, "height": 10.4},
+      {"x": 3.075, "y": 36.5, "width": 27.359, "height": 10.4}
     ],
     "width": 943,
     "height": 394,
@@ -85,8 +85,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-mental-fog.jpg",
     "underlines": [
-      { "x": 80.4, "y": 26.3, "width": 15.2, "height": 11.3 },
-      { "x": 3.9, "y": 43.2, "width": 24.7, "height": 11.3 }
+      {"x": 80.765, "y": 26.3, "width": 14.703, "height": 11.3},
+      {"x": 4.23, "y": 43.2, "width": 24.068, "height": 11.3}
     ],
     "highlight": "Sigo con bastante “niebla” en la cabeza.",
     "alt": "Respuesta real de paciente: Caminata de la hora. Sigo con bastante “niebla” en la cabeza y quizás no voy suficientemente rápido, ya que estoy casi todo el rato en zona 0. Ojalá me vaya despejando.",
@@ -98,7 +98,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-8.png",
     "underlines": [
-      {"x": 27.59, "y": 4.74, "width": 69.66, "height": 6.87}
+      {"x": 28.078, "y": 4.74, "width": 68.47, "height": 6.87}
     ],
     "width": 1072,
     "height": 780,
@@ -110,8 +110,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-1.jpg",
     "underlines": [
-      {"x": 43.62, "y": 49.32, "width": 50.34, "height": 10.14},
-      {"x": 2.93, "y": 61.15, "width": 6.38, "height": 10.14}
+      {"x": 43.845, "y": 49.32, "width": 49.034, "height": 10.14},
+      {"x": 3.255, "y": 61.15, "width": 6.104, "height": 10.14}
     ],
     "width": 983,
     "height": 502,
@@ -123,7 +123,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-9.png",
     "underlines": [
-      {"x": 3.1, "y": 45.89, "width": 51.72, "height": 9.18}
+      {"x": 3.474, "y": 45.89, "width": 51.174, "height": 9.18}
     ],
     "width": 1065,
     "height": 580,
@@ -135,8 +135,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-3.jpg",
     "underlines": [
-      {"x": 67.24, "y": 67.52, "width": 13.1, "height": 10.58},
-      {"x": 3.28, "y": 79.93, "width": 49.66, "height": 10.58}
+      {"x": 67.416, "y": 67.52, "width": 12.666, "height": 10.58},
+      {"x": 3.882, "y": 79.93, "width": 48.417, "height": 10.58}
     ],
     "width": 979,
     "height": 462,
@@ -148,8 +148,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-2.jpg",
     "underlines": [
-      {"x": 30.17, "y": 61.08, "width": 65.86, "height": 9.18},
-      {"x": 3.1, "y": 71.84, "width": 42.59, "height": 9.18}
+      {"x": 30.73, "y": 61.08, "width": 63.387, "height": 9.18},
+      {"x": 4.057, "y": 71.84, "width": 41.684, "height": 9.18}
     ],
     "width": 986,
     "height": 537,
@@ -161,9 +161,9 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-11.jpg",
     "underlines": [
-      {"x": 70.34, "y": 66.16, "width": 26.72, "height": 9.15},
-      {"x": 3.1, "y": 76.52, "width": 43.45, "height": 9.15},
-      {"x": 3.1, "y": 87.2, "width": 36.21, "height": 8.84}
+      {"x": 70.336, "y": 66.16, "width": 26.096, "height": 9.15},
+      {"x": 3.058, "y": 76.52, "width": 43.425, "height": 9.15},
+      {"x": 3.058, "y": 87.2, "width": 36.188, "height": 8.84}
     ],
     "width": 981,
     "height": 554,
@@ -175,7 +175,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-7.jpg",
     "underlines": [
-      {"x": 2.93, "y": 79.91, "width": 92.93, "height": 12.82}
+      {"x": 3.195, "y": 79.91, "width": 92.119, "height": 12.82}
     ],
     "width": 939,
     "height": 379,
@@ -187,8 +187,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-4.png",
     "underlines": [
-      {"x": 2.76, "y": 32.91, "width": 91.72, "height": 9.58},
-      {"x": 2.76, "y": 43.45, "width": 16.9, "height": 9.58}
+      {"x": 3.355, "y": 32.91, "width": 90.121, "height": 9.58},
+      {"x": 3.262, "y": 43.45, "width": 16.403, "height": 9.58}
     ],
     "width": 1073,
     "height": 579,
@@ -200,8 +200,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-6.jpg",
     "underlines": [
-      {"x": 58.62, "y": 63.71, "width": 36.21, "height": 12.66},
-      {"x": 3.62, "y": 78.48, "width": 43.97, "height": 12.66}
+      {"x": 59.119, "y": 63.71, "width": 35.246, "height": 12.66},
+      {"x": 4.098, "y": 78.48, "width": 42.828, "height": 12.66}
     ],
     "width": 976,
     "height": 399,
@@ -213,7 +213,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-8.jpg",
     "underlines": [
-      {"x": 2.93, "y": 55.11, "width": 55.34, "height": 11.31}
+      {"x": 3.608, "y": 55.11, "width": 54.536, "height": 11.31}
     ],
     "highlight": "Lo dejo en manos de Jaime.",
     "alt": "Respuesta real de paciente: Lo dejo en manos de Jaime.",
@@ -225,7 +225,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-10.jpg",
     "underlines": [
-      {"x": 2.41, "y": 54.01, "width": 35.86, "height": 9.26}
+      {"x": 2.778, "y": 54.01, "width": 34.774, "height": 9.26}
     ],
     "width": 972,
     "height": 543,
@@ -237,7 +237,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-12.jpg",
     "underlines": [
-      {"x": 2.76, "y": 37.92, "width": 36.38, "height": 5.37}
+      {"x": 3.306, "y": 37.92, "width": 35.331, "height": 5.37}
     ],
     "width": 968,
     "height": 933,
@@ -249,7 +249,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-2.jpg",
     "underlines": [
-      {"x": 3.28, "y": 87.96, "width": 84.66, "height": 6.45}
+      {"x": 3.992, "y": 87.96, "width": 83.633, "height": 6.45}
     ],
     "width": 1002,
     "height": 803,
@@ -261,7 +261,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-3.jpg",
     "underlines": [
-      {"x": 2.93, "y": 83.1, "width": 67.41, "height": 6.11}
+      {"x": 3.553, "y": 83.1, "width": 66.802, "height": 6.11}
     ],
     "width": 985,
     "height": 834,
@@ -273,7 +273,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-9.png",
     "underlines": [
-      {"x": 18.79, "y": 47.75, "width": 51.38, "height": 13.51}
+      {"x": 18.934, "y": 47.75, "width": 51.195, "height": 13.51}
     ],
     "width": 1088,
     "height": 416,
@@ -285,8 +285,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-1.jpg",
     "underlines": [
-      {"x": 47.24, "y": 37.33, "width": 46.72, "height": 10.0},
-      {"x": 2.76, "y": 48.67, "width": 13.79, "height": 10.0}
+      {"x": 48.22, "y": 37.33, "width": 43.947, "height": 10.0},
+      {"x": 3.052, "y": 48.67, "width": 13.327, "height": 10.0}
     ],
     "width": 983,
     "height": 508,
@@ -298,7 +298,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-11.png",
     "underlines": [
-      {"x": 3.28, "y": 49.1, "width": 57.24, "height": 13.51}
+      {"x": 4.24, "y": 49.1, "width": 55.76, "height": 13.51}
     ],
     "width": 1085,
     "height": 416,
@@ -310,9 +310,9 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-6.jpg",
     "underlines": [
-      {"x": 55.52, "y": 50.0, "width": 23.28, "height": 9.93},
-      {"x": 57.07, "y": 72.52, "width": 36.55, "height": 9.93},
-      {"x": 2.59, "y": 83.44, "width": 31.9, "height": 9.93}
+      {"x": 55.68, "y": 50.0, "width": 22.414, "height": 9.93},
+      {"x": 54.158, "y": 72.52, "width": 39.249, "height": 9.93},
+      {"x": 2.941, "y": 83.44, "width": 30.832, "height": 9.93}
     ],
     "width": 986,
     "height": 513,
@@ -324,7 +324,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-7.jpg",
     "underlines": [
-      {"x": 48.45, "y": 62.5, "width": 45.0, "height": 12.92}
+      {"x": 50.151, "y": 62.5, "width": 43.317, "height": 12.92}
     ],
     "width": 995,
     "height": 411,
@@ -336,7 +336,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-4.png",
     "underlines": [
-      {"x": 8.28, "y": 29.9, "width": 63.79, "height": 6.26}
+      {"x": 9.254, "y": 29.9, "width": 62.89, "height": 6.26}
     ],
     "width": 1059,
     "height": 904,
@@ -348,8 +348,8 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-5.jpg",
     "underlines": [
-      {"x": 2.59, "y": 64.17, "width": 88.79, "height": 12.92},
-      {"x": 2.59, "y": 78.75, "width": 35.52, "height": 12.92}
+      {"x": 3.049, "y": 64.17, "width": 87.602, "height": 12.92},
+      {"x": 3.049, "y": 78.75, "width": 35.061, "height": 12.92}
     ],
     "width": 984,
     "height": 407,
@@ -361,7 +361,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-10.png",
     "underlines": [
-      {"x": 3.97, "y": 67.44, "width": 80.69, "height": 18.02}
+      {"x": 4.709, "y": 67.44, "width": 79.224, "height": 18.02}
     ],
     "width": 1083,
     "height": 322,
