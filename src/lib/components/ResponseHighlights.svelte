@@ -24,7 +24,7 @@
 
 <style>
   .marker { position: absolute; pointer-events: none; background: #4083a752; border-radius: 2px 5px 3px 2px; clip-path: polygon(1% 4%, 99% 0, 100% 94%, 0 100%); mix-blend-mode: multiply; transform: scaleX(0); transform-origin: left center; }
-  .drawing { animation: marker-draw var(--marker-duration, 850ms) cubic-bezier(.22,.61,.36,1) both; }
+  .drawing { animation: marker-draw var(--marker-duration, 850ms) linear both; }
   .drawn { transform: scaleX(1); }
   @keyframes marker-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 </style>
