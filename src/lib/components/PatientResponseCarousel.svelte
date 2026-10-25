@@ -207,6 +207,9 @@
             {#if nearby && item.image}
               <span class="image-frame">
               <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading={Math.abs(slot - position) <= 1 ? 'eager' : 'lazy'} fetchpriority={slot === target ? 'high' : 'auto'} decoding="async" draggable="false" />
+              {#each item.underlines ?? [] as line, index}
+                <span class="response-underline" aria-hidden="true" style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--underline-delay:${index * 220}ms`}></span>
+              {/each}
               {#if !desktop && touchHintReady && settled && slot === target}
                 {#key item.id}
                   <span class="touch-tooltip" aria-hidden="true">{touchHintLabel}</span>
@@ -232,7 +235,12 @@
   <div class="response-modal" role="presentation" on:click={() => { enlarged = null; }}>
     <div class="response-modal-panel" use:dialog={{ close: () => { enlarged = null; } }} role="dialog" aria-modal="true" aria-label={expandLabel} tabindex="-1" on:click|stopPropagation on:keydown|stopPropagation>
       <button class="response-modal-close eima-close" type="button" aria-label={closeLabel} on:click={() => { enlarged = null; }}><CloseIcon /></button>
-      <img src={enlarged.image} alt={enlarged.alt} width={enlarged.width} height={enlarged.height} />
+      <span class="modal-image-frame">
+        <img src={enlarged.image} alt={enlarged.alt} width={enlarged.width} height={enlarged.height} />
+        {#each enlarged.underlines ?? [] as line, index}
+          <span class="response-underline" aria-hidden="true" style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--underline-delay:${index * 220}ms`}></span>
+        {/each}
+      </span>
     </div>
   </div>
 {/if}
@@ -264,6 +272,11 @@
   .cursor-tooltip { position: fixed; z-index: 250; padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; }
   .image-frame { position: relative; display: block; max-width: 100%; }
   .image-frame img { max-height: var(--row-image-height); }
+  .response-underline { position: absolute; pointer-events: none; background: #4083a752; border-radius: 45% 20% 35% 15%; mix-blend-mode: multiply; transform: scaleX(0); transform-origin: left center; transition: transform 180ms ease-out; }
+  .centered .response-underline { transform: scaleX(1); transition: transform 650ms cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms); }
+  .modal-image-frame { position: relative; display: block; width: fit-content; max-width: 100%; }
+  .modal-image-frame .response-underline { animation: underline-draw 650ms cubic-bezier(.22,.61,.36,1) var(--underline-delay, 0ms) both; }
+  @keyframes underline-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   .touch-tooltip { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; animation: touch-hint 3s both; }
   :global(.patient-row--dark) .touch-tooltip,
   :global(.patient-row--dark) .cursor-tooltip,
@@ -320,6 +333,8 @@
     .response-modal-panel img { max-width: calc(100vw - 2.5rem); max-height: calc(100dvh - 120px); }
   }
   @media (prefers-reduced-motion: reduce) {
+    .response-underline, .centered .response-underline { transition: none; }
+    .modal-image-frame .response-underline { animation: none; transform: scaleX(1); }
     .response-card, .carousel-arrow { transition: none; }
     .response-card.centered { transform: none; }
     .arrow-icon svg, .arrow-icon svg:last-child { transition: none; }

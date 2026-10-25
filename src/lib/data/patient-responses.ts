@@ -11,6 +11,8 @@ export type PatientResponse = {
   height: number;
   highlight: string;
   alt: string;
+  /** Underline coordinates as percentages of the original screenshot. */
+  underlines?: { x: number; y: number; width: number; height: number }[];
 };
 
 // Selected patient responses; each image appears in one narrative row only.
@@ -55,6 +57,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-6",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-bad-day.jpg",
+    "underlines": [
+      { "x": 60.2, "y": 29.9, "width": 33.9, "height": 2.5 },
+      { "x": 2.9, "y": 44.9, "width": 27.8, "height": 2.5 }
+    ],
     "width": 943,
     "height": 394,
     "highlight": "Hoy no ha sido un buen día. Me he levantado muy mareado, me ha costado trabajar y sigo aún así.",
@@ -64,6 +70,10 @@ export const patientResponses: PatientResponse[] = [
     "id": "difficult-day-7",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-mental-fog.jpg",
+    "underlines": [
+      { "x": 80.6, "y": 35.0, "width": 14.8, "height": 2.8 },
+      { "x": 4.1, "y": 52.0, "width": 24.3, "height": 2.8 }
+    ],
     "highlight": "Sigo con bastante “niebla” en la cabeza.",
     "alt": "Respuesta real de paciente: Caminata de la hora. Sigo con bastante “niebla” en la cabeza y quizás no voy suficientemente rápido, ya que estoy casi todo el rato en zona 0. Ojalá me vaya despejando.",
     "width": 993,
