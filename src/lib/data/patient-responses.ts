@@ -115,6 +115,15 @@ export const patientResponses: PatientResponse[] = [
     "alt": "Respuesta real de paciente: Me gusta saber lo que tengo que hacer al día siguiente."
   },
   {
+    "id": "eima-adaptation-11",
+    "category": "eima-adaptation",
+    "image": "/patient-responses/eima-adaptation-11.jpg",
+    "width": 981,
+    "height": 554,
+    "highlight": "Agradezco de corazón la dedicación, porque es por mi bien y veo los resultados.",
+    "alt": "Respuesta real de paciente: He de decir, que al principio casi te pillo manía, porque eres muy pesado, todos los días y a primera hora ya escribiendo, pero agradezco de corazón la dedicación, porque es por mi bien y veo los resultados."
+  },
+  {
     "id": "eima-adaptation-7",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-7.jpg",
@@ -304,6 +313,10 @@ const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
   'eima-adaptation-2': {
     ca: 'M’agrada saber què he de fer l’endemà.',
     en: 'I like knowing what I need to do the next day.'
+  },
+  'eima-adaptation-11': {
+    ca: 'Agraesc de tot cor la dedicació, perquè és pel meu bé i veig els resultats.',
+    en: 'I sincerely appreciate the dedication, because it is for my own good and I can see the results.'
   },
   'eima-adaptation-7': {
     ca: 'El vídeo em va agradar molt i em va ajudar a entendre en quin punt estic i què em queda.',
