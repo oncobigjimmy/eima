@@ -404,7 +404,7 @@ const caCopy = {
           title: 'Recuperar',
           subtitle: 'força i energia per al teu dia a dia',
           body:
-            'Volem que tornis a sentir-te més capaç en coses quotidianes com caminar, pujar escales, carregar bosses o acabar el dia amb menys esgotament.',
+            'Volem que tornis a sentir-te més capaç en coses quotidianes com caminar, pujar escales, carregar bosses o acabar el dia menys esgotat/ada.',
           icon: 'recover'
         },
         {
@@ -638,7 +638,7 @@ const enCopy = {
           title: 'Recover',
           subtitle: 'strength and energy for your daily life',
           body:
-            'We want you to feel more capable again in everyday activities such as walking, climbing stairs, carrying shopping bags or finishing the day with less exhaustion.',
+            'We want you to feel more capable again in everyday activities such as walking, climbing stairs, carrying shopping bags or finishing the day feeling less exhausted.',
           icon: 'recover'
         },
         {

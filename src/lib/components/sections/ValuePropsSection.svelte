@@ -186,27 +186,12 @@
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <header class="mx-auto max-w-4xl pb-8 text-center md:pb-10">
       <h2
-        class:updated-heading={$language === 'es'}
+        class:updated-heading={true}
+        class:translated-heading={$language !== 'es'}
         class={`font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px] section-playfair-desktop`}
       >
 
-          {#if $language === 'es'}
-            Tu <span style="color: #4083A7; font: inherit;">salud</span> importa. Tu <span style="color: #4083A7; font: inherit;">tiempo</span> también.
-          {:else}
-          {valueCopy.headingBefore}
-          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-            >{valueCopy.headingHighlight1}{valueCopy.headingMiddle.startsWith(',') ? ',' : ''}</span
-          >{#if $language === 'ca'}
-            {valueCopy.headingMiddle.replace(/^,/, '').replace(' la teva', '')}<br class="hidden md:block" />{' '}la teva{' '}
-          {:else if $language === 'en'}
-            {valueCopy.headingMiddle.replace(/^,/, '').replace(' neglecting your', '')}<br class="hidden md:block" />{' '}neglecting your{' '}
-          {:else}
-            {valueCopy.headingMiddle.replace(/^,/, '')}{' '}
-          {/if}
-          <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
-            >{valueCopy.headingHighlight2}</span
-          >
-          {/if}
+          {@html valueCopy.headingHtml}
       </h2>
 
       {#if valueCopy.intro}
@@ -274,9 +259,9 @@
           </p>
         {/if}
         {#each valueCopy.summaryLines as line, index}
-          {#if $language === 'es' && index === 0}
+          {#if index === 0}
             <p class="timeline-summary__line timeline-summary__line--inter summary-intro-desktop" use:htmlContent={line}>{@html line}</p>
-            <p class="timeline-summary__line timeline-summary__line--inter summary-intro-mobile">Nuestro <strong class="summary-marker">Programa Empenta</strong><br />te acompaña durante <strong>12 semanas.</strong></p>
+            <p class="timeline-summary__line timeline-summary__line--inter summary-intro-mobile">{@html valueCopy.mobileIntro}</p>
           {:else}
             <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}>{@html line}</p>
           {/if}
@@ -291,6 +276,8 @@
 </section>
 
 <style>
+  .translated-heading { --section-playfair-desktop-size: 44px; }
+  .updated-heading :global(.value-heading-accent) { color: #4083a7; font: inherit; }
   .summary-intro-mobile { display: none; }
   @media (max-width: 767px) {
     .summary-intro-desktop { display: none; }

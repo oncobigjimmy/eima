@@ -22,3 +22,9 @@ Estamos migrando EIMA Fisioterapia a **EIMA SALUT**. Leer antes de trabajar:
 - Los documentos distinguen decisiones para futuras tareas de cambios ya implementados. Su existencia no autoriza a ejecutar todos los cambios pendientes: seguir el alcance de cada petición.
 - Resolver autónomamente problemas técnicos locales normales. Detenerse si el siguiente paso implica acciones destructivas, pérdida de datos, `main`, producción, dominios, DNS o despliegues sin autorización expresa que cubra esa acción.
 - Ejecutar las comprobaciones y/o el build adecuados cuando sea razonable antes de dar una modificación por terminada; indicar qué se verificó y cualquier limitación.
+
+## Idiomas — preferencia del usuario (26 de octubre de 2026)
+
+- Aplicar los cambios de contenido y diseño a castellano (ES), catalán/mallorquín (CAT) e inglés (EN) antes de publicar, salvo que el usuario limite expresamente el cambio a un idioma.
+- No esperar una petición adicional para actualizar las traducciones. Conservar el significado, las negritas, cursivas, resaltados y variantes móviles en los tres idiomas; adaptar los saltos al texto de cada idioma.
+- Antes de subir a Hostinger, comprobar las tres versiones en escritorio y móvil y verificar que ninguna sigue mostrando textos anteriores.

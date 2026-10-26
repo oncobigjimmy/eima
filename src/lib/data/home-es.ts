@@ -24,6 +24,8 @@ export const homeEsReview = {
     note: 'Valoraremos tu caso, resolveremos tus dudas y te diremos si este acompañamiento encaja contigo.'
   },
   valueProps: {
+    headingHtml: 'Tu <span class="value-heading-accent">salud</span> importa. Tu <span class="value-heading-accent">tiempo</span> también.',
+    mobileIntro: 'Nuestro <strong class="summary-marker">Programa Empenta</strong><br />te acompaña durante <strong>12 semanas.</strong>',
     intro: '',
     steps: [
       { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración vemos tu situación, tus objetivos y<br class="home-desktop-break"> qué necesitas ahora mismo para que sepas <strong>qué hacer,<br class="home-desktop-break"> cuánto hacer y cómo adaptarlo.</strong>'], icon: 'list' },

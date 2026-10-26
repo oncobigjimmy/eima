@@ -27,21 +27,48 @@ export const translatedHomeReview = {
       cta: 'Conta’ns el teu cas', note: 'Valorarem el teu cas, resoldrem els teus dubtes i et direm si aquest acompanyament encaixa amb tu.'
     },
     valueProps: {
-      intro: '', headingBefore: 'Guanyaràs', headingHighlight1: 'temps', headingMiddle: ', sense descuidar la teva', headingHighlight2: 'salut',
-      steps: [
-        { title: 'Claredat des del principi', bodyLines: ['A la primera valoració veim la teva situació, els teus objectius i què necessites ara mateix perquè sàpigues <strong>què fer, quant fer i com adaptar-ho</strong>.'], icon: 'list' },
-        { title: 'Menys desplaçaments', bodyLines: ['La <strong>primera valoració</strong> la feim <strong>a ca teva</strong> <strong>i després</strong> t’acompanyam <strong>online</strong>, per ajustar el pla sense afegir més desplaçaments a la teva setmana.'], icon: 'car' },
-        { title: 'Suport quan el necessites', bodyLines: ['Si apareix un dubte, dolor o fatiga amb algun exercici,<br class="home-desktop-break"> <strong>no has d’esperar a la següent cita per resoldre-ho.</strong><br class="home-desktop-break"> Ens escrius i ajustam el teu pla amb tu.'], icon: 'support' },
-        { title: 'S’adapta a tu, no a l’inrevés', bodyLines: ['El teu cos no està igual totes les setmanes. Aquest format ens permet <strong>adaptar el pla segons els teus símptomes, els teus horaris i els teus tractaments.</strong>'], icon: 'calendar' }
+  "headingHtml": "La teva <span class=\"value-heading-accent\">salut</span> importa. El teu <span class=\"value-heading-accent\">temps</span> també.",
+  "mobileIntro": "El nostre <strong class=\"summary-marker\">Programa Empenta</strong><br />t’acompanya durant <strong>12 setmanes.</strong>",
+  "intro": "",
+  "steps": [
+    {
+      "title": "Claredat des del principi",
+      "bodyLines": [
+        "A la primera valoració veim la teva situació, els teus objectius i què necessites ara mateix perquè sàpigues <strong>què fer, quant fer i com adaptar-ho.</strong>"
       ],
-      summaryStrong: '',
-      summaryLines: [
-        'El nostre <strong class="text-[#4083A7]">Programa Empenta</strong> consta d’un <strong class="text-[#4083A7]">acompanyament de 12 setmanes.</strong>',
-        '<strong>No treballam a base de sessions soltes</strong> perquè no basta saber quins exercicis fer el primer dia.',
-        'Necessitam <strong>conèixer el teu punt de partida,</strong> acompanyar-te mentre els <strong>incorpores a la teva rutina,</strong> adaptar-los quan sigui necessari i comprovar <strong>com evoluciones.</strong>'
+      "icon": "list"
+    },
+    {
+      "title": "Menys desplaçaments",
+      "bodyLines": [
+        "La <strong>primera valoració</strong> la feim <strong>a ca teva</strong> i <strong>després</strong> t’acompanyam <strong>online</strong>, sense afegir <br class=\"home-mobile-break\"><span class=\"travel-mobile-phrase\">desplaçaments habituals</span><br class=\"home-mobile-break\"> <span class=\"travel-mobile-phrase\">a la teva setmana.</span>"
       ],
-      cta: 'Veure com funciona Empenta'
+      "icon": "car"
+    },
+    {
+      "title": "Suport sense haver de demanar cita",
+      "bodyLines": [
+        "Si alguna cosa et preocupa, un exercici no et surt o no saps com adaptar-lo, <strong>no has d’esperar a la següent cita</strong>. Ens escrius i ajustam el teu pla amb tu quan sigui necessari."
+      ],
+      "icon": "support"
+    },
+    {
+      "title": "S’adapta a la teva vida, no a l’inrevés",
+      "bodyLines": [
+        "Adaptam l’exercici a <strong>com et trobis, els teus tractaments i els teus horaris</strong>, perquè el puguis incorporar a la teva vida sense dependre d’un calendari rígid."
+      ],
+      "icon": "calendar"
     }
+  ],
+  "summaryStrong": "",
+  "summaryLines": [
+    "El nostre <strong class=\"summary-marker\">Programa Empenta</strong> consisteix en un <strong>acompanyament de 12 setmanes.</strong>",
+    "<strong>No treballam a base de sessions soltes</strong>, perquè no basta saber quins exercicis fer el primer dia. T’ajudam a incorporar-los a la teva rutina, adaptar-los quan sigui necessari i comprovar com evoluciones.",
+    "I una cosa important: <strong>no necessites trobar-te bé totes les setmanes</strong> perquè el nostre acompanyament tengui sentit. Hi haurà moments per progressar, altres per mantenir i altres per descansar.",
+    "La nostra feina és ajudar-te a <strong class=\"summary-marker\">saber què fer en cada un d’aquests moments.</strong>"
+  ],
+  "cta": "I com ho farem?"
+}
   },
   en: {
     meta: {
@@ -61,20 +88,47 @@ export const translatedHomeReview = {
       cta: 'Tell us about your situation', note: 'We’ll assess your situation, answer your questions and tell you whether this support is right for you.'
     },
     valueProps: {
-      intro: '', headingBefore: 'You’ll save', headingHighlight1: 'time', headingMiddle: ', without neglecting your', headingHighlight2: 'health',
-      steps: [
-        { title: 'Clarity from the start', bodyLines: ['At the first assessment, we look at your situation, goals and current needs so you know <strong>what to do, how much and how to adapt it</strong>.'], icon: 'list' },
-        { title: 'Less travelling', bodyLines: ['We do the <strong>first assessment</strong> <strong>at your home</strong> <strong>and then</strong> support you <strong>online</strong>, adjusting the plan without adding more travelling to your week.'], icon: 'car' },
-        { title: 'Support when you need it', bodyLines: ['If a question, pain or fatigue comes up with an exercise,<br class="home-desktop-break"> <strong>you don’t have to wait until your next appointment to address it.</strong><br class="home-desktop-break"> Write to us and we’ll adjust your plan with you.'], icon: 'support' },
-        { title: 'It adapts to you', bodyLines: ['Your body isn’t the same every week. This format lets us <strong>adapt the plan to your symptoms, schedule and treatments.</strong>'], icon: 'calendar' }
+  "headingHtml": "Your <span class=\"value-heading-accent\">health</span> matters. Your <span class=\"value-heading-accent\">time</span> does too.",
+  "mobileIntro": "Our <strong class=\"summary-marker\">Empenta Programme</strong><br />supports you for <strong>12 weeks.</strong>",
+  "intro": "",
+  "steps": [
+    {
+      "title": "Clarity from the start",
+      "bodyLines": [
+        "At the first assessment, we look at your situation, your goals and what you need right now so you know <strong>what to do, how much and how to adapt it.</strong>"
       ],
-      summaryStrong: '',
-      summaryLines: [
-        'Our <strong class="text-[#4083A7]">Empenta Programme</strong> provides <strong class="text-[#4083A7]">12 weeks of support.</strong>',
-        '<strong>We don’t work through individual sessions</strong> because knowing which exercises to do on the first day isn’t enough.',
-        'We need to <strong>understand your starting point,</strong> support you as you <strong>build them into your routine,</strong> adapt them when needed and check <strong>how you progress.</strong>'
+      "icon": "list"
+    },
+    {
+      "title": "Less travelling",
+      "bodyLines": [
+        "We do the <strong>first assessment</strong> <strong>at your home</strong> and <strong>then</strong> support you <strong>online</strong>, without adding <br class=\"home-mobile-break\"><span class=\"travel-mobile-phrase\">regular travel</span><br class=\"home-mobile-break\"> <span class=\"travel-mobile-phrase\">to your week.</span>"
       ],
-      cta: 'See how Empenta works'
+      "icon": "car"
+    },
+    {
+      "title": "Support without booking an appointment",
+      "bodyLines": [
+        "If something worries you, an exercise isn’t working for you or you don’t know how to adapt it, <strong>you don’t have to wait until your next appointment</strong>. Write to us and we’ll adjust your plan with you when needed."
+      ],
+      "icon": "support"
+    },
+    {
+      "title": "It adapts to your life, not the other way round",
+      "bodyLines": [
+        "We adapt exercise to <strong>how you feel, your treatments and your schedule</strong>, so you can make it part of your life without depending on a rigid calendar."
+      ],
+      "icon": "calendar"
     }
+  ],
+  "summaryStrong": "",
+  "summaryLines": [
+    "Our <strong class=\"summary-marker\">Empenta Programme</strong> provides <strong>12 weeks of support.</strong>",
+    "<strong>We don’t work through one-off sessions</strong>, because knowing which exercises to do on the first day isn’t enough. We help you build them into your routine, adapt them when needed and check how you progress.",
+    "And something important: <strong>you don’t need to feel well every week</strong> for our support to make sense. There will be times to progress, times to maintain and times to rest.",
+    "Our job is to help you <strong class=\"summary-marker\">know what to do at each of those times.</strong>"
+  ],
+  "cta": "And how will we do it?"
+}
   }
 };

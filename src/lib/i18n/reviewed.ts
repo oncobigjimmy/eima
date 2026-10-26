@@ -24,7 +24,7 @@ export const homeSections = {
     situationClosing: 'Sigui quin sigui el teu punt de partida, primer necessitam entendre la teva situació.',
     recoveryTitle: 'Què volem que <span>aconsegueixis?</span>', recoverySubtitle: '<strong>Les <span class="brush-accent">3R</span> del teu progrés</strong>',
     firstGoalBody: 'Cercam que et moguis amb menys fatiga, menys rigidesa, menys por i més sensació de control sobre el teu cos i la teva rutina del dia a dia.',
-    thirdGoalSubtitle: 'amb confiança allò que és important per a tu', thirdGoalBody: 'A poc a poc, cercam que tornis a fer amb més seguretat aquelles activitats que ara et costen, et cansen o et generen dubtes.'
+    thirdGoalSubtitle: 'amb confiança allò que és important per a tu', thirdGoalBody: 'Volem ajudar-te a continuar fent (o tornar a fer) allò que gaudeixes i és important per a tu: <em>anar d’excursió, jugar a pàdel o a golf, fer pilates o continuar treballant.</em>'
   },
   en: {
     vslBefore: 'We explain how', vslAfter: ' works', programme: 'Our exercise programme for people with cancer in Mallorca',
@@ -36,7 +36,7 @@ export const homeSections = {
     situationClosing: 'Whatever your starting point, we first need to understand your situation.',
     recoveryTitle: 'What do we want you to <span>achieve?</span>', recoverySubtitle: '<strong>The <span class="brush-accent">3Rs</span> of your progress</strong>',
     firstGoalBody: 'We want you to move with less fatigue, less stiffness, less fear and a greater sense of control over your body and your daily routine.',
-    thirdGoalSubtitle: 'with confidence to what matters to you', thirdGoalBody: 'Step by step, we want you to return more safely to the activities that now feel difficult, tiring or uncertain.'
+    thirdGoalSubtitle: 'with confidence to what matters to you', thirdGoalBody: 'We want to help you keep doing (or return to) what you enjoy and what matters to you: <em>going hiking, playing padel or golf, doing Pilates or continuing to work.</em>'
   }
 };
 
