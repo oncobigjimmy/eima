@@ -165,9 +165,13 @@
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <header class="mx-auto max-w-4xl pb-8 text-center md:pb-10">
       <h2
+        class:updated-heading={$language === 'es'}
         class={`font-display-serif text-[2.2rem] leading-[1.04] font-medium tracking-[0] text-[color:var(--color-brand)] md:text-[48px] section-playfair-desktop`}
       >
 
+          {#if $language === 'es'}
+            Tu <span style="color: #4083A7; font: inherit;">salud</span> importa. Tu <span style="color: #4083A7; font: inherit;">tiempo</span> también.
+          {:else}
           {valueCopy.headingBefore}
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
             >{valueCopy.headingHighlight1}{valueCopy.headingMiddle.startsWith(',') ? ',' : ''}</span
@@ -181,6 +185,7 @@
           <span style="color: #4083A7; font-family: inherit; font-size: inherit; font-weight: inherit;"
             >{valueCopy.headingHighlight2}</span
           >
+          {/if}
       </h2>
 
       {#if valueCopy.intro}
@@ -260,6 +265,9 @@
 </section>
 
 <style>
+  @media (min-width: 768px) {
+    .updated-heading { font-size: clamp(30px, 3.5vw, 48px); white-space: nowrap; }
+  }
   .timeline {
     position: relative;
     width: 100%;

@@ -26,18 +26,18 @@ export const homeEsReview = {
   valueProps: {
     intro: '',
     steps: [
-      { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración vemos tu situación, tus objetivos y qué necesitas ahora mismo para que sepas <strong>qué hacer, cuánto hacer y cómo adaptarlo</strong>.'], icon: 'list' },
-      { title: 'Menos desplazamientos', bodyLines: ['La <strong>primera valoración</strong> la hacemos <strong>en tu casa</strong> <strong>y después</strong><br class="home-desktop-break"> te acompañamos <strong>online</strong>, para ajustar el plan sin<br class="home-desktop-break"> sumar más desplazamientos a tu semana.'], icon: 'car' },
-      { title: 'Apoyo cuando lo necesitas', bodyLines: ['Si aparece una duda, dolor o fatiga con algún ejercicio,<br class="home-desktop-break"> <strong>no tienes que esperar a la siguiente cita para resolverlo.</strong><br class="home-desktop-break"> Nos escribes y ajustamos tu plan contigo.'], icon: 'support' },
-      { title: 'Se adapta a ti, no al revés', bodyLines: ['Tu cuerpo no está igual todas las semanas. Este formato<br class="home-desktop-break"> nos permite <strong>adaptar el plan según tus síntomas,<br class="home-desktop-break"> tus horarios y tus tratamientos.</strong>'], icon: 'calendar' }
+      { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración conocemos tu situación y tus objetivos para que sepas <strong>qué hacer, cuánto hacer y cómo adaptarlo</strong>.'], icon: 'list' },
+      { title: 'Menos desplazamientos', bodyLines: ['La primera valoración la hacemos <strong>en tu casa</strong> y después te acompañamos <strong>online</strong>, sin añadir desplazamientos habituales a tu semana.'], icon: 'car' },
+      { title: 'Apoyo sin pedir cita', bodyLines: ['Si algo te preocupa, un ejercicio no te sale o no sabes cómo adaptarlo, <strong>no tienes que esperar a la siguiente cita para consultarlo</strong>. Nos escribes y ajustamos tu plan contigo cuando sea necesario.'], icon: 'support' },
+      { title: 'Se adapta a tu vida, no al revés', bodyLines: ['<strong>Adaptamos el ejercicio a cómo te encuentres, tus tratamientos y tus horarios</strong>, para que puedas incorporarlo a tu vida sin depender de un calendario rígido.'], icon: 'calendar' }
     ],
     summaryStrong: '',
     summaryLines: [
-      'Nuestro <strong class="text-[#4083A7]">Programa Empenta</strong> consta de un <strong class="text-[#4083A7]">acompañamiento de 12 semanas.</strong>',
-      '<strong>No trabajamos a base de sesiones sueltas</strong> porque no basta con saber qué ejercicios hacer el primer día.',
-      'Necesitamos <strong>conocer tu punto de partida,</strong> acompañarte mientras los <strong>incorporas a tu rutina,</strong> adaptarlos cuando sea necesario y comprobar <strong>cómo evolucionas.</strong>'
+      'Nuestro <strong class="text-[#4083A7]">Programa Empenta</strong> consiste en un <strong class="text-[#4083A7]">acompañamiento de 12 semanas</strong>.',
+      '<strong>No trabajamos a base de sesiones sueltas</strong>, porque no basta con saber qué ejercicios hacer el primer día. Te ayudamos a incorporarlos a tu rutina, adaptarlos cuando sea necesario y comprobar cómo evolucionas.',
+      'Y algo importante: <strong>no necesitas encontrarte bien todas las semanas para que este acompañamiento tenga sentido</strong>. Habrá momentos de progresar, otros de mantener y otros de descansar. Nuestro trabajo es ayudarte a saber qué hacer en cada uno de ellos.'
     ],
-    cta: 'Ver cómo funciona Empenta'
+    cta: '¿Y cómo lo haremos?'
   }
 };
 

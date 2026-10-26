@@ -181,7 +181,7 @@ const esCopy = {
           title: 'Retomar',
           subtitle: 'con confianza lo importante para ti',
           body:
-            'Poco a poco, buscamos que vuelvas a hacer con más seguridad esas actividades que ahora te cuestan, te cansan o te generan dudas.',
+            'Queremos ayudarte a seguir haciendo, o volver a hacer, aquello que disfrutas y es importante para ti: salir de excursión, jugar al pádel o al golf, hacer pilates o seguir trabajando.',
           icon: 'resume'
         }
       ]
