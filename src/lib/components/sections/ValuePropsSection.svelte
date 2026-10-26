@@ -286,6 +286,14 @@
 </section>
 
 <style>
+  .home-es :global(.home-mobile-break) { display: none; }
+  @media (max-width: 767px) {
+    .home-es :global(.home-mobile-break) { display: block; }
+    .home-es :global(.travel-mobile-phrase) { white-space: nowrap; }
+    .home-es .timeline-summary .timeline-summary__line { font-size: 15px; }
+    .home-es .timeline-summary :global(.summary-marker) { font-size: 17px; }
+  }
+  @media (max-width: 359px) { .home-es :global(.travel-mobile-phrase) { white-space: normal; } }
   @media (min-width: 768px) {
     .updated-heading { font-size: clamp(30px, 3.5vw, 48px); white-space: nowrap; }
   }
