@@ -386,12 +386,6 @@
   .recovery-row:global(.goal-pending)::before { transform: scaleX(0); transition: transform 800ms ease; }
   .recovery-row:global(.goal-visible)::before { transform: scaleX(1); }
   .mobile-video-caption { display: none; }
-  @media (min-width: 768px) {
-    .recovery-word { font-size: 45px; }
-    .recovery-word::first-letter, .recovery-word-ink::first-letter { font-weight: 600; }
-    .goal-subtitle { font-size: 30px; }
-    .goal-body { font-size: 18px; }
-  }
   @media (min-width: 768px) { .poster-description--review { font-size: 13px; max-width: none; white-space: nowrap; } }
   .situation-card:global(.will-reveal) { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; transition-delay: var(--delay, 0ms); }
   .situation-card:global(.is-visible) { opacity: 1; transform: none; }
