@@ -11,7 +11,7 @@
       const bounds = node.getBoundingClientRect();
       const reading = mobile.matches
         ? state.progress >= state.finalThreshold && bounds.top <= window.innerHeight * .4 && bounds.bottom >= window.innerHeight * .25
-        : intersects;
+        : intersects && bounds.top <= window.innerHeight * .48;
       node.classList.toggle('scroll-reading', reading);
     }
     const observer = new IntersectionObserver(([entry]) => {

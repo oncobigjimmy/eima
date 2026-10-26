@@ -41,6 +41,24 @@
     };
   }
 
+  /** @param {HTMLElement} node */
+  function summaryContrast(node) {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const bounds = node.getBoundingClientRect();
+      const focus = window.innerHeight * .68;
+      node.classList.toggle('summary-reading', bounds.top <= focus && bounds.bottom >= window.innerHeight * .22);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(node);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    update();
+    return { destroy() { observer.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
+  }
+
   /** @type {HTMLElement} */
   let timelineRoot;
   /** @type {HTMLElement} */
@@ -245,7 +263,7 @@
       </div>
     </div>
 
-    <div use:revealOnScroll class="timeline-summary mx-auto mt-14 max-w-5xl md:mt-16">
+    <div use:summaryContrast class="timeline-summary mx-auto mt-14 max-w-5xl md:mt-16">
       <div class="timeline-summary__content">
         {#if valueCopy.summaryStrong}
           <p class="timeline-summary__line timeline-summary__line--strong">
@@ -461,29 +479,34 @@
 
   .timeline-summary {
     position: relative;
-    padding-left: 1.5rem;
+    isolation: isolate;
+    overflow: hidden;
+    max-width: 850px;
+    border: 1px solid #8cd0d652;
+    border-radius: 24px;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: #233f4e;
+    box-shadow: 0 20px 50px #233f4e14, inset 0 1px 0 #ffffff30;
+    transition: background-color 650ms ease, box-shadow 650ms ease;
   }
-
   .timeline-summary::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 3.6rem;
-    width: 4px;
-    background: #8cd0d6;
+    z-index: -1;
+    pointer-events: none;
+    inset: 0;
+    background: radial-gradient(ellipse 85% 70% at 50% 0%, #4083a7b3, transparent 85%);
+    transition: opacity 650ms ease;
   }
-
-  .timeline-summary__content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.95rem;
-    opacity: 0;
-    transition: opacity 620ms ease-out;
-  }
-
-  :global(.timeline-summary[data-visible='true']) .timeline-summary__content {
-    opacity: 1;
+  .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
+  .timeline-summary .timeline-summary__line { color: #f8f4f0; transition: color 650ms ease; }
+  .timeline-summary :global(strong) { color: #bce7eb; transition: color 650ms ease; }
+  .timeline-summary:global(.summary-reading) { background: #245b7d; box-shadow: 0 20px 50px #233f4e26, inset 0 1px 0 #ffffff45; }
+  .timeline-summary:global(.summary-reading)::before { opacity: 1; }
+  .timeline-summary:global(.summary-reading) .timeline-summary__line { color: #f8f4f0; }
+  .timeline-summary:global(.summary-reading) :global(strong) { color: #bce7eb; }
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-summary, .timeline-summary::before, .timeline-summary .timeline-summary__line, .timeline-summary :global(strong) { transition: none; }
   }
 
   .timeline-summary__line--strong {
