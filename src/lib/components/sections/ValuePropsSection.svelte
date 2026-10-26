@@ -279,7 +279,7 @@
       </div>
 
     </div>
-    <div class="mt-7 flex justify-center">
+    <div class="summary-cta flex justify-center">
       <PrimaryCta href={programHref} label={valueCopy.cta} />
     </div>
   </div>
@@ -480,14 +480,15 @@
     transform: translate3d(0, 0, 0);
   }
 
+  .summary-cta { margin-top: var(--home-section-end, 3.75rem); }
   .timeline-summary {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    max-width: 850px;
+    max-width: 810px;
     border: 1px solid #8cd0d652;
     border-radius: 24px;
-    padding: clamp(1.5rem, 4vw, 3rem);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
     background: #233f4e;
     box-shadow: 0 20px 50px #233f4e14, inset 0 1px 0 #ffffff30;
     transition: background-color 650ms ease, box-shadow 650ms ease;
