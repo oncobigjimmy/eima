@@ -49,6 +49,9 @@
       const bounds = node.getBoundingClientRect();
       const focus = window.innerHeight * .68;
       node.classList.toggle('summary-reading', bounds.top <= focus && bounds.bottom >= window.innerHeight * .22);
+      node.querySelectorAll('.summary-marker').forEach((marker) => {
+        if (marker.getBoundingClientRect().top <= window.innerHeight * .78) marker.classList.add('marker-visible');
+      });
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const observer = new ResizeObserver(schedule);
@@ -275,9 +278,9 @@
         {/each}
       </div>
 
-      <div class="mt-7 flex justify-center">
-        <PrimaryCta href={programHref} label={valueCopy.cta} />
-      </div>
+    </div>
+    <div class="mt-7 flex justify-center">
+      <PrimaryCta href={programHref} label={valueCopy.cta} />
     </div>
   </div>
 </section>
@@ -498,8 +501,23 @@
     background: radial-gradient(ellipse 85% 70% at 50% 0%, #4083a7b3, transparent 85%);
     transition: opacity 650ms ease;
   }
+  .timeline-summary :global(.summary-marker) {
+    color: #fff;
+    padding-inline: 3px;
+    margin-inline: -3px;
+    border-radius: 3px;
+    background-image: linear-gradient(#233f4e, #233f4e);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition: background-size 700ms linear;
+  }
+  .timeline-summary :global(.summary-marker.marker-visible) { background-size: 100% 100%; }
+  @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker) { background-size: 100% 100%; transition: none; } }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
-  .timeline-summary .timeline-summary__line { color: #bce7eb; transition: color 650ms ease; }
+  .timeline-summary .timeline-summary__line { font-size: 17px; color: #bce7eb; transition: color 650ms ease; }
   .timeline-summary :global(strong) { color: #ffffff; transition: color 650ms ease; }
   .timeline-summary:global(.summary-reading) { background: #245b7d; box-shadow: 0 20px 50px #233f4e26, inset 0 1px 0 #ffffff45; }
   .timeline-summary:global(.summary-reading)::before { opacity: 1; }

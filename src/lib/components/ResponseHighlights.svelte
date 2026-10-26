@@ -17,7 +17,7 @@
     class:drawing={active && !reduced && index === completed}
     class:drawn={active && index < completed}
     aria-hidden="true"
-    style={`left:${line.x}%;top:${line.y}%;width:${line.width}%;height:${line.height}%;--marker-duration:${duration}ms`}
+    style={`left:calc(${line.x}% - 2px);top:${line.y}%;width:calc(${line.width}% + 4px);height:${line.height}%;--marker-duration:${duration}ms`}
     on:animationend={() => { if (active && index === completed) completed = index + 1; }}
   ></span>
 {/each}
