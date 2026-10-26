@@ -503,6 +503,8 @@
     transition: opacity 650ms ease;
   }
   .timeline-summary :global(.summary-marker) {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
     color: #fff;
     padding-inline: 3px;
     margin-inline: -3px;
