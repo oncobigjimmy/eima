@@ -504,7 +504,10 @@
   }
   .timeline-summary :global(.summary-marker) {
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 1;
+    vertical-align: baseline;
     color: #fff;
     padding-inline: 3px;
     margin-inline: -3px;
