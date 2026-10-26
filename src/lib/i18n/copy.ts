@@ -174,7 +174,7 @@ const esCopy = {
           title: 'Recuperar',
           subtitle: 'fuerza y energía para tu día a día',
           body:
-            'Queremos que vuelvas a sentirte más capaz en cosas cotidianas como caminar, subir escaleras, cargar bolsas o terminar el día menos agotado/agotada.',
+            'Queremos que vuelvas a sentirte más capaz en cosas cotidianas como caminar, subir escaleras, cargar bolsas o terminar el día menos agotado/a.',
           icon: 'recover'
         },
         {
