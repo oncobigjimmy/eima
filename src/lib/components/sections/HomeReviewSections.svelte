@@ -410,6 +410,7 @@
     .recovery h2 { white-space: normal; }
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
+    .goal-body { font-size: 14px; }
     .situation-card { padding: 1.75rem 1.25rem; }
     .situation-letter { font-size: 6rem; line-height: .8; margin-bottom: .8rem; transform: translateY(-6px); }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
