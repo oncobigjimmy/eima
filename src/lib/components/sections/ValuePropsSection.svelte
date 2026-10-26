@@ -294,7 +294,7 @@
   .summary-intro-mobile { display: none; }
   @media (max-width: 767px) {
     .summary-intro-desktop { display: none; }
-    .summary-intro-mobile { display: block; margin-inline: -12px; }
+    .summary-intro-mobile { display: block; }
     section.home-es { padding-bottom: 25px; }
     .home-es .summary-cta { margin-top: 25px; }
   }
