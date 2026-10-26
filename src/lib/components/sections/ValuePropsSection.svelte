@@ -273,8 +273,13 @@
             {valueCopy.summaryStrong}
           </p>
         {/if}
-        {#each valueCopy.summaryLines as line}
-          <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}>{@html line}</p>
+        {#each valueCopy.summaryLines as line, index}
+          {#if $language === 'es' && index === 0}
+            <p class="timeline-summary__line timeline-summary__line--inter summary-intro-desktop" use:htmlContent={line}>{@html line}</p>
+            <p class="timeline-summary__line timeline-summary__line--inter summary-intro-mobile">Nuestro <strong class="summary-marker">Programa Empenta</strong> te<br />acompaña durante <strong>12 semanas.</strong></p>
+          {:else}
+            <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}>{@html line}</p>
+          {/if}
         {/each}
       </div>
 
@@ -286,6 +291,11 @@
 </section>
 
 <style>
+  .summary-intro-mobile { display: none; }
+  @media (max-width: 767px) {
+    .summary-intro-desktop { display: none; }
+    .summary-intro-mobile { display: block; margin-inline: -12px; }
+  }
   .home-es :global(.home-mobile-break) { display: none; }
   @media (max-width: 767px) {
     .home-es :global(.home-mobile-break) { display: block; }
