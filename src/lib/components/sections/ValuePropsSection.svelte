@@ -374,6 +374,7 @@
   }
 
   .timeline__card-title {
+    text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566;
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 24px;
@@ -446,6 +447,7 @@
   }
 
   .timeline__point-icon {
+    filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533);
     width: 1.7rem;
     height: 1.7rem;
     flex: 0 0 auto;
@@ -523,7 +525,7 @@
   .timeline-summary :global(.summary-marker.marker-visible) { background-size: 100% 100%; }
   @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker) { background-size: 100% 100%; transition: none; } }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
-  .timeline-summary .timeline-summary__line { font-size: 17px; color: #bce7eb; transition: color 650ms ease; }
+  .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #bce7eb; transition: color 650ms ease; }
   .timeline-summary :global(strong) { color: #ffffff; transition: color 650ms ease; }
   .timeline-summary:global(.summary-reading) { background: #245b7d; box-shadow: 0 20px 50px #233f4e26, inset 0 1px 0 #ffffff45; }
   .timeline-summary:global(.summary-reading)::before { opacity: 1; }
