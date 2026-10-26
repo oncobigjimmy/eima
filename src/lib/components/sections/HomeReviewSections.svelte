@@ -280,7 +280,7 @@
           </div>
           <div class="goal-content">
             <p class="goal-subtitle">{goal.subtitle}</p>
-            <p class="goal-body">{goal.body}</p>
+            <p class="goal-body">{@html goal.body}</p>
           </div>
         </article>
       {/each}

@@ -12,7 +12,7 @@ export const homeSections = {
     situationClosing: 'Sea cual sea tu punto de partida, primero necesitamos entender tu situación.',
     recoveryTitle: '¿Qué queremos que <span>consigas?</span>', recoverySubtitle: '<strong>Las <span class="brush-accent">3R</span> de tu progreso</strong>',
     firstGoalBody: 'Buscamos que te muevas con menos fatiga, menos rigidez, menos miedo y más sensación de control sobre tu cuerpo y tu rutina del día a día.',
-    thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Queremos ayudarte a seguir haciendo, o volver a hacer, aquello que disfrutas y es importante para ti: salir de excursión, jugar al pádel o al golf, hacer pilates o seguir trabajando.'
+    thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello que disfrutas y es importante para ti: <em>salir de excursión, jugar al pádel o al golf, hacer pilates o seguir trabajando.</em>'
   },
   ca: {
     vslBefore: 'T’explicam com funciona', vslAfter: '', programme: 'El nostre programa d’exercici per a persones amb càncer a Mallorca',
