@@ -393,7 +393,7 @@
   }
 
   .home-es .timeline__card-content { min-height: 0; }
-  .home-es { overflow-x: clip; padding-top: var(--home-section-start, 3.75rem); padding-bottom: var(--home-section-end, 3.75rem); }
+  .home-es { overflow-x: clip; padding-top: var(--home-section-start, 3.75rem); padding-bottom: 50px; }
   .home-es .timeline__card-body {
     min-height: 6.7rem;
     display: flex;
@@ -482,7 +482,7 @@
     transform: translate3d(0, 0, 0);
   }
 
-  .summary-cta { margin-top: var(--home-section-end, 3.75rem); }
+  .summary-cta { margin-top: 50px; }
   .timeline-summary {
     position: relative;
     isolation: isolate;
