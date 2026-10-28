@@ -18,6 +18,20 @@ export type PatientResponse = {
 // Selected patient responses; each image appears in one narrative row only.
 export const patientResponses: PatientResponse[] = [
   {
+    id: 'progress-pilates',
+    category: 'progress',
+    image: '/patient-responses/progress-pilates.jpg',
+    width: 992,
+    height: 898,
+    underlines: [
+      { x: 44.8, y: 41.5, width: 41.3, height: 4.4 },
+      { x: 3.5, y: 85.5, width: 62.1, height: 4.4 },
+      { x: 23.6, y: 92.0, width: 53.4, height: 4.4 }
+    ],
+    highlight: 'Tengo muchas ganas. Puedo hacer ejercicio cada día, siempre hay un momento, se acabaron las excusas.',
+    alt: 'Respuesta real de paciente sobre volver a Pilates tras la primera fase de quimioterapia: Es un objetivo alcanzable y real porque empiezo la semana que viene. Tengo muchas ganas. Puedo hacer ejercicio cada día, siempre hay un momento, se acabaron las excusas.'
+  },
+  {
     "id": "difficult-day-2",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-2.jpg",
@@ -378,6 +392,10 @@ export const patientResponses: PatientResponse[] = [
 ];
 
 const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
+  'progress-pilates': {
+    ca: 'Tenc moltes ganes. Puc fer exercici cada dia, sempre hi ha un moment, s’han acabat les excuses.',
+    en: 'I’m really looking forward to it. I can exercise every day, there’s always time, no more excuses.'
+  },
   'difficult-day-2': {
     ca: 'Tot el dia sense energia, amb fàstic i vòmits.',
     en: 'No energy all day, feeling sick and vomiting.'
