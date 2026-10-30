@@ -274,7 +274,7 @@ export const patientResponses: PatientResponse[] = [
     "category": "progress",
     "image": "/patient-responses/progress-3.jpg",
     "underlines": [
-      {"x": 3.553, "y": 83.1, "width": 66.802, "height": 6.11}
+      {"x": 3.553, "y": 84.4, "width": 64.8, "height": 4.8}
     ],
     "width": 985,
     "height": 834,
@@ -317,8 +317,8 @@ export const patientResponses: PatientResponse[] = [
     height: 898,
     underlines: [
       { x: 44.8, y: 41.5, width: 41.3, height: 4.4 },
-      { x: 3.5, y: 85.5, width: 62.1, height: 4.4 },
-      { x: 23.6, y: 92.0, width: 53.4, height: 4.4 }
+      { x: 3.5, y: 85.5, width: 59.3, height: 4.4 },
+      { x: 23.6, y: 92.0, width: 48.5, height: 4.4 }
     ],
     highlight: 'Tengo muchas ganas. Puedo hacer ejercicio cada día, siempre hay un momento, se acabaron las excusas.',
     alt: 'Respuesta real de paciente sobre volver a Pilates tras la primera fase de quimioterapia: Es un objetivo alcanzable y real porque empiezo la semana que viene. Tengo muchas ganas. Puedo hacer ejercicio cada día, siempre hay un momento, se acabaron las excusas.'
