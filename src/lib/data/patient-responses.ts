@@ -329,8 +329,7 @@ export const patientResponses: PatientResponse[] = [
     "image": "/patient-responses/progress-projects.jpg",
     "underlines": [
       {"x": 39.9, "y": 58.7, "width": 55.9, "height": 10.9},
-      {"x": 4.2, "y": 74.3, "width": 4.7, "height": 10.9},
-      {"x": 31.1, "y": 74.3, "width": 61.7, "height": 10.9}
+      {"x": 4.2, "y": 74.3, "width": 4.7, "height": 10.9}
     ],
     "width": 1087,
     "height": 385,
@@ -344,7 +343,8 @@ export const patientResponses: PatientResponse[] = [
     width: 1068,
     height: 414,
     underlines: [
-      { x: 27.1, y: 64.7, width: 56.5, height: 10.6 },
+      { x: 3.2, y: 50.2, width: 52.7, height: 10.6 },
+      { x: 86.0, y: 64.7, width: 3.0, height: 10.6 },
       { x: 3.0, y: 79.2, width: 90.0, height: 10.6 }
     ],
     highlight: 'Algo de ejercicio hice cada día, la pequeña victoria es NO abandonarlo totalmente.',
