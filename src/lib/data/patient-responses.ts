@@ -326,14 +326,29 @@ export const patientResponses: PatientResponse[] = [
   {
     "id": "progress-11",
     "category": "progress",
-    "image": "/patient-responses/progress-11.png",
+    "image": "/patient-responses/progress-projects.jpg",
     "underlines": [
-      {"x": 4.24, "y": 49.1, "width": 55.76, "height": 13.51}
+      {"x": 39.9, "y": 58.7, "width": 55.9, "height": 10.9},
+      {"x": 4.2, "y": 74.3, "width": 4.7, "height": 10.9},
+      {"x": 31.1, "y": 74.3, "width": 61.7, "height": 10.9}
     ],
-    "width": 1085,
-    "height": 416,
-    "highlight": "Me he sentido un poco más yo al poder ir sola a Inca y Palma.",
-    "alt": "Respuesta real de paciente: Me he sentido un poco más yo al poder ir sola a Inca y Palma."
+    "width": 1087,
+    "height": 385,
+    "highlight": "Ha sido importante volverme a sentir un poco mas yo al reactivar proyectos que había interrumpido.",
+    "alt": "Respuesta real de paciente: Ha sido importante volverme a sentir un poco mas yo al reactivar proyectos que había interrumpido."
+  },
+  {
+    id: 'progress-not-giving-up',
+    category: 'progress',
+    image: '/patient-responses/progress-not-giving-up.jpg',
+    width: 1068,
+    height: 414,
+    underlines: [
+      { x: 27.1, y: 64.7, width: 56.5, height: 10.6 },
+      { x: 3.0, y: 79.2, width: 90.0, height: 10.6 }
+    ],
+    highlight: 'Algo de ejercicio hice cada día, la pequeña victoria es NO abandonarlo totalmente.',
+    alt: 'Respuesta real de paciente: Final de semana complicado, por la sesion de quimio, pero algo de ejercicio hice cada dia, la pequeña victoria es NO abandonarlo totalmente.'
   },
   {
     "id": "progress-6",
@@ -481,8 +496,12 @@ const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
     en: 'I didn’t think I’d be able to lift so much weight so soon.'
   },
   'progress-11': {
-    ca: 'M’he sentit una mica més jo mateixa en poder anar tota sola a Inca i Palma.',
-    en: 'I’ve felt a little more like myself by being able to go to Inca and Palma on my own.'
+    ca: 'Ha estat important tornar a sentir-me una mica més jo en reprendre projectes que havia interromput.',
+    en: 'It has been important to feel a little more like myself again by restarting projects I had put on hold.'
+  },
+  'progress-not-giving-up': {
+    ca: 'He fet un poc d’exercici cada dia; la petita victòria és NO deixar-ho del tot.',
+    en: 'I did some exercise every day; the small victory is NOT giving it up completely.'
   },
   'progress-6': {
     ca: 'M’ha donat una mica més de confiança que puc amb això.',
