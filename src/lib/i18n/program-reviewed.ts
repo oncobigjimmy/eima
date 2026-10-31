@@ -20,8 +20,8 @@ export const programReview = {
       'Començam amb una <strong>breu telefonada</strong> per entendre la teva situació i veure si et podem ajudar. Si encaixa, t’enviam un formulari per recollir la <strong>informació important abans de començar</strong>.',
       'Venim al teu domicili per conèixer-te i <strong>valorar des d’on partim</strong>. Revisam la teva història, els teus símptomes, el teu tractament i la teva condició física per <strong>adaptar el pla a tu des del principi</strong>.',
       'Abans de començar, t’ensenyam a utilitzar l’aplicació, a consultar els teus exercicis i a comunicar-te amb nosaltres. Així <strong>sabràs què fer des del primer dia.</strong>',
-      'Preparam un <strong>pla de força, exercici aeròbic i mobilitat</strong> adaptat a la teva situació i a les activitats que vols recuperar o mantenir. Per ajudar-te amb la tècnica, podem <strong>revisar vídeos dels teus exercicis i orientar-te sobre com fer-los.</strong>',
-      'Durant les 12 setmanes combinam seguiment online i <strong>revaloracions presencials periòdiques</strong> per mesurar els teus progressos i ajustar el pla. L’adaptam a <strong>les teves necessitats i al que vulguis aconseguir en cada moment</strong>. Resolem els teus dubtes. Amb la teva autorització, podem <strong>compartir la teva evolució amb el teu oncòleg/òloga.</strong>'
+      'Preparam un <strong>pla de força, exercici aeròbic i mobilitat</strong> adaptat a la teva situació i a les activitats que vols recuperar o mantenir. Per ajudar-te amb la tècnica, <strong>revisarem vídeos dels teus exercicis</strong> per orientar-te sobre com fer-los.',
+      'Durant les 12 setmanes combinam seguiment online i <strong>revaloracions presencials periòdiques</strong> per mesurar els teus progressos i ajustar el pla. L’adaptam a <strong>les teves necessitats i al que vulguis aconseguir en cada moment</strong>. Fins i tot, amb la teva autorització, podem <strong>compartir la teva evolució amb el teu oncòleg/òloga.</strong>'
     ]
   },
   en: {
@@ -45,8 +45,8 @@ export const programReview = {
       'We start with a <strong>short phone call</strong> to understand your situation and see whether we can help. If it’s a good fit, we send you a form to collect the <strong>important information before we begin</strong>.',
       'We visit your home to get to know you and <strong>assess our starting point</strong>. We review your history, symptoms, treatment and physical condition to <strong>adapt the plan to you from the start</strong>.',
       'Before you start, we teach you how to use the app, check your exercises and communicate with us. This way, <strong>you’ll know what to do from the first day.</strong>',
-      'We prepare a <strong>strength, aerobic exercise and mobility plan</strong> adapted to your situation and the activities you want to regain or maintain. To help with your technique, we can <strong>review videos of your exercises and guide you on how to perform them.</strong>',
-      'Throughout the 12 weeks, we combine online follow-up with <strong>regular in-person reassessments</strong> to measure your progress and adjust your plan. We adapt it to <strong>your needs and what you want to achieve at each stage</strong>. We answer your questions. With your permission, we can <strong>share your progress with your oncologist.</strong>'
+      'We prepare a <strong>strength, aerobic exercise and mobility plan</strong> adapted to your situation and the activities you want to regain or maintain. To help with your technique, we <strong>will review videos of your exercises</strong> to guide you on how to perform them.',
+      'Throughout the 12 weeks, we combine online follow-up with <strong>regular in-person reassessments</strong> to measure your progress and adjust your plan. We adapt it to <strong>your needs and what you want to achieve at each stage</strong>. With your permission, we can even <strong>share your progress with your oncologist.</strong>'
     ]
   }
 };
