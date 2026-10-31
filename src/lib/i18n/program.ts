@@ -90,14 +90,14 @@ const esProgram = {
         number: '4',
         title: 'Empiezas tu plan adaptado',
         body:
-          'Preparamos un <strong>plan de fuerza, ejercicio aeróbico y movilidad</strong> adaptado a tu situación y a las actividades que quieres recuperar o mantener. Lo ajustamos según cómo te encuentres y evoluciones.',
+          'Preparamos un <strong>plan de fuerza, ejercicio aeróbico y movilidad</strong> adaptado a tu situación y a las actividades que quieres recuperar o mantener. Para ayudarte con la técnica, podemos <strong>revisar vídeos de tus ejercicios y orientarte sobre cómo realizarlos.</strong>',
         icon: 'checklist'
       },
       {
         number: '5',
         title: 'Te acompañamos y medimos tu evolución',
         body:
-          'Durante las 12 semanas combinamos seguimiento online y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a <strong>tus necesidades y a lo que quieras conseguir en cada momento</strong>: de caminar sin fatigarte a retomar las excursiones. Resolvemos tus dudas y podemos revisar vídeos para corregir la técnica. Con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
+          'Durante las 12 semanas combinamos seguimiento online y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a <strong>tus necesidades y a lo que quieras conseguir en cada momento</strong>. Resolvemos tus dudas. Con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
         icon: 'support'
       }
     ],
