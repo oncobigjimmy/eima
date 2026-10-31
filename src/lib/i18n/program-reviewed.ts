@@ -21,7 +21,7 @@ export const programReview = {
       'Venim al teu domicili per conèixer-te i <strong>valorar des d’on partim</strong>. Revisam la teva història, els teus símptomes, el teu tractament i la teva condició física per <strong>adaptar el pla a tu des del principi</strong>.',
       'Abans de començar, t’ensenyam a utilitzar l’aplicació, a consultar els teus exercicis i a comunicar-te amb nosaltres. Així <strong>sabràs què fer des del primer dia.</strong>',
       'Preparam un <strong>pla de força, exercici aeròbic i mobilitat</strong> adaptat a la teva situació i a les activitats que vols recuperar o mantenir. L’ajustam segons com et trobes i evoluciones.',
-      'Durant les 12 setmanes revisam com et trobes, resolvem els teus dubtes i ajustam el pla. Si tens dubtes amb la tècnica, podem <strong>revisar vídeos dels teus exercicis per ajudar-te a corregir-los.</strong> També repetim algunes proves físiques perquè puguis veure els teus progressos. Amb la teva autorització, podem <strong>compartir aquesta informació amb el teu oncòleg/òloga.</strong>'
+      'Durant les 12 setmanes combinam seguiment online i <strong>revaloracions presencials periòdiques</strong> per mesurar els teus progressos i ajustar el pla. L’adaptam a <strong>les teves necessitats i al que vulguis aconseguir en cada moment</strong>: de caminar sense fatigar-te a reprendre les excursions. Resolem els teus dubtes i podem revisar vídeos per corregir la tècnica. Amb la teva autorització, podem <strong>compartir la teva evolució amb el teu oncòleg/òloga.</strong>'
     ]
   },
   en: {
@@ -46,7 +46,7 @@ export const programReview = {
       'We visit your home to get to know you and <strong>assess our starting point</strong>. We review your history, symptoms, treatment and physical condition to <strong>adapt the plan to you from the start</strong>.',
       'Before you start, we teach you how to use the app, check your exercises and communicate with us. This way, <strong>you’ll know what to do from the first day.</strong>',
       'We prepare a <strong>strength, aerobic exercise and mobility plan</strong> adapted to your situation and the activities you want to regain or maintain. We adjust it according to how you feel and progress.',
-      'Throughout the 12 weeks, we review how you feel, answer your questions and adjust the plan. If you have questions about technique, we can <strong>review videos of your exercises to help you correct them.</strong> We also repeat some physical tests so you can see your progress. With your permission, we can <strong>share this information with your oncologist.</strong>'
+      'Throughout the 12 weeks, we combine online follow-up with <strong>regular in-person reassessments</strong> to measure your progress and adjust your plan. We adapt it to <strong>your needs and what you want to achieve at each stage</strong>: from walking without getting tired to hiking again. We answer your questions and can review exercise videos to correct your technique. With your permission, we can <strong>share your progress with your oncologist.</strong>'
     ]
   }
 };

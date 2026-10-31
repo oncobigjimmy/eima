@@ -97,7 +97,7 @@ const esProgram = {
         number: '5',
         title: 'Te acompañamos y medimos tu evolución',
         body:
-          'Durante las 12 semanas revisamos cómo te encuentras, resolvemos tus dudas y ajustamos el plan. Si tienes dudas con la técnica, podemos <strong>revisar vídeos de tus ejercicios para ayudarte a corregirlos.</strong> También repetimos algunas pruebas físicas para que puedas ver tus progresos. Con tu autorización, podemos <strong>compartir esa información con tu oncólogo/a.</strong>',
+          'Durante las 12 semanas combinamos seguimiento online y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a <strong>tus necesidades y a lo que quieras conseguir en cada momento</strong>: de caminar sin fatigarte a retomar las excursiones. Resolvemos tus dudas y podemos revisar vídeos para corregir la técnica. Con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
         icon: 'support'
       }
     ],

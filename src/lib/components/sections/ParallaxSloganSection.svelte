@@ -70,7 +70,7 @@
 </script>
 
 <section class={`bg-[#f8f4f0] pb-10 md:pb-12 ${sectionClass} ${compact ? 'parallax-slogan--compact' : ''}`.trim()}>
-  <div class="parallax-slogan mx-auto max-w-[96rem] overflow-hidden">
+  <div class="parallax-slogan w-full overflow-hidden">
     <div
       class="parallax-slogan__image"
       bind:this={photo}
