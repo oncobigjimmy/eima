@@ -108,6 +108,21 @@ export const patientResponses: PatientResponse[] = [
     "alt": "Respuesta real de paciente: Esta semana prácticamente no he podido entrenar."
   },
   {
+    id: 'difficult-day-complicated-week',
+    category: 'difficult-day',
+    image: '/patient-responses/difficult-day-complicated-week.jpg',
+    width: 1067,
+    height: 393,
+    underlines: [
+      { x: 12.9, y: 51.1, width: 14.3, height: 10.2 },
+      { x: 44.7, y: 51.1, width: 30.4, height: 10.2 },
+      { x: 55.2, y: 66.4, width: 39.8, height: 10.2 },
+      { x: 3.7, y: 81.7, width: 42.5, height: 10.2 }
+    ],
+    highlight: 'Semana más complicada. Hasta ayer viernes no me sentí más animada.',
+    alt: 'Respuesta real de paciente: Esta semana fue algo más complicada. No puedo indicar un éxito. Realmente hasta ayer viernes no me sentí más animada.'
+  },
+  {
     "id": "eima-adaptation-1",
     "category": "eima-adaptation",
     "image": "/patient-responses/eima-adaptation-1.jpg",
@@ -407,6 +422,10 @@ export const patientResponses: PatientResponse[] = [
 ];
 
 const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
+  'difficult-day-complicated-week': {
+    ca: 'Setmana més complicada. Fins ahir divendres no em vaig sentir més animada.',
+    en: 'A more difficult week. I didn’t feel more upbeat until yesterday, Friday.'
+  },
   'progress-pilates': {
     ca: 'Tenc moltes ganes. Puc fer exercici cada dia, sempre hi ha un moment, s’han acabat les excuses.',
     en: 'I’m really looking forward to it. I can exercise every day, there’s always time, no more excuses.'
