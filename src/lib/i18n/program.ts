@@ -97,7 +97,7 @@ const esProgram = {
         number: '5',
         title: 'Te acompañamos y medimos tu evolución',
         body:
-          'Durante las 12 semanas combinamos seguimiento online y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a <strong>tus necesidades y a lo que quieras conseguir en cada momento</strong>. Incluso, con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
+          'Durante las 12 semanas combinamos seguimiento online y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a tus necesidades y a lo que quieras conseguir en cada momento. Incluso, con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
         icon: 'support'
       }
     ],
