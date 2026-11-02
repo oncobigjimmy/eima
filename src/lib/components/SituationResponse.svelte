@@ -1,0 +1,37 @@
+<script lang="ts">
+  import { fade } from 'svelte/transition';
+  import { dialog } from '$lib/actions/dialog';
+  import { motionDuration } from '$lib/motion';
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import { situationResponseCopy, type Situation } from '$lib/data/situation';
+  import type { Language } from '$lib/i18n/copy';
+  export let situation: Situation;
+  export let pageLanguage: Language;
+  export let href: string;
+  export let cta: string;
+  export let close: () => void;
+  $: copy = situationResponseCopy[pageLanguage];
+  $: response = copy.responses[situation];
+</script>
+
+<div class="situation-response" role="presentation" on:click={close} transition:fade={{ duration: motionDuration(200) }}>
+  <div class="response-panel" role="dialog" aria-modal="true" aria-labelledby="situation-response-title" aria-describedby="situation-response-body" tabindex="-1" use:dialog={{ close }} on:click|stopPropagation on:keydown|stopPropagation>
+    <button type="button" class="close-response" aria-label={copy.close} on:click={close}><CloseIcon /></button>
+    <span class="response-letter" aria-hidden="true">{situation}</span>
+    <h2 id="situation-response-title">{response.title}</h2>
+    <p id="situation-response-body">{response.body}</p>
+    <PrimaryCta {href} target="_blank" rel="noopener noreferrer" label={cta} />
+  </div>
+</div>
+
+<style>
+  .situation-response { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; padding: 1.25rem; overflow: auto; background: #071a258f; backdrop-filter: blur(10px); }
+  .response-panel { position: relative; width: min(520px, 100%); padding: 2.5rem 2rem; border-radius: 22px; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 24px 80px #071a2540; }
+  .close-response { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #233f4e; }
+  .response-letter { display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 1.25rem; border-radius: 50%; background: #8cd0d640; font: 400 32px 'Playfair Display', Georgia, serif; color: #245b7d; }
+  h2 { font: 400 28px/1.2 'Playfair Display', Georgia, serif; color: #233f4e; text-wrap: balance; }
+  p { margin: 1.25rem 0 1.75rem; font: 400 15px/1.6 Inter, sans-serif; }
+  .close-response:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
+  @media (max-width: 767px) { .response-panel { padding: 2.5rem 1.25rem 2rem; } h2 { font-size: 25px; } }
+</style>

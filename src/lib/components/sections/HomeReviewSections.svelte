@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { selectedSituation, situationMessages, situationCopy, type Situation } from '$lib/data/situation';
-  import { fade } from 'svelte/transition';
-  import { motionDuration } from '$lib/motion';
+  import { selectedSituation, situationCopy, type Situation } from '$lib/data/situation';
   import { standardEntry } from '$lib/actions/standardEntry';
   import { scrollContrast } from '$lib/actions/scrollContrast';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
@@ -10,6 +8,7 @@
   import { getRoutePath, getProgramStepsHash } from '$lib/i18n/routes';
   import { homeVideoEs } from '$lib/data/home-es';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import SituationResponse from '$lib/components/SituationResponse.svelte';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
   import PatientProofSection from '$lib/components/sections/PatientProofSection.svelte';
   import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
@@ -31,6 +30,12 @@
     : index === 2 ? { ...goal, subtitle: ui.thirdGoalSubtitle, body: ui.thirdGoalBody } : goal);
   const situations = ui.situations.map((quote, index) => ({ letter: 'ABC'[index] as Situation, quote }));
   const selectionCopy = situationCopy[pageLanguage];
+  let responseSituation: Situation | null = null;
+  function selectSituation(situation: Situation) {
+    const selected = $selectedSituation === situation ? null : situation;
+    selectedSituation.set(selected);
+    responseSituation = selected;
+  }
   function pulsePrompt(node: HTMLElement) {
     if (!window.matchMedia('(max-width: 767px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
     let timer: ReturnType<typeof setTimeout>;
@@ -181,7 +186,7 @@
     <p class="selection-instruction">{selectionCopy.choose}</p>
     <div class="situations-grid" class:has-selection={Boolean($selectedSituation)} use:pulsePrompt>
       {#each situations as situation, i}
-        <button type="button" class="situation-card" class:selected={$selectedSituation === situation.letter} aria-pressed={$selectedSituation === situation.letter} on:click={() => selectedSituation.set($selectedSituation === situation.letter ? null : situation.letter)} use:standardEntry={i} use:scrollContrast>
+        <button type="button" class="situation-card" class:selected={$selectedSituation === situation.letter} aria-pressed={$selectedSituation === situation.letter} aria-haspopup="dialog" on:click={() => selectSituation(situation.letter)} use:standardEntry={i} use:scrollContrast>
           <span class="situation-letter" aria-hidden="true">{situation.letter}</span>
           <span class="situation-quote">{situation.quote}</span>
           <span class="selection-control"><span class="selection-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>{$selectedSituation === situation.letter ? selectionCopy.selected : selectionCopy.identify}</span><span class="selection-tooltip" aria-hidden="true">{selectionCopy.hint}</span></span>
@@ -190,7 +195,6 @@
     </div>
     <div class="section-cta">
       <p class="situations-closing mobile-copy-14">{ui.situationClosing}</p>
-      <div class="selection-confirmation" aria-live="polite">{#if $selectedSituation}<p transition:fade={{ duration: motionDuration(250) }}>{selectionCopy.confirmation} “{situationMessages[pageLanguage][$selectedSituation]}”</p>{/if}</div>
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
     </div>
   </div>
@@ -237,6 +241,8 @@
     </div>
   </div>
 </section>
+
+{#if responseSituation}<SituationResponse situation={responseSituation} {pageLanguage} href={whatsappHref} cta={homeCopy.hero.cta} close={() => { responseSituation = null; }} />{/if}
 
 <style>
   .video-notice { position: fixed; inset: 0; margin: auto; height: fit-content; box-sizing: border-box; width: min(540px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; border: 0; border-radius: 16px; padding: 3rem 2rem 2.25rem; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 20px 70px #071a2540; }
@@ -386,18 +392,17 @@
 
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: Inter, sans-serif; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
-  .selection-control { display: block; position: relative; margin-top: 1.25rem; }
+  .selection-control { display: block; position: static; margin-top: 1.25rem; }
   .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 44px; padding: .5rem 1rem; color: #8cd0d6; font: 400 15px Inter, sans-serif; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   .selection-pill svg { width: 20px; height: 20px; }
   .situations-grid .situation-card.selected { border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); background: #ffffff13; opacity: 1; }
   .selected .selection-pill { background: #8cd0d6; color: #233f4e; }
   .situations-grid.has-selection > .situation-card:not(.selected):not(:global(.standard-entry-pending)) { opacity: .6; filter: none; }
-  .selection-confirmation { color: #e8f8e0; font-size: 16px; line-height: 1.6; max-width: 680px; margin: 0 auto 1rem; }
   .situation-card:focus-visible { outline: 2px solid #8cd0d6; outline-offset: 5px; }
   .selection-tooltip { display: none; }
   @media (hover: hover) and (pointer: fine) {
-    .situation-card:hover { transform: scale(1.035); border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); }
-    .selection-tooltip { display: block; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; background: #233f4e; border-radius: 6px; padding: 6px 10px; color: #fff; font-size: 12px; pointer-events: none; opacity: 0; transition: opacity var(--dur-micro) var(--ease-calma); }
+    .situation-card:hover { z-index: 3; transform: scale(1.035); border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); }
+    .selection-tooltip { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; background: #f8f4f0; border: 1px solid #233f4e20; border-radius: 8px; padding: 8px 12px; color: #233f4e; box-shadow: 0 6px 18px #071a2520; font-size: 12px; pointer-events: none; opacity: 0; transition: opacity var(--dur-micro) var(--ease-calma); }
     .situation-card:hover .selection-tooltip { opacity: 1; }
   }
   @media (prefers-reduced-motion: no-preference) { .selection-pill:global(.pulse-prompt) { animation: selection-pulse 600ms var(--ease-calma); animation-iteration-count: 1; } }
