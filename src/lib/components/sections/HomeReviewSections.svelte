@@ -308,8 +308,8 @@
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
     .goal-body { font-size: 14px; }
-    .situation-card { padding: 1.75rem 1.25rem; }
-    .situation-letter { font-size: 6rem; line-height: .8; margin-bottom: .8rem; transform: translateY(-6px); }
+    .situation-card { padding: 1.25rem; }
+    .situation-letter { font-size: 4rem; line-height: .8; margin-bottom: .8rem; transform: translateY(-6px); }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }
