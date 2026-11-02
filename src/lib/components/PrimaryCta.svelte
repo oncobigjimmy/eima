@@ -30,9 +30,9 @@
 {/if}
 
 <style>
-  .primary-cta { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; width: fit-content; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: .55rem; border: 0; border-radius: 999px; background: #8cd0d6; padding: .75rem 1.75rem; color: #233f4e; font-family: 'Inter', Arial, sans-serif; font-size: 15px; font-weight: 500; line-height: 1.4; text-align: center; text-decoration: none; cursor: pointer; transition: transform 300ms ease-out, background-color 300ms ease-out, color 300ms ease-out, font-weight 300ms ease-out, box-shadow 300ms ease-out; }
-  .primary-cta::before { content: ''; position: absolute; z-index: 0; top: 0; left: 0; width: 44%; height: 100%; background: linear-gradient(90deg, transparent, #ffffff8c, transparent); transform: translateX(-180%) skewX(-18deg); transition: transform 420ms ease-out; }
-  .primary-cta__label { position: relative; z-index: 1; transition: text-shadow 300ms ease-out; }
+  .primary-cta { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; width: fit-content; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: .55rem; border: 0; border-radius: 999px; background: #8cd0d6; padding: .75rem 1.75rem; color: #233f4e; font-family: 'Inter', Arial, sans-serif; font-size: 15px; font-weight: 500; line-height: 1.4; text-align: center; text-decoration: none; cursor: pointer; transition: transform var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), font-weight var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
+  .primary-cta::before { content: ''; position: absolute; z-index: 0; top: 0; left: 0; width: 44%; height: 100%; background: linear-gradient(90deg, transparent, #ffffff8c, transparent); transform: translateX(-180%) skewX(-18deg); transition: transform var(--dur-estado) var(--ease-calma); }
+  .primary-cta__label { position: relative; z-index: 1; transition: text-shadow var(--dur-estado) var(--ease-calma); }
 .primary-cta:focus-visible .primary-cta__label { text-shadow: var(--eima-active-text-shadow); }
 @media (hover: hover) and (pointer: fine) { .primary-cta:hover .primary-cta__label { text-shadow: var(--eima-active-text-shadow); } }
 .primary-cta:focus-visible :global(.cta-arrow-swap svg) { filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533); }

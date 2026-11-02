@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { standardEntry } from '$lib/actions/standardEntry';
   import { scrollContrast } from '$lib/actions/scrollContrast';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import type { Language } from '$lib/i18n/copy';
@@ -99,31 +100,6 @@
     return { destroy() { observer.disconnect(); } };
   }
 
-  function reveal(node: HTMLElement) {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
-    node.classList.add('will-reveal');
-    let finishReveal = 0;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        node.classList.add('is-visible');
-        finishReveal = window.setTimeout(() => node.classList.remove('will-reveal'), 550 + Number.parseFloat(node.style.getPropertyValue('--delay') || '0'));
-        observer.disconnect();
-      }
-    }, { threshold: 0.12 });
-    observer.observe(node);
-    return { destroy() { observer.disconnect(); window.clearTimeout(finishReveal); } };
-  }
-
-  function revealVsl(node: HTMLElement) {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
-    node.classList.add('will-reveal');
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { node.classList.add('is-visible'); observer.disconnect(); }
-    }, { threshold: 0.12 });
-    observer.observe(node);
-    return { destroy() { observer.disconnect(); } };
-  }
-
   function paintRecoveryWord(node: HTMLElement) {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     node.classList.add('word-pending');
@@ -175,7 +151,7 @@
       <p class="vsl-headline section-playfair-desktop">{ui.vslBefore} <span>Empenta</span>{ui.vslAfter}</p>
       <h1 id="vsl-title" class="mobile-copy-14" aria-label={ui.programme}>{#each programmeLines as line, index}{#if index > 0}{' '}{/if}<span class="programme-line">{line}</span>{/each}</h1>
     </header>
-    <div class="video-frame" use:nearVideo use:revealVsl>
+    <div class="video-frame" use:nearVideo use:standardEntry>
       {#if videoReady && videoNearby}
         <video controls playsinline preload="none" poster={homeVideoEs.poster} aria-label={ui.play}>
           <source src={homeVideoEs.src} type="video/mp4" />
@@ -233,7 +209,7 @@
     </header>
     <div class="situations-grid hover-dim-group">
       {#each situations as situation, i}
-        <article class="situation-card hover-dim-item" use:reveal use:scrollContrast style={`--delay: ${i * 80}ms`}>
+        <article class="situation-card hover-dim-item" use:standardEntry={i} use:scrollContrast>
           <span class="situation-letter" aria-hidden="true">{situation.letter}</span>
           <h3>{situation.quote}</h3>
         </article>
@@ -275,10 +251,10 @@
               </g>
             {/if}
           </svg>
-          <div class="recovery-concept">
+          <div class="recovery-concept" use:standardEntry>
             <h3 class="recovery-word" use:paintRecoveryWord>{goal.title}<span class="recovery-word-ink" aria-hidden="true">{goal.title}</span></h3>
           </div>
-          <div class="goal-content">
+          <div class="goal-content" use:standardEntry={1}>
             <p class="goal-subtitle">{goal.subtitle}</p>
             <p class="goal-body">{@html goal.body}</p>
           </div>
@@ -313,8 +289,6 @@
   .vsl-headline { font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1.12; color: #233f4e; text-wrap: balance; }
   .vsl-headline span { color: #4083a7; }
   .vsl h1 { font-family: 'Inter', Arial, sans-serif; font-weight: 300; font-size: 16px; line-height: 1.7; color: #233f4e; margin: 1rem 0 0; }
-  .video-frame:global(.will-reveal) { opacity: 0; transform: translateY(-30px); transition: opacity 700ms ease-out, transform 700ms ease-out; }
-  .video-frame:global(.is-visible) { opacity: 1; transform: none; }
   .video-frame { max-width: 850px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #e9eeee; box-shadow: -5px -5px 18px rgba(35, 63, 78, .11), 0 0 0 1px rgba(35, 63, 78, .06), 0 18px 45px rgba(35, 63, 78, .18), 0 4px 14px rgba(35, 63, 78, .1), 0 0 24px #8cd0d626; }
   video, .video-poster { width: 100%; height: 100%; }
   video { display: block; }
@@ -332,7 +306,7 @@
   .poster-phone { position: absolute; z-index: 2; left: 5.5%; bottom: -16%; width: 19%; transform: rotate(-9deg); filter: drop-shadow(0 8px 10px rgba(35, 63, 78, .18)); pointer-events: none; }
   .poster-phone-base { display: block; width: 100%; height: auto; }
   .poster-phone-screen { position: absolute; top: 7.8%; left: 24.2%; width: 61.8%; height: 68.1%; object-fit: fill; border-radius: 10% 10% 8% 8% / 5% 5% 3% 3%; }
-  .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(64px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform 220ms ease, box-shadow 220ms ease; }
+  .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(64px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
   .poster-play svg { width: 88%; height: 88%; filter: drop-shadow(0 2px 3px rgba(35, 63, 78, .4)); }
 .poster-play:focus-visible { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); }
 @media (hover: hover) and (pointer: fine) { .poster-play:hover { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); } }
@@ -348,7 +322,7 @@
   .situations h2 :global(span) { color: #8cd0d6; }
   .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #e8f8e0; max-width: 1072px; font-size: 16px; }
   .situations-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-  .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transform-origin: center; transition: opacity 280ms ease, filter 280ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1), border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; }
+  .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transform-origin: center; transition: opacity var(--dur-estado) var(--ease-calma), filter var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma); }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 7.2rem; line-height: .8; transform: translateY(-6px); color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
   .situation-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
   .situations-closing { color: #e8f8e0; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
@@ -382,17 +356,11 @@
   .recovery-word::first-letter { color: #233f4e; font-weight: 400; }
   .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
   .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 16px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
-  .recovery-row:global(.goal-pending) > div { opacity: 0; transform: translateY(8px); transition: opacity 650ms ease, transform 650ms ease; }
-  .recovery-row:global(.goal-visible) > div { opacity: 1; transform: none; }
   .recovery-row:global(.goal-pending)::before { transform: scaleX(0); transition: transform 800ms ease; }
   .recovery-row:global(.goal-visible)::before { transform: scaleX(1); }
   .mobile-video-caption { display: none; }
   @media (min-width: 768px) { .poster-description--review { font-size: 13px; max-width: none; white-space: nowrap; } }
-  .situation-card:global(.will-reveal) { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease, border-color 175ms ease, box-shadow 175ms ease, background-color 175ms ease; transition-delay: var(--delay, 0ms); }
-  .situation-card:global(.is-visible) { opacity: 1; transform: none; }
   @media (min-width: 768px) and (hover: hover) {
-    .situations-grid .situation-card:global(.is-visible):hover { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: var(--eima-halo-dark); }
-    .situations-grid:has(> .situation-card:global(.is-visible):hover) > .situation-card:not(:hover):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
   @media (max-width: 767.98px) {
     .vsl h1 { margin-inline: -12px; }
@@ -433,7 +401,6 @@
   @media (prefers-reduced-motion: reduce) {
     .video-frame .poster-play { transform: translate(-50%, -50%); }
     .recovery-word:global(.word-pending) .recovery-word-ink { clip-path: none; transition: none; }
-    .video-frame:global(.will-reveal), .situation-card:global(.will-reveal) { opacity: 1; transform: none; transition: none; }
     .situation-card { transition: none; }
     .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
     .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
@@ -441,7 +408,6 @@
     .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: none; transition: none; }
     .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: none; transition: none; }
     .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
-    .situations-grid .situation-card:global(.is-visible):hover { transform: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }
 @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .poster-play:active { transform: translate(-50%, -50%) scale(.97); transition-duration: 100ms; } }

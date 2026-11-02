@@ -246,7 +246,7 @@
 <style>
   .response-carousel { --quote-color: var(--color-brand-soft); --quote-neutral: #233f4e; }
   .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 0 auto .25rem; }
-  .carousel-arrow { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid color-mix(in srgb, var(--color-brand-soft) 40%, transparent); border-radius: var(--radius-pill); color: var(--color-brand-soft); background: color-mix(in srgb, var(--color-inverse) 65%, transparent); transition: background 250ms ease, box-shadow 250ms ease; }
+  .carousel-arrow { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid color-mix(in srgb, var(--color-brand-soft) 40%, transparent); border-radius: var(--radius-pill); color: var(--color-brand-soft); background: color-mix(in srgb, var(--color-inverse) 65%, transparent); transition: background var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
   .carousel-arrow svg { width: 25px; height: 25px; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
   .arrow-icon { display: grid; place-items: center; }
   .arrow-icon svg:last-child { display: none; }
@@ -288,13 +288,13 @@
   :global(.patient-row--dark) .response-card { background: var(--eima-card-hover-background); border-color: #ffffff20; }
   :global(.patient-row--dark) .response-card.centered { border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); }
     .carousel-controls { gap: 12px; margin-bottom: 0; }
-    .carousel-arrow { width: 48px; height: 48px; color: #233f4e; border: 0; background: #8cd0d6; transition: background 250ms ease, border-color 250ms ease, border-width 250ms ease, transform 250ms ease, box-shadow 300ms ease-out; }
+    .carousel-arrow { width: 48px; height: 48px; color: #233f4e; border: 0; background: #8cd0d6; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), border-width var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
     .carousel-position { min-width: 48px; font-size: 14px; }
 .carousel-arrow:focus-visible:not(:disabled) { color: #ffffff; background: #4083a7; border: 0; box-shadow: 0 10px 24px #233f4e24; transform: translateY(-2px); }
 @media (hover: hover) and (pointer: fine) { .carousel-arrow:hover:not(:disabled) { color: #ffffff; background: #4083a7; border: 0; box-shadow: 0 10px 24px #233f4e24; transform: translateY(-2px); } }
 
     .arrow-icon { position: relative; display: block; width: 21px; height: 21px; overflow: hidden; }
-    .arrow-icon svg, .arrow-icon svg:last-child { display: block; position: absolute; inset: 0; width: 21px; height: 21px; stroke-width: 1.5; transition: transform 450ms cubic-bezier(.3,.9,.3,1); }
+    .arrow-icon svg, .arrow-icon svg:last-child { display: block; position: absolute; inset: 0; width: 21px; height: 21px; stroke-width: 1.5; transition: transform var(--dur-estado) var(--ease-calma); }
     .carousel-arrow[data-direction='next'] .arrow-icon svg:last-child { transform: translateX(-150%); }
     .carousel-arrow[data-direction='previous'] .arrow-icon svg:last-child { transform: translateX(150%); }
 .carousel-arrow[data-direction='next']:focus-visible .arrow-icon svg:first-child { transform: translateX(150%); }
@@ -310,7 +310,7 @@
     .carousel-window { overflow: visible; mask-image: none; }
     .carousel-stage { height: var(--row-stage-height); }
     .response-slot { top: 50%; }
-    .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; transform: scale(var(--response-zoom, 1)); filter: drop-shadow(0 18px 24px #233f4e12); transition: filter 420ms ease-out; }
+    .response-card { display: flex; align-items: center; justify-content: center; width: 100%; height: var(--row-image-height); padding: 0; border: 0; background: transparent; box-shadow: none; transform: scale(var(--response-zoom, 1)); filter: drop-shadow(0 18px 24px #233f4e12); transition: filter var(--dur-estado) var(--ease-calma); }
     .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 24px 30px #233f4e1c) drop-shadow(0 12px 32px #8cd0d613); }
     .response-card img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
     .response-card.centered img { box-shadow: 0 0 0 1px #4083a7; }

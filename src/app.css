@@ -23,6 +23,11 @@ body {
 }
 
 :root {
+  --ease-calma: cubic-bezier(.22,1,.36,1);
+  --dur-micro: 150ms;
+  --dur-estado: 250ms;
+  --dur-entrada: 500ms;
+  --stagger: 60ms;
   scrollbar-color: #233f4e #f8f4f0;
   scrollbar-width: thin;
   --section-playfair-desktop-size: 50px;
@@ -249,8 +254,8 @@ body {
   height: 1.25rem;
   position: absolute;
   transition:
-    opacity 220ms ease-out,
-    transform 220ms ease-out;
+    opacity var(--dur-micro) var(--ease-calma),
+    transform var(--dur-micro) var(--ease-calma);
   width: 1.25rem;
 }
 
@@ -375,3 +380,8 @@ body {
     border-color: color-mix(in srgb, var(--color-brand) 15%, transparent);
   }
 }
+
+/* Progressive enhancement: content remains visible without JavaScript. */
+.standard-entry-pending { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); transition-delay: calc(var(--entry-index, 0) * var(--stagger)); }
+.standard-entry-pending.standard-entry-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .standard-entry-pending { opacity: 1; transform: none; transition: none; } }

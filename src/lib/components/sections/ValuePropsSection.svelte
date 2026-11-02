@@ -500,7 +500,7 @@
     padding: clamp(1.5rem, 3vw, 2.25rem);
     background: #233f4e;
     box-shadow: 0 20px 50px #233f4e14, inset 0 1px 0 #ffffff30;
-    transition: background-color 650ms ease, box-shadow 650ms ease;
+    transition: background-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma);
   }
   .timeline-summary::before {
     content: '';
@@ -509,7 +509,7 @@
     pointer-events: none;
     inset: 0;
     background: radial-gradient(ellipse 85% 70% at 50% 0%, #4083a7b3, transparent 85%);
-    transition: opacity 650ms ease;
+    transition: opacity var(--dur-estado) var(--ease-calma);
   }
   .timeline-summary :global(.summary-marker) {
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
@@ -532,8 +532,8 @@
   .timeline-summary :global(.summary-marker.marker-visible) { background-size: 100% 100%; }
   @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker) { background-size: 100% 100%; transition: none; } }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
-  .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #F4F4F8; transition: color 650ms ease; }
-  .timeline-summary :global(strong) { color: #ffffff; transition: color 650ms ease; }
+  .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #F4F4F8; transition: color var(--dur-estado) var(--ease-calma); }
+  .timeline-summary :global(strong) { color: #ffffff; transition: color var(--dur-estado) var(--ease-calma); }
   .timeline-summary:global(.summary-reading) { background: #245b7d; box-shadow: 0 20px 50px #233f4e26, inset 0 1px 0 #ffffff45; }
   .timeline-summary:global(.summary-reading)::before { opacity: 1; }
   .timeline-summary:global(.summary-reading) .timeline-summary__line { color: #F4F4F8; }
