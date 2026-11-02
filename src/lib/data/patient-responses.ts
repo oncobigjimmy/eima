@@ -587,3 +587,95 @@ export const patientProofCopy: Record<Language, {
     ]
   }
 };
+
+
+export type TestimonialChapter = 'recupera' | 'dificiles' | 'acompanamos';
+export const testimonialChapters: TestimonialChapter[] = ['recupera', 'dificiles', 'acompanamos'];
+type LocalizedText = Record<Language, string | null>;
+export type WrittenTestimonial = {
+  id: string; image: string; chapter: TestimonialChapter; initial: string | null;
+  quote: LocalizedText; highlight: LocalizedText; featured: boolean;
+  markers: NonNullable<PatientResponse['underlines']>;
+  width: number; height: number; alt: string; caption: Record<Language, string>;
+};
+// TODO: elegir los tres destacados definitivos de cada capítulo.
+// TODO: todas las iniciales quedan pendientes; no se inventan identidades.
+// TODO: quote y highlight pendientes salvo los siete ejemplos aportados.
+// TODO [CA-revisar]: revisar las traducciones de los siete ejemplos.
+const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText }> = {
+  'progress-2': {
+    quote: { es: 'Volver a hacer clase de estiramientos y ver que puedo volver a la rutina de antes del cáncer.', ca: 'Tornar a fer classe d’estiraments i veure que puc tornar a la rutina d’abans del càncer.', en: 'Going back to stretching classes and seeing that I can return to my routine from before cancer.' },
+    highlight: { es: 'puedo volver a la rutina', ca: 'puc tornar a la rutina', en: 'I can return to my routine' }
+  },
+  'progress-3': {
+    quote: { es: 'He podido ir de viaje a buen ritmo y hacer todas las cosas que tenía planeadas.', ca: 'He pogut anar de viatge a bon ritme i fer tot el que tenia planejat.', en: 'I have been able to travel at a good pace and do everything I had planned.' },
+    highlight: { es: 'He podido ir de viaje a buen ritmo', ca: 'He pogut anar de viatge a bon ritme', en: 'I have been able to travel at a good pace' }
+  },
+  'difficult-day-4': {
+    quote: { es: 'Sensación de malestar todo el día, estómago duro sin ganas de comer. El peor día hasta ahora.', ca: 'Sensació de malestar tot el dia, panxa dura i sense ganes de menjar. El pitjor dia fins ara.', en: 'Feeling unwell all day, a hard stomach and no appetite. The worst day so far.' },
+    highlight: { es: 'malestar todo el día', ca: 'malestar tot el dia', en: 'unwell all day' }
+  },
+  'difficult-day-1': {
+    quote: { es: 'Hemos ido a caminar pero estaba muy cansada. He hecho lo que he podido.', ca: 'Hem anat a caminar, però estava molt cansada. He fet el que he pogut.', en: 'We went for a walk, but I was very tired. I did what I could.' },
+    highlight: { es: 'muy cansada', ca: 'molt cansada', en: 'very tired' }
+  },
+  'difficult-day-5': {
+    quote: { es: 'No he podido hacer nada. He estado en la cama con dolores abdominales. Náuseas y muchos mareos. No tengo fuerzas para nada.', ca: 'No he pogut fer res. He estat al llit amb dolors abdominals. Nàusees i molts de mareigs. No tenc forces per a res.', en: 'I could not do anything. I have been in bed with abdominal pain. Nausea and a lot of dizziness. I have no strength for anything.' },
+    highlight: { es: 'dolores abdominales', ca: 'dolors abdominals', en: 'abdominal pain' }
+  },
+  'eima-adaptation-1': {
+    quote: { es: 'Me encanta que sea un plan adaptable al día a día, y así no me frustro…', ca: 'M’encanta que sigui un pla adaptable al dia a dia, i així no em frustr…', en: 'I love that it is a plan adaptable to everyday life, so I do not get frustrated…' },
+    highlight: { es: 'un plan adaptable al día a día', ca: 'un pla adaptable al dia a dia', en: 'a plan adaptable to everyday life' }
+  },
+  'eima-adaptation-9': {
+    quote: { es: 'Me he sentido acompañada con las llamadas telefónicas…', ca: 'M’he sentit acompanyada amb les telefonades…', en: 'I have felt supported through the phone calls…' },
+    highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
+  }
+};
+const featuredIds = ['progress-2', 'progress-3', 'progress-9', 'difficult-day-4', 'difficult-day-1', 'difficult-day-5', 'eima-adaptation-1', 'eima-adaptation-9', 'eima-adaptation-3'];
+const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
+const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
+export const writtenTestimonials: WrittenTestimonial[] = [
+  ...patientResponses.map(item => ({
+    id: item.image.split('/').pop()!.replace(/\.[^.]+$/, ''), image: item.image, chapter: chapterByCategory[item.category], initial: null,
+    quote: examples[item.id]?.quote ?? pendingText(), highlight: examples[item.id]?.highlight ?? pendingText(),
+    featured: featuredIds.includes(item.id), markers: item.underlines ?? [],
+    width: item.width, height: item.height, alt: item.alt,
+    caption: { es: item.highlight, ca: patientCaptionTranslations[item.id]?.ca ?? item.highlight, en: patientCaptionTranslations[item.id]?.en ?? item.highlight }
+  })),
+  // TODO: revisar estas capturas del archivo antes de elegir frase, inicial y marcadores.
+  ...[
+  {
+    "id": "difficult-day-3",
+    "image": "/patient-responses/difficult-day-3.jpg",
+    "chapter": "dificiles"
+  },
+  {
+    "id": "difficult-day-6",
+    "image": "/patient-responses/difficult-day-6.jpg",
+    "chapter": "dificiles"
+  },
+  {
+    "id": "difficult-day-7",
+    "image": "/patient-responses/difficult-day-7.jpg",
+    "chapter": "dificiles"
+  },
+  {
+    "id": "progress-10",
+    "image": "/patient-responses/progress-10.png",
+    "chapter": "recupera"
+  },
+  {
+    "id": "progress-11",
+    "image": "/patient-responses/progress-11.png",
+    "chapter": "recupera"
+  }
+].map(item => ({
+    ...item, chapter: item.chapter as TestimonialChapter, initial: null, quote: pendingText(), highlight: pendingText(),
+    featured: false, markers: [], width: 0, height: 0, alt: '', caption: { es: '', ca: '', en: '' }
+  }))
+];
+// The home uses exactly three provisional choices per chapter, in editorial order.
+export function getFeaturedTestimonials(chapter: TestimonialChapter) {
+  return featuredIds.map(id => writtenTestimonials.find(item => item.id === id)!).filter(item => item.chapter === chapter && item.featured);
+}

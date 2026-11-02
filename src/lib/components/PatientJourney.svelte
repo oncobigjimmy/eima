@@ -1,0 +1,174 @@
+<script lang="ts">
+  import { onDestroy } from 'svelte';
+  import { standardEntry } from '$lib/actions/standardEntry';
+  import { getWhatsAppHref, type Language } from '$lib/i18n/copy';
+  import { selectedSituation } from '$lib/data/situation';
+  import { testimonialUi } from '$lib/data/testimonial-copy';
+  import { testimonialChapters, getFeaturedTestimonials, patientProofCopy, type WrittenTestimonial } from '$lib/data/patient-responses';
+  import { getRoutePath } from '$lib/i18n/routes';
+  import PrimaryCta from '$lib/components/PrimaryCta.svelte';
+  import ScreenshotModal from '$lib/components/ScreenshotModal.svelte';
+  export let pageLanguage: Language = 'es';
+  type Slide = { kind: 'response'; item: WrittenTestimonial } | { kind: 'bridge1' | 'bridge2' | 'final' };
+  const slides: Slide[] = [
+    ...getFeaturedTestimonials('recupera').map(item => ({ kind: 'response' as const, item })), { kind: 'bridge1' },
+    ...getFeaturedTestimonials('dificiles').map(item => ({ kind: 'response' as const, item })), { kind: 'bridge2' },
+    ...getFeaturedTestimonials('acompanamos').map(item => ({ kind: 'response' as const, item })), { kind: 'final' }
+  ];
+  let current = 0, markerActive = true;
+  let chapterProgress = [100 / 3, 0, 0];
+  let sectionVisible = false;
+  function seeJourney(node: HTMLElement) {
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { sectionVisible = true; observer.disconnect(); } }, { threshold: .12 });
+    observer.observe(node);
+    return { destroy() { observer.disconnect(); } };
+  }
+  let markerTimer: ReturnType<typeof setTimeout>;
+  let enlarged: WrittenTestimonial | null = null;
+  let startX = 0, startY = 0, swiping = false, suppressClick = false;
+  $: copy = testimonialUi[pageLanguage];
+  $: proofCopy = patientProofCopy[pageLanguage];
+  $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
+  $: chapter = Math.min(2, Math.floor(current / 4));
+  $: notice = current === 2 ? copy.notices[0] : current === 6 ? copy.notices[1] : '';
+  function go(index: number) {
+    const next = Math.max(0, Math.min(slides.length - 1, index));
+    if (next === current) return;
+    current = next; markerActive = false; clearTimeout(markerTimer);
+    const activeChapter = Math.min(2, Math.floor(current / 4));
+    chapterProgress = chapterProgress.map((progress, index) => index < activeChapter ? 100 : index === activeChapter ? Math.max(progress, Math.min(100, ((current % 4) + 1) / 3 * 100)) : progress);
+    markerTimer = setTimeout(() => { markerActive = true; }, 0);
+  }
+  function keyboard(event: KeyboardEvent) {
+    if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) {
+      event.preventDefault(); go(event.key === 'Home' ? 0 : event.key === 'End' ? slides.length - 1 : current + (event.key === 'ArrowRight' ? 1 : -1));
+    }
+  }
+  function pointerDown(event: PointerEvent) {
+    if (event.pointerType === 'mouse') return;
+    startX = event.clientX; startY = event.clientY; swiping = true; suppressClick = false;
+  }
+  function pointerUp(event: PointerEvent) {
+    if (!swiping) return;
+    swiping = false;
+    const dx = event.clientX - startX, dy = event.clientY - startY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { suppressClick = true; go(current + (dx < 0 ? 1 : -1)); }
+  }
+  function captureClick(event: MouseEvent) {
+    if (suppressClick) { event.preventDefault(); event.stopPropagation(); suppressClick = false; }
+  }
+  function phrase(item: WrittenTestimonial) { return item.quote[pageLanguage] ?? item.caption[pageLanguage]; }
+  function phraseParts(item: WrittenTestimonial) {
+    const text = phrase(item), highlight = item.highlight[pageLanguage];
+    return highlight && text.includes(highlight) ? [text.slice(0, text.indexOf(highlight)), highlight, text.slice(text.indexOf(highlight) + highlight.length)] : [text, '', ''];
+  }
+  onDestroy(() => clearTimeout(markerTimer));
+</script>
+
+<section class="patient-proof" aria-labelledby="patient-proof-title">
+  <header use:standardEntry><p class="eyebrow">{copy.eyebrow}</p><h2 id="patient-proof-title">{copy.heading}</h2></header>
+  <div class="chapter-bar">
+    {#each testimonialChapters as key, index}
+      <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * 4)}>
+        <span class="chapter-track" aria-hidden="true"><span class="chapter-fill" class:striped={chapter === index} style={`width:${chapterProgress[index]}%`}></span></span>
+        <span class="chapter-desktop">{copy.chapters[index]}</span><span class="chapter-mobile">{copy.shortChapters[index]}</span>
+      </button>
+    {/each}
+  </div>
+  <!-- svelte-ignore a11y_no_noninteractive_tabindex a11y_no_noninteractive_element_interactions -->
+  <div class="journey-carousel" role="region" aria-roledescription="carousel" aria-label={copy.eyebrow} tabindex="0" on:keydown={keyboard}>
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="journey-stage" role="presentation" use:seeJourney on:pointerdown={pointerDown} on:pointerup={pointerUp} on:pointercancel={() => { swiping = false; }} on:click|capture={captureClick}>
+      {#each slides as slide, index}
+        {@const distance = index - current}
+        {@const magnitude = Math.abs(distance)}
+        <article class="journey-card" class:bridge={slide.kind.startsWith('bridge')} class:final={slide.kind === 'final'} class:central={distance === 0} aria-hidden={distance !== 0} style={`--distance:${distance};--scale:${magnitude === 0 ? 1 : magnitude === 1 ? .86 : .74};--blur:${magnitude === 0 ? 0 : magnitude === 1 ? 2.5 : 5}px;--opacity:${magnitude === 0 ? 1 : magnitude === 1 ? .6 : magnitude === 2 ? .28 : 0};z-index:${10 - magnitude};visibility:${magnitude > 2 ? 'hidden' : 'visible'}`}>
+          {#if slide.kind === 'response'}
+            {@const parts = phraseParts(slide.item)}
+            <blockquote class="key-phrase">{parts[0]}<span class:marked={distance === 0 && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}</blockquote>
+            <p class="attribution">{copy.questionnaire}{slide.item.initial ? ` · ${slide.item.initial}` : ''}</p>
+            <button class="capture-window" type="button" tabindex={distance === 0 ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+              {#if magnitude <= 2}<img src={slide.item.image} alt={slide.item.alt} width={slide.item.width} height={slide.item.height} loading="lazy" draggable="false" />{/if}
+              <span class="magnify" aria-hidden="true">⌕</span>
+            </button>
+          {:else if slide.kind === 'bridge1'}
+            <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html proofCopy.rows[0].subtitle}</p>
+          {:else if slide.kind === 'bridge2'}
+            <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
+          {:else}
+            <h3>{copy.final}<span>{copy.finalAccent}</span>{copy.finalEnd}</h3>
+            {#if distance === 0}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}>{copy.restart}</button>{/if}
+          {/if}
+          {#if distance !== 0 && magnitude <= 2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / 4))]} on:click={() => go(index)}></button>{/if}
+        </article>
+      {/each}
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-arrow" type="button" disabled={current === 0} aria-label={copy.previous} on:click={() => go(current - 1)}>←</button>
+      <span class="carousel-position" aria-live="polite" aria-atomic="true">{current + 1} / {slides.length}</span>
+      <button class="carousel-arrow" type="button" disabled={current === slides.length - 1} aria-label={copy.next} on:click={() => go(current + 1)}>→</button>
+      {#if notice}<p class="chapter-notice">{notice}</p>{/if}
+    </div>
+  </div>
+  <div class="proof-ctas"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><a class="secondary-cta" href={`${getRoutePath('testimonials', pageLanguage)}?tab=escritas#historias`}>{copy.all}</a></div>
+</section>
+{#if enlarged}<ScreenshotModal item={enlarged} {pageLanguage} close={() => { enlarged = null; }} />{/if}
+
+<style>
+  .patient-proof { background: #f8f4f0; padding: var(--home-section-start, 3.75rem) 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
+  header { padding: 0 1.25rem; text-align: center; }
+  .eyebrow { color: #245b7d; font: 600 13px Inter, sans-serif; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 1rem; }
+  h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 46px; font-weight: 500; line-height: 1.15; }
+  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2rem auto .5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
+  .chapter-bar button.active { color: #233f4e; font-weight: 600; }
+  .chapter-track { display: block; width: 100%; height: 10px; background: rgba(35,63,78,.10); border-radius: 999px; overflow: hidden; }
+  .chapter-fill { display: block; height: 100%; background: #4083a7; border-radius: inherit; transition: width var(--dur-entrada) var(--ease-calma); }
+  .striped { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: chapter-stripes .9s linear infinite; }
+  @keyframes chapter-stripes { from { background-position: 0 0; } to { background-position: 20px 0; } }
+  .chapter-mobile { display: none; }
+  .journey-carousel { outline-offset: -4px; }
+  .journey-stage { position: relative; height: 540px; touch-action: pan-y pinch-zoom; }
+  .journey-card { position: absolute; left: 50%; top: 20px; width: 470px; height: 500px; padding: 28px; display: flex; flex-direction: column; gap: 16px; background: #fff; border-radius: 22px; box-shadow: 0 20px 50px rgba(35,63,78,.10); transform: translateX(calc(-50% + var(--distance) * 430px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
+  .key-phrase { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; line-height: 1.42; font-weight: 400; min-height: 5.68em; flex: 1; margin: 0; }
+  .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
+  .attribution { color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
+  .capture-window { position: relative; display: block; width: 100%; height: 190px; flex: 0 0 190px; overflow: hidden; padding: 0; border-radius: 8px; cursor: zoom-in; text-align: left; }
+  .capture-window img { width: 100%; height: auto; display: block; }
+  .capture-window::after { content: ''; position: absolute; inset: auto 0 0; height: 46px; background: linear-gradient(transparent, #fff); pointer-events: none; }
+  .magnify { position: absolute; z-index: 1; right: 6px; bottom: 6px; width: 30px; height: 30px; display: grid; place-items: center; background: #233f4e; color: #fff; border-radius: 50%; font-size: 25px; }
+  .bridge { background: #233f4e; justify-content: center; }
+  h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
+  h3 { font-size: 34px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
+  .bridge-body { font: 400 15px/1.65 Inter, sans-serif; color: #e8e8f6; margin-top: 1rem; }
+  .final { border: 1px solid rgba(64,131,167,.35); justify-content: center; align-items: center; text-align: center; }
+  .final h3 { font-size: 32px; margin-bottom: 1rem; } .final h3 span { color: #4083a7; }
+  .restart { min-height: 44px; text-decoration: underline; font-size: 14px; }
+  .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; }
+  .carousel-controls { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; width: fit-content; margin: 0 auto; }
+  .carousel-arrow { width: 48px; height: 48px; border-radius: 999px; background: #8cd0d6; color: #233f4e; display: grid; place-items: center; font-size: 24px; transition: transform var(--dur-micro) var(--ease-calma), background var(--dur-estado) var(--ease-calma); }
+  .carousel-arrow:disabled { opacity: .45; cursor: default; }
+  .carousel-position { min-width: 64px; font-size: 14px; text-align: center; font-variant-numeric: tabular-nums; }
+  .chapter-notice { position: absolute; left: calc(100% + 16px); white-space: nowrap; background: #233f4e; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 14px; animation: notice-appear var(--dur-estado) var(--ease-calma); }
+  @keyframes notice-appear { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+  .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
+  .secondary-cta { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #233f4e; border-radius: 999px; padding: .75rem 1.5rem; min-height: 44px; font-size: 15px; font-weight: 500; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+  button:focus-visible, a:focus-visible, .journey-carousel:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
+  .carousel-arrow:focus-visible { background: #4083a7; color: #fff; }
+  @media (hover: hover) and (pointer: fine) { .carousel-arrow:hover:not(:disabled) { background: #4083a7; color: #fff; transform: translateY(-2px); } .secondary-cta:hover { background: #233f4e; color: #fff; } }
+  @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .carousel-arrow:active:not(:disabled) { transform: scale(.97); transition-duration: 100ms; } }
+  @media (max-width: 767px) {
+    h2 { font-size: 30px; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
+    .chapter-bar { gap: 8px; margin-top: 1.5rem; } .chapter-bar button { font-size: 12.5px; }
+    .journey-stage { height: 510px; }
+    .journey-card { width: 300px; height: 470px; padding: 20px; gap: 12px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
+    .key-phrase { font-size: 20px; } .capture-window { height: 150px; flex-basis: 150px; }
+    h3 { font-size: 28px; } .final h3 { font-size: 26px; }
+    .carousel-controls { margin-top: 42px; }
+    .chapter-notice { left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); max-width: calc(100vw - 24px); font-size: 14px; }
+    .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
+    .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .striped, .chapter-notice { animation: none; } .key-phrase span { background-size: 100% 60%; } .carousel-controls .carousel-arrow:not(:disabled) { transform: none; } .chapter-fill, .journey-card, .key-phrase .marked, .carousel-arrow, .secondary-cta { transition: none; } }
+</style>
