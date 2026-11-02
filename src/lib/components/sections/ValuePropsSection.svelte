@@ -467,8 +467,8 @@
 
   .timeline__card {
     transition:
-      opacity 780ms ease-out,
-      transform 780ms ease-out;
+      opacity var(--dur-entrada) var(--ease-calma),
+      transform var(--dur-entrada) var(--ease-calma);
   }
 
   .timeline__item:not(.js-is-show) .timeline__card {
@@ -477,11 +477,11 @@
   }
 
   .timeline__item:not(.timeline__item--reverse):not(.js-is-show) .timeline__card {
-    transform: translate3d(-52px, 0, 0);
+    transform: translate3d(-24px, 0, 0);
   }
 
   .timeline__item.timeline__item--reverse:not(.js-is-show) .timeline__card {
-    transform: translate3d(52px, 0, 0);
+    transform: translate3d(24px, 0, 0);
   }
 
   .timeline__item.js-is-show .timeline__card {
@@ -598,7 +598,7 @@
     .timeline__item:not(.js-is-show) .timeline__card,
     .timeline__item.timeline__item--reverse:not(.js-is-show) .timeline__card,
     .timeline__item:not(.timeline__item--reverse):not(.js-is-show) .timeline__card {
-      transform: translate3d(34px, 0, 0);
+      transform: translate3d(16px, 0, 0);
     }
 
     .timeline__card-arrow {
