@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { site } from '$lib/site';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
@@ -43,7 +44,7 @@
   $: programCopy = getProgramCopy(pageLanguage);
   $: hero = programCopy.hero;
   $: meta = programCopy.meta;
-  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
   $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
   $: alternateLinks = getAlternateLinks('program');
   $: if (phrases !== hero.phrases) {

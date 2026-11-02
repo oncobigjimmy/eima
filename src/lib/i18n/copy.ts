@@ -1,6 +1,7 @@
 import { homeEsReview, homeWhatsAppMessage } from '$lib/data/home-es';
 import { translatedHomeReview } from './home-reviewed';
 import { site } from '$lib/site';
+import { situationMessages, type Situation } from '$lib/data/situation';
 export const DEFAULT_LANGUAGE = 'es';
 
 export const LANGUAGES = [
@@ -732,7 +733,8 @@ export function getHtmlLang(language: Language) {
   return language === 'ca' ? 'ca' : language === 'en' ? 'en' : 'es';
 }
 
-export function getWhatsAppHref(language: Language, home = false) {
-  const message = home && language === 'es' ? homeWhatsAppMessage : getCopy(language).whatsapp.message;
+export function getWhatsAppHref(language: Language, _home = false, situation: Situation | null = null) {
+  const base = language === 'es' ? homeWhatsAppMessage : getCopy(language).whatsapp.message;
+  const message = base + (situation ? ' ' + situationMessages[language][situation] : '');
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }

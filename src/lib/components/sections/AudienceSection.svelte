@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { onMount } from 'svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
@@ -41,7 +42,7 @@
 
   $: audienceCopy = getCopy($language).home.audience;
   $: audience = audienceCopy.items;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
   $: titlePrefixSeparator = audienceCopy.titleLine2Prefix.endsWith('’') ? '' : ' ';
 </script>
 

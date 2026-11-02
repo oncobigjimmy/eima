@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { onMount } from 'svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
@@ -64,7 +65,7 @@
 
   $: commonCopy = getCopy($language).home.commonSituations;
   $: situations = commonCopy.situations;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
 </script>
 
 <section

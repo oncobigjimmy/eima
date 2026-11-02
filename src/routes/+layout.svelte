@@ -1,6 +1,8 @@
 <script>
   import { site } from '$lib/site';
   import { onMount } from 'svelte';
+  import { restoreSituation } from '$lib/data/situation';
+  onMount(restoreSituation);
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
   import '@fontsource/material-symbols-rounded/300.css';

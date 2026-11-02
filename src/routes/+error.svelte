@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { page } from '$app/stores';
   import { language } from '$lib/i18n/language';
   import { getWhatsAppHref } from '$lib/i18n/copy';
@@ -14,7 +15,7 @@
   $: copy = messages[pageLanguage];
 
   $: title = $page.status === 404 ? copy.missing : copy.error;
-  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
 </script>
 
 <svelte:head>

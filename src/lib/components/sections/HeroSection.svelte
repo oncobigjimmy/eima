@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { onMount } from 'svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
@@ -41,7 +42,7 @@
   let typedPhrase = '';
   let complete = false;
   $: hero = getCopy($language).home.hero;
-  $: whatsappHref = getWhatsAppHref($language, true);
+  $: whatsappHref = getWhatsAppHref($language, true, $selectedSituation);
   $: prefix = { es: 'Más ', ca: 'Més ', en: 'More ' }[$language];
   $: words = { es: ['energía.', 'salud.', 'vida.'], ca: ['energia.', 'salut.', 'vida.'], en: ['energy.', 'health.', 'life.'] }[$language];
 

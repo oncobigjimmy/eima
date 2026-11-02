@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { site } from '$lib/site';
   import { onMount } from 'svelte';
@@ -28,7 +29,7 @@
   $: hero = storyCopy.hero;
   $: labels = storyCopy.labels;
   $: statusLabels = storyCopy.status;
-  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
   $: activeProfile = storyProfiles.find((profile) => profile.id === activeId) ?? storyProfiles[0];
   $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
   $: alternateLinks = getAlternateLinks('story');

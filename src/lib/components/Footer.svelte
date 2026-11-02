@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
   import { site } from '$lib/site';
   import { page } from '$app/stores';
@@ -16,7 +17,7 @@
   $: copy = getCopy(currentLanguage);
   $: pageLinks = getHeaderLinks(currentLanguage);
   $: legalLinks = copy.footer.legalLinks;
-  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
+  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/', $selectedSituation);
   $: brandName = site.name;
 </script>
 

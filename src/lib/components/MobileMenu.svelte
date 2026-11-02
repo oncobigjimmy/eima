@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { page } from '$app/stores';
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
@@ -38,7 +39,7 @@
   $: currentLanguage = routeLanguage ?? $language;
   $: copy = getCopy(currentLanguage);
   $: links = getHeaderLinks(currentLanguage);
-  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
+  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/', $selectedSituation);
 </script>
 
 <div

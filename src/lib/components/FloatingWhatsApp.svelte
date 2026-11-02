@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { page } from '$app/stores';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
@@ -6,7 +7,7 @@
   $: pathname = $page.url.pathname;
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: currentLanguage = isBlog ? 'es' : $language;
-  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
+  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/', $selectedSituation);
   $: whatsappLabel =
     currentLanguage === 'en'
       ? 'Open WhatsApp'

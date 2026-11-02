@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { selectedSituation, situationMessages, situationCopy, type Situation } from '$lib/data/situation';
+  import { fade } from 'svelte/transition';
+  import { motionDuration } from '$lib/motion';
   import { standardEntry } from '$lib/actions/standardEntry';
   import { scrollContrast } from '$lib/actions/scrollContrast';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
@@ -17,7 +20,7 @@
   const homeCopy = getCopy(pageLanguage).home;
   const programmeBreak = { es: 'con cáncer', ca: 'amb càncer', en: 'with cancer' }[pageLanguage];
   const programmeLines = ui.programme.replace(` ${programmeBreak}`, `\n${programmeBreak}`).split('\n');
-  const whatsappHref = getWhatsAppHref(pageLanguage, true);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, true, $selectedSituation);
   const note = pageLanguage === 'es'
     ? homeCopy.hero.note.replace(' si este acompañamiento', '\nsi este acompañamiento')
     : pageLanguage === 'en'
@@ -26,7 +29,23 @@
   const goals = homeCopy.recovery.goals.map((goal, index) => index === 0
     ? { ...goal, body: ui.firstGoalBody }
     : index === 2 ? { ...goal, subtitle: ui.thirdGoalSubtitle, body: ui.thirdGoalBody } : goal);
-  const situations = ui.situations.map((quote, index) => ({ letter: 'ABC'[index], quote }));
+  const situations = ui.situations.map((quote, index) => ({ letter: 'ABC'[index] as Situation, quote }));
+  const selectionCopy = situationCopy[pageLanguage];
+  function pulsePrompt(node: HTMLElement) {
+    if (!window.matchMedia('(max-width: 767px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
+    let timer: ReturnType<typeof setTimeout>;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || entry.intersectionRatio < .5) return;
+      observer.disconnect();
+      const cards = [...node.querySelectorAll<HTMLElement>('.situation-card')];
+      const centered = cards.sort((a, b) => Math.abs(a.getBoundingClientRect().top + a.offsetHeight / 2 - innerHeight / 2) - Math.abs(b.getBoundingClientRect().top + b.offsetHeight / 2 - innerHeight / 2))[0];
+      const pill = centered?.querySelector('.selection-pill');
+      pill?.classList.add('pulse-prompt');
+      timer = setTimeout(() => pill?.classList.remove('pulse-prompt'), 600);
+    }, { threshold: .5 });
+    observer.observe(node);
+    return { destroy() { observer.disconnect(); clearTimeout(timer); } };
+  }
   let videoNearby = false;
   const videoReady = Boolean(homeVideoEs.src && homeVideoEs.captions);
   let videoNotice: HTMLDialogElement;
@@ -159,16 +178,19 @@
       <h2 id="situations-title" class="section-playfair-desktop">{@html ui.situationTitle}</h2>
       <p class="mobile-copy-14">{@html ui.situationIntro}</p>
     </header>
-    <div class="situations-grid hover-dim-group">
+    <p class="selection-instruction">{selectionCopy.choose}</p>
+    <div class="situations-grid" class:has-selection={Boolean($selectedSituation)} use:pulsePrompt>
       {#each situations as situation, i}
-        <article class="situation-card hover-dim-item" use:standardEntry={i} use:scrollContrast>
+        <button type="button" class="situation-card" class:selected={$selectedSituation === situation.letter} aria-pressed={$selectedSituation === situation.letter} on:click={() => selectedSituation.set($selectedSituation === situation.letter ? null : situation.letter)} use:standardEntry={i} use:scrollContrast>
           <span class="situation-letter" aria-hidden="true">{situation.letter}</span>
-          <h3>{situation.quote}</h3>
-        </article>
+          <span class="situation-quote">{situation.quote}</span>
+          <span class="selection-control"><span class="selection-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>{$selectedSituation === situation.letter ? selectionCopy.selected : selectionCopy.identify}</span><span class="selection-tooltip" aria-hidden="true">{selectionCopy.hint}</span></span>
+        </button>
       {/each}
     </div>
     <div class="section-cta">
       <p class="situations-closing mobile-copy-14">{ui.situationClosing}</p>
+      <div class="selection-confirmation" aria-live="polite">{#if $selectedSituation}<p transition:fade={{ duration: motionDuration(250) }}>{selectionCopy.confirmation} “{situationMessages[pageLanguage][$selectedSituation]}”</p>{/if}</div>
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
     </div>
   </div>
@@ -268,7 +290,7 @@
   .situations-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
   .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transform-origin: center; transition: opacity var(--dur-estado) var(--ease-calma), filter var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma); }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 7.2rem; line-height: .8; transform: translateY(-6px); color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
-  .situation-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
+  .situation-card .situation-quote { display: block; font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
   .situations-closing { color: #e8f8e0; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
   .recovery h2 { color: #233f4e; }
   .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 30px; margin: 1.25rem auto 0; }
@@ -326,7 +348,7 @@
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: clamp(56px, 9vw, 82px); left: 50%; top: 50%; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: var(--eima-halo-dark); }
-    .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
+    .situations-grid:not(.has-selection):has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
   @media (prefers-reduced-motion: reduce) {
     .video-frame .poster-play { transform: translate(-50%, -50%); }
@@ -342,4 +364,24 @@
 @media (max-width: 767px) {
     .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .vsl h1, .cta-note, .goal-body, .situations-closing { font-size: 16px !important; font-weight: 400; line-height: 1.6; }
   }
+
+  .situation-card { width: 100%; cursor: pointer; }
+  .selection-instruction { font-family: Inter, sans-serif; font-size: 16px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
+  .selection-control { display: block; position: relative; margin-top: 1.25rem; }
+  .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 44px; padding: .5rem 1rem; color: #8cd0d6; font: 400 15px Inter, sans-serif; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+  .selection-pill svg { width: 20px; height: 20px; }
+  .situations-grid .situation-card.selected { border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); background: #ffffff13; opacity: 1; }
+  .selected .selection-pill { background: #8cd0d6; color: #233f4e; }
+  .situations-grid.has-selection > .situation-card:not(.selected):not(:global(.standard-entry-pending)) { opacity: .6; filter: none; }
+  .selection-confirmation { color: #e8f8e0; font-size: 16px; line-height: 1.6; max-width: 680px; margin: 0 auto 1rem; }
+  .situation-card:focus-visible { outline: 2px solid #8cd0d6; outline-offset: 5px; }
+  .selection-tooltip { display: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .situation-card:hover { transform: scale(1.035); border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); }
+    .selection-tooltip { display: block; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; background: #233f4e; border-radius: 6px; padding: 6px 10px; color: #fff; font-size: 12px; pointer-events: none; opacity: 0; transition: opacity var(--dur-micro) var(--ease-calma); }
+    .situation-card:hover .selection-tooltip { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: no-preference) { .selection-pill:global(.pulse-prompt) { animation: selection-pulse 600ms var(--ease-calma); animation-iteration-count: 1; } }
+  @keyframes selection-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+@media (prefers-reduced-motion: reduce) { .situation-card:hover { transform: none; } }
 </style>

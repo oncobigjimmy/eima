@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { onMount } from 'svelte';
@@ -41,7 +42,7 @@
   $: copy = getCopy(currentLanguage);
   $: links = getHeaderLinks(currentLanguage);
   $: homeHref = getRoutePath('home', currentLanguage);
-  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/');
+  $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/', $selectedSituation);
   $: routeKey = getRouteKey(pathname);
   $: hasDarkHero =
     routeKey === 'home' ||

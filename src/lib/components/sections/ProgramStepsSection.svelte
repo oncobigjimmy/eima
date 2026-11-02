@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { watchReducedMotion } from '$lib/motion';
   import { language } from '$lib/i18n/language';
@@ -96,7 +97,7 @@
     : stepsCopy.intro;
   $: closingHtml = $language === 'es' ? stepsCopy.closing.replace('. Y ', '.<br class="steps-mobile-break" /> Y ') : stepsCopy.closing;
   $: sideParagraphs = stepsCopy.sideParagraphs.slice(0, 1);
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
   $: programStepsId = getProgramStepsHash($language);
 
 </script>

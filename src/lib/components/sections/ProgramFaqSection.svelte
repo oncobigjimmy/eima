@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { selectedSituation } from '$lib/data/situation';
   import { slide } from 'svelte/transition';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
@@ -10,15 +11,15 @@
 
   $: faqCopy = getProgramCopy($language).faq;
   $: faqs = getProgramCopy($language).faq.faqs;
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
 
-  function inlineLink() {
+  function inlineLink(href: string) {
     const word = $language === 'en' ? 'here' : 'aquí';
-    return `<a class="faq-inline-link" href="${whatsappHref}" target="_blank" rel="noopener noreferrer"><span class="faq-inline-link__word">${word}</span> <span class="faq-inline-link__arrow">↗</span></a>`;
+    return `<a class="faq-inline-link" href="${href}" target="_blank" rel="noopener noreferrer"><span class="faq-inline-link__word">${word}</span> <span class="faq-inline-link__arrow">↗</span></a>`;
   }
 
-  function renderFaqParagraph(paragraph: string) {
-    const link = inlineLink();
+  function renderFaqParagraph(paragraph: string, href: string) {
+    const link = inlineLink(href);
     return paragraph
       .replaceAll('{{reviewLink}}', link)
       .replaceAll('{{writeLink}}', link)
@@ -145,7 +146,7 @@
               >
                 <div class="faq-answer text-[14px] font-light leading-[1.75] text-[#245B7D] md:text-[14px]">
                   {#each faq.a as paragraph}
-                    <p use:htmlContent={renderFaqParagraph(paragraph)}>{@html renderFaqParagraph(paragraph)}</p>
+                    <p use:htmlContent={renderFaqParagraph(paragraph, whatsappHref)}>{@html renderFaqParagraph(paragraph, whatsappHref)}</p>
                   {/each}
 
                   {#if faq.cta}
@@ -158,7 +159,7 @@
             {:else}
               <div hidden>
                 {#each faq.a as paragraph}
-                  <p>{@html renderFaqParagraph(paragraph)}</p>
+                  <p>{@html renderFaqParagraph(paragraph, whatsappHref)}</p>
                 {/each}
               </div>
             {/if}

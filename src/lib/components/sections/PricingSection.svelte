@@ -1,5 +1,8 @@
 <script>
-  import { WEB_WHATSAPP_HREF } from '$lib/data/whatsapp';
+  import { selectedSituation } from '$lib/data/situation';
+  import { getWhatsAppHref } from '$lib/i18n/copy';
+  import { language } from '$lib/i18n/language';
+  $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
 </script>
 
 <section id="precios" class="max-w-7xl mx-auto px-8 md:px-16">
@@ -35,7 +38,7 @@
         <span class="material-symbols-rounded">arrow_forward</span>
       </a>
       <a
-        href={WEB_WHATSAPP_HREF}
+        href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-inverse/40 text-inverse px-6 py-3

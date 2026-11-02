@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { selectedSituation } from '$lib/data/situation';
   import { scrollContrast } from '$lib/actions/scrollContrast';
   import type { Language } from '$lib/i18n/copy';
   import { aboutSections } from '$lib/i18n/reviewed';
@@ -11,7 +12,7 @@
   export let pageLanguage: Language = 'es';
   const ui = aboutSections[pageLanguage];
   const copy = getAboutCopy(pageLanguage);
-  const whatsappHref = getWhatsAppHref(pageLanguage);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
   const storyPath = getRoutePath('story', pageLanguage);
   const closingParts = [copy.closing.prefix, copy.closing.accentOne, ` ${copy.closing.middle} `, copy.closing.accentTwo];
   const fullClosing = closingParts.join('');

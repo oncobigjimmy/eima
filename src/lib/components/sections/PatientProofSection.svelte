@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { selectedSituation } from '$lib/data/situation';
   import { getCopy, getWhatsAppHref, type Language } from '$lib/i18n/copy';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { patientProofCopy, getPatientResponses } from '$lib/data/patient-responses';
@@ -25,7 +26,7 @@
   $: copy = patientProofCopy[pageLanguage];
   $: hintLabel = { es: 'Haz clic para ampliar', ca: 'Fes clic per ampliar', en: 'Click to enlarge' }[pageLanguage];
   $: touchHintLabel = { es: 'Toca para ampliar', ca: 'Toca per ampliar', en: 'Tap to enlarge' }[pageLanguage];
-  $: whatsappHref = getWhatsAppHref(pageLanguage, true);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, true, $selectedSituation);
   $: ctaLabel = pageLanguage === 'es' ? 'Cuéntanos tu caso' : getCopy(pageLanguage).home.hero.cta;
   $: localizedResponses = getPatientResponses(pageLanguage);
   $: rows = copy.rows.map(row => ({ ...row, items: localizedResponses.filter(item => item.category === row.category) })).filter(row => row.items.length);

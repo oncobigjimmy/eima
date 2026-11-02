@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { site } from '$lib/site';
   import { serializeJsonLd } from '$lib/seo';
   import PostCard from '$lib/components/blog/PostCard.svelte';
@@ -13,7 +14,7 @@
   $: homePath = getRoutePath('home', data.language);
   $: rssPath = data.language === 'es' ? '/blog.xml' : '/' + data.language + '/blog.xml';
 
-  $: whatsappHref = getWhatsAppHref(data.language);
+  $: whatsappHref = getWhatsAppHref(data.language, false, $selectedSituation);
 
   $: jsonLdBlog = {
     '@context': 'https://schema.org',

@@ -1,4 +1,5 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
@@ -17,7 +18,7 @@
   $: ctaHeading = pageLanguage === 'es'
     ? copy.ctaHeading.replace(', pero ', ',<br class="testimonials-mobile-break" /> pero ')
     : copy.ctaHeading;
-  $: whatsappHref = getWhatsAppHref(pageLanguage);
+  $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
   $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
   $: alternateLinks = getAlternateLinks('testimonials');
 

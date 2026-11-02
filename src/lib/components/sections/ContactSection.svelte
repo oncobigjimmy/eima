@@ -1,11 +1,12 @@
 <script>
+  import { selectedSituation } from '$lib/data/situation';
   import { contactLayout } from '$lib/i18n/reviewed';
   import { site } from '$lib/site';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
 
   $: layout = contactLayout[$language];
-  $: whatsappHref = getWhatsAppHref($language);
+  $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
 </script>
 
 <section id="contacto" class="contact-page" class:contact-page--es={true} class:contact-page--ca={$language === 'ca'}>
