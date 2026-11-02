@@ -127,22 +127,22 @@
   @keyframes chapter-stripes { from { background-position: 0 0; } to { background-position: 20px 0; } }
   .chapter-mobile { display: none; }
   .journey-carousel { outline-offset: -4px; }
-  .journey-stage { position: relative; height: 540px; touch-action: pan-y pinch-zoom; }
-  .journey-card { position: absolute; left: 50%; top: 20px; width: 470px; height: 500px; padding: 28px; display: flex; flex-direction: column; gap: 16px; background: #fff; border-radius: 22px; box-shadow: 0 20px 50px rgba(35,63,78,.10); transform: translateX(calc(-50% + var(--distance) * 430px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
+  .journey-stage { position: relative; height: 390px; touch-action: pan-y pinch-zoom; }
+  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px; background: #fff; border-radius: 22px; box-shadow: 0 20px 50px rgba(35,63,78,.10); transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
   .key-phrase { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 400; min-height: 4.26em; margin: 0; text-align: center; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
-  .attribution { text-align: center; padding-bottom: 14px; border-bottom: 1px solid #233f4e1a; color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
-  .capture-window { position: relative; display: block; width: 100%; min-height: 0; flex: 1; overflow: hidden; padding: 0; border-radius: 8px; cursor: zoom-in; text-align: left; }
+  .attribution { text-align: center; padding-bottom: 12px; border-bottom: 1px solid #233f4e1a; color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
+  .capture-window { position: relative; display: block; align-self: center; width: min(220px, 100%); height: 110px; min-height: 0; flex: 0 0 110px; overflow: hidden; padding: 0; border-radius: 8px; cursor: zoom-in; text-align: left; }
   .capture-window img { width: 100%; height: 100%; object-fit: contain; object-position: center top; display: block; }
   .capture-window.long-capture img { height: auto; object-fit: initial; }
   .capture-window.long-capture::after { content: ''; position: absolute; inset: auto 0 0; height: 46px; background: linear-gradient(transparent, #fff); pointer-events: none; }
   .magnify { position: absolute; z-index: 1; right: 6px; bottom: 6px; width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
-  .bridge { top: 50%; height: 340px; margin-top: -170px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
+  .bridge { top: 50%; height: 320px; margin-top: -160px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
   h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
   h3 { font-size: 34px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
   .bridge-body { font: 400 15px/1.65 Inter, sans-serif; color: #e8e8f6; margin-top: 1rem; }
-  .final { border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
+  .final { height: 360px; margin-top: -180px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
   .final h3 { font-size: 32px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
   .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #f8f4f0; font-size: 14px; padding: 8px 12px; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma); }
   .restart svg { width: 22px; height: 22px; }
@@ -157,10 +157,12 @@
   @media (max-width: 767px) {
     h2 { font-size: 30px; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
     .chapter-bar { gap: 8px; margin-top: 1.5rem; } .chapter-bar button { font-size: 12.5px; }
-    .journey-stage { height: 510px; }
-    .journey-card { width: 300px; height: 470px; padding: 20px; gap: 12px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
+    .journey-stage { height: 380px; }
+    .journey-card { width: 300px; height: 340px; padding: 18px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .key-phrase { font-size: 18px; }
+    .capture-window { width: min(180px, 100%); height: 90px; flex-basis: 90px; }
     .bridge { height: 350px; margin-top: -175px; }
+    .final { height: 340px; margin-top: -170px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; }
     .journey-navigation { margin-top: 42px; }
     .chapter-notice { left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); max-width: calc(100vw - 24px); font-size: 14px; }
