@@ -445,4 +445,7 @@
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }
 @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .poster-play:active { transform: translate(-50%, -50%) scale(.97); transition-duration: 100ms; } }
+@media (max-width: 767px) {
+    .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .vsl h1, .cta-note, .goal-body, .situations-closing { font-size: 16px !important; font-weight: 400; line-height: 1.6; }
+  }
 </style>
