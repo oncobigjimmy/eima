@@ -2,7 +2,7 @@ import type { Language } from '$lib/i18n/copy';
 // TODO [CA-revisar]: revisar todas las nuevas traducciones catalanas de testimonios.
 export const testimonialUi = {
   es: {
-    eyebrow: 'Respuestas reales de pacientes', heading: 'Lo que nos cuentan, semana a semana',
+    eyebrow: 'Respuestas reales de pacientes', heading: 'Lo que nos cuentan nuestros pacientes, semana a semana', headingBefore: 'Lo que nos cuentan ', headingAccent: 'nuestros pacientes', headingAfter: ', semana a semana',
     chapters: ['1 · Lo que se recupera', '2 · Los días difíciles', '3 · Cómo te acompañamos'],
     shortChapters: ['Se recupera', 'Días difíciles', 'Te acompañamos'],
     questionnaire: 'Cuestionario de seguimiento', cta: 'Cuéntanos tu caso', all: 'Ver todos los testimonios',
@@ -16,7 +16,7 @@ export const testimonialUi = {
     pause: 'Pausar movimiento', resume: 'Reanudar', more: 'Ver más historias'
   },
   ca: {
-    eyebrow: 'Respostes reals de pacients', heading: 'El que ens expliquen, setmana a setmana',
+    eyebrow: 'Respostes reals de pacients', heading: 'El que ens expliquen els nostres pacients, setmana a setmana', headingBefore: 'El que ens expliquen ', headingAccent: 'els nostres pacients', headingAfter: ', setmana a setmana',
     chapters: ['1 · El que es recupera', '2 · Els dies difícils', "3 · Com t'acompanyam"],
     shortChapters: ['Es recupera', 'Dies difícils', "T'acompanyam"],
     questionnaire: 'Qüestionari de seguiment', cta: "Explica'ns el teu cas", all: 'Veure tots els testimonis',
@@ -30,7 +30,7 @@ export const testimonialUi = {
     pause: 'Aturar moviment', resume: 'Reprendre', more: 'Veure més històries'
   },
   en: {
-    eyebrow: 'Real patient responses', heading: 'What they tell us, week by week',
+    eyebrow: 'Real patient responses', heading: 'What our patients tell us, week by week', headingBefore: 'What ', headingAccent: 'our patients', headingAfter: ' tell us, week by week',
     chapters: ['1 · What you regain', '2 · Difficult days', '3 · How we support you'],
     shortChapters: ['Regaining things', 'Difficult days', 'Our support'],
     questionnaire: 'Follow-up questionnaire', cta: 'Tell us about your situation', all: 'See all testimonials',

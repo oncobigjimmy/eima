@@ -8,6 +8,8 @@
   import { getRoutePath } from '$lib/i18n/routes';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import ScreenshotModal from '$lib/components/ScreenshotModal.svelte';
+  import CarouselControls from '$lib/components/CarouselControls.svelte';
+  import SearchIcon from '$lib/components/SearchIcon.svelte';
   export let pageLanguage: Language = 'es';
   type Slide = { kind: 'response'; item: WrittenTestimonial } | { kind: 'bridge1' | 'bridge2' | 'final' };
   const slides: Slide[] = [
@@ -66,7 +68,7 @@
 </script>
 
 <section class="patient-proof" aria-labelledby="patient-proof-title">
-  <header use:standardEntry><p class="eyebrow">{copy.eyebrow}</p><h2 id="patient-proof-title">{copy.heading}</h2></header>
+  <header use:standardEntry><h2 id="patient-proof-title">{copy.headingBefore}<span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
   <div class="chapter-bar">
     {#each testimonialChapters as key, index}
       <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * 4)}>
@@ -82,14 +84,14 @@
       {#each slides as slide, index}
         {@const distance = index - current}
         {@const magnitude = Math.abs(distance)}
-        <article class="journey-card" class:bridge={slide.kind.startsWith('bridge')} class:final={slide.kind === 'final'} class:central={distance === 0} aria-hidden={distance !== 0} style={`--distance:${distance};--scale:${magnitude === 0 ? 1 : magnitude === 1 ? .86 : .74};--blur:${magnitude === 0 ? 0 : magnitude === 1 ? 2.5 : 5}px;--opacity:${magnitude === 0 ? 1 : magnitude === 1 ? .6 : magnitude === 2 ? .28 : 0};z-index:${10 - magnitude};visibility:${magnitude > 2 ? 'hidden' : 'visible'}`}>
+        <article class="journey-card" class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={distance === 0} aria-hidden={distance !== 0} style={`--distance:${distance};--scale:${magnitude === 0 ? 1 : magnitude === 1 ? .86 : .74};--blur:${magnitude === 0 ? 0 : magnitude === 1 ? 2.5 : 5}px;--opacity:${magnitude === 0 ? 1 : magnitude === 1 ? .6 : magnitude === 2 ? .28 : 0};z-index:${10 - magnitude};visibility:${magnitude > 2 ? 'hidden' : 'visible'}`}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase">{parts[0]}<span class:marked={distance === 0 && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}</blockquote>
             <p class="attribution">{copy.questionnaire}{slide.item.initial ? ` · ${slide.item.initial}` : ''}</p>
-            <button class="capture-window" type="button" tabindex={distance === 0 ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+            <button class="capture-window" type="button" tabindex={distance === 0 ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" class:long-capture={slide.item.height / slide.item.width > 1.15} on:click={() => { enlarged = slide.item; }}>
               {#if magnitude <= 2}<img src={slide.item.image} alt={slide.item.alt} width={slide.item.width} height={slide.item.height} loading="lazy" draggable="false" />{/if}
-              <span class="magnify" aria-hidden="true">⌕</span>
+              <span class="magnify" aria-hidden="true"><SearchIcon /></span>
             </button>
           {:else if slide.kind === 'bridge1'}
             <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html proofCopy.rows[0].subtitle}</p>
@@ -97,27 +99,24 @@
             <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
           {:else}
             <h3>{copy.final}<span>{copy.finalAccent}</span>{copy.finalEnd}</h3>
-            {#if distance === 0}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}>{copy.restart}</button>{/if}
+            {#if distance === 0}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}><span>{copy.restart}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 9M4 4v6h6" /></svg></button>{/if}
           {/if}
           {#if distance !== 0 && magnitude <= 2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / 4))]} on:click={() => go(index)}></button>{/if}
         </article>
       {/each}
     </div>
-    <div class="carousel-controls">
-      <button class="carousel-arrow" type="button" disabled={current === 0} aria-label={copy.previous} on:click={() => go(current - 1)}>←</button>
-      <span class="carousel-position" aria-live="polite" aria-atomic="true">{current + 1} / {slides.length}</span>
-      <button class="carousel-arrow" type="button" disabled={current === slides.length - 1} aria-label={copy.next} on:click={() => go(current + 1)}>→</button>
+    <div class="journey-navigation"><CarouselControls {current} total={slides.length} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={proofCopy.position} previous={() => go(current - 1)} next={() => go(current + 1)}>
       {#if notice}<p class="chapter-notice">{notice}</p>{/if}
-    </div>
+    </CarouselControls></div>
   </div>
   <div class="proof-ctas"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><a class="secondary-cta" href={`${getRoutePath('testimonials', pageLanguage)}?tab=escritas#historias`}>{copy.all}</a></div>
 </section>
 {#if enlarged}<ScreenshotModal item={enlarged} {pageLanguage} close={() => { enlarged = null; }} />{/if}
 
 <style>
-  .patient-proof { background: #f8f4f0; padding: var(--home-section-start, 3.75rem) 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
-  header { padding: 0 1.25rem; text-align: center; }
-  .eyebrow { color: #245b7d; font: 600 13px Inter, sans-serif; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 1rem; }
+  .patient-proof { background: #f8f4f0; padding: 2rem 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
+  header { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
+  h2 span { font: inherit; color: #4083a7; }
   h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 46px; font-weight: 500; line-height: 1.15; }
   .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2rem auto .5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
@@ -130,45 +129,43 @@
   .journey-carousel { outline-offset: -4px; }
   .journey-stage { position: relative; height: 540px; touch-action: pan-y pinch-zoom; }
   .journey-card { position: absolute; left: 50%; top: 20px; width: 470px; height: 500px; padding: 28px; display: flex; flex-direction: column; gap: 16px; background: #fff; border-radius: 22px; box-shadow: 0 20px 50px rgba(35,63,78,.10); transform: translateX(calc(-50% + var(--distance) * 430px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
-  .key-phrase { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; line-height: 1.42; font-weight: 400; min-height: 5.68em; flex: 1; margin: 0; }
+  .key-phrase { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 400; min-height: 4.26em; margin: 0; text-align: center; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
-  .attribution { color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
-  .capture-window { position: relative; display: block; width: 100%; height: 190px; flex: 0 0 190px; overflow: hidden; padding: 0; border-radius: 8px; cursor: zoom-in; text-align: left; }
-  .capture-window img { width: 100%; height: auto; display: block; }
-  .capture-window::after { content: ''; position: absolute; inset: auto 0 0; height: 46px; background: linear-gradient(transparent, #fff); pointer-events: none; }
-  .magnify { position: absolute; z-index: 1; right: 6px; bottom: 6px; width: 30px; height: 30px; display: grid; place-items: center; background: #233f4e; color: #fff; border-radius: 50%; font-size: 25px; }
-  .bridge { background: #233f4e; justify-content: center; }
+  .attribution { text-align: center; padding-bottom: 14px; border-bottom: 1px solid #233f4e1a; color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
+  .capture-window { position: relative; display: block; width: 100%; min-height: 0; flex: 1; overflow: hidden; padding: 0; border-radius: 8px; cursor: zoom-in; text-align: left; }
+  .capture-window img { width: 100%; height: 100%; object-fit: contain; object-position: center top; display: block; }
+  .capture-window.long-capture img { height: auto; object-fit: initial; }
+  .capture-window.long-capture::after { content: ''; position: absolute; inset: auto 0 0; height: 46px; background: linear-gradient(transparent, #fff); pointer-events: none; }
+  .magnify { position: absolute; z-index: 1; right: 6px; bottom: 6px; width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
+  .bridge { top: 50%; height: 340px; margin-top: -170px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
   h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
   h3 { font-size: 34px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
   .bridge-body { font: 400 15px/1.65 Inter, sans-serif; color: #e8e8f6; margin-top: 1rem; }
-  .final { border: 1px solid rgba(64,131,167,.35); justify-content: center; align-items: center; text-align: center; }
-  .final h3 { font-size: 32px; margin-bottom: 1rem; } .final h3 span { color: #4083a7; }
-  .restart { min-height: 44px; text-decoration: underline; font-size: 14px; }
+  .final { border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
+  .final h3 { font-size: 32px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
+  .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #f8f4f0; font-size: 14px; padding: 8px 12px; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma); }
+  .restart svg { width: 22px; height: 22px; }
+  @media (hover: hover) and (pointer: fine) { .restart:hover { background: #ffffff12; } }
   .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; }
-  .carousel-controls { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; width: fit-content; margin: 0 auto; }
-  .carousel-arrow { width: 48px; height: 48px; border-radius: 999px; background: #8cd0d6; color: #233f4e; display: grid; place-items: center; font-size: 24px; transition: transform var(--dur-micro) var(--ease-calma), background var(--dur-estado) var(--ease-calma); }
-  .carousel-arrow:disabled { opacity: .45; cursor: default; }
-  .carousel-position { min-width: 64px; font-size: 14px; text-align: center; font-variant-numeric: tabular-nums; }
   .chapter-notice { position: absolute; left: calc(100% + 16px); white-space: nowrap; background: #233f4e; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 14px; animation: notice-appear var(--dur-estado) var(--ease-calma); }
   @keyframes notice-appear { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
   .secondary-cta { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #233f4e; border-radius: 999px; padding: .75rem 1.5rem; min-height: 44px; font-size: 15px; font-weight: 500; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   button:focus-visible, a:focus-visible, .journey-carousel:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
-  .carousel-arrow:focus-visible { background: #4083a7; color: #fff; }
-  @media (hover: hover) and (pointer: fine) { .carousel-arrow:hover:not(:disabled) { background: #4083a7; color: #fff; transform: translateY(-2px); } .secondary-cta:hover { background: #233f4e; color: #fff; } }
-  @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .carousel-arrow:active:not(:disabled) { transform: scale(.97); transition-duration: 100ms; } }
+  @media (hover: hover) and (pointer: fine) { .secondary-cta:hover { background: #233f4e; color: #fff; } }
   @media (max-width: 767px) {
     h2 { font-size: 30px; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
     .chapter-bar { gap: 8px; margin-top: 1.5rem; } .chapter-bar button { font-size: 12.5px; }
     .journey-stage { height: 510px; }
     .journey-card { width: 300px; height: 470px; padding: 20px; gap: 12px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
-    .key-phrase { font-size: 20px; } .capture-window { height: 150px; flex-basis: 150px; }
+    .key-phrase { font-size: 18px; }
+    .bridge { height: 350px; margin-top: -175px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; }
-    .carousel-controls { margin-top: 42px; }
+    .journey-navigation { margin-top: 42px; }
     .chapter-notice { left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); max-width: calc(100vw - 24px); font-size: 14px; }
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
   }
-  @media (prefers-reduced-motion: reduce) { .striped, .chapter-notice { animation: none; } .key-phrase span { background-size: 100% 60%; } .carousel-controls .carousel-arrow:not(:disabled) { transform: none; } .chapter-fill, .journey-card, .key-phrase .marked, .carousel-arrow, .secondary-cta { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .striped, .chapter-notice { animation: none; } .key-phrase span { background-size: 100% 60%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta { transition: none; } }
 </style>
