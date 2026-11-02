@@ -1059,4 +1059,5 @@
     .testimonial-card, .testimonial-card h3, .testimonial-card p, .testimonial-card span, .testimonial-card strong, .testimonial-card__media, .testimonial-card__media img { transition: none; }
     .testimonial-card__media:hover img, .testimonial-card__media:focus-visible img { transform: none; }
   }
+@media (max-width: 767px) { .testimonials-hero__lead p { font-size: 14.8px; } }
 </style>

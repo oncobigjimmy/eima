@@ -112,6 +112,7 @@
     letter-spacing: 0;
   }
 
+@media (max-width: 767px) { .blog-hero-content p { font-size: 14.8px; } }
 </style>
 
 <section class="blog-entries pb-8 md:pb-11">

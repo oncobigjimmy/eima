@@ -367,7 +367,7 @@
     .poster-title { font-size: clamp(16px, 4.7cqw, 17px); line-height: 1.18; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
-    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 15px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
+    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: clamp(56px, 9vw, 82px); left: 50%; top: 50%; }
@@ -387,7 +387,7 @@
   }
 @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .poster-play:active { transform: translate(-50%, -50%) scale(.97); transition-duration: 100ms; } }
 @media (max-width: 767px) {
-    .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .vsl h1, .cta-note, .goal-body, .situations-closing { font-size: 15px !important; font-weight: 400; line-height: 1.6; }
+    .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .vsl h1, .cta-note, .goal-body, .situations-closing { font-size: 14px !important; font-weight: 400; line-height: 1.6; }
   }
 
   .situation-card { width: 100%; cursor: pointer; }
@@ -408,4 +408,5 @@
   @media (prefers-reduced-motion: no-preference) { .selection-pill:global(.pulse-prompt) { animation: selection-pulse 600ms var(--ease-calma); animation-iteration-count: 1; } }
   @keyframes selection-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 @media (prefers-reduced-motion: reduce) { .situation-card:hover { transform: none; } }
+@media (max-width: 767px) { .selection-instruction { font-size: 14px; } }
 </style>

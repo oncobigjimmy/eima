@@ -34,5 +34,5 @@
   h2 { font: 600 28px/1.2 'Playfair Display', Georgia, serif; color: #233f4e; text-wrap: balance; }
   p { margin: 1.25rem 0 1.75rem; font: 400 15px/1.6 Inter, sans-serif; }
   .close-response:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
-  @media (max-width: 767px) { .response-panel { padding: 2.5rem 1.25rem 2rem; } h2 { font-size: 25px; } }
+  @media (max-width: 767px) { .response-panel { padding: 2.5rem 1.25rem 2rem; } h2 { font-size: 25px; } p { font-size: 14px; } }
 </style>

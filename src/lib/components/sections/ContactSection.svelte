@@ -268,4 +268,5 @@
     .contact-intro > p + p { margin-top: 8px; }
     .contact-methods { margin-top: calc(2rem + 8px); }
   }
+@media (max-width: 767px) { .contact-intro p { font-size: 14.8px; } }
 </style>

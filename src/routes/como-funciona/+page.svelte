@@ -273,6 +273,7 @@
 
   @keyframes program-cursor { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .typed-underscore { animation: none; } }
+@media (max-width: 767px) { .program-hero-description { font-size: 14.8px; } }
 </style>
 
 

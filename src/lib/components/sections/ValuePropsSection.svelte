@@ -656,5 +656,5 @@
       transition: none;
     }
   }
-@media (max-width: 767px) { .home-es .timeline__card-paragraph, .home-es .timeline-summary .timeline-summary__line { font-size: 15px; font-weight: 400; line-height: 1.6; } }
+@media (max-width: 767px) { .home-es .timeline__card-paragraph, .home-es .timeline-summary .timeline-summary__line { font-size: 14px; font-weight: 400; line-height: 1.6; } }
 </style>
