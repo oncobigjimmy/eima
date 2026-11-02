@@ -47,50 +47,6 @@
   }
   const captionText = ui.posterDescription.replace(/<br[^>]*>/g, '');
 
-  function writeCaption(node: HTMLElement) {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mobile = window.matchMedia('(max-width: 767.98px)');
-    const ink = node.querySelector<HTMLElement>('.caption-typed');
-    if (!ink || !('IntersectionObserver' in window) || reduced.matches) return {};
-    let timer = 0;
-    let started = false;
-    if (mobile.matches) ink.textContent = '';
-    const finish = () => {
-      window.clearTimeout(timer);
-      ink.textContent = captionText;
-      ink.classList.remove('is-writing');
-    };
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting || !mobile.matches || started) return;
-      started = true;
-      observer.disconnect();
-      if (reduced.matches) { finish(); return; }
-      let length = 0;
-      ink.textContent = '';
-      ink.classList.add('is-writing');
-      const type = () => {
-        length += 1;
-        ink.textContent = captionText.slice(0, length);
-        if (length < captionText.length) timer = window.setTimeout(type, 28);
-        else finish();
-      };
-      type();
-    }, { threshold: .6 });
-    const changed = () => {
-      if (reduced.matches || !mobile.matches) finish();
-      else if (!started) ink.textContent = '';
-    };
-    observer.observe(node);
-    reduced.addEventListener('change', changed);
-    mobile.addEventListener('change', changed);
-    return { destroy() {
-      observer.disconnect();
-      window.clearTimeout(timer);
-      reduced.removeEventListener('change', changed);
-      mobile.removeEventListener('change', changed);
-    } };
-  }
-
   function nearVideo(node: HTMLElement) {
     if (!('IntersectionObserver' in window)) { videoNearby = true; return {}; }
     const observer = new IntersectionObserver(([entry]) => {
@@ -175,11 +131,7 @@
         </div>
       {/if}
     </div>
-      <p class="mobile-video-caption" use:writeCaption>
-        <span class="sr-only">{captionText}</span>
-        <span class="caption-space" aria-hidden="true">{captionText}</span>
-        <span class="caption-typed" aria-hidden="true">{captionText}</span>
-      </p>
+      <p class="mobile-video-caption" use:standardEntry>{captionText}</p>
     <div class="section-cta">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={homeCopy.hero.cta} />
       <p class="cta-note mobile-copy-14">{note}</p>
@@ -370,10 +322,6 @@
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
     .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 15px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
-    .mobile-video-caption span { font-family: inherit; }
-    .caption-space { visibility: hidden; }
-    .caption-typed { position: absolute; inset: 0; }
-    .caption-typed:global(.is-writing)::after { content: ''; display: inline-block; width: 1px; height: .9em; margin-left: 2px; background: currentColor; opacity: .5; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: clamp(56px, 9vw, 82px); left: 50%; top: 50%; }
