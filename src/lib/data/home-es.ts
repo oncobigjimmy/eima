@@ -25,7 +25,7 @@ export const homeEsReview = {
   },
   valueProps: {
     headingHtml: 'Tu <span class="value-heading-accent">salud</span> importa. Tu <span class="value-heading-accent">tiempo</span> también.',
-    mobileIntro: 'Nuestro <strong class="summary-marker">Programa Empenta</strong><br />te acompaña durante <strong>12 semanas.</strong>',
+    mobileIntro: 'Nuestro <strong class="summary-programme">Programa Empenta</strong><br />te acompaña durante <strong>12 semanas.</strong>',
     intro: '',
     steps: [
       { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración vemos tu situación, tus objetivos y<br class="home-desktop-break"> qué necesitas ahora mismo para que sepas <strong>qué hacer,<br class="home-desktop-break"> cuánto hacer y cómo adaptarlo.</strong>'], icon: 'list' },
@@ -35,7 +35,7 @@ export const homeEsReview = {
     ],
     summaryStrong: '',
     summaryLines: [
-      'Nuestro <strong class="summary-marker">Programa Empenta</strong> consiste en un <strong class="text-[#4083A7]">acompañamiento de 12 semanas.</strong>',
+      'Nuestro <strong class="summary-programme">Programa Empenta</strong> consiste en un <strong class="text-[#4083A7]">acompañamiento de 12 semanas.</strong>',
       '<strong>No trabajamos a base de sesiones sueltas</strong>, porque no basta con saber qué ejercicios hacer<br class="home-desktop-break"> el primer día. Te ayudamos a incorporarlos a tu rutina, adaptarlos cuando sea necesario<br class="home-desktop-break"> y comprobar cómo evolucionas.',
       'Y algo importante: <strong>no necesitas encontrarte bien todas las semanas</strong> para que nuestro<br class="home-desktop-break"> acompañamiento tenga sentido. Habrá momentos para progresar, otros para mantener<br class="home-desktop-break"> y otros para descansar.',
       'Nuestro trabajo es ayudarte a <strong class="summary-marker">saber qué hacer en cada uno de ellos.</strong>'

@@ -531,6 +531,7 @@
   }
   .timeline-summary :global(.summary-marker.marker-visible) { background-size: 100% 100%; }
   @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker) { background-size: 100% 100%; transition: none; } }
+  .timeline-summary :global(.summary-programme) { color: #fff; font-weight: 700; }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
   .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #F4F4F8; transition: color var(--dur-estado) var(--ease-calma); }
   .timeline-summary :global(strong) { color: #ffffff; transition: color var(--dur-estado) var(--ease-calma); }

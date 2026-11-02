@@ -28,7 +28,7 @@ export const translatedHomeReview = {
     },
     valueProps: {
   "headingHtml": "La teva <span class=\"value-heading-accent\">salut</span> importa. El teu <span class=\"value-heading-accent\">temps</span> també.",
-  "mobileIntro": "El nostre <strong class=\"summary-marker\">Programa Empenta</strong><br />t’acompanya durant <strong>12 setmanes.</strong>",
+  "mobileIntro": "El nostre <strong class=\"summary-programme\">Programa Empenta</strong><br />t’acompanya durant <strong>12 setmanes.</strong>",
   "intro": "",
   "steps": [
     {
@@ -62,7 +62,7 @@ export const translatedHomeReview = {
   ],
   "summaryStrong": "",
   "summaryLines": [
-    "El nostre <strong class=\"summary-marker\">Programa Empenta</strong> consisteix en un <strong>acompanyament de 12 setmanes.</strong>",
+    "El nostre <strong class=\"summary-programme\">Programa Empenta</strong> consisteix en un <strong>acompanyament de 12 setmanes.</strong>",
     "<strong>No treballam a base de sessions soltes</strong>, perquè no basta saber quins exercicis fer el primer dia. T’ajudam a incorporar-los a la teva rutina, adaptar-los quan sigui necessari i comprovar com evoluciones.",
     "I una cosa important: <strong>no necessites trobar-te bé totes les setmanes</strong> perquè el nostre acompanyament tengui sentit. Hi haurà moments per progressar, altres per mantenir i altres per descansar.",
     "La nostra feina és ajudar-te a <strong class=\"summary-marker\">saber què fer en cada un d’aquests moments.</strong>"
@@ -89,7 +89,7 @@ export const translatedHomeReview = {
     },
     valueProps: {
   "headingHtml": "Your <span class=\"value-heading-accent\">health</span> matters. Your <span class=\"value-heading-accent\">time</span> does too.",
-  "mobileIntro": "Our <strong class=\"summary-marker\">Empenta Programme</strong><br />supports you for <strong>12 weeks.</strong>",
+  "mobileIntro": "Our <strong class=\"summary-programme\">Empenta Programme</strong><br />supports you for <strong>12 weeks.</strong>",
   "intro": "",
   "steps": [
     {
@@ -123,7 +123,7 @@ export const translatedHomeReview = {
   ],
   "summaryStrong": "",
   "summaryLines": [
-    "Our <strong class=\"summary-marker\">Empenta Programme</strong> provides <strong>12 weeks of support.</strong>",
+    "Our <strong class=\"summary-programme\">Empenta Programme</strong> provides <strong>12 weeks of support.</strong>",
     "<strong>We don’t work through one-off sessions</strong>, because knowing which exercises to do on the first day isn’t enough. We help you build them into your routine, adapt them when needed and check how you progress.",
     "And something important: <strong>you don’t need to feel well every week</strong> for our support to make sense. There will be times to progress, times to maintain and times to rest.",
     "Our job is to help you <strong class=\"summary-marker\">know what to do at each of those times.</strong>"
