@@ -10,7 +10,6 @@ export const testimonialUi = {
     bridge1: 'Pero no todos los días ', bridge1Accent: 'son así.',
     bridge2: 'Precisamente ', bridge2Accent: 'para esos días', bridge2End: ' existe Empenta',
     final: 'Para que tú también puedas ', finalAccent: 'volver a hacer cosas', finalEnd: ' que antes parecían lejos.',
-    notices: ['Pero no todos los días son así →', 'Y para esos días, existe Empenta →'],
     tabs: ['Historias en vídeo', 'Historias escritas'],
     filters: ['Todas', 'Lo que se recupera', 'Los días difíciles', 'Cómo te acompañamos'], filter: 'Filtrar:',
     pause: 'Pausar movimiento', resume: 'Reanudar', more: 'Ver más historias'
@@ -24,7 +23,6 @@ export const testimonialUi = {
     bridge1: 'Però no tots els dies ', bridge1Accent: 'són així.',
     bridge2: 'Precisament ', bridge2Accent: 'per a aquests dies', bridge2End: ' existeix Empenta',
     final: 'Perquè tu també puguis ', finalAccent: 'tornar a fer coses', finalEnd: ' que abans semblaven lluny.',
-    notices: ['Però no tots els dies són així →', 'I per a aquests dies, existeix Empenta →'],
     tabs: ['Històries en vídeo', 'Històries escrites'],
     filters: ['Totes', 'El que es recupera', 'Els dies difícils', "Com t'acompanyam"], filter: 'Filtrar:',
     pause: 'Aturar moviment', resume: 'Reprendre', more: 'Veure més històries'
@@ -38,7 +36,6 @@ export const testimonialUi = {
     bridge1: 'But not every day ', bridge1Accent: 'is like that.',
     bridge2: 'It is precisely ', bridge2Accent: 'for those days', bridge2End: ' that Empenta exists',
     final: 'So you too can ', finalAccent: 'do things again', finalEnd: ' that once felt far away.',
-    notices: ['But not every day is like that →', 'And for those days, Empenta is here →'],
     tabs: ['Video stories', 'Written stories'],
     filters: ['All', 'What you regain', 'Difficult days', 'How we support you'], filter: 'Filter:',
     pause: 'Pause movement', resume: 'Resume', more: 'See more stories'

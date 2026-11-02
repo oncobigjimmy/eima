@@ -44,7 +44,6 @@
   $: proofCopy = patientProofCopy[pageLanguage];
   $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
   $: chapter = Math.min(2, Math.floor(current / 4));
-  $: notice = current === 2 ? copy.notices[0] : current === 6 ? copy.notices[1] : '';
   function go(index: number) {
     const next = Math.max(0, Math.min(slides.length - 1, index));
     if (next === current) return;
@@ -146,7 +145,6 @@
       {/each}
     </div>
     <div class="journey-navigation"><CarouselControls {current} total={slides.length} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={proofCopy.position} previous={() => go(current - 1)} next={() => go(current + 1)}>
-      {#if notice}<p class="chapter-notice">{notice}</p>{/if}
     </CarouselControls></div>
   </div>
   <div class="proof-ctas"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><a class="secondary-cta" href={`${getRoutePath('testimonials', pageLanguage)}?tab=escritas#historias`}>{copy.all}</a></div>
@@ -191,8 +189,6 @@
   .restart svg { width: 22px; height: 22px; }
   @media (hover: hover) and (pointer: fine) { .restart:hover { background: #ffffff12; } }
   .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; cursor: grab; }
-  .chapter-notice { position: absolute; left: calc(100% + 16px); white-space: nowrap; background: #233f4e; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 14px; animation: notice-appear var(--dur-estado) var(--ease-calma); }
-  @keyframes notice-appear { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
   .secondary-cta { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #233f4e; border-radius: 999px; padding: .75rem 1.5rem; min-height: 44px; font-size: 15px; font-weight: 500; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   button:focus-visible, a:focus-visible, .journey-carousel:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
@@ -207,10 +203,9 @@
     .bridge { height: 350px; margin-top: -175px; }
     .final { height: 340px; margin-top: -170px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; }
-    .journey-navigation { margin-top: 42px; }
-    .chapter-notice { left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); max-width: calc(100vw - 24px); font-size: 14px; }
+    .journey-navigation { margin-top: 0; }
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
   }
-  @media (prefers-reduced-motion: reduce) { .striped, .chapter-notice { animation: none; } .key-phrase span { background-size: 100% 60%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 60%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta { transition: none; } }
 </style>
