@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { mallorcaPath, mallorcaLetterPath } from '$lib/brand/mallorca';
 
-  let visible = true;
+  let visible = false;
   let progress = 0;
   let finishing = false;
 
@@ -27,9 +27,14 @@
     function update(now) {
       if (stopped) return;
       const elapsed = now - started;
+      if (elapsed >= 4500) { visible = false; return; }
       // Decorative loading mark: wait for the document and fonts, without
       // blocking interaction or claiming a percentage of downloaded bytes.
-      const ready = (loaded && fontsReady && elapsed >= 700) || elapsed >= 4500;
+      const ready = (loaded && fontsReady) || elapsed >= 4500;
+      if (!visible) {
+        if (ready) return;
+        if (elapsed >= 400) visible = true;
+      }
       progress = ready
         ? Math.min(1, progress + Math.min(now - previous, 50) / 220)
         : Math.min(.9, elapsed / 900);
@@ -86,7 +91,7 @@
     opacity: 1;
     transition: opacity 220ms ease-out;
     /* A failed JS bundle must not leave the mark on screen indefinitely. */
-    animation: loader-failsafe 0s 6s forwards;
+    animation: loader-failsafe 0s 4.5s forwards;
   }
   .page-loader svg {
     display: block;
