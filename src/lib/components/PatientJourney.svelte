@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import { watchReducedMotion } from '$lib/motion';
   import { standardEntry } from '$lib/actions/standardEntry';
   import { getWhatsAppHref, type Language } from '$lib/i18n/copy';
   import { selectedSituation } from '$lib/data/situation';
@@ -28,6 +29,17 @@
   let markerTimer: ReturnType<typeof setTimeout>;
   let enlarged: WrittenTestimonial | null = null;
   let startX = 0, startY = 0, swiping = false, suppressClick = false;
+  let dragOffset = 0, dragging = false, step = 350, reduced = false;
+  let pointerId: number | null = null;
+  let stage: HTMLDivElement;
+  let clickTimer: ReturnType<typeof setTimeout> | undefined;
+  onMount(() => {
+    const mobile = window.matchMedia('(max-width: 767px)');
+    const sync = () => { step = mobile.matches ? 262 : 350; };
+    sync(); mobile.addEventListener('change', sync);
+    const stopMotion = watchReducedMotion(value => { reduced = value; if (value) dragOffset = 0; });
+    return () => { mobile.removeEventListener('change', sync); stopMotion(); };
+  });
   $: copy = testimonialUi[pageLanguage];
   $: proofCopy = patientProofCopy[pageLanguage];
   $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
@@ -47,14 +59,42 @@
     }
   }
   function pointerDown(event: PointerEvent) {
-    if (event.pointerType === 'mouse') return;
-    startX = event.clientX; startY = event.clientY; swiping = true; suppressClick = false;
+    if (!event.isPrimary || event.button !== 0) return;
+    clearTimeout(clickTimer);
+    pointerId = event.pointerId;
+    startX = event.clientX; startY = event.clientY;
+    swiping = true; suppressClick = false;
+  }
+  function pointerMove(event: PointerEvent) {
+    if (!swiping || pointerId !== event.pointerId) return;
+    const dx = event.clientX - startX, dy = event.clientY - startY;
+    if (!dragging) {
+      if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) { swiping = false; pointerId = null; return; }
+      if (Math.abs(dx) < 8) return;
+      dragging = true; suppressClick = true;
+      stage?.setPointerCapture(event.pointerId);
+    }
+    event.preventDefault();
+    const minimum = -(slides.length - 1 - current) * step, maximum = current * step;
+    const resisted = dx < minimum ? minimum + (dx - minimum) * .2 : dx > maximum ? maximum + (dx - maximum) * .2 : dx;
+    dragOffset = reduced ? 0 : resisted;
   }
   function pointerUp(event: PointerEvent) {
-    if (!swiping) return;
-    swiping = false;
+    if (!swiping || pointerId !== event.pointerId) return;
     const dx = event.clientX - startX, dy = event.clientY - startY;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { suppressClick = true; go(current + (dx < 0 ? 1 : -1)); }
+    swiping = false; dragging = false; dragOffset = 0; pointerId = null;
+    if (stage?.hasPointerCapture(event.pointerId)) stage.releasePointerCapture(event.pointerId);
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      suppressClick = true;
+      const steps = Math.max(1, Math.round(Math.abs(dx) / step));
+      go(current + (dx < 0 ? steps : -steps));
+    }
+    clickTimer = setTimeout(() => { suppressClick = false; }, 0);
+  }
+  function pointerCancel(event: PointerEvent) {
+    if (pointerId !== event.pointerId) return;
+    swiping = false; dragging = false; dragOffset = 0; pointerId = null; suppressClick = false;
+    if (stage?.hasPointerCapture(event.pointerId)) stage.releasePointerCapture(event.pointerId);
   }
   function captureClick(event: MouseEvent) {
     if (suppressClick) { event.preventDefault(); event.stopPropagation(); suppressClick = false; }
@@ -64,7 +104,7 @@
     const text = phrase(item), highlight = item.highlight[pageLanguage];
     return highlight && text.includes(highlight) ? [text.slice(0, text.indexOf(highlight)), highlight, text.slice(text.indexOf(highlight) + highlight.length)] : [text, '', ''];
   }
-  onDestroy(() => clearTimeout(markerTimer));
+  onDestroy(() => { clearTimeout(markerTimer); clearTimeout(clickTimer); });
 </script>
 
 <section class="patient-proof" aria-labelledby="patient-proof-title">
@@ -80,17 +120,17 @@
   <!-- svelte-ignore a11y_no_noninteractive_tabindex a11y_no_noninteractive_element_interactions -->
   <div class="journey-carousel" role="region" aria-roledescription="carousel" aria-label={copy.eyebrow} tabindex="0" on:keydown={keyboard}>
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div class="journey-stage" role="presentation" use:seeJourney on:pointerdown={pointerDown} on:pointerup={pointerUp} on:pointercancel={() => { swiping = false; }} on:click|capture={captureClick}>
+    <div class="journey-stage" class:dragging bind:this={stage} role="presentation" use:seeJourney on:pointerdown={pointerDown} on:pointermove={pointerMove} on:pointerup={pointerUp} on:pointercancel={pointerCancel} on:click|capture={captureClick}>
       {#each slides as slide, index}
-        {@const distance = index - current}
+        {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article class="journey-card" class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={distance === 0} aria-hidden={distance !== 0} style={`--distance:${distance};--scale:${magnitude === 0 ? 1 : magnitude === 1 ? .86 : .74};--blur:${magnitude === 0 ? 0 : magnitude === 1 ? 2.5 : 5}px;--opacity:${magnitude === 0 ? 1 : magnitude === 1 ? .6 : magnitude === 2 ? .28 : 0};z-index:${10 - magnitude};visibility:${magnitude > 2 ? 'hidden' : 'visible'}`}>
+        <article class="journey-card" class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
-            <blockquote class="key-phrase">{parts[0]}<span class:marked={distance === 0 && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}</blockquote>
+            <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}</button></blockquote>
             <p class="attribution">{copy.questionnaire}{slide.item.initial ? ` · ${slide.item.initial}` : ''}</p>
-            <button class="capture-window" type="button" tabindex={distance === 0 ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" class:long-capture={slide.item.height / slide.item.width > 1.15} on:click={() => { enlarged = slide.item; }}>
-              {#if magnitude <= 2}<img src={slide.item.image} alt={slide.item.alt} width={slide.item.width} height={slide.item.height} loading="lazy" draggable="false" />{/if}
+            <button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" class:long-capture={slide.item.height / slide.item.width > 1.15} on:click={() => { enlarged = slide.item; }}>
+              {#if magnitude <= 2.2}<img src={slide.item.image} alt={slide.item.alt} width={slide.item.width} height={slide.item.height} loading="lazy" draggable="false" />{/if}
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
             </button>
           {:else if slide.kind === 'bridge1'}
@@ -99,9 +139,9 @@
             <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
           {:else}
             <h3>{copy.final}<span>{copy.finalAccent}</span>{copy.finalEnd}</h3>
-            {#if distance === 0}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}><span>{copy.restart}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 9M4 4v6h6" /></svg></button>{/if}
+            {#if index === current}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}><span>{copy.restart}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 9M4 4v6h6" /></svg></button>{/if}
           {/if}
-          {#if distance !== 0 && magnitude <= 2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / 4))]} on:click={() => go(index)}></button>{/if}
+          {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / 4))]} on:click={() => go(index)}></button>{/if}
         </article>
       {/each}
     </div>
@@ -127,9 +167,12 @@
   @keyframes chapter-stripes { from { background-position: 0 0; } to { background-position: 20px 0; } }
   .chapter-mobile { display: none; }
   .journey-carousel { outline-offset: -4px; }
-  .journey-stage { position: relative; height: 390px; touch-action: pan-y pinch-zoom; }
+  .journey-stage { position: relative; height: 390px; touch-action: pan-y pinch-zoom; user-select: none; cursor: grab; }
+  .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
+  .journey-stage.dragging .journey-card { transition: none; }
   .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px; background: #fff; border-radius: 22px; box-shadow: 0 20px 50px rgba(35,63,78,.10); transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
   .key-phrase { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 400; min-height: 4.26em; margin: 0; text-align: center; }
+  .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
   .attribution { text-align: center; padding-bottom: 12px; border-bottom: 1px solid #233f4e1a; color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
@@ -147,7 +190,7 @@
   .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #f8f4f0; font-size: 14px; padding: 8px 12px; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma); }
   .restart svg { width: 22px; height: 22px; }
   @media (hover: hover) and (pointer: fine) { .restart:hover { background: #ffffff12; } }
-  .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; }
+  .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; cursor: grab; }
   .chapter-notice { position: absolute; left: calc(100% + 16px); white-space: nowrap; background: #233f4e; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 14px; animation: notice-appear var(--dur-estado) var(--ease-calma); }
   @keyframes notice-appear { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
