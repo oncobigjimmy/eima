@@ -298,7 +298,7 @@
   .poster-phone { position: absolute; z-index: 2; left: 5.5%; bottom: -16%; width: 19%; transform: rotate(-9deg); filter: drop-shadow(0 8px 10px rgba(35, 63, 78, .18)); pointer-events: none; }
   .poster-phone-base { display: block; width: 100%; height: auto; }
   .poster-phone-screen { position: absolute; top: 7.8%; left: 24.2%; width: 61.8%; height: 68.1%; object-fit: fill; border-radius: 10% 10% 8% 8% / 5% 5% 3% 3%; }
-  .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(64px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
+  .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(56px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
   .poster-play svg { width: 88%; height: 88%; filter: drop-shadow(0 2px 3px rgba(35, 63, 78, .4)); }
 .poster-play:focus-visible { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); }
 @media (hover: hover) and (pointer: fine) { .poster-play:hover { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); } }
@@ -376,7 +376,7 @@
     .caption-typed:global(.is-writing)::after { content: ''; display: inline-block; width: 1px; height: .9em; margin-left: 2px; background: currentColor; opacity: .5; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
-    .poster-play { width: 10%; min-width: 32px; left: 50%; top: 50%; }
+    .poster-play { width: clamp(56px, 9vw, 82px); left: 50%; top: 50%; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { z-index: 1; transform: scale(1.035); border-color: #8cd0d6; background: #ffffff13; box-shadow: var(--eima-halo-dark); }
     .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
