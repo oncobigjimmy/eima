@@ -353,7 +353,8 @@
 {/if}
 
 <style>
-  .testimonials-tabs { scroll-margin-top: 6rem; margin-bottom: 2.5rem; }
+  .testimonials-tabs { scroll-margin-top: 6rem; margin-bottom: var(--testimonials-tabs-gap); }
+  .testimonials-tabs :global(.story-tabs) { margin-top: 0; }
   :global(.testimonials-mobile-break) { display: none; }
   @media (max-width: 767px) { :global(.testimonials-mobile-break) { display: block; } }
   :global(body:has(.testimonial-modal)) {
@@ -447,8 +448,9 @@
   }
 
   .testimonials-section {
+    --testimonials-tabs-gap: 2.5rem;
     background: #f8f4f0;
-    padding: 4.4rem 1.25rem 2.5rem;
+    padding: var(--testimonials-tabs-gap) 1.25rem 2.5rem;
   }
 
   .testimonials-section__inner {
@@ -881,7 +883,7 @@
     }
 
     .testimonials-section {
-      padding: 4rem 1rem 2rem;
+      padding: var(--testimonials-tabs-gap) 1rem 2rem;
     }
 
     .testimonial-card {
