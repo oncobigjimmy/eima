@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { standardEntry } from '$lib/actions/standardEntry';
+  import { draggableMarquee } from '$lib/actions/draggableMarquee';
   import { watchReducedMotion } from '$lib/motion';
   import type { Language } from '$lib/i18n/copy';
   import { writtenTestimonials, testimonialChapters, type WrittenTestimonial } from '$lib/data/patient-responses';
@@ -47,10 +48,12 @@
     </div>{/if}
   </div>
   {#if marquee}
-    <div class="motion-control"><button type="button" aria-pressed={paused} on:click={() => { paused = !paused; }}>{paused ? copy.resume : copy.pause}</button></div>
+    <div class="motion-control"><button type="button" aria-pressed={paused} on:click={() => { paused = !paused; }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{#if paused}<path d="m9 5 11 7-11 7Z" />{:else}<path d="M8 5v14M16 5v14" />{/if}</svg>{paused ? copy.resume : copy.pause}</button></div>
     <div class="marquee" class:paused>
       {#each rows as row, index}
-        <div class="marquee-window" use:standardEntry><div class="marquee-track" class:reverse={index % 2 === 1}>
+        <!-- Arrow-key navigation is provided by draggableMarquee. -->
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+        <div class="marquee-window" role="region" aria-label={copy.filters[index + 1]} tabindex="0" use:standardEntry use:draggableMarquee={{ paused: paused || Boolean(enlarged), reverse: index % 2 === 1 }}><div class="marquee-track">
           {#each [false, true] as duplicate}<div class="marquee-copy" aria-hidden={duplicate}>
             {#each row as item (item.image)}<PatientScreenshot {item} label={copy.expand} {duplicate} {open} />{/each}
           </div>{/each}
@@ -77,15 +80,15 @@
   .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: start; }
   .more-stories { display: block; margin: 2rem auto 0; }
   .motion-control { display: flex; justify-content: flex-end; margin-bottom: .75rem; }
-  .motion-control button { min-height: 44px; padding: .5rem 1rem; font-size: 13px; text-decoration: underline; }
-  .marquee-window { overflow: hidden; padding: 12px 0 20px; }
-  .marquee-track { display: flex; width: max-content; animation: stories-drift 75s linear infinite; }
-  .marquee-track.reverse { animation-direction: reverse; }
+  .motion-control button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: .6rem 1rem; font-size: 13px; font-weight: 500; border: 1px solid #4083a740; border-radius: 999px; background: #fff; color: #233f4e; box-shadow: 0 3px 12px #233f4e08; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
+  .motion-control svg { width: 18px; height: 18px; color: #4083a7; }
+  .motion-control button[aria-pressed="true"] { background: #e8e8f6; border-color: #4083a7; }
+  .marquee-window { overflow: hidden; padding: 20px 0 24px; cursor: grab; touch-action: pan-y; user-select: none; }
+  .marquee-window:global(.is-dragging), .marquee-window:global(.is-dragging) :global(.written-card) { cursor: grabbing; }
+  .marquee-window:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
+  .marquee-track { display: flex; width: max-content; will-change: transform; }
   .marquee-copy { display: flex; gap: 24px; padding-right: 24px; align-items: start; }
   .marquee-copy :global(.written-card) { width: 260px; flex: 0 0 260px; }
-  .paused .marquee-track, .marquee-window:focus-within .marquee-track { animation-play-state: paused; }
-  @media (hover: hover) { .marquee-window:hover .marquee-track { animation-play-state: paused; } }
-  @keyframes stories-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   button:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   @media (max-width: 767px) {
     .desktop-filters { display: none; }
@@ -97,5 +100,5 @@
     .filter-options [aria-selected="true"] { background: #233f4e; color: #fff; }
     .written-grid { grid-template-columns: minmax(0, 1fr); }
   }
-  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } .filter-toggle span, .desktop-filters button, .more-stories { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .more-stories, .motion-control button { transition: none; } }
 </style>
