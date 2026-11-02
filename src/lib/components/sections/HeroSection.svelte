@@ -100,7 +100,7 @@
   });
 </script>
 
-<section class="home-hero relative w-full overflow-hidden" style="min-height: 92vh;">
+<section class="home-hero relative isolate w-full overflow-hidden" style="min-height: 92vh;">
   <video
     bind:this={heroVideo}
     class="absolute inset-0 h-full w-full object-cover"
@@ -113,6 +113,7 @@
   >
     <source src="/videos/hero.mp4" type="video/mp4" />
   </video>
+  <div class="photo-tint" aria-hidden="true"></div>
   <div
     class="site-hero-overlay absolute inset-0"
     aria-hidden="true"

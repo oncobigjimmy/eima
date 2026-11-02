@@ -76,6 +76,7 @@
       bind:this={photo}
       style={`--parallax-overlay: ${overlayOpacity}; --parallax-image: url('${image}');`}
     >
+      <div class="photo-tint" aria-hidden="true"></div>
       <div class="parallax-slogan__overlay photo-text-contrast" style={`--parallax-gap:${lineGap}px;`}>
         <p
           class="parallax-slogan__top text-center font-light leading-tight text-white"
@@ -119,6 +120,7 @@
   }
 
   .parallax-slogan__image {
+    isolation: isolate;
     position: relative;
     overflow: hidden;
     background-attachment: scroll;

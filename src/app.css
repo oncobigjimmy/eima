@@ -23,6 +23,7 @@ body {
 }
 
 :root {
+  --photo-tint: .3;
   --ease-calma: cubic-bezier(.22,1,.36,1);
   --dur-micro: 150ms;
   --dur-estado: 250ms;
@@ -385,3 +386,5 @@ body {
 .standard-entry-pending { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); transition-delay: calc(var(--entry-index, 0) * var(--stagger)); }
 .standard-entry-pending.standard-entry-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .standard-entry-pending { opacity: 1; transform: none; transition: none; } }
+
+.photo-tint { position: absolute; inset: 0; background: #245b7d; mix-blend-mode: color; opacity: var(--photo-tint, .3); pointer-events: none; }
