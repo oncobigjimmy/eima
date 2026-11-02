@@ -467,8 +467,8 @@
 
   .timeline__card {
     transition:
-      opacity 640ms var(--ease-calma),
-      transform 640ms var(--ease-calma);
+      opacity 720ms var(--ease-calma),
+      transform 720ms var(--ease-calma);
   }
 
   .timeline__item:not(.js-is-show) .timeline__card {
@@ -512,7 +512,7 @@
     transition: opacity var(--dur-estado) var(--ease-calma);
   }
   .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) {
-    font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 19px; line-height: 1.4;
+    font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.4;
     color: #fff; padding: .12em .4em .18em; margin-inline: -.1em;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 70' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M18 13 Q126 6 248 11 T481 10 Q490 10 493 17 Q498 34 491 51 Q488 57 478 57 Q353 62 244 58 T18 60 Q9 59 7 51 Q3 34 9 21 Q12 15 18 13Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left center; background-size: 0% 100%;
     box-decoration-break: clone; -webkit-box-decoration-break: clone;
