@@ -200,7 +200,15 @@
   <div class="section-inner">
     <header class="section-heading">
       <h2 id="recovery-title" class="section-playfair-desktop">{@html ui.recoveryTitle}</h2>
-      <p class="recovery-subtitle">{@html ui.recoverySubtitle}</p>
+      <p class="recovery-subtitle" use:revealGoal>
+        <span class="recovery-brush">
+          <svg class="brush-stroke" viewBox="0 0 500 70" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M18 13 Q126 6 248 11 T481 10 Q490 10 493 17 Q498 34 491 51 Q488 57 478 57 Q353 62 244 58 T18 60 Q9 59 7 51 Q3 34 9 21 Q12 15 18 13Z" />
+          </svg>
+          <span class="brush-label">{@html ui.recoverySubtitle}</span>
+          <span class="brush-white" aria-hidden="true">{@html ui.recoverySubtitle}</span>
+        </span>
+      </p>
     </header>
     <div class="recovery-grid">
       {#each goals as goal, i}
@@ -295,7 +303,17 @@
   .recovery h2 { color: #233f4e; }
   .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 30px; margin: 1.25rem auto 0; }
   .recovery-subtitle :global(strong) { font-family: inherit; font-weight: 500; }
-  .recovery-subtitle :global(.brush-accent) { font: inherit; color: #4083a7; }
+  .recovery-subtitle :global(.brush-accent) { font: inherit; }
+  .recovery-brush { position: relative; display: inline-grid; isolation: isolate; font-family: 'Fraunces', Georgia, serif; padding: .3em .7em .35em; }
+  .brush-stroke { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; color: #245b7d; fill: currentColor; }
+  .brush-label, .brush-white { grid-area: 1 / 1; font-family: inherit; }
+  .brush-label { color: #233f4e; text-shadow: 0 0 4px #233f4e26; }
+  .brush-white { color: #fff; text-shadow: var(--eima-active-text-shadow); }
+  .brush-white :global(.brush-accent) { color: #8cd0d6; }
+  .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
+  .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
+  .recovery-subtitle:global(.goal-visible) .brush-stroke { clip-path: inset(0); }
+  .recovery-subtitle:global(.goal-visible) .brush-white { clip-path: inset(0); }
   .recovery .section-heading { margin-bottom: .75rem; }
   .recovery-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
   .recovery-row { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .73fr) minmax(0, 2.12fr); align-items: start; gap: clamp(1rem, 2.5vw, 2.25rem); padding: 2rem 0; }
@@ -358,6 +376,7 @@
     .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
     .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: .78; transition: none; }
     .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
+    .recovery-subtitle:global(.goal-pending) .brush-stroke, .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: none; transition: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }
 @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .poster-play:active { transform: translate(-50%, -50%) scale(.97); transition-duration: 100ms; } }

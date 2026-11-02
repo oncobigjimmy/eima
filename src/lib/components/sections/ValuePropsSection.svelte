@@ -49,7 +49,7 @@
       const bounds = node.getBoundingClientRect();
       const focus = window.innerHeight * .68;
       node.classList.toggle('summary-reading', bounds.top <= focus && bounds.bottom >= window.innerHeight * .22);
-      node.querySelectorAll('.summary-marker').forEach((marker) => {
+      node.querySelectorAll('.summary-marker, .summary-programme').forEach((marker) => {
         if (marker.getBoundingClientRect().top <= window.innerHeight * .78) marker.classList.add('marker-visible');
       });
     };
@@ -511,27 +511,16 @@
     background: radial-gradient(ellipse 85% 70% at 50% 0%, #4083a7b3, transparent 85%);
     transition: opacity var(--dur-estado) var(--ease-calma);
   }
-  .timeline-summary :global(.summary-marker) {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-    font-weight: 500;
-    font-size: 19px;
-    line-height: 1;
-    vertical-align: baseline;
-    color: #fff;
-    padding-inline: 3px;
-    margin-inline: -3px;
-    border-radius: 3px;
-    background-image: linear-gradient(#233f4e, #233f4e);
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: 0% 100%;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    transition: background-size 700ms linear;
+  .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 19px; line-height: 1.4;
+    color: #fff; padding: .12em .4em .18em; margin-inline: -.1em;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 70' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M18 13 Q126 6 248 11 T481 10 Q490 10 493 17 Q498 34 491 51 Q488 57 478 57 Q353 62 244 58 T18 60 Q9 59 7 51 Q3 34 9 21 Q12 15 18 13Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left center; background-size: 0% 100%;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    transition: background-size 800ms var(--ease-calma), color var(--dur-estado) var(--ease-calma);
   }
-  .timeline-summary :global(.summary-marker.marker-visible) { background-size: 100% 100%; }
-  @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker) { background-size: 100% 100%; transition: none; } }
-  .timeline-summary :global(.summary-programme) { color: #fff; font-weight: 700; }
+  .timeline-summary :global(.summary-programme) { font-weight: 700; }
+  .timeline-summary :global(.summary-marker.marker-visible), .timeline-summary :global(.summary-programme.marker-visible) { background-size: 100% 100%; color: #233f4e; text-shadow: none; }
+  @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) { background-size: 100% 100%; color: #233f4e; text-shadow: none; transition: none; } }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
   .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #F4F4F8; transition: color var(--dur-estado) var(--ease-calma); }
   .timeline-summary :global(strong) { color: #ffffff; transition: color var(--dur-estado) var(--ease-calma); }
@@ -540,6 +529,7 @@
   .timeline-summary:global(.summary-reading) .timeline-summary__line { color: #F4F4F8; }
   .timeline-summary:global(.summary-reading) :global(strong) { color: #ffffff; }
   @media (prefers-reduced-motion: reduce) {
+    .timeline-summary:global(.summary-reading) :global(.summary-marker), .timeline-summary:global(.summary-reading) :global(.summary-programme) { color: #233f4e; text-shadow: none; }
     .timeline-summary, .timeline-summary::before, .timeline-summary .timeline-summary__line, .timeline-summary :global(strong) { transition: none; }
   }
 
