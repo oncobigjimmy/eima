@@ -401,6 +401,7 @@
   .situation-card:focus-visible { outline: 2px solid #8cd0d6; outline-offset: 5px; }
   .selection-tooltip { display: none; }
   @media (hover: hover) and (pointer: fine) {
+    .situations .section-cta { margin-top: 4.5rem; }
     .situation-card:hover { z-index: 3; transform: scale(1.035); border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); }
     .selection-tooltip { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; background: #f8f4f0; border: 1px solid #233f4e20; border-radius: 8px; padding: 8px 12px; color: #233f4e; box-shadow: 0 6px 18px #071a2520; font-size: 12px; pointer-events: none; opacity: 0; transition: opacity var(--dur-micro) var(--ease-calma); }
     .situation-card:hover .selection-tooltip { opacity: 1; }
