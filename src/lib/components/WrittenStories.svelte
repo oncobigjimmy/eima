@@ -9,22 +9,21 @@
   import PatientScreenshot from '$lib/components/PatientScreenshot.svelte';
   import ScreenshotModal from '$lib/components/ScreenshotModal.svelte';
   export let pageLanguage: Language = 'es';
-  let mobile = false, reduced = true, paused = false, filter = 0, limit = 12, openFilter = false;
+  let mobile = false, reduced = true, paused = false, filter = 0, openFilter = false;
   let filterRoot: HTMLDivElement, filterButton: HTMLButtonElement;
   let enlarged: WrittenTestimonial | null = null;
   $: copy = testimonialUi[pageLanguage];
   $: filtered = filter === 0 ? writtenTestimonials : writtenTestimonials.filter(item => item.chapter === testimonialChapters[filter - 1]);
   $: marquee = filter === 0 && !mobile && !reduced;
   $: rows = testimonialChapters.map(chapter => writtenTestimonials.filter(item => item.chapter === chapter));
-  $: displayed = filtered.slice(0, limit);
   onMount(() => {
     const media = window.matchMedia('(max-width: 767px)');
-    const sync = () => { mobile = media.matches; limit = mobile ? 5 : 12; };
+    const sync = () => { mobile = media.matches; };
     sync(); media.addEventListener('change', sync);
     const stop = watchReducedMotion(value => { reduced = value; });
     return () => { media.removeEventListener('change', sync); stop(); };
   });
-  function select(index: number) { filter = index; limit = mobile ? 5 : 12; openFilter = false; if (mobile) filterButton?.focus(); }
+  function select(index: number) { filter = index; openFilter = false; if (mobile) filterButton?.focus(); }
   function outside(event: PointerEvent) { if (openFilter && event.target instanceof Node && !filterRoot?.contains(event.target)) openFilter = false; }
   async function filterKey(event: KeyboardEvent, index = filter) {
     if (event.key === 'Escape') { openFilter = false; filterButton.focus(); return; }
@@ -63,10 +62,9 @@
   {:else}
     {#key filter}
       <div class="written-grid">
-        {#each displayed as item, index (item.image)}<div use:standardEntry={index}><PatientScreenshot {item} label={copy.expand} {open} /></div>{/each}
+        {#each filtered as item, index (item.image)}<div class="written-slot" use:standardEntry={index}><PatientScreenshot {item} label={copy.expand} {open} /></div>{/each}
       </div>
     {/key}
-    {#if limit < filtered.length}<button class="more-stories" type="button" on:click={() => { limit += mobile ? 4 : 12; }}>{copy.more}</button>{/if}
   {/if}
 </div>
 {#if enlarged}<ScreenshotModal item={enlarged} {pageLanguage} close={() => { enlarged = null; }} />{/if}
@@ -74,11 +72,11 @@
 <style>
   .written-stories { margin-top: 2rem; }
   .desktop-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
-  .desktop-filters button, .more-stories { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid rgba(35,63,78,.25); border-radius: 999px; font-size: 14px; font-weight: 400; color: #233f4e; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+  .desktop-filters button { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid rgba(35,63,78,.25); border-radius: 999px; font-size: 14px; font-weight: 400; color: #233f4e; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   .desktop-filters .active { background: #233f4e; color: #fff; }
   .mobile-filter { display: none; }
-  .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: start; }
-  .more-stories { display: block; margin: 2rem auto 0; }
+  .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: center; }
+  .written-slot { display: flex; align-items: center; justify-content: center; height: 100%; min-width: 0; }
   .motion-control { display: flex; justify-content: flex-end; margin-bottom: .75rem; }
   .motion-control button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: .6rem 1rem; font-size: 13px; font-weight: 500; border: 1px solid #4083a740; border-radius: 999px; background: #fff; color: #233f4e; box-shadow: 0 3px 12px #233f4e08; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   .motion-control svg { width: 18px; height: 18px; color: #4083a7; }
@@ -87,7 +85,7 @@
   .marquee-window:global(.is-dragging), .marquee-window:global(.is-dragging) :global(.written-card) { cursor: grabbing; }
   .marquee-window:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
   .marquee-track { display: flex; width: max-content; will-change: transform; }
-  .marquee-copy { display: flex; gap: 24px; padding-right: 24px; align-items: start; }
+  .marquee-copy { display: flex; gap: 24px; padding-right: 24px; align-items: center; }
   .marquee-copy :global(.written-card) { width: 260px; flex: 0 0 260px; }
   button:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   @media (max-width: 767px) {
@@ -100,5 +98,5 @@
     .filter-options [aria-selected="true"] { background: #233f4e; color: #fff; }
     .written-grid { grid-template-columns: minmax(0, 1fr); }
   }
-  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .more-stories, .motion-control button { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button { transition: none; } }
 </style>
