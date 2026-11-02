@@ -79,21 +79,21 @@
       <div class="parallax-slogan__overlay photo-text-contrast" style={`--parallax-gap:${lineGap}px;`}>
         <p
           class="parallax-slogan__top text-center font-light leading-tight text-white"
-          style={`--mobile-top-size:${mobileTopSize}px; --desktop-top-size:${desktopTopSize}px;`}
+          style={`--mobile-top-size:${mobileTopSize}px; --mobile-top-weight:${mobileTopSize <= 18 ? 400 : 300}; --desktop-top-size:${desktopTopSize}px; --desktop-top-weight:${desktopTopSize <= 18 ? 400 : 300};`}
         >
           <span use:htmlContent={topHtml}>{@html topHtml}</span>
         </p>
         {#if middleHtml}
           <p
             class="parallax-slogan__middle text-center font-light leading-tight text-white"
-            style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px;`}
+            style={`--mobile-middle-size:${mobileMiddleSize}px; --mobile-middle-weight:${mobileMiddleSize <= 18 ? 400 : 300}; --desktop-middle-size:${desktopMiddleSize}px; --desktop-middle-weight:${desktopMiddleSize <= 18 ? 400 : 300};`}
           >
             <span use:htmlContent={middleHtml}>{@html middleHtml}</span>
           </p>
         {/if}
         <p
           class="parallax-slogan__bottom text-center font-light leading-tight text-white"
-          style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px; --mobile-bottom-size:${mobileBottomSize}px; --desktop-bottom-size:${desktopBottomSize}px;`}
+          style={`--mobile-middle-size:${mobileMiddleSize}px; --desktop-middle-size:${desktopMiddleSize}px; --mobile-bottom-size:${mobileBottomSize}px; --mobile-bottom-weight:${mobileBottomSize <= 18 ? 400 : 300}; --desktop-bottom-size:${desktopBottomSize}px; --desktop-bottom-weight:${desktopBottomSize <= 18 ? 400 : 300};`}
         >
           <span use:htmlContent={bottomHtml}>{@html bottomHtml}</span>
         </p>
@@ -159,17 +159,17 @@
 
   .parallax-slogan__top {
     font-size: var(--mobile-top-size);
-    font-weight: 200;
+    font-weight: var(--mobile-top-weight);
   }
 
   .parallax-slogan__middle {
     font-size: var(--mobile-middle-size);
-    font-weight: 200;
+    font-weight: var(--mobile-middle-weight);
   }
 
   .parallax-slogan__bottom {
     font-size: var(--mobile-bottom-size);
-    font-weight: 200;
+    font-weight: var(--mobile-bottom-weight);
   }
 
   :global(.parallax-slogan__top strong),
@@ -204,14 +204,17 @@
 
     .parallax-slogan__top {
       font-size: var(--desktop-top-size);
+      font-weight: var(--desktop-top-weight);
     }
 
     .parallax-slogan__middle {
       font-size: var(--desktop-middle-size);
+      font-weight: var(--desktop-middle-weight);
     }
 
     .parallax-slogan__bottom {
       font-size: var(--desktop-bottom-size);
+      font-weight: var(--desktop-bottom-weight);
     }
 
     :global(.parallax-mobile-break) {
