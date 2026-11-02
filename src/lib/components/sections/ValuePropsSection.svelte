@@ -467,8 +467,8 @@
 
   .timeline__card {
     transition:
-      opacity var(--dur-entrada) var(--ease-calma),
-      transform var(--dur-entrada) var(--ease-calma);
+      opacity 640ms var(--ease-calma),
+      transform 640ms var(--ease-calma);
   }
 
   .timeline__item:not(.js-is-show) .timeline__card {
