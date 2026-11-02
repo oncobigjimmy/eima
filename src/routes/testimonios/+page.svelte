@@ -1,7 +1,11 @@
 <script>
   import { selectedSituation } from '$lib/data/situation';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount, tick } from 'svelte';
+  import StoryTabs from '$lib/components/StoryTabs.svelte';
+  import WrittenStories from '$lib/components/WrittenStories.svelte';
+  import { testimonialUi } from '$lib/data/testimonial-copy';
+  import { standardEntry } from '$lib/actions/standardEntry';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
   import { getWhatsAppHref } from '$lib/i18n/copy';
@@ -13,6 +17,22 @@
   import { motionDuration } from '$lib/motion';
   import { scrollContrast } from '$lib/actions/scrollContrast';
 
+  let activeTab = $page.url.searchParams.get('tab') === 'escritas' || $page.url.hash === '#historias' ? 'escritas' : 'videos';
+  /** @type {HTMLDivElement} */
+  let tabsRoot;
+  $: writtenCopy = testimonialUi[pageLanguage];
+  /** @param {string} id */
+  function chooseTab(id) { activeTab = id; }
+  onMount(() => {
+    let previousUrl = '';
+    return page.subscribe(async ({ url }) => {
+      if (url.href === previousUrl) return;
+      previousUrl = url.href;
+      const written = url.searchParams.get('tab') === 'escritas' || url.hash === '#historias';
+      activeTab = written ? 'escritas' : 'videos';
+      if (written) { await tick(); tabsRoot?.scrollIntoView({ block: 'start', behavior: 'instant' }); }
+    });
+  });
   $: pageLanguage = getLanguageFromPath($page.url.pathname) ?? 'es';
   $: copy = getTestimonialsCopy(pageLanguage);
   $: ctaHeading = pageLanguage === 'es'
@@ -190,7 +210,9 @@
   <div class="testimonials-section__inner">
     <h2 id="testimonios-title" class="sr-only">{copy.section}</h2>
 
-    <div class="testimonials-grid">
+    <div id="historias" class="testimonials-tabs" bind:this={tabsRoot}><StoryTabs items={[{ id: 'videos', label: writtenCopy.tabs[0] }, { id: 'escritas', label: writtenCopy.tabs[1] }]} selected={activeTab} label={copy.section} prefix="testimonials" wide onSelect={chooseTab} /></div>
+    {#if activeTab === 'videos'}
+    <div class="testimonials-grid" role="tabpanel" id="testimonials-panel-videos" aria-labelledby="testimonials-tab-videos" use:standardEntry>
       {#each visibleTestimonials as testimonial (testimonial.name)}
         <article class="testimonial-card" use:scrollContrast>
           <div class="testimonial-card__content">
@@ -261,6 +283,9 @@
         </article>
       {/each}
     </div>
+    {:else}
+      <div role="tabpanel" id="testimonials-panel-escritas" aria-labelledby="testimonials-tab-escritas"><WrittenStories {pageLanguage} /></div>
+    {/if}
   </div>
 </section>
 
@@ -328,6 +353,7 @@
 {/if}
 
 <style>
+  .testimonials-tabs { scroll-margin-top: 6rem; margin-bottom: 2.5rem; }
   :global(.testimonials-mobile-break) { display: none; }
   @media (max-width: 767px) { :global(.testimonials-mobile-break) { display: block; } }
   :global(body:has(.testimonial-modal)) {

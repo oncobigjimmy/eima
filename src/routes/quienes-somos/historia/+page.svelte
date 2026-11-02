@@ -1,4 +1,5 @@
 <script>
+  import StoryTabs from '$lib/components/StoryTabs.svelte';
   import { selectedSituation } from '$lib/data/situation';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { site } from '$lib/site';
@@ -294,22 +295,7 @@
         </button>
       </div>
 
-      <div class="story-tabs mt-5" aria-label={labels.chooseStory}>
-        <button
-          type="button"
-          class:active-person={activeId === 'miquel'}
-          on:click={() => selectProfile('miquel')}
-        >
-          Miquel
-        </button>
-        <button
-          type="button"
-          class:active-person={activeId === 'jaume'}
-          on:click={() => selectProfile('jaume')}
-        >
-          Jaume
-        </button>
-      </div>
+      <StoryTabs items={[{ id: 'miquel', label: 'Miquel' }, { id: 'jaume', label: 'Jaume' }]} selected={activeId} label={labels.chooseStory} tabs={false} onSelect={id => { if (id === 'miquel' || id === 'jaume') selectProfile(id); }} />
     </div>
 
     {#if activeProfile}
@@ -960,47 +946,6 @@
     transform: scale(1.08);
   }
 
-  .story-tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    width: min(100%, 18.5rem);
-    margin-inline: auto;
-    padding: 0.55rem;
-    border-radius: 9999px;
-    background: #ffffff;
-    box-shadow:
-      0 9px 22px rgba(14, 29, 38, 0.13),
-      inset 0 0 0 1px rgba(35, 63, 78, 0.08);
-  }
-
-  .story-tabs button {
-    cursor: pointer;
-    min-height: 2.8rem;
-    border-radius: 9999px;
-    background: #e8e8f6;
-    color: #233f4e;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1;
-    transition:
-      background-color 240ms ease,
-      color 240ms ease,
-      transform 240ms ease,
-      font-weight 240ms ease;
-  }
-
-  .story-tabs button:hover {
-    transform: translateY(-1px);
-  }
-
-  .story-tabs button.active-person {
-    background: #4083a7;
-    color: #ffffff;
-    font-weight: 700;
-    text-shadow: var(--eima-blue-text-shadow);
-  }
-
   @media (max-width: 767px) {
     .story-journey-title { font-size: 40px; }
     .story-profile-name { font-size: 30px; }
@@ -1030,10 +975,6 @@
       font-size: 2.35rem;
     }
 
-    .story-tabs {
-      width: min(100%, 18rem);
-    }
-
     .team-photo-frame {
       aspect-ratio: 1.35;
       gap: 1.1rem;
@@ -1053,11 +994,6 @@
 
     .story-person--jaume {
       margin: 0;
-    }
-
-    .story-tabs button {
-      min-height: 2.85rem;
-      font-size: 16px;
     }
 
     .profile-card__body {
