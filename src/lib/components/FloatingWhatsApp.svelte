@@ -14,43 +14,33 @@
         ? 'Obrir WhatsApp'
         : 'Abrir WhatsApp';
 
-  // Keep the mobile shortcut clear of nearby interactive controls.
-  /** @param {HTMLElement} node @param {boolean} enabled */
-  function avoidControls(node, enabled) {
-    let frame = 0;
-    function updatePosition() {
-      frame = 0;
-      if (!enabled || window.innerWidth >= 768) {
-        node.style.removeProperty('bottom');
-        return;
+  let hidden = true;
+  /** @param {HTMLElement} node */
+  function avoidControls(node) {
+    const blocked = new Set();
+    let initialized = false;
+    const observer = new IntersectionObserver(entries => {
+      initialized = true;
+      for (const entry of entries) {
+        const isCta = entry.target.matches('a[href*="wa.me"]');
+        if (entry.isIntersecting && (!isCta || entry.intersectionRatio >= .5)) blocked.add(entry.target);
+        else blocked.delete(entry.target);
       }
-      node.style.removeProperty('bottom');
-      const base = node.getBoundingClientRect();
-      let top = base.top;
-      const controls = [...document.querySelectorAll('main a[href], main button, footer a[href], footer button')]
-        .map(control => control.getBoundingClientRect())
-        .filter(rect => rect.width && rect.height && rect.right > base.left - 8 && rect.left < base.right + 8);
-      // Move only when a control actually intersects the shortcut's corner.
-      for (let pass = 0; pass <= controls.length; pass += 1) {
-        const collision = controls.find(rect => rect.top < top + base.height + 8 && rect.bottom > top - 8);
-        if (!collision) break;
-        top = collision.top - base.height - 8;
-      }
-      if (top < base.top) node.style.bottom = `${window.innerHeight - top - base.height}px`;
-    }
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(updatePosition); };
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    schedule();
-    return {
-      /** @param {boolean} value */
-      update(value) { enabled = value; schedule(); },
-      destroy() {
-        window.removeEventListener('scroll', schedule);
-        window.removeEventListener('resize', schedule);
-        cancelAnimationFrame(frame);
-      }
+      hidden = blocked.size > 0;
+    }, { threshold: [0, .5] });
+    let observed = new Set();
+    const refresh = () => {
+      const targets = new Set(document.querySelectorAll('.home-hero, [class$="-hero"], footer, a[href*="wa.me"]:not(.floating-whatsapp)'));
+      for (const target of observed) if (!targets.has(target)) { observer.unobserve(target); blocked.delete(target); }
+      let added = false;
+      for (const target of targets) if (!observed.has(target)) { observer.observe(target); added = true; }
+      observed = targets;
+      hidden = !initialized || added || blocked.size > 0;
     };
+    const changes = new MutationObserver(refresh);
+    changes.observe(document.body, { childList: true, subtree: true });
+    refresh();
+    return { destroy() { observer.disconnect(); changes.disconnect(); } };
   }
 </script>
 
@@ -59,8 +49,11 @@
   target="_blank"
   rel="noopener noreferrer"
   aria-label={whatsappLabel}
-  use:avoidControls={true}
-  class="floating-whatsapp fixed bottom-4 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_rgba(14,29,38,0.22)] transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.04] hover:shadow-[0_18px_34px_rgba(14,29,38,0.28)] md:bottom-5 md:right-5"
+  use:avoidControls
+  class:is-hidden={hidden}
+  tabindex={hidden ? -1 : 0}
+  aria-hidden={hidden}
+  class="floating-whatsapp fixed bottom-4 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_rgba(14,29,38,0.22)] md:bottom-5 md:right-5"
 >
   <span class="sr-only">{whatsappLabel}</span>
   <svg class="h-9 w-9" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
@@ -71,6 +64,9 @@
 </a>
 
 <style>
+  .floating-whatsapp { opacity: 1; transform: scale(1); transition: opacity 200ms var(--ease-calma), transform 200ms var(--ease-calma); }
+  .floating-whatsapp.is-hidden { opacity: 0; transform: scale(.9); pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { .floating-whatsapp { transition: none; transform: none; } }
   @media (max-width: 767.98px) {
     .floating-whatsapp { width: 48px; height: 48px; right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); }
     .floating-whatsapp svg { width: 28px; height: 28px; }
