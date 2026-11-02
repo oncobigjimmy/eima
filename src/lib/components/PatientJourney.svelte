@@ -123,7 +123,7 @@
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article class="journey-card" class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
+        <article class="journey-card" class:blue-response={slide.kind === 'response' && index % 4 === 0} class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}</button></blockquote>
@@ -179,6 +179,13 @@
   .capture-window.long-capture img { height: auto; object-fit: initial; }
   .capture-window.long-capture::after { content: ''; position: absolute; inset: auto 0 0; height: 46px; background: linear-gradient(transparent, #fff); pointer-events: none; }
   .magnify { position: absolute; z-index: 1; right: 6px; bottom: 6px; width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
+  /* Provisional colour trial: the first response of each chapter. */
+  .blue-response { background: #4083a7; color: #fff; }
+  .blue-response .key-phrase { color: #fff; }
+  .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
+  .blue-response .attribution { color: #fff; border-bottom-color: #ffffff45; text-shadow: var(--eima-dark-copy-shadow); }
+  .blue-response .capture-window.long-capture::after { background: linear-gradient(transparent, #4083a7); }
+  .blue-response button:focus-visible { outline-color: #f8f4f0; }
   .bridge { top: 50%; height: 320px; margin-top: -160px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
   h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
   h3 { font-size: 34px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
