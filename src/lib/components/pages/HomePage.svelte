@@ -59,7 +59,8 @@
 
 <style>
   :global(body:has(.home-es-rhythm) .primary-cta .cta-arrow-swap svg) { filter: drop-shadow(0 1px 1.5px rgba(7, 26, 37, .3)); }
-  :global(body:has(.home-es-rhythm) .primary-cta:is(:hover, :focus-visible) .cta-arrow-swap svg) { filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533); }
+:global(body:has(.home-es-rhythm) .primary-cta:focus-visible .cta-arrow-swap svg) { filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533); }
+@media (hover: hover) and (pointer: fine) { :global(body:has(.home-es-rhythm) .primary-cta:hover .cta-arrow-swap svg) { filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533); } }
   .home-es-rhythm {
     --home-section-start: clamp(2.75rem, 5vw, 4.75rem);
     --home-section-end: clamp(3rem, 5vw, 4.75rem);

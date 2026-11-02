@@ -250,7 +250,7 @@
   .carousel-arrow svg { width: 25px; height: 25px; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
   .arrow-icon { display: grid; place-items: center; }
   .arrow-icon svg:last-child { display: none; }
-  .carousel-arrow:hover:not(:disabled) { background: var(--color-brand-accent); box-shadow: 0 4px 16px #233f4e1f; }
+@media (hover: hover) and (pointer: fine) { .carousel-arrow:hover:not(:disabled) { background: var(--color-brand-accent); box-shadow: 0 4px 16px #233f4e1f; } }
   .carousel-arrow:disabled { opacity: .45; }
   .carousel-arrow:focus-visible, .response-slot:focus-visible { outline: 2px solid var(--quote-color); outline-offset: 5px; }
   .carousel-position { min-width: 4rem; text-align: center; color: var(--quote-neutral); font-size: 13px; font-variant-numeric: tabular-nums; }
@@ -264,7 +264,8 @@
   .image-placeholder { display: block; width: 100%; max-height: 245px; border-radius: calc(var(--radius-card) - 3px); background: color-mix(in srgb, var(--color-brand-accent) 18%, var(--color-surface)); }
   .response-slot[aria-current="true"] { cursor: zoom-in; }
   .response-slot[aria-current="true"]:focus-visible { outline: none; }
-  .response-slot[aria-current="true"]:is(:hover, :focus-visible) .response-card img { outline: 2px solid #4083a7; outline-offset: -2px; }
+.response-slot[aria-current="true"]:focus-visible .response-card img { outline: 2px solid #4083a7; outline-offset: -2px; }
+@media (hover: hover) and (pointer: fine) { .response-slot[aria-current="true"]:hover .response-card img { outline: 2px solid #4083a7; outline-offset: -2px; } }
   .expand-tooltip { position: absolute; top: 100%; left: 50%; margin-top: 14px; transform: translate(-50%, -3px); padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 150ms ease, transform 150ms ease; }
   .response-slot:focus-visible .expand-tooltip { opacity: 1; transform: translate(-50%, 0); }
   .cursor-tooltip { position: fixed; z-index: 250; padding: 6px 10px; border-radius: 6px; background: #233f4e; color: #ffffff; font-size: 12px; white-space: nowrap; pointer-events: none; }
@@ -283,22 +284,27 @@
   .response-modal-close:focus-visible { outline: 2px solid var(--color-brand-soft); outline-offset: 4px; }
   :global(.patient-row--dark) .response-carousel { --quote-color: var(--color-brand-accent); --quote-neutral: #e8e8f6; }
   :global(.patient-row--dark) .carousel-arrow { color: var(--color-brand-accent); border-color: #8cd0d670; background: #ffffff08; }
-  :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled) { color: var(--color-brand); background: var(--color-brand-accent); }
+@media (hover: hover) and (pointer: fine) { :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled) { color: var(--color-brand); background: var(--color-brand-accent); } }
   :global(.patient-row--dark) .response-card { background: var(--eima-card-hover-background); border-color: #ffffff20; }
   :global(.patient-row--dark) .response-card.centered { border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); }
     .carousel-controls { gap: 12px; margin-bottom: 0; }
     .carousel-arrow { width: 48px; height: 48px; color: #233f4e; border: 0; background: #8cd0d6; transition: background 250ms ease, border-color 250ms ease, border-width 250ms ease, transform 250ms ease, box-shadow 300ms ease-out; }
     .carousel-position { min-width: 48px; font-size: 14px; }
-    .carousel-arrow:hover:not(:disabled), .carousel-arrow:focus-visible:not(:disabled) { color: #ffffff; background: #4083a7; border: 0; box-shadow: 0 10px 24px #233f4e24; transform: translateY(-2px); }
-    .carousel-arrow:active:not(:disabled) { transform: translateY(0) scale(.96); }
+.carousel-arrow:focus-visible:not(:disabled) { color: #ffffff; background: #4083a7; border: 0; box-shadow: 0 10px 24px #233f4e24; transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .carousel-arrow:hover:not(:disabled) { color: #ffffff; background: #4083a7; border: 0; box-shadow: 0 10px 24px #233f4e24; transform: translateY(-2px); } }
+
     .arrow-icon { position: relative; display: block; width: 21px; height: 21px; overflow: hidden; }
     .arrow-icon svg, .arrow-icon svg:last-child { display: block; position: absolute; inset: 0; width: 21px; height: 21px; stroke-width: 1.5; transition: transform 450ms cubic-bezier(.3,.9,.3,1); }
     .carousel-arrow[data-direction='next'] .arrow-icon svg:last-child { transform: translateX(-150%); }
     .carousel-arrow[data-direction='previous'] .arrow-icon svg:last-child { transform: translateX(150%); }
-    .carousel-arrow[data-direction='next']:is(:hover, :focus-visible) .arrow-icon svg:first-child { transform: translateX(150%); }
-    .carousel-arrow[data-direction='previous']:is(:hover, :focus-visible) .arrow-icon svg:first-child { transform: translateX(-150%); }
-    .carousel-arrow:is(:hover, :focus-visible) .arrow-icon svg:last-child { transform: translateX(0); }
-    .carousel-arrow:is(:hover, :focus-visible) .arrow-icon svg { stroke-width: 2.25; }
+.carousel-arrow[data-direction='next']:focus-visible .arrow-icon svg:first-child { transform: translateX(150%); }
+@media (hover: hover) and (pointer: fine) { .carousel-arrow[data-direction='next']:hover .arrow-icon svg:first-child { transform: translateX(150%); } }
+.carousel-arrow[data-direction='previous']:focus-visible .arrow-icon svg:first-child { transform: translateX(-150%); }
+@media (hover: hover) and (pointer: fine) { .carousel-arrow[data-direction='previous']:hover .arrow-icon svg:first-child { transform: translateX(-150%); } }
+.carousel-arrow:focus-visible .arrow-icon svg:last-child { transform: translateX(0); }
+@media (hover: hover) and (pointer: fine) { .carousel-arrow:hover .arrow-icon svg:last-child { transform: translateX(0); } }
+.carousel-arrow:focus-visible .arrow-icon svg { stroke-width: 2.25; }
+@media (hover: hover) and (pointer: fine) { .carousel-arrow:hover .arrow-icon svg { stroke-width: 2.25; } }
     /* Horizontal clipping belongs to the whole section. Keeping this window
        open lets the image's shadow fade naturally above the caption. */
     .carousel-window { overflow: visible; mask-image: none; }
@@ -310,11 +316,13 @@
     .response-card.centered img { box-shadow: 0 0 0 1px #4083a7; }
     .image-placeholder { width: 100%; height: 100%; max-height: none; background: transparent; }
     :global(.patient-row--dark) .carousel-arrow { color: #233f4e; border: 0; background: #8cd0d6; }
-    :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled), :global(.patient-row--dark) .carousel-arrow:focus-visible:not(:disabled) { background: #4083a7; color: #ffffff; border: 0; box-shadow: 0 10px 24px #ffffff24; }
+:global(.patient-row--dark) .carousel-arrow:focus-visible:not(:disabled) { background: #4083a7; color: #ffffff; border: 0; box-shadow: 0 10px 24px #ffffff24; }
+@media (hover: hover) and (pointer: fine) { :global(.patient-row--dark) .carousel-arrow:hover:not(:disabled) { background: #4083a7; color: #ffffff; border: 0; box-shadow: 0 10px 24px #ffffff24; } }
     :global(.patient-row--dark) .response-card { background: transparent; border: 0; filter: drop-shadow(0 22px 30px #071a252d); }
     :global(.patient-row--dark) .response-card.centered { border: 0; box-shadow: none; filter: drop-shadow(0 20px 28px #071a2538) drop-shadow(0 0 10px #8cd0d65c) drop-shadow(0 0 32px #8cd0d638); }
     :global(.patient-row--dark) .response-card.centered img { box-shadow: 0 0 0 2px #8cd0d6; }
-    :global(.patient-row--dark) .response-slot[aria-current="true"]:is(:hover, :focus-visible) .response-card img { outline-color: #8cd0d6; }
+:global(.patient-row--dark) .response-slot[aria-current="true"]:focus-visible .response-card img { outline-color: #8cd0d6; }
+@media (hover: hover) and (pointer: fine) { :global(.patient-row--dark) .response-slot[aria-current="true"]:hover .response-card img { outline-color: #8cd0d6; } }
     .response-modal { align-items: center; overflow: hidden; padding: 4rem 2rem 2rem; }
     .response-modal-panel { width: fit-content; max-width: 90vw; padding: 0; background: transparent; }
     .response-modal-panel img { width: auto; max-width: min(720px, 86vw); max-height: calc(100dvh - 140px); object-fit: contain; box-shadow: 0 20px 50px #071a2560; }
@@ -331,4 +339,5 @@
     .response-card.centered { transform: none; }
     .arrow-icon svg, .arrow-icon svg:last-child { transition: none; }
   }
+@media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .carousel-arrow:active:not(:disabled) { transform: scale(.97); transition-duration: 100ms; } .response-slot:active { scale: .97; transition: scale 100ms; } }
 </style>

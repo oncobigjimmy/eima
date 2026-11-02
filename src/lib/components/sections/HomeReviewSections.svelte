@@ -334,7 +334,8 @@
   .poster-phone-screen { position: absolute; top: 7.8%; left: 24.2%; width: 61.8%; height: 68.1%; object-fit: fill; border-radius: 10% 10% 8% 8% / 5% 5% 3% 3%; }
   .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(64px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform 220ms ease, box-shadow 220ms ease; }
   .poster-play svg { width: 88%; height: 88%; filter: drop-shadow(0 2px 3px rgba(35, 63, 78, .4)); }
-  .poster-play:hover, .poster-play:focus-visible { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); }
+.poster-play:focus-visible { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); }
+@media (hover: hover) and (pointer: fine) { .poster-play:hover { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); } }
   .poster-play:focus-visible { outline: 2px solid #233f4e; outline-offset: 5px; }
   .section-cta { text-align: center; margin: 2.25rem auto 0; }
   .cta-note { max-width: 680px; margin: 1rem auto 0; font-size: 16px; line-height: 1.65; color: #233f4e; }
@@ -430,6 +431,7 @@
     .situations-grid:has(> .situation-card:global(.scroll-active):not(:global(.will-reveal))) > .situation-card:not(:global(.scroll-active)):not(:global(.will-reveal)) { opacity: .88; filter: blur(.15px); }
   }
   @media (prefers-reduced-motion: reduce) {
+    .video-frame .poster-play { transform: translate(-50%, -50%); }
     .recovery-word:global(.word-pending) .recovery-word-ink { clip-path: none; transition: none; }
     .video-frame:global(.will-reveal), .situation-card:global(.will-reveal) { opacity: 1; transform: none; transition: none; }
     .situation-card { transition: none; }
@@ -442,4 +444,5 @@
     .situations-grid .situation-card:global(.is-visible):hover { transform: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }
+@media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .poster-play:active { transform: translate(-50%, -50%) scale(.97); transition-duration: 100ms; } }
 </style>

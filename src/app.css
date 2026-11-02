@@ -263,18 +263,22 @@ body {
   opacity: 0;
   transform: translate3d(-0.12rem, 0.12rem, 0) scale(0.88);
 }
-
-.cta-arrow-button:hover .cta-arrow-swap__right,
 .cta-arrow-button:focus-visible .cta-arrow-swap__right {
   opacity: 0;
   transform: translate3d(0.12rem, -0.12rem, 0) scale(0.88);
 }
-
-.cta-arrow-button:hover .cta-arrow-swap__up,
+@media (hover: hover) and (pointer: fine) { .cta-arrow-button:hover .cta-arrow-swap__right {
+  opacity: 0;
+  transform: translate3d(0.12rem, -0.12rem, 0) scale(0.88);
+} }
 .cta-arrow-button:focus-visible .cta-arrow-swap__up {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
 }
+@media (hover: hover) and (pointer: fine) { .cta-arrow-button:hover .cta-arrow-swap__up {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+} }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
