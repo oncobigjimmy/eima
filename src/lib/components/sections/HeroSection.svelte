@@ -38,57 +38,65 @@
     return segments;
   }
 
-  let phraseIndex = 0;
   let typedPhrase = '';
-  let phrases = getCopy('es').home.hero.phrases;
-
+  let complete = false;
   $: hero = getCopy($language).home.hero;
   $: whatsappHref = getWhatsAppHref($language, true);
-  $: if (phrases !== hero.phrases) {
-    phrases = hero.phrases;
-    phraseIndex = 0;
-    typedPhrase = reducedMotion ? phrases[0] : '';
-  }
+  $: prefix = { es: 'Más ', ca: 'Més ', en: 'More ' }[$language];
+  $: words = { es: ['energía.', 'salud.', 'vida.'], ca: ['energia.', 'salut.', 'vida.'], en: ['energy.', 'health.', 'life.'] }[$language];
 
   onMount(() => {
     let cancelled = false;
     let generation = 0;
-
+    let hiddenAt = document.hidden ? performance.now() : null;
+    let hiddenTime = 0;
+    const visibilityChanged = () => {
+      const now = performance.now();
+      if (document.hidden) hiddenAt = now;
+      else if (hiddenAt !== null) { hiddenTime += now - hiddenAt; hiddenAt = null; }
+    };
+    const activeNow = () => (hiddenAt ?? performance.now()) - hiddenTime;
+    document.addEventListener('visibilitychange', visibilityChanged);
+    /** Time advances only while the document is visible. @param {number} ms @param {number} version */
+    async function wait(ms, version) {
+      let remaining = ms;
+      let previous = activeNow();
+      while (remaining > 0 && !cancelled && version === generation) {
+        await sleep(Math.min(25, remaining));
+        const now = activeNow();
+        remaining -= now - previous;
+        previous = now;
+      }
+      while (document.hidden && !cancelled && version === generation) await sleep(50);
+      return !cancelled && version === generation;
+    }
     /** @param {number} version */
     async function animate(version) {
-      while (!cancelled && !reducedMotion && version === generation) {
-        const phrase = phrases[phraseIndex];
-        typedPhrase = '';
-
-        for (let i = 1; i <= phrase.length && !cancelled && !reducedMotion && version === generation; i += 1) {
-          typedPhrase = phrase.slice(0, i);
-          if (i < phrase.length) await sleep(90);
+      complete = false;
+      typedPhrase = '';
+      for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
+        const word = words[wordIndex];
+        for (let length = 1; length <= word.length; length++) {
+          if (!await wait(100, version)) return;
+          typedPhrase = word.slice(0, length);
         }
-
-        await sleep(2000);
-        if (cancelled || reducedMotion || version !== generation) return;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
+        if (wordIndex === words.length - 1) break;
+        if (!await wait(2000, version)) return;
+        for (let length = word.length - 1; length >= 0; length--) {
+          if (!await wait(50, version)) return;
+          typedPhrase = word.slice(0, length);
+        }
       }
+      complete = true;
     }
-
-    const stopMotion = watchReducedMotion((reduced) => {
+    const stopMotion = watchReducedMotion(reduced => {
       reducedMotion = reduced;
-      generation += 1;
+      generation++;
       if (heroVideo) heroVideo.autoplay = !reduced;
-      if (reduced) {
-        phraseIndex = 0;
-        typedPhrase = phrases[0];
-        heroVideo?.pause();
-      } else {
-        animate(generation);
-        heroVideo?.play().catch(() => {});
-      }
+      if (reduced) { typedPhrase = words[2]; complete = true; heroVideo?.pause(); }
+      else { animate(generation); heroVideo?.play().catch(() => {}); }
     });
-
-    return () => {
-      cancelled = true;
-      stopMotion();
-    };
+    return () => { cancelled = true; generation++; stopMotion(); document.removeEventListener('visibilitychange', visibilityChanged); };
   });
 </script>
 
@@ -117,9 +125,9 @@
       <span
         class="mt-1 block text-5xl font-bold text-white md:mt-2 md:text-[5rem]"
         class:review-typed={true}
-        aria-label={phrases[phraseIndex]}
+        aria-label={prefix + words[2]}
       >
-        <span class="typed-text">{typedPhrase}</span>
+        <span aria-hidden="true">{prefix}</span><span class="typed-text" class:complete aria-hidden="true">{reducedMotion ? words[2] : typedPhrase}</span>
       </span>
       <span
         class="hero-accent-line mt-3 block font-serif-italic text-3xl md:text-[3.2rem]"
@@ -175,7 +183,8 @@
 <style>
   .review-typed { min-height: 1.08em; font-size: clamp(2.5rem, 10vw, 5rem); }
   .typed-text::after { content: ''; display: inline-block; width: 2px; height: .82em; margin-left: .08em; vertical-align: -.02em; background: currentColor; animation: hero-cursor 1200ms steps(1, end) infinite; }
-  @keyframes hero-cursor { 0%, 55%, 100% { opacity: .65; } 56%, 99% { opacity: 0; } }
+  .typed-text.complete::after { animation: hero-cursor 1200ms steps(1, end) 3 forwards; }
+  @keyframes hero-cursor { 0%, 55% { opacity: .65; } 56%, 100% { opacity: 0; } }
   @media (min-width: 768px) { .hero-cta { max-width: 32rem; } }
   @media (prefers-reduced-motion: reduce) { .typed-text::after { display: none; animation: none; } }
   .hero-accent-line {
