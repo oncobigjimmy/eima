@@ -27,12 +27,12 @@
 
 <style>
   .situation-response { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; padding: 1.25rem; overflow: auto; background: #071a258f; backdrop-filter: blur(10px); }
-  .response-panel { position: relative; width: min(520px, 100%); padding: 2.5rem 2rem; border-radius: 22px; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 24px 80px #071a2540; }
+  .response-panel { position: relative; width: min(468px, 100%); padding: 36px 29px; border-radius: 22px; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 24px 80px #071a2540; }
   .close-response { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #233f4e; }
-  .response-letter { display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; margin: 0 auto 1.25rem; border-radius: 50%; background: #8cd0d640; color: #245b7d; }
-  .response-letter span { display: block; width: 100%; text-align: center; font: 400 52px/1 'Playfair Display', Georgia, serif; transform: translateY(-.04em); }
-  h2 { font: 600 28px/1.2 'Playfair Display', Georgia, serif; color: #233f4e; text-wrap: balance; }
-  p { margin: 1.25rem 0 1.75rem; font: 400 15px/1.6 Inter, sans-serif; }
+  .response-letter { display: flex; align-items: center; justify-content: center; width: 76px; height: 76px; margin: 0 auto 1.25rem; border-radius: 50%; background: #8cd0d640; color: #245b7d; }
+  .response-letter span { display: block; width: 100%; text-align: center; font: 400 47px/1 'Playfair Display', Georgia, serif; transform: translateY(-.04em); }
+  h2 { font: 600 25.2px/1.2 'Playfair Display', Georgia, serif; color: #233f4e; text-wrap: balance; white-space: pre-line; }
+  p { margin: 18px 0 25px; min-height: 4.8em; text-wrap: pretty; white-space: pre-line; font: 400 13.5px/1.6 Inter, sans-serif; }
   .close-response:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
-  @media (max-width: 767px) { .response-panel { padding: 2.5rem 1.25rem 2rem; } h2 { font-size: 25px; } p { font-size: 14px; } }
+  @media (max-width: 767px) { .response-panel { padding: 2.5rem 1.25rem 2rem; } h2 { font-size: 23px; } p { font-size: 14px; white-space: normal; } }
 </style>

@@ -391,7 +391,7 @@
   }
 
   .situation-card { width: 100%; cursor: pointer; }
-  .selection-instruction { font-family: Inter, sans-serif; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
+  .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
   .selection-control { display: block; position: static; margin-top: 1.25rem; }
   .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 44px; padding: .5rem 1rem; color: #8cd0d6; font: 400 15px Inter, sans-serif; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   .selection-pill svg { width: 20px; height: 20px; }
