@@ -1012,7 +1012,7 @@
   }
   @media (min-width: 768px) and (hover: hover) {
     .testimonials-grid:has(.testimonial-card:hover) .testimonial-card:not(:hover),
-    .testimonials-grid:has(.testimonial-card:focus-within) .testimonial-card:not(:focus-within) { filter: blur(2px); opacity: .55; }
+    .testimonials-grid:not(:has(.testimonial-card:hover)):has(.testimonial-card:focus-within) .testimonial-card:not(:focus-within) { filter: blur(2px); opacity: .55; }
     .testimonial-card:is(:hover, :focus-within) {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);

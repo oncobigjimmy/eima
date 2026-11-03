@@ -100,7 +100,7 @@
   }
   @media (hover: hover) and (pointer: fine) {
     .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
-    .written-stories:has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(2px); opacity: .55; }
+    .written-stories:not(:has(:global(.written-card:hover))):has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(2px); opacity: .55; }
   }
   @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button { transition: none; } }
 </style>
