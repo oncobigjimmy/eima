@@ -10,7 +10,7 @@
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import SituationResponse from '$lib/components/SituationResponse.svelte';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
-  import PatientProofSection from '$lib/components/sections/PatientProofSection.svelte';
+  import PatientJourney from '$lib/components/PatientJourney.svelte';
   import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
   import { getProgramCopy } from '$lib/i18n/program';
 
@@ -175,7 +175,7 @@
   desktopBottomSize={35}
 />
 
-<PatientProofSection {pageLanguage} />
+<PatientJourney {pageLanguage} />
 
 <section class="situations section-space" aria-labelledby="situations-title">
   <div class="section-inner">

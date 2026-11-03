@@ -544,15 +544,6 @@ const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
   }
 };
 
-export function getPatientResponses(language: Language): PatientResponse[] {
-  if (language === 'es') return patientResponses;
-  const altPrefix = language === 'ca' ? 'Resposta real de pacient' : 'Real patient response';
-  return patientResponses.map(item => {
-    const highlight = patientCaptionTranslations[item.id][language];
-    return { ...item, highlight, alt: `${altPrefix}: ${highlight}` };
-  });
-}
-
 export const patientProofCopy: Record<Language, {
   label: string;
   previous: string;
@@ -600,8 +591,8 @@ export type WrittenTestimonial = {
 };
 // Five home testimonials per chapter, in the final order approved by the user.
 // Confirmed initials are recorded below.
-// TODO: quote y highlight pendientes salvo los siete ejemplos aportados.
-// TODO [CA-revisar]: revisar las traducciones de los siete ejemplos.
+// Gallery responses without a home excerpt keep their screenshot caption.
+// TODO [CA-revisar]: revisar las traducciones de las citas.
 const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText }> = {
   'progress-9': {
     quote: { es: 'Lograr salir a caminar todos los días, a pesar del tratamiento y las inyecciones.', ca: 'Aconseguir sortir a caminar cada dia, malgrat el tractament i les injeccions.', en: 'Managing to go for a walk every day, despite treatment and injections.' },
