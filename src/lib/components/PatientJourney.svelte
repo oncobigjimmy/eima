@@ -18,8 +18,10 @@
     ...getFeaturedTestimonials('dificiles').map(item => ({ kind: 'response' as const, item })), { kind: 'bridge2' },
     ...getFeaturedTestimonials('acompanamos').map(item => ({ kind: 'response' as const, item })), { kind: 'final' }
   ];
+  const responsesPerChapter = getFeaturedTestimonials('recupera').length;
+  const chapterLength = responsesPerChapter + 1;
   let current = 0, markerActive = true;
-  let chapterProgress = [100 / 3, 0, 0];
+  let chapterProgress = [100 / responsesPerChapter, 0, 0];
   let sectionVisible = false;
   function seeJourney(node: HTMLElement) {
     const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { sectionVisible = true; observer.disconnect(); } }, { threshold: .12 });
@@ -43,13 +45,13 @@
   $: copy = testimonialUi[pageLanguage];
   $: proofCopy = patientProofCopy[pageLanguage];
   $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
-  $: chapter = Math.min(2, Math.floor(current / 4));
+  $: chapter = Math.min(2, Math.floor(current / chapterLength));
   function go(index: number) {
     const next = Math.max(0, Math.min(slides.length - 1, index));
     if (next === current) return;
     current = next; markerActive = false; clearTimeout(markerTimer);
-    const activeChapter = Math.min(2, Math.floor(current / 4));
-    chapterProgress = chapterProgress.map((progress, index) => index < activeChapter ? 100 : index === activeChapter ? Math.max(progress, Math.min(100, ((current % 4) + 1) / 3 * 100)) : progress);
+    const activeChapter = Math.min(2, Math.floor(current / chapterLength));
+    chapterProgress = chapterProgress.map((progress, index) => index < activeChapter ? 100 : index === activeChapter ? Math.max(progress, Math.min(100, ((current % chapterLength) + 1) / responsesPerChapter * 100)) : progress);
     markerTimer = setTimeout(() => { markerActive = true; }, 0);
   }
   function keyboard(event: KeyboardEvent) {
@@ -101,11 +103,12 @@
   // Crop only the unrelated first question from these previews; the dialog always shows the complete original.
   const previewTop: Record<string, number> = {
     'progress-2': .52, 'progress-3': .55,
-    'difficult-day-1': .56, 'difficult-day-4': .52, 'difficult-day-5': .60
+    'difficult-day-1': .56, 'difficult-day-4': .52, 'difficult-day-5': .60, 'difficult-day-3': .67
   };
   function previewBox(item: WrittenTestimonial) {
     const top = Math.round(item.height * (previewTop[item.id] ?? 0));
-    return `0 ${top} ${item.width} ${item.height - top}`;
+    const bottom = item.id === 'progress-12' ? Math.round(item.height * .49) : item.height;
+    return `0 ${top} ${item.width} ${bottom - top}`;
   }
   function phrase(item: WrittenTestimonial) { return item.quote[pageLanguage] ?? item.caption[pageLanguage]; }
   function phraseParts(item: WrittenTestimonial) {
@@ -119,7 +122,7 @@
   <header use:standardEntry><h2 id="patient-proof-title">{copy.headingBefore}<br /><span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
   <div class="chapter-bar">
     {#each testimonialChapters as key, index}
-      <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * 4)}>
+      <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * chapterLength)}>
         <span class="chapter-track" aria-hidden="true"><span class="chapter-fill" class:striped={chapter === index} style={`width:${chapterProgress[index]}%`}></span></span>
         <span class="chapter-desktop">{copy.chapters[index]}</span><span class="chapter-mobile">{copy.shortChapters[index]}</span>
       </button>
@@ -149,7 +152,7 @@
             <h3>{copy.final}<br /><span>{copy.finalAccent}</span><br />{copy.finalEnd}</h3>
             {#if index === current}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}><span>{copy.restart}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 9M4 4v6h6" /></svg></button>{/if}
           {/if}
-          {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / 4))]} on:click={() => go(index)}></button>{/if}
+          {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / chapterLength))]} on:click={() => go(index)}></button>{/if}
         </article>
       {/each}
     </div>

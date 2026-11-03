@@ -598,8 +598,8 @@ export type WrittenTestimonial = {
   markers: NonNullable<PatientResponse['underlines']>;
   width: number; height: number; alt: string; caption: Record<Language, string>;
 };
-// TODO: elegir los tres destacados definitivos de cada capítulo.
-// R16 remains provisional; confirmed initials are recorded below.
+// Five home testimonials per chapter, in the final order approved by the user.
+// Confirmed initials are recorded below.
 // TODO: quote y highlight pendientes salvo los siete ejemplos aportados.
 // TODO [CA-revisar]: revisar las traducciones de los siete ejemplos.
 const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText }> = {
@@ -636,10 +636,10 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
   }
 };
-const featuredIds = ['progress-2', 'progress-3', 'progress-9', 'difficult-day-4', 'difficult-day-1', 'difficult-day-5', 'eima-adaptation-1', 'eima-adaptation-9', 'eima-adaptation-3'];
+const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-8","difficult-day-3","difficult-day-5","difficult-day-bad-day","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
-// Initials confirmed by the user against the review catalogue. R16 remains provisional in the selection record.
+// Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
 const confirmedPatientInitials: Record<string, string> = {
   "progress-7": "A.",
   "progress-1": "A.",
@@ -676,6 +676,111 @@ const confirmedPatientInitials: Record<string, string> = {
   "eima-adaptation-9": "M.",
   "eima-adaptation-10": "T.",
   "eima-adaptation-11": "A."
+};
+
+const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
+  "progress-11": {
+    "width": 1085,
+    "height": 416,
+    "alt": "Respuesta real de paciente: Me he sentido un poco más yo al poder ir sola a Inca y Palma para hacer gestiones que tenía pendientes.",
+    "quote": {
+      "es": "…me he sentido un poco más yo al poder ir sola a Inca y Palma…",
+      "ca": "…m’he sentit una mica més jo en poder anar tota sola a Inca i Palma…",
+      "en": "…I have felt a little more like myself, going to Inca and Palma on my own…"
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "progress-12": {
+    "quote": {
+      "es": "He podido volver a seguir las rutinas establecidas y a sentirme «normal».",
+      "ca": "He pogut tornar a seguir les rutines establertes i a sentir-me «normal».",
+      "en": "I have been able to get back to my usual routines and feel “normal” again."
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "difficult-day-8": {
+    "quote": {
+      "es": "Esta semana prácticamente no he podido entrenar.",
+      "ca": "Aquesta setmana pràcticament no he pogut entrenar.",
+      "en": "This week I have barely been able to exercise."
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "difficult-day-3": {
+    "width": 1001,
+    "height": 993,
+    "alt": "Respuesta real de paciente: Esta semana he estado muy negativa…",
+    "quote": {
+      "es": "Esta semana he estado muy negativa…",
+      "ca": "Aquesta setmana he estat molt negativa…",
+      "en": "This week I have been feeling very negative…"
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "difficult-day-bad-day": {
+    "quote": {
+      "es": "…me he levantado muy mareado, me ha costado trabajar y sigo aún así.",
+      "ca": "…m’he aixecat molt marejat, m’ha costat fer feina i encara estic així.",
+      "en": "…I woke up very dizzy, struggled to work and still feel that way."
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "eima-adaptation-2": {
+    "quote": {
+      "es": "Me gusta saber lo que tengo que hacer al día siguiente.",
+      "ca": "M’agrada saber què he de fer l’endemà.",
+      "en": "I like knowing what I need to do the next day."
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "eima-adaptation-7": {
+    "quote": {
+      "es": "El vídeo me ayudó a entender por dónde estoy y lo que me queda.",
+      "ca": "El vídeo em va ajudar a entendre en quin punt estic i què em queda.",
+      "en": "The video helped me understand where I am and what lies ahead."
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  },
+  "eima-adaptation-11": {
+    "quote": {
+      "es": "…agradezco de corazón la dedicación, porque es por mi bien y veo los resultados.",
+      "ca": "…agraesc de tot cor la dedicació, perquè és pel meu bé i veig els resultats.",
+      "en": "…I sincerely appreciate the dedication, because it is for my own good and I can see the results."
+    },
+    "highlight": {
+      "es": null,
+      "ca": null,
+      "en": null
+    }
+  }
 };
 
 export const writtenTestimonials: WrittenTestimonial[] = [
@@ -715,7 +820,7 @@ export const writtenTestimonials: WrittenTestimonial[] = [
   }
 ].map(item => ({
     ...item, chapter: item.chapter as TestimonialChapter, initial: confirmedPatientInitials[item.id] ?? null, quote: pendingText(), highlight: pendingText(),
-    featured: false, markers: [], width: 0, height: 0, alt: '', caption: { es: '', ca: '', en: '' }
+    featured: featuredIds.includes(item.id), markers: [], width: 0, height: 0, alt: '', caption: { es: '', ca: '', en: '' }
   }))
 ];
 // The home uses exactly three provisional choices per chapter, in editorial order.
