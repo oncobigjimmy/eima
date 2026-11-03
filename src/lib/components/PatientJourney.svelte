@@ -123,11 +123,11 @@
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article class="journey-card" class:blue-response={slide.kind === 'response' && index % 4 === 0} class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
+        <article class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}</button></blockquote>
-            <p class="attribution">{copy.questionnaire}{slide.item.initial ? ` · ${slide.item.initial}` : ''}</p>
+            <div class="patient-signature">{#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}</div>
             <button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" class:long-capture={slide.item.height / slide.item.width > 1.15} on:click={() => { enlarged = slide.item; }}>
               {#if magnitude <= 2.2}<img src={slide.item.image} alt={slide.item.alt} width={slide.item.width} height={slide.item.height} loading="lazy" draggable="false" />{/if}
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
@@ -155,7 +155,7 @@
   .patient-proof { background: #f8f4f0; padding: 2rem 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
   header { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
   h2 span { font: inherit; color: #4083a7; }
-  h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 46px; font-weight: 500; line-height: 1.15; }
+  h2 { font-family: 'Fraunces', Georgia, serif; font-size: 46px; font-weight: 500; line-height: 1.15; }
   .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2rem auto .5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
   .chapter-bar button.active { color: #233f4e; font-weight: 600; }
@@ -168,26 +168,31 @@
   .journey-stage { position: relative; height: 390px; touch-action: pan-y pinch-zoom; user-select: none; cursor: grab; }
   .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
   .journey-stage.dragging .journey-card { transition: none; }
-  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px; background: #fff; border-radius: 22px; box-shadow: 0 20px 50px rgba(35,63,78,.10); transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
-  .key-phrase { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 400; min-height: 4.26em; margin: 0; text-align: center; }
+  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px; background: #fff; border-radius: 8px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
+  .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 400; min-height: 4.26em; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
-  .attribution { text-align: center; padding-bottom: 12px; border-bottom: 1px solid #233f4e1a; color: #55656f; font: italic 400 13px/1.5 Inter, sans-serif; }
-  .capture-window { position: relative; display: block; align-self: center; width: min(220px, 100%); height: 110px; min-height: 0; flex: 0 0 110px; overflow: hidden; padding: 0; border-radius: 8px; cursor: zoom-in; text-align: left; }
-  .capture-window img { width: 100%; height: 100%; object-fit: contain; object-position: center top; display: block; }
+  .patient-signature { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 1px; border-bottom: 1px solid #ffffff45; padding-bottom: 0; }
+  .patient-initial { display: grid; place-items: center; width: 32px; height: 32px; margin-bottom: 8px; border-radius: 50%; background: #f8f4f0; color: #233f4e; font: 500 16px/1 Fraunces, Georgia, serif; }
+  .capture-window { position: relative; display: block; align-self: center; width: min(220px, 100%); height: 110px; min-height: 0; flex: 0 0 110px; overflow: hidden; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
+  .capture-window img { border-radius: 5px; width: 100%; height: 100%; object-fit: contain; object-position: center top; display: block; }
   .capture-window.long-capture img { height: auto; object-fit: initial; }
   .capture-window.long-capture::after { content: ''; position: absolute; inset: auto 0 0; height: 46px; background: linear-gradient(transparent, #fff); pointer-events: none; }
   .magnify { position: absolute; z-index: 1; right: 6px; bottom: 6px; width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
-  /* Provisional colour trial: the first response of each chapter. */
+  /* Response cards share the blue testimonial treatment. */
   .blue-response { background: #4083a7; color: #fff; }
   .blue-response .key-phrase { color: #fff; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
-  .blue-response .attribution { color: #fff; border-bottom-color: #ffffff45; text-shadow: var(--eima-dark-copy-shadow); }
-  .blue-response .capture-window.long-capture::after { background: linear-gradient(transparent, #4083a7); }
+  .blue-response .capture-window.long-capture::after { background: linear-gradient(transparent, #fff); }
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
+  @media (hover: hover) and (pointer: fine) {
+    .central.blue-response:is(:hover, :focus-within) { box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
+    .central.blue-response:is(:hover, :focus-within) .capture-window { box-shadow: 0 8px 24px #071a2530, 0 0 20px #8cd0d680; }
+    .journey-stage:has(.central:hover) .journey-card:not(.central) { filter: blur(calc(var(--blur) + 2px)); }
+  }
   .bridge { top: 50%; height: 320px; margin-top: -160px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
-  h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
+  h3, h3 span { font-family: 'Fraunces', Georgia, serif; font-weight: 400; line-height: 1.25; }
   h3 { font-size: 34px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
   .bridge-body { font: 400 15px/1.65 Inter, sans-serif; color: #e8e8f6; margin-top: 1rem; }
   .final { height: 360px; margin-top: -180px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
