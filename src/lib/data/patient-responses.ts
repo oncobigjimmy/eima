@@ -822,8 +822,8 @@ export const writtenTestimonials: WrittenTestimonial[] = [
     ...item, chapter: item.chapter as TestimonialChapter, initial: confirmedPatientInitials[item.id] ?? null, quote: pendingText(), highlight: pendingText(),
     featured: featuredIds.includes(item.id), markers: [], width: 0, height: 0, alt: '', caption: { es: '', ca: '', en: '' }
   }))
-];
-// The home uses exactly three provisional choices per chapter, in editorial order.
+].map(item => ({ ...item, ...featuredOverrides[item.id], featured: featuredIds.includes(item.id) }));
+// The home follows the user-approved order independently of gallery order.
 export function getFeaturedTestimonials(chapter: TestimonialChapter) {
   return featuredIds.map(id => writtenTestimonials.find(item => item.id === id)!).filter(item => item.chapter === chapter && item.featured);
 }
