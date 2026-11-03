@@ -98,6 +98,12 @@
   function captureClick(event: MouseEvent) {
     if (suppressClick) { event.preventDefault(); event.stopPropagation(); suppressClick = false; }
   }
+  // Crop only the unrelated first question from these previews; the dialog always shows the complete original.
+  const previewTop: Record<string, number> = { 'progress-2': .52, 'progress-3': .55 };
+  function previewBox(item: WrittenTestimonial) {
+    const top = Math.round(item.height * (previewTop[item.id] ?? 0));
+    return `0 ${top} ${item.width} ${item.height - top}`;
+  }
   function phrase(item: WrittenTestimonial) { return item.quote[pageLanguage] ?? item.caption[pageLanguage]; }
   function phraseParts(item: WrittenTestimonial) {
     const text = phrase(item), highlight = item.highlight[pageLanguage];
@@ -107,7 +113,7 @@
 </script>
 
 <section class="patient-proof" aria-labelledby="patient-proof-title">
-  <header use:standardEntry><h2 id="patient-proof-title">{copy.headingBefore}<span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
+  <header use:standardEntry><h2 id="patient-proof-title">{copy.headingBefore}<br /><span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
   <div class="chapter-bar">
     {#each testimonialChapters as key, index}
       <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * 4)}>
@@ -127,17 +133,17 @@
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
-            {#if slide.item.initial}<div class="patient-signature"><span class="patient-initial">{slide.item.initial}</span></div>{/if}
-            <button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" class:long-capture={slide.item.height / slide.item.width > 1.15} on:click={() => { enlarged = slide.item; }}>
-              {#if magnitude <= 2.2}<img src={slide.item.image} alt={slide.item.alt} width={slide.item.width} height={slide.item.height} loading="lazy" draggable="false" />{/if}
+            {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
+            <div class="capture-group"><button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+              {#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} width={slide.item.width} height={slide.item.height} /></svg>{/if}
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
-            </button>
+            </button><span class="capture-hint" aria-hidden="true">{copy.captureHint}</span></div>
           {:else if slide.kind === 'bridge1'}
             <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html proofCopy.rows[0].subtitle}</p>
           {:else if slide.kind === 'bridge2'}
             <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
           {:else}
-            <h3>{copy.final}<span>{copy.finalAccent}</span>{copy.finalEnd}</h3>
+            <h3>{copy.final}<br /><span>{copy.finalAccent}</span><br />{copy.finalEnd}</h3>
             {#if index === current}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><button type="button" class="restart" on:click={() => go(0)}><span>{copy.restart}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 9M4 4v6h6" /></svg></button>{/if}
           {/if}
           {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / 4))]} on:click={() => go(index)}></button>{/if}
@@ -155,7 +161,7 @@
   .patient-proof { background: #f8f4f0; padding: 2rem 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
   header { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
   h2 span { font: inherit; color: #4083a7; }
-  h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 46px; font-weight: 500; line-height: 1.15; }
+  h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 50px; font-weight: 500; line-height: 1.15; }
   .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2rem auto .5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
   .chapter-bar button.active { color: #233f4e; font-weight: 600; }
@@ -168,25 +174,27 @@
   .journey-stage { position: relative; height: 390px; touch-action: pan-y pinch-zoom; user-select: none; cursor: grab; }
   .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
   .journey-stage.dragging .journey-card { transition: none; }
-  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px; background: #fff; border-radius: 8px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
-  .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 4.26em; margin: 0; text-align: center; }
+  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #fff; border-radius: 8px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
+  .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
-  .patient-signature { display: flex; justify-content: center; align-items: center; width: 100%; padding: 0; }
-  .patient-initial { display: grid; place-items: center; width: 32px; height: 32px; margin-bottom: 8px; border-radius: 50%; background: #f8f4f0; color: #233f4e; font: 500 16px/1 Fraunces, Georgia, serif; }
-  .capture-window { position: relative; display: block; align-self: center; width: min(220px, 100%); height: 110px; min-height: 0; flex: 0 0 110px; overflow: hidden; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
-  .capture-window img { border-radius: 5px; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; display: block; }
-  .magnify { position: absolute; z-index: 1; right: 6px; top: 50%; opacity: 0; transform: translate(12px, -50%); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
-  .capture-window:focus-visible .magnify { opacity: 1; transform: translate(0, -50%); }
-  @media (hover: none) { .central .magnify { opacity: 1; transform: translate(0, -50%); } }
+  .patient-initial { position: absolute; bottom: 12px; right: 18px; color: #fff; font: italic 400 19px/1.2 'Playfair Display', Georgia, serif; text-shadow: 0 1px 3px #071a2580; }
+  .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; padding-bottom: 22px; }
+  .capture-hint { position: absolute; bottom: 0; left: -20px; right: -20px; text-align: center; font: italic 300 11px/1.5 Inter, sans-serif; color: #fff; opacity: 0; transform: translateY(4px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
+  .capture-window { position: relative; display: block; align-self: center; width: 100%; height: 150px; min-height: 0; flex: 0 0 150px; overflow: visible; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
+  .capture-preview { display: block; width: 100%; height: 100%; border-radius: 5px; }
+  .magnify { position: absolute; z-index: 1; left: 50%; top: 0; opacity: 0; transform: translate(-50%, 0); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
+  .capture-window:focus-visible .magnify { opacity: 1; transform: translate(-50%, -50%); }
+  @media (hover: none) { .central .magnify { opacity: 1; transform: translate(-50%, -50%); } }
   /* Response cards share the blue testimonial treatment. */
   .blue-response { background: #4083a7; color: #fff; }
-  .blue-response .key-phrase { color: #fff; }
+  .blue-response .key-phrase { color: #fff; text-shadow: 0 1px 3px #071a2570; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
   @media (hover: hover) and (pointer: fine) {
-    .central.blue-response:is(:hover, :focus-within) .magnify { opacity: 1; transform: translate(0, -50%); }
+    .central.blue-response:is(:hover, :focus-within) .capture-hint { opacity: 1; transform: translateY(0); }
+    .central.blue-response:is(:hover, :focus-within) .magnify { opacity: 1; transform: translate(-50%, -50%); }
     .central.blue-response:is(:hover, :focus-within) { box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
     .central.blue-response:is(:hover, :focus-within) .capture-window { box-shadow: 0 8px 24px #071a2530, 0 0 20px #8cd0d680; }
     .journey-stage:has(.central:hover) .journey-card:not(.central) { filter: blur(calc(var(--blur) + 2px)); }
@@ -194,6 +202,8 @@
   .bridge { top: 50%; height: 320px; margin-top: -160px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
   h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
   h3 { font-size: 30px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
+  .bridge-body :global(.subtitle-line) { display: block; }
+  .bridge-body :global(.subtitle-line + .subtitle-line) { margin-top: .5rem; }
   .bridge-body { font: 400 14px/1.65 Inter, sans-serif; color: #e8e8f6; margin-top: 1rem; }
   .final { height: 360px; margin-top: -180px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
   .final h3 { font-size: 30px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
@@ -211,7 +221,8 @@
     .journey-stage { height: 380px; }
     .journey-card { width: 300px; height: 340px; padding: 18px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .key-phrase { font-size: 18px; }
-    .capture-window { width: min(180px, 100%); height: 90px; flex-basis: 90px; }
+    .capture-group { width: min(224px, 100%); }
+    .capture-window { height: 125px; flex-basis: 125px; }
     .bridge { height: 350px; margin-top: -175px; }
     .final { height: 340px; margin-top: -170px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; }

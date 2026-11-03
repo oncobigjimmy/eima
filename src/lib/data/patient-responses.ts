@@ -599,10 +599,14 @@ export type WrittenTestimonial = {
   width: number; height: number; alt: string; caption: Record<Language, string>;
 };
 // TODO: elegir los tres destacados definitivos de cada capítulo.
-// TODO: todas las iniciales quedan pendientes; no se inventan identidades.
+// R16 remains provisional; confirmed initials are recorded below.
 // TODO: quote y highlight pendientes salvo los siete ejemplos aportados.
 // TODO [CA-revisar]: revisar las traducciones de los siete ejemplos.
 const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText }> = {
+  'progress-9': {
+    quote: { es: 'Lograr salir a caminar todos los días, a pesar del tratamiento y las inyecciones.', ca: 'Aconseguir sortir a caminar cada dia, malgrat el tractament i les injeccions.', en: 'Managing to go for a walk every day, despite treatment and injections.' },
+    highlight: { es: 'Lograr salir a caminar todos los días', ca: 'Aconseguir sortir a caminar cada dia', en: 'Managing to go for a walk every day' }
+  },
   'progress-2': {
     quote: { es: 'Volver a hacer clase de estiramientos y ver que puedo volver a la rutina de antes del cáncer.', ca: 'Tornar a fer classe d’estiraments i veure que puc tornar a la rutina d’abans del càncer.', en: 'Going back to stretching classes and seeing that I can return to my routine from before cancer.' },
     highlight: { es: 'puedo volver a la rutina', ca: 'puc tornar a la rutina', en: 'I can return to my routine' }
@@ -635,8 +639,9 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
 const featuredIds = ['progress-2', 'progress-3', 'progress-9', 'difficult-day-4', 'difficult-day-1', 'difficult-day-5', 'eima-adaptation-1', 'eima-adaptation-9', 'eima-adaptation-3'];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
-// Initials confirmed by the user against the review catalogue. R07 is pending; R16 remains provisional in the selection record.
+// Initials confirmed by the user against the review catalogue. R16 remains provisional in the selection record.
 const confirmedPatientInitials: Record<string, string> = {
+  "progress-7": "A.",
   "progress-1": "A.",
   "progress-2": "A.",
   "progress-3": "A.",
