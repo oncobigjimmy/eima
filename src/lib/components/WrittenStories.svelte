@@ -72,7 +72,11 @@
 <style>
   .written-stories { margin-top: 2rem; }
   .desktop-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
-  .desktop-filters button { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid rgba(35,63,78,.25); border-radius: 999px; font-size: 14px; font-weight: 400; color: #233f4e; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+  .desktop-filters button { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid rgba(35,63,78,.25); border-radius: 999px; font-size: 14px; font-weight: 400; color: #233f4e; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
+  @media (hover: hover) and (pointer: fine) {
+    .desktop-filters button:not(.active):hover, .desktop-filters button:not(.active):focus-visible { background: #8cd0d612; border-color: #8cd0d6; box-shadow: inset 0 2px 7px #4083a730, inset 0 -1px 3px #ffffffb3; }
+    .filter-options button:not([aria-selected="true"]):hover { background: #8cd0d612; box-shadow: inset 0 2px 7px #4083a730; }
+  }
   .desktop-filters .active { background: #233f4e; color: #fff; }
   .mobile-filter { display: none; }
   .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: center; }
