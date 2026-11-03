@@ -41,7 +41,7 @@
     {#each copy.filters as label, index}<button type="button" class:active={filter === index} aria-pressed={filter === index} on:click={() => select(index)}>{label}</button>{/each}
   </div>
   <div class="mobile-filter" bind:this={filterRoot} use:standardEntry>
-    <button class="filter-toggle" type="button" bind:this={filterButton} aria-haspopup="listbox" aria-expanded={openFilter} aria-controls="written-filter-options" on:click={() => { openFilter = !openFilter; }} on:keydown={event => filterKey(event)}>{copy.filter} {copy.filters[filter]} <span class:rotated={openFilter} aria-hidden="true">▾</span></button>
+    <button class="filter-toggle" type="button" bind:this={filterButton} aria-haspopup="listbox" aria-expanded={openFilter} aria-controls="written-filter-options" on:click={() => { openFilter = !openFilter; }} on:keydown={event => filterKey(event)}>{copy.filter} {copy.filters[filter]} <span class:rotated={openFilter} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></button>
     {#if openFilter}<div class="filter-options" id="written-filter-options" role="listbox" aria-label={copy.filter}>
       {#each copy.filters as label, index}<button type="button" role="option" aria-selected={filter === index} tabindex={filter === index ? 0 : -1} on:click={() => select(index)} on:keydown={event => filterKey(event, index)}>{label}</button>{/each}
     </div>{/if}
@@ -91,12 +91,16 @@
   @media (max-width: 767px) {
     .desktop-filters { display: none; }
     .mobile-filter { display: block; position: relative; z-index: 2; margin-bottom: 1.5rem; }
-    .filter-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 48px; padding: .5rem 1rem; border: 1px solid rgba(35,63,78,.25); border-radius: 12px; background: #fff; font-size: 15px; }
-    .filter-toggle span { transition: transform var(--dur-estado) var(--ease-calma); } .filter-toggle span.rotated { transform: rotate(180deg); }
+    .filter-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 48px; padding: .5rem 1rem; border: 1px solid rgba(35,63,78,.25); border-radius: 12px; background: #fff; font-size: 14px; border-color: #8cd0d6; }
+    .filter-toggle span { display: grid; place-items: center; width: 28px; height: 28px; color: #233f4e; transition: transform var(--dur-estado) var(--ease-calma); } .filter-toggle span svg { width: 26px; height: 26px; } .filter-toggle span.rotated { transform: rotate(180deg); }
     .filter-options { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; padding: 6px; border-radius: 12px; box-shadow: 0 12px 32px #233f4e26; }
     .filter-options button { display: block; width: 100%; text-align: left; min-height: 48px; padding: .5rem .75rem; border-radius: 8px; font-size: 15px; }
     .filter-options [aria-selected="true"] { background: #233f4e; color: #fff; }
     .written-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
+    .written-stories:has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(2px); opacity: .55; }
   }
   @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button { transition: none; } }
 </style>

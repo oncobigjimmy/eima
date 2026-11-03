@@ -412,7 +412,7 @@
 
   .testimonials-hero h1 {
     color: white;
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
     font-size: clamp(2.7rem, 12vw, 3.45rem);
     font-weight: 500;
     letter-spacing: 0;
@@ -478,7 +478,7 @@
     min-height: 0;
     overflow: visible;
     padding: 1rem;
-    transition: background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out;
+    transition: filter 380ms ease-out, opacity 380ms ease-out, background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out;
   }
 
   .testimonial-card__media {
@@ -600,7 +600,7 @@
 
   .testimonial-card__person h3 {
     color: var(--testimonial-heading);
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
     font-size: 40px;
     font-weight: 400;
     line-height: 1;
@@ -1011,6 +1011,8 @@
     transition: color 380ms ease-out;
   }
   @media (min-width: 768px) and (hover: hover) {
+    .testimonials-grid:has(.testimonial-card:hover) .testimonial-card:not(:hover),
+    .testimonials-grid:has(.testimonial-card:focus-within) .testimonial-card:not(:focus-within) { filter: blur(2px); opacity: .55; }
     .testimonial-card:is(:hover, :focus-within) {
       background: var(--eima-card-hover-background);
       border-color: var(--eima-card-hover-border);
