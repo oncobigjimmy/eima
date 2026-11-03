@@ -608,7 +608,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Lograr salir a caminar todos los días', ca: 'Aconseguir sortir a caminar cada dia', en: 'Managing to go for a walk every day' }
   },
   'progress-2': {
-    quote: { es: 'Volver a hacer clase de estiramientos y ver que puedo volver a la rutina de antes del cáncer.', ca: 'Tornar a fer classe d’estiraments i veure que puc tornar a la rutina d’abans del càncer.', en: 'Going back to stretching classes and seeing that I can return to my routine from before cancer.' },
+    quote: { es: '…puedo volver a la rutina de antes del cáncer.', ca: '…puc tornar a la rutina d’abans del càncer.', en: '…I can return to my routine from before cancer.' },
     highlight: { es: 'puedo volver a la rutina', ca: 'puc tornar a la rutina', en: 'I can return to my routine' }
   },
   'progress-3': {
@@ -616,7 +616,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'He podido ir de viaje a buen ritmo', ca: 'He pogut anar de viatge a bon ritme', en: 'I have been able to travel at a good pace' }
   },
   'difficult-day-4': {
-    quote: { es: 'Sensación de malestar todo el día, estómago duro sin ganas de comer. El peor día hasta ahora.', ca: 'Sensació de malestar tot el dia, panxa dura i sense ganes de menjar. El pitjor dia fins ara.', en: 'Feeling unwell all day, a hard stomach and no appetite. The worst day so far.' },
+    quote: { es: 'Sensación de malestar todo el día, estómago duro sin ganas de comer.', ca: 'Sensació de malestar tot el dia, panxa dura i sense ganes de menjar.', en: 'Feeling unwell all day, a hard stomach and no appetite.' },
     highlight: { es: 'malestar todo el día', ca: 'malestar tot el dia', en: 'unwell all day' }
   },
   'difficult-day-1': {
@@ -624,8 +624,8 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'muy cansada', ca: 'molt cansada', en: 'very tired' }
   },
   'difficult-day-5': {
-    quote: { es: 'No he podido hacer nada. He estado en la cama con dolores abdominales. Náuseas y muchos mareos. No tengo fuerzas para nada.', ca: 'No he pogut fer res. He estat al llit amb dolors abdominals. Nàusees i molts de mareigs. No tenc forces per a res.', en: 'I could not do anything. I have been in bed with abdominal pain. Nausea and a lot of dizziness. I have no strength for anything.' },
-    highlight: { es: 'dolores abdominales', ca: 'dolors abdominals', en: 'abdominal pain' }
+    quote: { es: '…Náuseas y muchos mareos. No tengo fuerzas para nada.', ca: '…Nàusees i molts de mareigs. No tenc forces per a res.', en: '…Nausea and a lot of dizziness. I have no strength for anything.' },
+    highlight: { es: 'Náuseas y muchos mareos', ca: 'Nàusees i molts de mareigs', en: 'Nausea and a lot of dizziness' }
   },
   'eima-adaptation-1': {
     quote: { es: 'Me encanta que sea un plan adaptable al día a día, y así no me frustro…', ca: 'M’encanta que sigui un pla adaptable al dia a dia, i així no em frustr…', en: 'I love that it is a plan adaptable to everyday life, so I do not get frustrated…' },

@@ -137,7 +137,7 @@
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
             {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
-            <div class="capture-group"><button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+            <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'}><button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
               {#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} width={slide.item.width} height={slide.item.height} /></svg>{/if}
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
             </button><span class="capture-hint" aria-hidden="true">{copy.captureHint}</span></div>
@@ -165,7 +165,7 @@
   header { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
   h2 span { font: inherit; color: #4083a7; }
   h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 50px; font-weight: 500; line-height: 1.15; }
-  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2rem auto .5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2.5rem auto 1.25rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
   .chapter-bar button.active { color: #233f4e; font-weight: 600; }
   .chapter-track { display: block; width: 100%; height: 10px; background: rgba(35,63,78,.10); border-radius: 999px; overflow: hidden; }
@@ -178,18 +178,19 @@
   .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
   .journey-stage.dragging .journey-card { transition: none; }
   .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 350px; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #fff; border-radius: 8px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
-  .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 20px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
+  .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
   .patient-initial { position: absolute; bottom: 12px; right: 18px; color: #fff; font: italic 400 19px/1.2 'Playfair Display', Georgia, serif; text-shadow: 0 1px 3px #071a2580; }
-  .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; padding-bottom: 22px; }
-  .capture-hint { position: absolute; bottom: 0; left: -20px; right: -20px; text-align: center; font: italic 300 11px/1.5 Inter, sans-serif; color: #fff; opacity: 0; transform: translateY(4px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
+  .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; padding-bottom: 46px; }
+  .capture-hint { position: absolute; bottom: 0; left: -20px; right: -20px; text-align: center; font: italic 300 11px/1.5 Inter, sans-serif; color: #fff; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
   .capture-window { position: relative; display: block; align-self: center; width: 100%; height: 150px; min-height: 0; flex: 0 0 150px; overflow: visible; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
+  .capture-group.compact .capture-window { height: 110px; flex-basis: 110px; }
   .capture-preview { display: block; width: 100%; height: 100%; border-radius: 5px; }
-  .magnify { position: absolute; z-index: 1; left: 50%; top: 0; opacity: 0; transform: translate(-50%, 0); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
-  .capture-window:focus-visible .magnify { opacity: 1; transform: translate(-50%, -50%); }
-  @media (hover: none) { .central .magnify { opacity: 1; transform: translate(-50%, -50%); } }
+  .magnify { position: absolute; z-index: 1; left: 50%; bottom: -17px; opacity: 0; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 34px; height: 34px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
+  .capture-window:focus-visible .magnify { opacity: 1; transform: translate(-50%, 0); }
+  @media (hover: none) { .central .magnify { opacity: 1; transform: translate(-50%, 0); } }
   /* Response cards share the blue testimonial treatment. */
   .blue-response { background: #4083a7; color: #fff; }
   .blue-response .key-phrase { color: #fff; text-shadow: 0 1px 3px #071a2570; }
@@ -197,7 +198,7 @@
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
   @media (hover: hover) and (pointer: fine) {
     .central.blue-response:is(:hover, :focus-within) .capture-hint { opacity: 1; transform: translateY(0); }
-    .central.blue-response:is(:hover, :focus-within) .magnify { opacity: 1; transform: translate(-50%, -50%); }
+    .central.blue-response:is(:hover, :focus-within) .magnify { opacity: 1; transform: translate(-50%, 0); }
     .central.blue-response:is(:hover, :focus-within) { box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
     .central.blue-response:is(:hover, :focus-within) .capture-window { box-shadow: 0 8px 24px #071a2530, 0 0 20px #8cd0d680; }
     .journey-stage:has(.central:hover) .journey-card:not(.central) { filter: blur(calc(var(--blur) + 2px)); }
@@ -220,12 +221,13 @@
   @media (hover: hover) and (pointer: fine) { .secondary-cta:hover { background: #233f4e; color: #fff; } }
   @media (max-width: 767px) {
     h2 { font-size: 30px; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
-    .chapter-bar { gap: 8px; margin-top: 1.5rem; } .chapter-bar button { font-size: 12.5px; }
+    .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: .75rem; } .chapter-bar button { font-size: 12.5px; }
     .journey-stage { height: 380px; }
     .journey-card { width: 300px; height: 340px; padding: 18px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .key-phrase { font-size: 18px; }
     .capture-group { width: min(224px, 100%); }
     .capture-window { height: 125px; flex-basis: 125px; }
+    .capture-group.compact .capture-window { height: 100px; flex-basis: 100px; }
     .bridge { height: 350px; margin-top: -175px; }
     .final { height: 340px; margin-top: -170px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; }
@@ -233,5 +235,5 @@
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
   }
-  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 60%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 60%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } }
 </style>
