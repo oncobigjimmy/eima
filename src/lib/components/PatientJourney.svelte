@@ -99,7 +99,10 @@
     if (suppressClick) { event.preventDefault(); event.stopPropagation(); suppressClick = false; }
   }
   // Crop only the unrelated first question from these previews; the dialog always shows the complete original.
-  const previewTop: Record<string, number> = { 'progress-2': .52, 'progress-3': .55 };
+  const previewTop: Record<string, number> = {
+    'progress-2': .52, 'progress-3': .55,
+    'difficult-day-1': .56, 'difficult-day-4': .52, 'difficult-day-5': .60
+  };
   function previewBox(item: WrittenTestimonial) {
     const top = Math.round(item.height * (previewTop[item.id] ?? 0));
     return `0 ${top} ${item.width} ${item.height - top}`;
