@@ -635,9 +635,47 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
 const featuredIds = ['progress-2', 'progress-3', 'progress-9', 'difficult-day-4', 'difficult-day-1', 'difficult-day-5', 'eima-adaptation-1', 'eima-adaptation-9', 'eima-adaptation-3'];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
+// Initials confirmed by the user against the review catalogue. R07 is pending; R16 remains provisional in the selection record.
+const confirmedPatientInitials: Record<string, string> = {
+  "progress-1": "A.",
+  "progress-2": "A.",
+  "progress-3": "A.",
+  "progress-4": "J.",
+  "progress-5": "T.",
+  "progress-6": "A.",
+  "progress-9": "A.",
+  "progress-10": "M.",
+  "progress-11": "M.",
+  "progress-12": "A.",
+  "progress-not-giving-up": "P.",
+  "progress-pilates": "A.",
+  "progress-projects": "M.",
+  "difficult-day-1": "M.",
+  "difficult-day-2": "T.",
+  "difficult-day-3": "A.",
+  "difficult-day-4": "T.",
+  "difficult-day-5": "M.",
+  "difficult-day-6": "A.",
+  "difficult-day-7": "M.",
+  "difficult-day-8": "A.",
+  "difficult-day-bad-day": "T.",
+  "difficult-day-complicated-week": "P.",
+  "difficult-day-mental-fog": "T.",
+  "eima-adaptation-1": "A.",
+  "eima-adaptation-2": "A.",
+  "eima-adaptation-3": "A.",
+  "eima-adaptation-4": "J.",
+  "eima-adaptation-6": "T.",
+  "eima-adaptation-7": "A.",
+  "eima-adaptation-8": "M.",
+  "eima-adaptation-9": "M.",
+  "eima-adaptation-10": "T.",
+  "eima-adaptation-11": "A."
+};
+
 export const writtenTestimonials: WrittenTestimonial[] = [
   ...patientResponses.map(item => ({
-    id: item.image.split('/').pop()!.replace(/\.[^.]+$/, ''), image: item.image, chapter: chapterByCategory[item.category], initial: null,
+    id: item.image.split('/').pop()!.replace(/\.[^.]+$/, ''), image: item.image, chapter: chapterByCategory[item.category], initial: confirmedPatientInitials[item.image.split('/').pop()!.replace(/\.[^.]+$/, '')] ?? null,
     quote: examples[item.id]?.quote ?? pendingText(), highlight: examples[item.id]?.highlight ?? pendingText(),
     featured: featuredIds.includes(item.id), markers: item.underlines ?? [],
     width: item.width, height: item.height, alt: item.alt,
@@ -671,7 +709,7 @@ export const writtenTestimonials: WrittenTestimonial[] = [
     "chapter": "recupera"
   }
 ].map(item => ({
-    ...item, chapter: item.chapter as TestimonialChapter, initial: null, quote: pendingText(), highlight: pendingText(),
+    ...item, chapter: item.chapter as TestimonialChapter, initial: confirmedPatientInitials[item.id] ?? null, quote: pendingText(), highlight: pendingText(),
     featured: false, markers: [], width: 0, height: 0, alt: '', caption: { es: '', ca: '', en: '' }
   }))
 ];
