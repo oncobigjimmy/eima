@@ -81,9 +81,10 @@
   .motion-control button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: .6rem 1rem; font-size: 13px; font-weight: 500; border: 1px solid #4083a740; border-radius: 999px; background: #fff; color: #233f4e; box-shadow: 0 3px 12px #233f4e08; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   .motion-control svg { width: 18px; height: 18px; color: #4083a7; }
   .motion-control button[aria-pressed="true"] { background: #e8e8f6; border-color: #4083a7; }
-  .marquee-window { overflow: hidden; padding: 20px 0 24px; cursor: grab; touch-action: pan-y; user-select: none; }
+  .marquee-window { overflow: hidden; padding: 30px 0 34px; cursor: grab; touch-action: pan-y; user-select: none; }
   .marquee-window:global(.is-dragging), .marquee-window:global(.is-dragging) :global(.written-card) { cursor: grabbing; }
   .marquee-window:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
+  .marquee { display: grid; row-gap: 12px; }
   .marquee-track { display: flex; width: max-content; will-change: transform; }
   .marquee-copy { display: flex; gap: 24px; padding-right: 24px; align-items: center; }
   .marquee-copy :global(.written-card) { width: 260px; flex: 0 0 260px; }
@@ -100,7 +101,7 @@
   }
   @media (hover: hover) and (pointer: fine) {
     .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
-    .written-stories:not(:has(:global(.written-card:hover))):has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(2px); opacity: .55; }
+    .written-stories:not(:has(:global(.written-card:hover))):has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(.65px); opacity: .82; }
   }
   @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button { transition: none; } }
 </style>
