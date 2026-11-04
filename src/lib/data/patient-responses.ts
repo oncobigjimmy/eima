@@ -588,6 +588,8 @@ export type WrittenTestimonial = {
   quote: LocalizedText; highlight: LocalizedText; featured: boolean;
   markers: NonNullable<PatientResponse['underlines']>;
   width: number; height: number; alt: string; caption: Record<Language, string>;
+  /** Whiten the pale blue capture-app footer without cropping any text. */
+  cleanBackground?: boolean;
 };
 // Five home testimonials per chapter, in the final order approved by the user.
 // Confirmed initials are recorded below.
@@ -627,7 +629,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
   }
 };
-const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-4","difficult-day-mental-fog","difficult-day-5","difficult-day-bad-day","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
+const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-4","difficult-day-mental-fog","difficult-day-5","difficult-day-2","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
 // Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
@@ -703,7 +705,8 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
         "width": 23,
         "height": 8
       }
-    ]
+    ],
+    "cleanBackground": true
   },
   "progress-12": {
     "quote": {
@@ -852,7 +855,8 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "ca": "Reprendre un projecte de reforma d’un pis.",
       "en": "Getting back to a flat renovation project."
     },
-    "alt": "Respuesta real de paciente: Retomar un proyecto de reforma de un piso."
+    "alt": "Respuesta real de paciente: Retomar un proyecto de reforma de un piso.",
+    "cleanBackground": true
   },
   "difficult-day-mental-fog": {
     "quote": {
@@ -864,6 +868,18 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "es": "“niebla” en la cabeza",
       "ca": "“boira” al cap",
       "en": "“fog” in my head"
+    }
+  },
+  "difficult-day-2": {
+    "quote": {
+      "es": "Todo el día sin energía y con asco y vómitos.",
+      "ca": "Tot el dia sense energia, amb fàstic i vòmits.",
+      "en": "No energy all day, feeling sick and vomiting."
+    },
+    "highlight": {
+      "es": "sin energía",
+      "ca": "sense energia",
+      "en": "No energy all day"
     }
   }
 };

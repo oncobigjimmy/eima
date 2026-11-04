@@ -103,12 +103,29 @@
   // Crop only the unrelated first question from these previews; the dialog always shows the complete original.
   const previewTop: Record<string, number> = {
     'progress-2': .52, 'progress-3': .55,
-    'difficult-day-1': .56, 'difficult-day-4': .52, 'difficult-day-5': .60, 'difficult-day-3': .67
+    'difficult-day-1': .56, 'difficult-day-4': .52, 'difficult-day-5': .60, 'difficult-day-3': .67, 'difficult-day-2': .66
   };
   function previewBox(item: WrittenTestimonial) {
     const top = Math.round(item.height * (previewTop[item.id] ?? 0));
     const bottom = item.id === 'progress-12' ? Math.round(item.height * .49) : item.height;
     return `0 ${top} ${item.width} ${bottom - top}`;
+  }
+  // Halve the existing 320px card's empty top/bottom space on desktop.
+  function halfVerticalSpace(node: HTMLElement, enabled: boolean) {
+    if (!enabled) return {};
+    const media = window.matchMedia('(min-width: 768px)');
+    const quote = node.querySelector<HTMLElement>('.key-phrase');
+    const capture = node.querySelector<HTMLElement>('.capture-group');
+    const update = () => {
+      if (!media.matches || !quote || !capture) { node.style.removeProperty('--response-height'); return; }
+      const content = quote.offsetHeight + capture.offsetHeight + parseFloat(getComputedStyle(node).rowGap);
+      node.style.setProperty('--response-height', ((320 + content) / 2) + 'px');
+    };
+    const observer = new ResizeObserver(update);
+    if (quote) observer.observe(quote);
+    if (capture) observer.observe(capture);
+    media.addEventListener('change', update); update();
+    return { destroy() { observer.disconnect(); media.removeEventListener('change', update); } };
   }
   function phrase(item: WrittenTestimonial) { return item.quote[pageLanguage] ?? item.caption[pageLanguage]; }
   function phraseParts(item: WrittenTestimonial) {
@@ -135,15 +152,15 @@
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
+        <article use:halfVerticalSpace={slide.kind === 'response'} class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
             {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
-            <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'}><button class="capture-window" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
-              {#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} width={slide.item.width} height={slide.item.height} />{#each slide.item.markers as line, markerIndex}<rect class="preview-marker" class:draw-marker={index === current && markerActive && sectionVisible} x={line.x * slide.item.width / 100} y={line.y * slide.item.height / 100} width={line.width * slide.item.width / 100} height={line.height * slide.item.height / 100} rx="3" style={`--marker-delay:${markerIndex * 180}ms`} />{/each}</svg>{/if}
+            <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+              <span class="capture-window">{#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} style:filter={slide.item.cleanBackground ? 'contrast(1.15)' : undefined} width={slide.item.width} height={slide.item.height} /></svg>{/if}</span>
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
-            </button><span class="capture-hint" aria-hidden="true">{copy.captureHint}</span></div>
+            <span class="capture-hint" aria-hidden="true">{copy.captureHint}</span></button></div>
           {:else if slide.kind === 'bridge1'}
             <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html proofCopy.rows[0].subtitle}</p>
           {:else if slide.kind === 'bridge2'}
@@ -184,29 +201,30 @@
   .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 320px; padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #fff; border-radius: 8px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
   .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
-  .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 90% / 0% 60% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .key-phrase .marked { background-size: 100% 60%; transition: background-size 800ms var(--ease-calma) 200ms; }
+  .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left center / 0% 90% no-repeat; padding-block: 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .key-phrase .marked { background-size: 100% 90%; transition: background-size 800ms var(--ease-calma) 200ms; }
   .patient-initial { position: absolute; bottom: 12px; right: 18px; color: #fff; font: italic 400 19px/1.2 'Playfair Display', Georgia, serif; text-shadow: 0 1px 3px #071a2580; }
-  .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; padding-bottom: 54px; }
-  .capture-hint { position: absolute; bottom: 0; left: -20px; right: -20px; text-align: center; font: italic 300 11px/1.5 Inter, sans-serif; color: #fff; text-shadow: 0 1px 2px #071a25aa, 0 0 5px #071a2540; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
+  .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; }
+  .capture-action { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+  .blue-response .capture-action:focus-visible { outline: none; }
+  .capture-action:focus-visible .capture-window { outline: 2px solid #f8f4f0; outline-offset: 4px; }
+  .capture-hint { display: block; text-align: center; font: italic 300 11px/16px Inter, sans-serif; color: #fff; text-shadow: 0 1px 2px #071a25aa, 0 0 5px #071a2540; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
   .capture-window { position: relative; display: block; align-self: center; width: 100%; height: 140px; min-height: 0; flex: 0 0 140px; overflow: visible; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
   .capture-group.compact .capture-window { height: 105px; flex-basis: 105px; }
-  .preview-marker { fill: #4083a752; mix-blend-mode: multiply; transform: scaleX(0); transform-box: fill-box; transform-origin: left center; pointer-events: none; }
-  .preview-marker.draw-marker { animation: preview-underline 650ms linear var(--marker-delay) both; }
-  @keyframes preview-underline { to { transform: scaleX(1); } }
-  @media (prefers-reduced-motion: reduce) { .preview-marker.draw-marker { animation: none; transform: scaleX(1); } }
   .capture-preview { display: block; width: 100%; height: 100%; border-radius: 5px; }
-  .magnify { position: absolute; z-index: 1; left: 50%; bottom: -34px; opacity: 0; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 30px; height: 30px; display: grid; place-items: center; background: #f8f4f0ed; color: #4083a7; border: 1px solid #4083a738; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
-  .capture-window:focus-visible .magnify { opacity: 1; transform: translate(-50%, 0); }
-  @media (hover: none) { .central .magnify { opacity: 1; transform: translate(-50%, 0); } }
+  .magnify { position: relative; z-index: 1; margin-inline: auto; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 30px; height: 30px; display: grid; place-items: center; background: #233f4e; color: #fff; border: 0; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
+  .magnify :global(svg) { filter: drop-shadow(0 1px 2px #071a2566); }
+  .capture-action:focus-visible .magnify { opacity: 1; transform: translateY(0); }
+  @media (hover: none) { .central .magnify { opacity: 1; transform: translateY(0); } }
   /* Response cards share the blue testimonial treatment. */
+  @media (min-width: 768px) { .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); } }
   .blue-response { background: #4083a7; color: #fff; }
-  .blue-response .key-phrase { color: #fff; text-shadow: 0 1px 2px #071a25aa, 0 0 6px #071a2540; }
+  .blue-response .key-phrase { color: #fff; text-shadow: 0 1px 2px #071a25a6, 0 0 4px #071a2533; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
   @media (hover: hover) and (pointer: fine) {
     .central.blue-response:is(:hover, :focus-within) .capture-hint { opacity: 1; transform: translateY(0); }
-    .central.blue-response:is(:hover, :focus-within) .magnify { opacity: 1; transform: translate(-50%, 0); }
+    .central.blue-response:is(:hover, :focus-within) .magnify { opacity: 1; transform: translateY(0); }
     .central.blue-response:is(:hover, :focus-within) { box-shadow: 0 18px 38px #071a2540, 0 0 28px #8cd0d673; }
     .central.blue-response:is(:hover, :focus-within) .capture-window { box-shadow: 0 8px 24px #071a2530, 0 0 20px #8cd0d680; }
     .journey-stage:has(.central:hover) .journey-card:not(.central) { filter: blur(calc(var(--blur) + 2px)); }
@@ -222,9 +240,9 @@
   .final { height: 320px; margin-top: -160px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
   .final h3 { font-size: 30px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
   .restart-slot { position: absolute; top: 150px; left: calc(50% + 215px); width: 150px; }
-  .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #233f4e; font-size: 13px; padding: 8px 12px; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma); }
+  .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #233f4e; font-size: 13px; padding: 8px 12px; border: 1px solid transparent; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   .restart svg { width: 22px; height: 22px; }
-  @media (hover: hover) and (pointer: fine) { .restart:is(:hover, :focus-visible) { background: #E8E8F6; } }
+  @media (hover: hover) and (pointer: fine) { .restart:is(:hover, :focus-visible) { background: #fff; border-color: #8cd0d6; } }
   .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; cursor: grab; }
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
   .secondary-cta { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #233f4e; border-radius: 999px; padding: .75rem 1.5rem; min-height: 44px; font-size: 15px; font-weight: 500; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
@@ -248,5 +266,5 @@
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
   }
-  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 60%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 90%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } }
 </style>
