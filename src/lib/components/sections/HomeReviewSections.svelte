@@ -399,10 +399,10 @@
 
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
-  .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, -12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
+  .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
   .situation-card:focus-visible .selection-control, .situation-card.selected .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
   .situations .section-cta { margin-top: 4.5rem; }
-  .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 44px; padding: .5rem 1rem; color: #8cd0d6; font: 400 14px Inter, sans-serif; background: #233f4e; box-shadow: 0 4px 12px #071a2520; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+  .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 30px; padding: .25rem .75rem; color: #233f4e; font: 400 12px/1.2 Inter, sans-serif; background: #8CD0D6; box-shadow: 0 4px 12px #071a2520; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   .situations-grid .situation-card.selected { border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); background: #ffffff13; opacity: 1; }
   .selected .selection-pill { background: #8cd0d6; color: #233f4e; }
   .situations-grid.has-selection > .situation-card:not(.selected):not(:global(.standard-entry-pending)) { opacity: .6; filter: none; }

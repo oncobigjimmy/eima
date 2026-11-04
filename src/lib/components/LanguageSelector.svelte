@@ -89,8 +89,8 @@
           type="button"
           class="language-selector__button inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-light transition-[background-color,color,border-color,opacity,text-shadow] duration-200 hover:opacity-90
             {light
-              ? 'border-white/45 text-white'
-              : 'border-[color:var(--color-brand)]/18 text-[color:var(--color-brand)]'}
+              ? 'border-[#8CD0D6] text-white'
+              : 'border-[#8CD0D6] text-[color:var(--color-brand)]'}
             {currentLanguageCode === item.code
               ? light
                 ? 'bg-white/18 font-medium'
@@ -115,8 +115,8 @@
         type="button"
         class="language-selector__trigger inline-flex min-w-[8.2rem] items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[12px] font-medium tracking-[0.02em] transition-[background-color,color,border-color,opacity,text-shadow] duration-200 hover:opacity-90
           {light
-            ? 'border-white/45 bg-white/8 text-white'
-            : 'border-[color:var(--color-brand)]/18 bg-white/60 text-[color:var(--color-brand)]'}"
+            ? 'border-[#8CD0D6] bg-white/8 text-white'
+            : 'border-[#8CD0D6] bg-white/60 text-[color:var(--color-brand)]'}"
         aria-haspopup="menu"
         aria-expanded={dropdownOpen}
         on:click|stopPropagation={() => dropdownOpen ? closeDropdown() : openDropdown()}
@@ -132,7 +132,7 @@
 
       {#if dropdownOpen}
         <div
-          class="language-selector__menu absolute right-0 top-[calc(100%+0.55rem)] z-50 min-w-[10.8rem] rounded-[8px] border border-[color:var(--color-brand)]/12 bg-[#F8F4F0] p-1.5 text-[color:var(--color-brand)] shadow-[0_14px_34px_rgba(14,29,38,0.16)]"
+          class="language-selector__menu absolute right-0 top-[calc(100%+0.55rem)] z-50 min-w-[10.8rem] rounded-[8px] border border-[#8CD0D6] bg-[#F8F4F0] p-1.5 text-[color:var(--color-brand)] shadow-[0_14px_34px_rgba(14,29,38,0.16)]"
           role="menu"
         >
           {#each LANGUAGES as item (item.code)}
