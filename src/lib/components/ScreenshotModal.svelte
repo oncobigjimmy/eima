@@ -18,7 +18,7 @@
   <div class="response-modal-panel" use:dialog={{ close }} role="dialog" aria-modal="true" aria-label={copy.expand} tabindex="-1" on:click|stopPropagation on:keydown|stopPropagation>
     <button class="response-modal-close eima-close" type="button" aria-label={copy.close} on:click={close}><CloseIcon /></button>
     <span class="modal-image-frame">
-      <img src={item.image} alt={item.alt} width={item.width || undefined} height={item.height || undefined} />
+      <img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} />
       <ResponseHighlights lines={item.markers} active={true} {reduced} />
     </span>
   </div>
