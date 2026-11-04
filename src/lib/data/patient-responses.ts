@@ -557,7 +557,7 @@ export const patientProofCopy: Record<Language, {
     label: 'Respuestas de nuestros pacientes', previous: 'Respuesta anterior', next: 'Respuesta siguiente', position: 'de', expand: 'Ampliar respuesta', close: 'Cerrar respuesta',
     rows: [
       { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: '<span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar.</span><span class="subtitle-line">Lo importante es saber <strong>cómo adaptar el ejercicio</strong> a cada momento, <strong>sin exigirte de más.</strong></span>' },
-      { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir <span style="color: #8cd0d6;">tú solo/a</span> qué hacer.</strong>' },
+      { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir <span>tú solo/a</span> qué hacer.</strong>' },
       { category: 'progress', title: 'Y poco a poco, volver a hacer cosas que antes parecían lejos.' }
     ]
   },
@@ -565,7 +565,7 @@ export const patientProofCopy: Record<Language, {
     label: 'Respostes dels nostres pacients', previous: 'Resposta anterior', next: 'Resposta següent', position: 'de', expand: 'Ampliar resposta', close: 'Tancar resposta',
     rows: [
       { category: 'difficult-day', title: 'No tots els dies seran iguals.', subtitle: '<span class="subtitle-line">Durant el tractament hi haurà dies en què podràs fer més i altres en què necessitaràs descansar.</span><span class="subtitle-line">L’important és saber <strong>com adaptar l’exercici</strong> a cada moment, <strong>sense exigir-te de més.</strong></span>' },
-      { category: 'eima-adaptation', title: 'Precisament per a aquests dies existeix Empenta.', subtitle: 'Veim com vas i ajustam el que calgui <strong>perquè no hagis de decidir <span style="color: #8cd0d6;">tot sol/a</span> què fer.</strong>' },
+      { category: 'eima-adaptation', title: 'Precisament per a aquests dies existeix Empenta.', subtitle: 'Veim com vas i ajustam el que calgui <strong>perquè no hagis de decidir <span>tot sol/a</span> què fer.</strong>' },
       { category: 'progress', title: 'I a poc a poc, tornar a fer coses que creies que trigarien molt més.' }
     ]
   },
@@ -573,7 +573,7 @@ export const patientProofCopy: Record<Language, {
     label: 'Responses from our patients', previous: 'Previous response', next: 'Next response', position: 'of', expand: 'Enlarge response', close: 'Close response',
     rows: [
       { category: 'difficult-day', title: 'Not every day will be the same.', subtitle: '<span class="subtitle-line">During treatment, some days you’ll be able to do more and others you’ll need to rest.</span><span class="subtitle-line">What matters is knowing <strong>how to adapt exercise</strong> at each stage, <strong>without pushing yourself too hard.</strong></span>' },
-      { category: 'eima-adaptation', title: 'That is exactly why Empenta exists.', subtitle: 'We see how you’re doing and adjust what’s needed <strong>so you don’t have to decide what to do <span style="color: #8cd0d6;">on your own.</span></strong>' },
+      { category: 'eima-adaptation', title: 'That is exactly why Empenta exists.', subtitle: 'We see how you’re doing and adjust what’s needed <strong>so you don’t have to decide what to do <span>on your own.</span></strong>' },
       { category: 'progress', title: 'And little by little, doing things again that you thought would take much longer.' }
     ]
   }
@@ -627,7 +627,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
   }
 };
-const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-8","difficult-day-3","difficult-day-5","difficult-day-bad-day","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
+const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-4","difficult-day-mental-fog","difficult-day-5","difficult-day-bad-day","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
 // Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
@@ -853,6 +853,18 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "Getting back to a flat renovation project."
     },
     "alt": "Respuesta real de paciente: Retomar un proyecto de reforma de un piso."
+  },
+  "difficult-day-mental-fog": {
+    "quote": {
+      "es": "Sigo con bastante “niebla” en la cabeza.",
+      "ca": "Seguesc amb bastanta “boira” al cap.",
+      "en": "I still have quite a lot of “fog” in my head."
+    },
+    "highlight": {
+      "es": "“niebla” en la cabeza",
+      "ca": "“boira” al cap",
+      "en": "“fog” in my head"
+    }
   }
 };
 

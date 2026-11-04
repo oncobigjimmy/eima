@@ -135,7 +135,7 @@
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
+        <article class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style={`--distance:${distance};--scale:${magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))};--blur:${Math.min(5, magnitude * 2.5)}px;--opacity:${magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))};z-index:${Math.round(100 - magnitude * 10)};visibility:${magnitude > 2.2 ? 'hidden' : 'visible'}`}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
@@ -150,7 +150,7 @@
             <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
           {:else}
             <h3>{copy.final}<br /><span>{copy.finalAccent}</span><br />{copy.finalEnd}</h3>
-            {#if index === current}<PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} />{/if}
+            <div class="final-cta" inert={index !== current}><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /></div>
           {/if}
           {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / chapterLength))]} on:click={() => go(index)}></button>{/if}
         </article>
@@ -214,15 +214,17 @@
   .bridge { top: 50%; height: 290px; margin-top: -145px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
   h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
   h3 { font-size: 30px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
+  .first-bridge h3 span { font-weight: 600; }
+  .final-cta { display: grid; place-items: center; width: 100%; }
   .bridge-body :global(.subtitle-line) { display: block; }
   .bridge-body :global(.subtitle-line + .subtitle-line) { margin-top: .5rem; }
-  .bridge-body { font: 400 14px/1.65 Inter, sans-serif; color: #e8e8f6; margin-top: 1rem; }
+  .bridge-body { font: 400 14px/1.65 Inter, sans-serif; color: #F4F4F8; margin-top: 1rem; }
   .final { height: 320px; margin-top: -160px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
   .final h3 { font-size: 30px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
   .restart-slot { position: absolute; top: 150px; left: calc(50% + 215px); width: 150px; }
   .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #233f4e; font-size: 13px; padding: 8px 12px; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma); }
   .restart svg { width: 22px; height: 22px; }
-  @media (hover: hover) and (pointer: fine) { .restart:hover { background: #4083a712; } }
+  @media (hover: hover) and (pointer: fine) { .restart:is(:hover, :focus-visible) { background: #E8E8F6; } }
   .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; cursor: grab; }
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
   .secondary-cta { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #233f4e; border-radius: 999px; padding: .75rem 1.5rem; min-height: 44px; font-size: 15px; font-weight: 500; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
