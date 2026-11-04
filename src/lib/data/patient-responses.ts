@@ -680,10 +680,30 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "…I have felt a little more like myself, going to Inca and Palma on my own…"
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
-    }
+      "es": "un poco más yo",
+      "ca": "una mica més jo",
+      "en": "a little more like myself"
+    },
+    "markers": [
+      {
+        "x": 4,
+        "y": 52,
+        "width": 86,
+        "height": 8
+      },
+      {
+        "x": 4,
+        "y": 66,
+        "width": 80,
+        "height": 8
+      },
+      {
+        "x": 4,
+        "y": 81,
+        "width": 23,
+        "height": 8
+      }
+    ]
   },
   "progress-12": {
     "quote": {
@@ -692,9 +712,9 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "I have been able to get back to my usual routines and feel “normal” again."
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
+      "es": "sentirme «normal»",
+      "ca": "sentir-me «normal»",
+      "en": "feel “normal” again"
     }
   },
   "difficult-day-8": {
@@ -704,9 +724,9 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "This week I have barely been able to exercise."
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
+      "es": "no he podido entrenar",
+      "ca": "no he pogut entrenar",
+      "en": "barely been able to exercise"
     }
   },
   "difficult-day-3": {
@@ -719,10 +739,18 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "This week I have been feeling very negative…"
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
-    }
+      "es": "muy negativa",
+      "ca": "molt negativa",
+      "en": "very negative"
+    },
+    "markers": [
+      {
+        "x": 4,
+        "y": 92.5,
+        "width": 75,
+        "height": 4.3
+      }
+    ]
   },
   "difficult-day-bad-day": {
     "quote": {
@@ -731,9 +759,9 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "…I woke up very dizzy, struggled to work and still feel that way."
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
+      "es": "muy mareado",
+      "ca": "molt marejat",
+      "en": "very dizzy"
     }
   },
   "eima-adaptation-2": {
@@ -743,9 +771,9 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "I like knowing what I need to do the next day."
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
+      "es": "saber lo que tengo que hacer",
+      "ca": "saber què he de fer",
+      "en": "knowing what I need to do"
     }
   },
   "eima-adaptation-7": {
@@ -755,9 +783,9 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "The video helped me understand where I am and what lies ahead."
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
+      "es": "entender por dónde estoy",
+      "ca": "entendre en quin punt estic",
+      "en": "understand where I am"
     }
   },
   "eima-adaptation-11": {
@@ -767,10 +795,64 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
       "en": "…I sincerely appreciate the dedication, because it is for my own good and I can see the results."
     },
     "highlight": {
-      "es": null,
-      "ca": null,
-      "en": null
+      "es": "agradezco de corazón la dedicación",
+      "ca": "agraesc de tot cor la dedicació",
+      "en": "sincerely appreciate the dedication"
     }
+  },
+  "difficult-day-6": {
+    "width": 981,
+    "height": 760,
+    "markers": [
+      {
+        "x": 4,
+        "y": 87.4,
+        "width": 88,
+        "height": 5.2
+      }
+    ],
+    "caption": {
+      "es": "Hoy ya no he tomado las pastillas para los vómitos, pero sigo teniendo muchas náuseas.",
+      "ca": "Avui ja no he pres les pastilles per als vòmits, però encara tenc moltes nàusees.",
+      "en": "Today I have stopped taking the anti-nausea pills, but I still feel very nauseous."
+    },
+    "alt": "Respuesta real de paciente: Hoy ya no he tomado las pastillas para los vómitos, pero sigo teniendo muchas náuseas."
+  },
+  "difficult-day-7": {
+    "width": 1007,
+    "height": 919,
+    "markers": [
+      {
+        "x": 4,
+        "y": 84.5,
+        "width": 38,
+        "height": 4.4
+      }
+    ],
+    "caption": {
+      "es": "Estoy muy cansada. He dormido dos horas de siesta pero aún así muchos dolores musculares.",
+      "ca": "Estic molt cansada. He dormit dues hores de migdiada, però encara tenc molts de dolors musculars.",
+      "en": "I am very tired. I had a two-hour nap but still have a lot of muscle pain."
+    },
+    "alt": "Respuesta real de paciente: Estoy muy cansada. He dormido dos horas de siesta pero aún así muchos dolores musculares."
+  },
+  "progress-10": {
+    "width": 1083,
+    "height": 322,
+    "markers": [
+      {
+        "x": 4.5,
+        "y": 70,
+        "width": 79,
+        "height": 10.5
+      }
+    ],
+    "caption": {
+      "es": "Retomar un proyecto de reforma de un piso.",
+      "ca": "Reprendre un projecte de reforma d’un pis.",
+      "en": "Getting back to a flat renovation project."
+    },
+    "alt": "Respuesta real de paciente: Retomar un proyecto de reforma de un piso."
   }
 };
 
