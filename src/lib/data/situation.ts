@@ -52,18 +52,18 @@ export const situationResponseCopy = {
     A: { title: 'Todos empezamos alguna vez.\nTambién está bien empezar ahora.', body: 'Si nunca has hecho ejercicio, no tienes por qué saber cómo empezar. Querer cuidarte ya es un paso importante. Cuéntanos tu caso y vemos juntos por dónde seguir.' },
     B: { title: 'Tu ejercicio puede\nadaptarse a esta etapa.', body: 'Si ya haces ejercicio, tenemos mucho terreno ganado.\nTe ayudamos a adaptarlo al tratamiento para que puedas\nseguir moviéndote según cómo te encuentres.' },
     C: { title: 'Siempre se puede empezar\npor algo pequeño.', body: 'Aunque haya limitaciones, un pequeño paso adaptado\na ti también cuenta. Cuéntanos tu caso y vemos por dónde\nempezar, para ir avanzando poco a poco.' },
-    D: { title: 'Terminar el tratamiento\nno significa sentirte como antes.', body: 'Si todavía notas fatiga, has perdido fuerza o te cuesta retomar tu rutina, cuéntanos cómo estás. Vemos contigo por dónde empezar para recuperar poco a poco lo que es importante para ti.' }
+    D: { title: 'El tratamiento acaba.\nTu recuperación tiene su ritmo.', body: 'Si todavía notas fatiga, has perdido fuerza o te cuesta retomar tu rutina, vemos contigo por dónde empezar para recuperar poco a poco lo que es importante para ti.' }
   } },
   ca: { close: 'Tancar', responses: {
     A: { title: 'Tots començam alguna vegada.\nTambé està bé començar ara.', body: 'Si no has fet mai exercici, no has de saber com començar. Voler cuidar-te ja és una passa important. Explica’ns el teu cas i miram plegats per on continuar.' },
     B: { title: 'El teu exercici es pot adaptar\na aquesta etapa.', body: 'Si ja fas exercici, tenim molt de terreny guanyat.\nT’ajudam a adaptar-lo al tractament perquè puguis\ncontinuar movent-te segons com et trobis.' },
     C: { title: 'Sempre es pot començar\nper una cosa petita.', body: 'Encara que hi hagi limitacions, una passa petita\nadaptada a tu també compta. Explica’ns el teu cas i miram\nper on començar, per anar avançant a poc a poc.' },
-    D: { title: 'Acabar el tractament\nno vol dir sentir-te com abans.', body: 'Si encara notes fatiga, has perdut força o et costa reprendre la rutina, explica’ns com estàs. Miram amb tu per on començar per recuperar a poc a poc allò que és important per a tu.' }
+    D: { title: 'El tractament acaba.\nLa recuperació té el seu ritme.', body: 'Si encara notes fatiga, has perdut força o et costa reprendre la rutina, miram amb tu per on començar per recuperar a poc a poc allò que és important per a tu.' }
   } },
   en: { close: 'Close', responses: {
     A: { title: 'Everyone starts somewhere.\nIt is okay to start now.', body: 'If you have never exercised, you do not have to know where to start. Wanting to care for yourself and looking for a way forward is already an important step. Tell us about your situation and we can help you find the next one.' },
     B: { title: 'Your exercise can adapt\nto this stage.', body: 'If you already exercise, you have a head start.\nWe help you adapt it to treatment so you can keep\nmoving in a way that suits how you feel.' },
     C: { title: 'You can always start\nwith something small.', body: 'Even with limitations, a small step adapted to you\ncounts too. Tell us about your situation and we can see\nwhere to start, moving forward little by little.' },
-    D: { title: 'Finishing treatment\ndoes not mean feeling like before.', body: 'If you still feel tired, have lost strength or find it hard to return to your routine, tell us how you are doing. Together we can find a starting point to gradually regain what matters to you.' }
+    D: { title: 'Treatment comes to an end.\nRecovery has its own pace.', body: 'If you still feel tired, have lost strength or find it hard to return to your routine, we can find a starting point together to gradually regain what matters to you.' }
   } }
 };

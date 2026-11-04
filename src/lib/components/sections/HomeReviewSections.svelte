@@ -186,11 +186,10 @@
     <p class="selection-instruction">{selectionCopy.choose}</p>
     <div class="situations-grid" class:has-selection={Boolean($selectedSituation || responseSituation)}>
       {#each situations as situation, i}
-        <button type="button" class="situation-card" class:selected={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-pressed={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-haspopup="dialog" on:click={() => selectSituation(situation.letter)} use:standardEntry={i} use:scrollContrast use:pulsePrompt>
+        <button type="button" class="situation-card" class:selected={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-pressed={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-haspopup="dialog" aria-label={`${situation.quote} ${selectionCopy.hint}`} on:click={() => selectSituation(situation.letter)} use:standardEntry={i} use:scrollContrast use:pulsePrompt>
           <span class="situation-letter" aria-hidden="true">{situation.letter}</span>
-          <span class="situation-label">{selectionCopy.labels[i]}</span>
-          <span class="situation-quote">{situation.quote}</span>
-          <span class="selection-control"><span class="selection-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg>{($selectedSituation === situation.letter || responseSituation === situation.letter) ? selectionCopy.selected : selectionCopy.identify}</span><span class="selection-tooltip" aria-hidden="true">{selectionCopy.hint}</span></span>
+          <span class="situation-quote" aria-hidden="true">{#each ui.situationLines[i] as line}<span>{line}</span>{/each}</span>
+          <span class="selection-control"><span class="selection-pill">{selectionCopy.hint}</span></span>
         </button>
       {/each}
     </div>
@@ -302,16 +301,15 @@
   .situations h2 { color: #fff; }
   .situations h2 :global(span) { color: #8cd0d6; }
   .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #e8f8e0; max-width: 1072px; font-size: 16px; }
-  .situations-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+  .situations-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4rem 1.25rem; }
   @media (min-width: 1100px) {
     .situations-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .situations-grid .situation-card { display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem; }
     .situations-grid .situation-letter { font-size: 5rem; }
-    .situations-grid .situation-quote { font-size: 20px; min-height: 6.6em; }
-    .situations-grid .selection-control { margin-top: auto; padding-top: 1.25rem; }
+    .situations-grid .situation-card .situation-quote { font-size: 20px; min-height: 5.28em; }
   }
-  .situation-label { display: block; color: #8cd0d6; font: 500 14px/1.4 Inter, sans-serif; margin-bottom: .75rem; }
-  .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; transform-origin: center; transition: opacity var(--dur-estado) var(--ease-calma), filter var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma); }
+  .situation-quote > span { display: block; font: inherit; }
+  .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; min-height: 252px; transform-origin: center; transition: opacity var(--dur-estado) var(--ease-calma), filter var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma); }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 7.2rem; line-height: .8; transform: translateY(-6px); color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
   .situation-card .situation-quote { display: block; font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
   .situations-closing { color: #e8f8e0; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
@@ -401,22 +399,23 @@
 
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
-  .selection-control { display: block; position: static; margin-top: 1.25rem; }
-  .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 44px; padding: .5rem 1rem; color: #8cd0d6; font: 400 15px Inter, sans-serif; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
-  .selection-pill svg { width: 20px; height: 20px; }
+  .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, -12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
+  .situation-card:focus-visible .selection-control, .situation-card.selected .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  .situations .section-cta { margin-top: 4.5rem; }
+  .selection-pill { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid #8cd0d6; border-radius: 999px; min-height: 44px; padding: .5rem 1rem; color: #8cd0d6; font: 400 14px Inter, sans-serif; background: #233f4e; box-shadow: 0 4px 12px #071a2520; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   .situations-grid .situation-card.selected { border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); background: #ffffff13; opacity: 1; }
   .selected .selection-pill { background: #8cd0d6; color: #233f4e; }
   .situations-grid.has-selection > .situation-card:not(.selected):not(:global(.standard-entry-pending)) { opacity: .6; filter: none; }
   .situation-card:focus-visible { outline: 2px solid #8cd0d6; outline-offset: 5px; }
-  .selection-tooltip { display: none; }
   @media (hover: hover) and (pointer: fine) {
     .situations .section-cta { margin-top: 4.5rem; }
     .situation-card:hover { z-index: 3; transform: scale(1.035); border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); }
-    .selection-tooltip { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; background: #f8f4f0; border: 1px solid #233f4e20; border-radius: 8px; padding: 8px 12px; color: #233f4e; box-shadow: 0 6px 18px #071a2520; font-size: 12px; pointer-events: none; opacity: 0; transition: opacity var(--dur-micro) var(--ease-calma); }
-    .situation-card:hover .selection-tooltip { opacity: 1; }
+    .situation-card:hover .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
   }
   @media (prefers-reduced-motion: no-preference) { .selection-pill:global(.pulse-prompt) { animation: selection-pulse 800ms var(--ease-calma); animation-iteration-count: 2; } }
   @keyframes selection-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 @media (prefers-reduced-motion: reduce) { .situation-card:hover { transform: none; } }
+@media (hover: none), (pointer: coarse) { .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { .selection-control { transition: none; transform: translate(-50%, 0); } }
 @media (max-width: 767px) { .selection-instruction { font-size: 14px; } }
 </style>
