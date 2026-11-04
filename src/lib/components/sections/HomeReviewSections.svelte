@@ -39,17 +39,29 @@
   function confirmSituation() { selectedSituation.set(responseSituation); }
   function closeSituation() { responseSituation = null; }
   function pulsePrompt(node: HTMLElement) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pill = node.querySelector('.selection-pill');
     let timer: ReturnType<typeof setTimeout>;
+    function pulse() {
+      if (preference.matches || !pill) return;
+      clearTimeout(timer);
+      pill.classList.remove('pulse-prompt');
+      // Restart the cycle when returning before the previous three pulses finish.
+      void (pill as HTMLElement).offsetWidth;
+      pill.classList.add('pulse-prompt');
+      timer = setTimeout(() => pill.classList.remove('pulse-prompt'), 2400);
+    }
+    node.addEventListener('pointerenter', pulse);
+    node.addEventListener('focus', pulse);
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting || entry.intersectionRatio < .5) return;
-      observer.disconnect();
-      const pill = node.querySelector('.selection-pill');
-      pill?.classList.add('pulse-prompt');
-      timer = setTimeout(() => pill?.classList.remove('pulse-prompt'), 1600);
+      if (entry.isIntersecting && entry.intersectionRatio >= .5 && window.matchMedia('(hover: none), (pointer: coarse)').matches) pulse();
     }, { threshold: .5 });
     observer.observe(node);
-    return { destroy() { observer.disconnect(); clearTimeout(timer); } };
+    return { destroy() {
+      observer.disconnect(); clearTimeout(timer);
+      node.removeEventListener('pointerenter', pulse);
+      node.removeEventListener('focus', pulse);
+    } };
   }
   let videoNearby = false;
   const videoReady = Boolean(homeVideoEs.src && homeVideoEs.captions);
@@ -412,7 +424,7 @@
     .situation-card:hover { z-index: 3; transform: scale(1.035); border-color: #8cd0d6; box-shadow: var(--eima-halo-dark); }
     .situation-card:hover .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
   }
-  @media (prefers-reduced-motion: no-preference) { .selection-pill:global(.pulse-prompt) { animation: selection-pulse 800ms var(--ease-calma); animation-iteration-count: 2; } }
+  @media (prefers-reduced-motion: no-preference) { .selection-pill:global(.pulse-prompt) { animation: selection-pulse 800ms var(--ease-calma); animation-iteration-count: 3; } }
   @keyframes selection-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 @media (prefers-reduced-motion: reduce) { .situation-card:hover { transform: none; } }
 @media (hover: none), (pointer: coarse) { .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); } }

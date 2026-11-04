@@ -127,10 +127,19 @@
     media.addEventListener('change', update); update();
     return { destroy() { observer.disconnect(); media.removeEventListener('change', update); } };
   }
-  function phrase(item: WrittenTestimonial) { return item.quote[pageLanguage] ?? item.caption[pageLanguage]; }
+  const spanishQuoteLines: Record<string, string> = {
+    'difficult-day-5': '…Náuseas y muchos mareos. No tengo\nfuerzas para nada.',
+    'eima-adaptation-1': 'Me encanta que sea un plan adaptable\nal día a día y así no me frustro.',
+    'eima-adaptation-9': 'Me he sentido acompañada con\nlas llamadas telefónicas.',
+    'eima-adaptation-2': 'Me gusta saber lo que tengo que hacer\nal día siguiente.',
+    'eima-adaptation-7': 'El vídeo me ayudó a entender por dónde\nestoy y lo que me queda.'
+  };
+  function phrase(item: WrittenTestimonial) {
+    return (pageLanguage === 'es' && spanishQuoteLines[item.id]) || item.quote[pageLanguage] || item.caption[pageLanguage];
+  }
   function phraseParts(item: WrittenTestimonial) {
-    const text = phrase(item), highlight = item.highlight[pageLanguage];
-    return highlight && text.includes(highlight) ? [text.slice(0, text.indexOf(highlight)), highlight, text.slice(text.indexOf(highlight) + highlight.length)] : [text, '', ''];
+    const text = phrase(item), searchable = text.replace(/\n/g, ' '), highlight = item.highlight[pageLanguage];
+    return highlight && searchable.includes(highlight) ? [text.slice(0, searchable.indexOf(highlight)), text.slice(searchable.indexOf(highlight), searchable.indexOf(highlight) + highlight.length), text.slice(searchable.indexOf(highlight) + highlight.length)] : [text, '', ''];
   }
   onDestroy(() => { clearTimeout(markerTimer); clearTimeout(clickTimer); });
 </script>
@@ -198,11 +207,11 @@
   .journey-stage { position: relative; height: 360px; touch-action: pan-y pinch-zoom; user-select: none; cursor: grab; }
   .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
   .journey-stage.dragging .journey-card { transition: none; }
-  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 320px; padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #fff; border-radius: 8px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
-  .key-phrase { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
+  .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 320px; padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #fff; border-radius: 12px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
+  .key-phrase { white-space: pre-line; font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
-  .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left center / 0% 90% no-repeat; padding-block: 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .key-phrase .marked { background-size: 100% 90%; transition: background-size 800ms var(--ease-calma) 200ms; }
+  .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left center / 0% 84% no-repeat; padding-block: 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .key-phrase .marked { background-size: 100% 84%; transition: background-size 800ms var(--ease-calma) 200ms; }
   .patient-initial { position: absolute; bottom: 12px; right: 18px; color: #fff; font: italic 400 19px/1.2 'Playfair Display', Georgia, serif; text-shadow: 0 1px 3px #071a2580; }
   .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; }
   .capture-action { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
@@ -253,7 +262,7 @@
     .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: .75rem; } .chapter-bar button { font-size: 12.5px; }
     .journey-stage { height: 360px; }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
-    .key-phrase { font-size: 18px; }
+    .key-phrase { font-size: 18px; white-space: normal; }
     .capture-group { width: min(224px, 100%); }
     .capture-window { height: 115px; flex-basis: 115px; }
     .capture-group.compact .capture-window { height: 100px; flex-basis: 100px; }
@@ -266,5 +275,5 @@
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
   }
-  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 90%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 84%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } }
 </style>
