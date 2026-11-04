@@ -10,6 +10,7 @@
   export let pageLanguage: Language;
   export let href: string;
   export let cta: string;
+  export let confirm: () => void;
   export let close: () => void;
   $: copy = situationResponseCopy[pageLanguage];
   $: response = copy.responses[situation];
@@ -21,7 +22,7 @@
     <span class="response-letter" aria-hidden="true"><span>{situation}</span></span>
     <h2 id="situation-response-title">{response.title}</h2>
     <p id="situation-response-body">{response.body}</p>
-    <PrimaryCta {href} target="_blank" rel="noopener noreferrer" label={cta} />
+    <PrimaryCta {href} target="_blank" rel="noopener noreferrer" label={cta} onClick={confirm} />
   </div>
 </div>
 
@@ -32,7 +33,7 @@
   .response-letter { display: flex; align-items: center; justify-content: center; width: 76px; height: 76px; margin: 0 auto 1.25rem; border-radius: 50%; background: #8cd0d640; color: #245b7d; }
   .response-letter span { display: block; width: 100%; text-align: center; font: 400 47px/1 'Playfair Display', Georgia, serif; transform: translateY(-.04em); }
   h2 { font: 600 25.2px/1.2 'Playfair Display', Georgia, serif; color: #233f4e; text-wrap: balance; white-space: pre-line; }
-  p { margin: 18px 0 25px; min-height: 4.8em; text-wrap: pretty; white-space: pre-line; font: 400 13.5px/1.6 Inter, sans-serif; }
+  p { margin: 18px 0 25px; min-height: 4.8em; text-wrap: pretty; white-space: normal; font: 400 14px/1.6 Inter, sans-serif; }
   .close-response:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
   @media (max-width: 767px) { .response-panel { padding: 2.5rem 1.25rem 2rem; } h2 { font-size: 23px; } p { font-size: 14px; white-space: normal; } }
 </style>
