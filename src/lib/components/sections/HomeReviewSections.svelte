@@ -366,16 +366,16 @@
     .vsl .section-heading { margin-bottom: 1.375rem; }
     .programme-line { display: block; white-space: nowrap; }
     .vsl .section-cta { margin-top: 1.375rem; display: grid; justify-items: center; }
-    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 1.5rem; }
+    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 3.25rem; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
     .recovery h2 { white-space: normal; }
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
     .goal-body { font-size: 14px; }
-    .situations-grid .situation-card { width: min(calc(50vw + 112px), 100%); aspect-ratio: 1; min-height: 0; padding: .8rem; container-type: inline-size; }
-    .situation-card .situation-quote { font-size: calc(8.0357cqw + 2.057px); line-height: 1.2; }
-    .situation-letter { font-size: calc(25cqw + 6.4px); line-height: .8; margin-bottom: .5rem; transform: none; }
+    .situations-grid .situation-card { width: min(264px, 100%); aspect-ratio: 1; min-height: 0; padding: 1rem; }
+    .situation-card .situation-quote { font-size: 20px; line-height: 1.3; }
+    .situation-letter { font-size: 5rem; line-height: .8; margin-bottom: .5rem; transform: none; }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }
@@ -438,9 +438,10 @@
 @media (max-width: 767px) { .selection-instruction { font-size: 14px; } }
   @media (max-width: 360px) { .vsl .cta-note { font-size: 11.5px !important; } }
   @media (max-width: 767px) {
-    .instruction-desktop, .selection-control { display: none; }
+    .instruction-desktop { display: none; }
+    .selection-control { display: block; opacity: 1; visibility: visible; transform: translate(-50%, 0); }
     .instruction-mobile { display: inline; }
     .vsl .cta-note { display: none; }
-    .situations .section-cta { margin-top: 2rem; }
+    .situations .section-cta { margin-top: 4rem; }
   }
 </style>
