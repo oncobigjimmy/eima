@@ -38,6 +38,7 @@
   let closingRevealed = true;
   let sectionVisible = false;
   let flightStarted = false;
+  let flightCompleted = false;
   $: if (sectionVisible && closingRevealed) flightStarted = true;
   let width = 1440;
   let height = 260;
@@ -157,8 +158,6 @@
     <ol class="path-stages">
       {#each copy.stages as stage, index}
         <li class:copy-revealed={descriptionsRevealed[index]} class:reached={!enhanced || (desktop ? timedStage >= index : progress >= thresholds[index])}>
-          <!-- TODO [CA-revisar]: revisar «Etapa 00–03». -->
-          <span class="stage-label">Etapa {String(index).padStart(2, '0')}</span>
           <div class="path-circle"><span>{String(index).padStart(2, '0')}</span></div>
           <div class="path-stage-copy"><h3><span class="stage-initial">{stage.title.slice(0, 1)}</span>{stage.title.slice(1)}</h3><p>{@html stage.description}</p></div>
         </li>
@@ -172,7 +171,7 @@
   <footer class="path-follow-up" bind:this={followUp} class:enhanced class:revealed={closingRevealed} class:flying={flightStarted} class:reached={!enhanced || closingRevealed}>
     <h3>{copy.next}</h3>
     <div class="follow-up-circle" aria-hidden="true">
-      <svg class="follow-up-bird" viewBox="0 0 64 64">
+      <svg class="follow-up-bird" class:landed={flightCompleted} viewBox="0 0 64 64" on:animationend={event => { if (event.target === event.currentTarget) flightCompleted = true; }}>
         <g class="bird-lift">
           <path class="bird-back-wing" d="M32 36C38 22 44 15 53 10 51 25 45 34 37 38Z" />
           <path class="bird-body" d="M10 39 20 30 32 35 41 24C46 19 52 22 53 27L60 30 53 32C50 42 38 47 28 42L18 44 21 38Z" />
@@ -202,8 +201,6 @@
     :global(.path-mobile-break) { display: none; }
     li:first-child .path-stage-copy p { max-width: 320px; }
   }
-  .stage-label { display: block; margin-bottom: 12px; font-family: Inter, sans-serif; font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: .14em; color: #8cd0d6; opacity: 0; transform: translateY(8px); transition: opacity 350ms var(--ease-calma), transform 350ms var(--ease-calma); }
-  .reached .stage-label { opacity: 1; transform: none; }
   .path-track { position: relative; margin-top: 2.75rem; }
   .path-line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .path-line path { fill: none; stroke-width: 2; stroke-dasharray: 5 9; stroke-linecap: round; }
@@ -252,12 +249,13 @@
   .bird-lift { transform-origin: 34px 33px; }
   .bird-wing { transform-origin: 37px 34px; }
   .flying .follow-up-bird { animation: bird-flight 2.1s linear 3 forwards; }
+  .flying .follow-up-bird.landed { animation: none; transform: translateY(8px); }
   .flying .bird-wing { animation: bird-flap 700ms cubic-bezier(.45,0,.55,1) 9 forwards; }
   .reached.flying .bird-back-wing { animation: bird-back-flap 700ms cubic-bezier(.45,0,.55,1) 9 forwards; transform-origin: 35px 35px; }
   .reached.flying .bird-lift { animation: bird-bob 2.1s ease-in-out 3 forwards; }
   @keyframes bird-flight {
     0% { transform: translate(-69px, 8px); }
-    100% { transform: translateY(8px); }
+    100% { transform: translate(69px, 8px); }
   }
   @keyframes bird-flap { 0%, 100% { transform: rotate(12deg) scaleY(1); } 50% { transform: rotate(-32deg) scaleY(.48) skewX(-8deg); } }
   @keyframes bird-back-flap { 0%, 100% { transform: rotate(-8deg) scaleY(.95); } 50% { transform: rotate(28deg) scaleY(.52) skewX(6deg); } }
@@ -275,10 +273,9 @@
     .path-track:not(.enhanced) .path-line { display: none; }
     .path-stages { grid-template-columns: 1fr; padding: 1rem 1.25rem; gap: 1.75rem; }
     li, li:nth-child(even) { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: .75rem; align-items: center; padding-top: 0; text-align: left; min-height: 104px; }
-    .stage-label { grid-column: 2; grid-row: 1; align-self: end; margin-bottom: 0; padding-bottom: 12px; }
-    .path-stage-copy { grid-column: 2; grid-row: 2; }
+    .path-stage-copy { grid-column: 2; grid-row: 1; }
     li, li:nth-child(even) { row-gap: 0; }
-    .path-circle { grid-row: 1 / 3; width: 76px; height: 76px; margin: 0; }
+    .path-circle { grid-row: 1; width: 76px; height: 76px; margin: 0; }
     .path-circle span { font-size: 34px; }
     .path-stage-copy { margin-top: 0; }
     .path-stage-copy h3 { font-size: 30px; } .follow-up-label { font-size: 25px; }
@@ -287,7 +284,6 @@
     .path-follow-up { margin: 1.5rem 1.25rem 0; padding-inline: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .stage-label { opacity: 1; transform: none; transition: none; }
     .path-circle, .path-circle span, .path-stage-copy h3, .path-stage-copy p, .stage-initial, .follow-up-circle { transition: none; }
     .enhanced li:not(.copy-revealed) .path-stage-copy p,
     .path-follow-up.enhanced:not(.revealed),

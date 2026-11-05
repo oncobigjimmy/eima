@@ -110,14 +110,14 @@
     const bottom = item.id === 'progress-12' ? Math.round(item.height * .49) : item.height;
     return `0 ${top} ${item.width} ${bottom - top}`;
   }
-  // Halve the existing 320px card's empty top/bottom space on desktop.
+  // Halve the existing 320px card's empty top/bottom space at every width.
   function halfVerticalSpace(node: HTMLElement, enabled: boolean) {
     if (!enabled) return {};
     const media = window.matchMedia('(min-width: 768px)');
     const quote = node.querySelector<HTMLElement>('.key-phrase');
     const capture = node.querySelector<HTMLElement>('.capture-group');
     const update = () => {
-      if (!media.matches || !quote || !capture) { node.style.removeProperty('--response-height'); return; }
+      if (!quote || !capture) return;
       const content = quote.offsetHeight + capture.offsetHeight + parseFloat(getComputedStyle(node).rowGap);
       node.style.setProperty('--response-height', ((320 + content) / 2) + 'px');
     };
@@ -277,6 +277,7 @@
     .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: 0; } .chapter-bar button { font-size: 12px; }
     .journey-stage { height: 340px; }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
+    .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); }
     .key-phrase { font-size: 18px; white-space: normal; }
     .quote-mobile-lines { white-space: pre-line; }
     .capture-group { width: min(224px, 100%); }

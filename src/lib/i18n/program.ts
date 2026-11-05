@@ -11,6 +11,7 @@ export type ProgramFaq = {
 
 // Phosphor Icons, regular weight (MIT): github.com/phosphor-icons/core
 const icons = {
+  stethoscope: "M220,160a12,12,0,1,1-12-12A12,12,0,0,1,220,160Zm-4.55,39.29A48.08,48.08,0,0,1,168,240H144a48.05,48.05,0,0,1-48-48V151.49A64,64,0,0,1,40,88V40a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56V88a48,48,0,0,0,48.64,48c26.11-.34,47.36-22.25,47.36-48.83V48H136a8,8,0,0,1,0-16h24a8,8,0,0,1,8,8V87.17c0,32.84-24.53,60.29-56,64.31V192a32,32,0,0,0,32,32h24a32.06,32.06,0,0,0,31.22-25,40,40,0,1,1,16.23.27ZM232,160a24,24,0,1,0-24,24A24,24,0,0,0,232,160Z",
   "shield": "M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z",
   "clipboard": "M168,152a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,152Zm-8-40H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm56-64V216a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V48A16,16,0,0,1,56,32H92.26a47.92,47.92,0,0,1,71.48,0H200A16,16,0,0,1,216,48ZM96,64h64a32,32,0,0,0-64,0ZM200,48H173.25A47.93,47.93,0,0,1,176,64v8a8,8,0,0,1-8,8H88a8,8,0,0,1-8-8V64a47.93,47.93,0,0,1,2.75-16H56V216H200Z",
   "battery": "M200,56H32A24,24,0,0,0,8,80v96a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V80A24,24,0,0,0,200,56Zm8,120a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H200a8,8,0,0,1,8,8ZM64,96v64a8,8,0,0,1-16,0V96a8,8,0,0,1,16,0Zm192,0v64a8,8,0,0,1-16,0V96a8,8,0,0,1,16,0Z",
@@ -180,7 +181,7 @@ const esProgram = {
           'La idea es <strong>crear sinergia.</strong> Que el tratamiento médico haga su parte contra el cáncer y que el ejercicio —junto con otros pilares como la nutrición, el descanso, la gestión emocional y la reducción de tóxicos— ayude a que tu cuerpo llegue al proceso en las mejores condiciones posibles dentro de tu situación.',
           'Si quieres saber cómo podríamos ayudarte sin interferir con tu tratamiento, puedes escribirnos {{writeLink}}.'
         ],
-        icon: icons.people
+        icon: icons.stethoscope
       },
       {
         q: '¿La valoración es <strong>presencial</strong> o todo es <strong>online?</strong>',
@@ -413,7 +414,7 @@ const caProgram = {
           'La idea és <strong>crear sinergia.</strong> Que el tractament mèdic faci la seva part contra el càncer i que l’exercici —juntament amb altres pilars com la nutrició, el descans, la gestió emocional i la reducció de tòxics— ajudi que el teu cos arribi al procés en les millors condicions possibles dins la teva situació.',
           'Si vols saber com et podríem ajudar sense interferir amb el teu tractament, ens pots escriure {{writeLink}}.'
         ],
-        icon: icons.people
+        icon: icons.stethoscope
       },
       {
         q: 'La valoració és <strong>presencial</strong> o tot és <strong>online?</strong>',
@@ -646,7 +647,7 @@ const enProgram = {
           'The idea is to <strong>create synergy.</strong> Let medical treatment do its part against cancer while exercise - together with other pillars such as nutrition, rest, emotional management and reducing toxins - helps your body reach the process in the best possible condition within your situation.',
           'If you want to know how we could help without interfering with your treatment, you can write to us {{writeLink}}.'
         ],
-        icon: icons.people
+        icon: icons.stethoscope
       },
       {
         q: 'Is the assessment <strong>in person</strong> or is everything <strong>online?</strong>',
