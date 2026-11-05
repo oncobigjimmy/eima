@@ -366,7 +366,7 @@
     .vsl .section-heading { margin-bottom: 1.375rem; }
     .programme-line { display: block; white-space: nowrap; }
     .vsl .section-cta { margin-top: 1.375rem; display: grid; justify-items: center; }
-    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 3.25rem; }
+    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 1.625rem; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
     .recovery h2 { white-space: normal; }

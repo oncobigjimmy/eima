@@ -99,7 +99,7 @@
       desktop = !breakpoint.matches;
       const points = Array.from(track.querySelectorAll('.path-circle')).map(node => {
         const rect = node.getBoundingClientRect();
-        return { x: rect.left - bounds.left + rect.width / 2, y: rect.top - bounds.top + rect.height / 2 };
+        return { x: rect.left - bounds.left + rect.width / 2, y: rect.top - bounds.top + rect.height / 2, radiusX: rect.width / 2, radiusY: rect.height / 2 };
       });
       if (!points.length) return;
       const all = vertical
@@ -116,7 +116,7 @@
           path += ` C${middle} ${previous.y} ${middle} ${point.y} ${point.x} ${point.y}`;
         }
       });
-      thresholds = points.map(point => vertical ? point.y / height : point.x / width);
+      thresholds = points.map(point => vertical ? (point.y - point.radiusY) / height : (point.x - point.radiusX) / width);
       update();
     }
     enhanced = true;
@@ -218,7 +218,8 @@
   .reached .stage-initial { color: #fff; text-shadow: 0 0 12px #8cd0d633; }
   .reached .path-stage-copy h3 { color: #8cd0d6; }
   .path-stage-copy p { max-width: 290px; margin: .75rem auto 0; font-size: 14px; line-height: 1.55; color: #d1dfe5; transition: color 350ms ease, opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); text-wrap: pretty; }
-  .enhanced li:not(.copy-revealed) .path-stage-copy p { opacity: 0; transform: translateY(16px); }
+  .path-stage-copy { transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); }
+  .enhanced li:not(.copy-revealed) .path-stage-copy { opacity: 0; transform: translateY(16px); }
   .reached .path-stage-copy p { color: #f8f4f0; }
   .path-clarification { max-width: 1000px; margin: 2.75rem auto 0; padding: 1.75rem 2rem; border: 1px solid #8cd0d63d; border-radius: 9px; background: #245b7d; color: #f8f4f0; font-size: 16px; text-align: center; line-height: 1.65; transition: background-color 260ms ease-out, color 260ms ease-out; }
   .path-clarification:global(.scroll-reading) { background: #f8f4f0; color: #233f4e; }
@@ -284,7 +285,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .path-circle, .path-circle span, .path-stage-copy h3, .path-stage-copy p, .stage-initial, .follow-up-circle { transition: none; }
-    .enhanced li:not(.copy-revealed) .path-stage-copy p,
+    .enhanced li:not(.copy-revealed) .path-stage-copy,
     .path-follow-up.enhanced:not(.revealed),
     .path-follow-up.enhanced:not(.revealed) p:last-child { opacity: 1; transform: none; }
     .path-follow-up, .path-follow-up p:last-child { transition: none; }

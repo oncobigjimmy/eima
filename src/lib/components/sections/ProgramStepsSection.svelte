@@ -233,6 +233,7 @@
   @media (max-width: 1023px) {
     .mobile-step-bar { display: block; position: fixed; left: 0; right: 0; z-index: 30; padding: 10px 20px 12px; background: rgba(248,244,240,.96); box-shadow: 0 6px 16px rgba(35,63,78,.08); color: #233f4e; font-size: 13px; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
     .mobile-step-bar.shown { opacity: 1; visibility: visible; transform: translateY(0); }
+    :global(body:has(#mobile-menu[aria-hidden="false"])) .mobile-step-bar { display: none; }
     .mobile-step-segments { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 8px; }
     .mobile-step-segments span { height: 8px; border-radius: 999px; background: rgba(35,63,78,.12); transition: background-color var(--dur-estado) var(--ease-calma); }
     .mobile-step-segments .filled { background-color: #4083a7; }
