@@ -166,10 +166,10 @@
             {@const parts = phraseParts(slide.item)}
             <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
             {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
-            <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+            <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'} class:hint-running={index === current && markerActive && sectionVisible}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
               <span class="capture-window">{#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} style:filter={slide.item.cleanBackground ? 'contrast(1.15)' : undefined} width={slide.item.width} height={slide.item.height} /></svg>{/if}</span>
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
-            <span class="capture-hint" aria-hidden="true">{copy.captureHint}</span></button></div>
+            <span class="capture-hint" aria-hidden="true"><span class="hint-desktop">{copy.captureHint}</span><span class="hint-mobile">{pageLanguage === 'es' ? 'Pulsa para ampliar' : pageLanguage === 'ca' ? 'Toca per ampliar' : 'Tap to enlarge'}</span></span></button></div>
           {:else if slide.kind === 'bridge1'}
             <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html proofCopy.rows[0].subtitle}</p>
           {:else if slide.kind === 'bridge2'}
@@ -211,7 +211,7 @@
   .key-phrase { white-space: pre-line; font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left center / 0% 84% no-repeat; padding-block: 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .key-phrase .marked { background-size: 100% 84%; transition: background-size 800ms var(--ease-calma) 200ms; }
+  .key-phrase .marked { background-size: 100% 84%; transition: background-size 1100ms var(--ease-calma) 200ms; }
   .patient-initial { position: absolute; bottom: 12px; right: 18px; color: #fff; font: italic 400 19px/1.2 'Playfair Display', Georgia, serif; text-shadow: 0 1px 3px #071a2580; }
   .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; }
   .capture-action { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
@@ -224,7 +224,7 @@
   .magnify { position: relative; z-index: 1; margin-inline: auto; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 30px; height: 30px; display: grid; place-items: center; background: #233f4e; color: #fff; border: 0; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
   .magnify :global(svg) { filter: drop-shadow(0 1px 2px #071a2566); }
   .capture-action:focus-visible .magnify { opacity: 1; transform: translateY(0); }
-  @media (hover: none) { .central .magnify { opacity: 1; transform: translateY(0); } }
+  .hint-mobile { display: none; }
   /* Response cards share the blue testimonial treatment. */
   @media (min-width: 768px) { .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); } }
   .blue-response { background: #4083a7; color: #fff; }
@@ -277,9 +277,12 @@
     .restart { flex-direction: row; min-height: 44px; color: #F4F4F8; }
     .restart:is(:hover, :focus-visible) { color: #233f4e; background: #fff; }
     .final { padding-bottom: 56px; }
-    .journey-navigation { margin-top: 0; }
+    .journey-navigation { margin-top: 20px; }
+    .hint-desktop { display: none; } .hint-mobile { display: inline; }
+    .hint-running .magnify, .hint-running .capture-hint { animation: mobile-capture-prompt 350ms var(--ease-calma) 2600ms both; }
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
   }
-  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 84%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } }
+  @keyframes mobile-capture-prompt { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 84%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } .hint-running .magnify, .hint-running .capture-hint { animation: none; opacity: 1; transform: none; } }
 </style>

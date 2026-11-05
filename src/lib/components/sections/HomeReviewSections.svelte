@@ -363,18 +363,19 @@
   }
   @media (max-width: 767.98px) {
     .vsl h1 { margin-inline: -12px; }
-    .vsl .section-heading { margin-bottom: 3rem; }
+    .vsl .section-heading { margin-bottom: 1.125rem; }
     .programme-line { display: block; white-space: nowrap; }
-    .vsl .section-cta { margin-top: 3rem; display: grid; justify-items: center; }
-    .situations-grid { grid-template-columns: 1fr; }
+    .vsl .section-cta { margin-top: 1.125rem; display: grid; justify-items: center; }
+    .situations-grid { grid-template-columns: 1fr; row-gap: 3.25rem; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
     .recovery h2 { white-space: normal; }
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
     .goal-body { font-size: 14px; }
-    .situation-card { padding: 1.25rem; }
-    .situation-letter { font-size: 4rem; line-height: .8; margin-bottom: .8rem; transform: translateY(-6px); }
+    .situation-card { aspect-ratio: auto; min-height: 0; padding: .75rem 1rem; }
+    .situation-card .situation-quote { font-size: 22px; line-height: 1.2; }
+    .situation-letter { font-size: 4.5rem; line-height: .8; margin-bottom: .5rem; transform: none; }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }

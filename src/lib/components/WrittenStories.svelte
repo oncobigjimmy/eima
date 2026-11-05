@@ -102,7 +102,7 @@
     .filter-options button { display: block; width: 100%; text-align: left; min-height: 48px; padding: .5rem .75rem; border-radius: 8px; font-size: 15px; }
     .filter-options [aria-selected="true"] { background: #233f4e; color: #fff; }
     .written-grid { grid-template-columns: minmax(0, 1fr); }
-    .written-stories:has(:global(.written-card.scroll-active)) :global(.written-card:not(.scroll-active)) { filter: blur(.45px); opacity: .88; }
+    .written-stories:has(:global(.written-card.scroll-active)) :global(.written-card:not(.scroll-active)) { filter: blur(1px); opacity: .84; }
   }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
