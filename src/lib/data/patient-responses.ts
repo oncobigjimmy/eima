@@ -556,7 +556,7 @@ export const patientProofCopy: Record<Language, {
   es: {
     label: 'Respuestas de nuestros pacientes', previous: 'Respuesta anterior', next: 'Respuesta siguiente', position: 'de', expand: 'Ampliar respuesta', close: 'Cerrar respuesta',
     rows: [
-      { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: '<span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar.</span><span class="subtitle-line">Lo importante es saber <strong>cómo adaptar el ejercicio</strong> a cada momento, <strong>sin exigirte de más.</strong></span>' },
+      { category: 'difficult-day', title: 'No todos los días van a ser iguales.', subtitle: '<span class="subtitle-line">Durante el tratamiento habrá días en que puedas hacer más y otros en los que necesites descansar.</span><span class="subtitle-line">Lo importante es saber <strong>cómo adaptar el ejercicio</strong> a cada momento, sin exigirte de más.</span>' },
       { category: 'eima-adaptation', title: 'Precisamente para esos días existe Empenta.', subtitle: 'Vemos cómo vas y ajustamos lo necesario <strong>para que no tengas que decidir <span>tú solo/a</span> qué hacer.</strong>' },
       { category: 'progress', title: 'Y poco a poco, volver a hacer cosas que antes parecían lejos.' }
     ]
@@ -564,7 +564,7 @@ export const patientProofCopy: Record<Language, {
   ca: {
     label: 'Respostes dels nostres pacients', previous: 'Resposta anterior', next: 'Resposta següent', position: 'de', expand: 'Ampliar resposta', close: 'Tancar resposta',
     rows: [
-      { category: 'difficult-day', title: 'No tots els dies seran iguals.', subtitle: '<span class="subtitle-line">Durant el tractament hi haurà dies en què podràs fer més i altres en què necessitaràs descansar.</span><span class="subtitle-line">L’important és saber <strong>com adaptar l’exercici</strong> a cada moment, <strong>sense exigir-te de més.</strong></span>' },
+      { category: 'difficult-day', title: 'No tots els dies seran iguals.', subtitle: '<span class="subtitle-line">Durant el tractament hi haurà dies en què podràs fer més i altres en què necessitaràs descansar.</span><span class="subtitle-line">L’important és saber <strong>com adaptar l’exercici</strong> a cada moment, sense exigir-te de més.</span>' },
       { category: 'eima-adaptation', title: 'Precisament per a aquests dies existeix Empenta.', subtitle: 'Veim com vas i ajustam el que calgui <strong>perquè no hagis de decidir <span>tot sol/a</span> què fer.</strong>' },
       { category: 'progress', title: 'I a poc a poc, tornar a fer coses que creies que trigarien molt més.' }
     ]
@@ -572,7 +572,7 @@ export const patientProofCopy: Record<Language, {
   en: {
     label: 'Responses from our patients', previous: 'Previous response', next: 'Next response', position: 'of', expand: 'Enlarge response', close: 'Close response',
     rows: [
-      { category: 'difficult-day', title: 'Not every day will be the same.', subtitle: '<span class="subtitle-line">During treatment, some days you’ll be able to do more and others you’ll need to rest.</span><span class="subtitle-line">What matters is knowing <strong>how to adapt exercise</strong> at each stage, <strong>without pushing yourself too hard.</strong></span>' },
+      { category: 'difficult-day', title: 'Not every day will be the same.', subtitle: '<span class="subtitle-line">During treatment, some days you’ll be able to do more and others you’ll need to rest.</span><span class="subtitle-line">What matters is knowing <strong>how to adapt exercise</strong> at each stage, without pushing yourself too hard.</span>' },
       { category: 'eima-adaptation', title: 'That is exactly why Empenta exists.', subtitle: 'We see how you’re doing and adjust what’s needed <strong>so you don’t have to decide what to do <span>on your own.</span></strong>' },
       { category: 'progress', title: 'And little by little, doing things again that you thought would take much longer.' }
     ]

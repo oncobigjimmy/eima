@@ -1,14 +1,27 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { scrollContrast } from '$lib/actions/scrollContrast';
+  import ResponseHighlights from '$lib/components/ResponseHighlights.svelte';
+  import { watchReducedMotion } from '$lib/motion';
   import SearchIcon from '$lib/components/SearchIcon.svelte';
   import type { WrittenTestimonial } from '$lib/data/patient-responses';
   export let item: WrittenTestimonial;
   export let label: string;
   export let duplicate = false;
   export let open: (item: WrittenTestimonial) => void;
+  let card: HTMLButtonElement;
+  let active = false, reduced = false;
+  onMount(() => {
+    const observer = new MutationObserver(() => { active = card.classList.contains('scroll-active'); });
+    observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+    active = card.classList.contains('scroll-active');
+    const stop = watchReducedMotion(value => { reduced = value; });
+    return () => { observer.disconnect(); stop(); };
+  });
 </script>
 
-<button class="written-card" type="button" tabindex={duplicate ? -1 : 0} aria-label={`${label}${item.alt ? ': ' + item.alt : ''}`} aria-haspopup="dialog" on:click={() => open(item)}>
-  <span class="image-frame"><img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} loading="lazy" draggable="false" /></span>
+<button bind:this={card} use:scrollContrast={'.written-stories'} class="written-card" type="button" tabindex={duplicate ? -1 : 0} aria-label={`${label}${item.alt ? ': ' + item.alt : ''}`} aria-haspopup="dialog" on:click={() => open(item)}>
+  <span class="image-frame"><img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} loading="lazy" draggable="false" /><ResponseHighlights lines={item.markers} {active} {reduced} /></span>
   <span class="magnify" aria-hidden="true"><SearchIcon /></span>
 </button>
 
@@ -18,6 +31,10 @@
   .magnify { position: absolute; right: 16px; bottom: 16px; display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 10px; background: #233f4e; color: #fff; box-shadow: 0 3px 12px #233f4e12; opacity: 0; transition: opacity var(--dur-estado) var(--ease-calma); }
   .magnify :global(svg) { filter: drop-shadow(0 1px 2px #071a2566); }
   .written-card:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; } .written-card:focus-visible .magnify { opacity: 1; }
-  @media (hover: hover) and (pointer: fine) { .written-card:hover { transform: translateY(-4px) scale(1.035); background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; } .written-card:hover .magnify { opacity: 1; } }
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) { .written-card:hover { transform: translateY(-4px) scale(1.035); background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; } .written-card:hover .magnify { opacity: 1; } }
+  @media (max-width: 767px) {
+    .written-card:global(.scroll-active) { border-color: #8cd0d6; box-shadow: 0 3px 12px #233f4e08; }
+    .written-card:global(.scroll-active) .magnify { opacity: 1; }
+  }
   @media (prefers-reduced-motion: reduce) { .written-card, .magnify { transition: none; } .written-card:hover { transform: none; } }
 </style>

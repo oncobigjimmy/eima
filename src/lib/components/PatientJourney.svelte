@@ -145,7 +145,7 @@
 </script>
 
 <section class="patient-proof" aria-labelledby="patient-proof-title">
-  <header use:standardEntry><h2 id="patient-proof-title">{copy.headingBefore}<br /><span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
+  <header use:standardEntry><h2 id="patient-proof-title">{#if pageLanguage === 'es'}Lo que nos cuentan<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>cada semana</span>{:else if pageLanguage === 'ca'}El que ens expliquen<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>cada setmana</span>{:else}What we hear<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>each week from</span>{/if}<br /><span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
   <div class="chapter-bar">
     {#each testimonialChapters as key, index}
       <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * chapterLength)}>
@@ -228,7 +228,8 @@
   /* Response cards share the blue testimonial treatment. */
   @media (min-width: 768px) { .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); } }
   .blue-response { background: #4083a7; color: #fff; }
-  .blue-response .key-phrase { color: #fff; text-shadow: 0 1px 2px #071a25a6, 0 0 4px #071a2533; }
+  .blue-response .key-phrase { color: #fff; }
+  .blue-response .quote-open { text-shadow: 0 2px 3px #071a2580, 0 0 5px #071a2533; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
   @media (hover: hover) and (pointer: fine) {
@@ -243,9 +244,12 @@
   h3 { font-size: 30px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
   .first-bridge h3 span { font-weight: 600; }
   .final-cta { display: grid; place-items: center; width: 100%; }
+  .bridge-body :global(strong) { font-weight: 600; }
+  .heading-mobile-break { display: none; }
+  .heading-week { color: inherit; }
   .bridge-body :global(.subtitle-line) { display: block; }
   .bridge-body :global(.subtitle-line + .subtitle-line) { margin-top: .5rem; }
-  .bridge-body { font: 400 14px/1.65 Inter, sans-serif; color: #F4F4F8; margin-top: 1rem; }
+  .bridge-body { font: 300 14px/1.65 Inter, sans-serif; color: #F4F4F8; margin-top: 1rem; }
   .final { height: 320px; margin-top: -160px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
   .final h3 { font-size: 30px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
   .restart-slot { position: absolute; top: 150px; left: calc(50% + 215px); width: 150px; }
@@ -258,9 +262,9 @@
   button:focus-visible, a:focus-visible, .journey-carousel:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   @media (hover: hover) and (pointer: fine) { .secondary-cta:hover { background: #233f4e; color: #fff; } }
   @media (max-width: 767px) {
-    h2 { font-size: 30px; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
-    .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: .75rem; } .chapter-bar button { font-size: 12.5px; }
-    .journey-stage { height: 360px; }
+    h2 { font-size: clamp(26px, 8vw, 30px); } .heading-mobile-break { display: block; } .heading-desktop-space { display: none; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
+    .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: 0; } .chapter-bar button { font-size: 12px; }
+    .journey-stage { height: 340px; }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .key-phrase { font-size: 18px; white-space: normal; }
     .capture-group { width: min(224px, 100%); }
@@ -269,8 +273,10 @@
     .bridge { height: 310px; margin-top: -155px; }
     .final { height: 320px; margin-top: -160px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; }
-    .restart-slot { position: static; display: flex; justify-content: flex-end; width: auto; height: 50px; margin: 0 1rem; }
-    .restart { flex-direction: row; min-height: 44px; }
+    .restart-slot { position: absolute; z-index: 110; top: 273px; left: calc(50% - 134px); width: 268px; display: flex; justify-content: center; height: 44px; margin: 0; }
+    .restart { flex-direction: row; min-height: 44px; color: #F4F4F8; }
+    .restart:is(:hover, :focus-visible) { color: #233f4e; background: #fff; }
+    .final { padding-bottom: 56px; }
     .journey-navigation { margin-top: 0; }
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
     .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }

@@ -73,7 +73,7 @@
   .written-stories { margin-top: 2rem; }
   .desktop-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
   .desktop-filters button { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid rgba(35,63,78,.25); border-radius: 999px; font-size: 14px; font-weight: 400; color: #233f4e; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
-  @media (hover: hover) and (pointer: fine) {
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .desktop-filters button:not(.active):hover, .desktop-filters button:not(.active):focus-visible { background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; }
     .filter-options button:not([aria-selected="true"]):hover { background: #fff; box-shadow: inset 0 0 0 1px #4083a740; }
   }
@@ -102,8 +102,9 @@
     .filter-options button { display: block; width: 100%; text-align: left; min-height: 48px; padding: .5rem .75rem; border-radius: 8px; font-size: 15px; }
     .filter-options [aria-selected="true"] { background: #233f4e; color: #fff; }
     .written-grid { grid-template-columns: minmax(0, 1fr); }
+    .written-stories:has(:global(.written-card.scroll-active)) :global(.written-card:not(.scroll-active)) { filter: blur(.45px); opacity: .88; }
   }
-  @media (hover: hover) and (pointer: fine) {
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
     .written-stories:not(:has(:global(.written-card:hover))):has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(.65px); opacity: .82; }
   }

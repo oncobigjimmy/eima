@@ -9,7 +9,7 @@ export const testimonialUi = {
     previous: 'Respuesta anterior', next: 'Respuesta siguiente', expand: 'Ampliar respuesta', captureHint: 'Haz clic para aumentar', restart: 'Volver al principio',
     bridge1: 'Pero durante un cáncer, ', bridge1Accent: 'no todos los días son así.',
     bridge2: 'Precisamente ', bridge2Accent: 'para esos días', bridge2End: ' existe Empenta',
-    final: 'Para que puedas volver', finalAccent: 'a hacer las cosas', finalEnd: 'que echas de menos.',
+    final: 'Para que puedas', finalAccent: 'volver a hacer las cosas', finalEnd: 'que echas de menos.',
     tabs: ['Historias en vídeo', 'Historias escritas'],
     filters: ['Todas', 'Lo que se recupera', 'Los días difíciles', 'Cómo te acompañamos'], filter: 'Filtrar:',
     pause: 'Pausar movimiento', resume: 'Reanudar'
@@ -22,7 +22,7 @@ export const testimonialUi = {
     previous: 'Resposta anterior', next: 'Resposta següent', expand: 'Ampliar resposta', captureHint: 'Fes clic per ampliar', restart: 'Tornar al principi',
     bridge1: 'Però durant un càncer, ', bridge1Accent: 'no tots els dies són així.',
     bridge2: 'Precisament ', bridge2Accent: 'per a aquests dies', bridge2End: ' existeix Empenta',
-    final: 'Perquè puguis tornar', finalAccent: 'a fer les coses', finalEnd: 'que enyores.',
+    final: 'Perquè puguis', finalAccent: 'tornar a fer les coses', finalEnd: 'que enyores.',
     tabs: ['Històries en vídeo', 'Històries escrites'],
     filters: ['Totes', 'El que es recupera', 'Els dies difícils', "Com t'acompanyam"], filter: 'Filtrar:',
     pause: 'Aturar moviment', resume: 'Reprendre'
@@ -35,7 +35,7 @@ export const testimonialUi = {
     previous: 'Previous response', next: 'Next response', expand: 'Enlarge response', captureHint: 'Click to enlarge', restart: 'Back to the beginning',
     bridge1: 'But during cancer, ', bridge1Accent: 'not every day is like that.',
     bridge2: 'It is precisely ', bridge2Accent: 'for those days', bridge2End: ' that Empenta exists',
-    final: 'So you can get back', finalAccent: 'to doing the things', finalEnd: 'you miss.',
+    final: 'So you can', finalAccent: 'get back to doing the things', finalEnd: 'you miss.',
     tabs: ['Video stories', 'Written stories'],
     filters: ['All', 'What you regain', 'Difficult days', 'How we support you'], filter: 'Filter:',
     pause: 'Pause movement', resume: 'Resume'

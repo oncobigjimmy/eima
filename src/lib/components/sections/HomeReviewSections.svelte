@@ -409,6 +409,10 @@
     .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .vsl h1, .cta-note, .goal-body, .situations-closing { font-size: 14px !important; font-weight: 400; line-height: 1.6; }
   }
 
+  @media (max-width: 767px) {
+    .vsl h1 { line-height: 1.3; }
+    .vsl .cta-note { font-size: 13px !important; line-height: 1.4; max-width: none; margin-inline: -12px; text-wrap: balance; }
+  }
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
   .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
@@ -430,4 +434,5 @@
 @media (hover: none), (pointer: coarse) { .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); } }
 @media (prefers-reduced-motion: reduce) { .selection-control { transition: none; transform: translate(-50%, 0); } }
 @media (max-width: 767px) { .selection-instruction { font-size: 14px; } }
+  @media (max-width: 360px) { .vsl .cta-note { font-size: 11.5px !important; } }
 </style>

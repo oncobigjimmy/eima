@@ -196,10 +196,11 @@
   .home-hero-accent { margin-top: .375rem; }
   .home-hero-copy { margin-top: 1.75rem; }
   @media (max-width: 767.98px) {
-    .home-hero-copy { font-size: 14.8px; font-weight: 400; line-height: 1.6; }
+    .home-hero-copy { font-size: 13px; font-weight: 400; line-height: 1.6; }
     .home-hero { min-height: 0 !important; }
-    .home-hero-content { padding-bottom: 40px; }
+    .home-hero-content { padding-bottom: 40px; padding-inline: 16px; }
   }
+  @media (max-width: 360px) { .home-hero-copy { font-size: 12px; } }
 </style>
 
 
