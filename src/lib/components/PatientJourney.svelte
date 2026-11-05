@@ -229,7 +229,7 @@
   @media (min-width: 768px) { .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); } }
   .blue-response { background: #4083a7; color: #fff; }
   .blue-response .key-phrase { color: #fff; }
-  .blue-response .quote-open { text-shadow: 0 2px 3px #071a2580, 0 0 5px #071a2533; }
+  .blue-response .quote-open { text-shadow: 0 0 3px #071a2580, 0 0 5px #071a2533; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
   @media (hover: hover) and (pointer: fine) {
