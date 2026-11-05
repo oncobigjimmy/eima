@@ -149,7 +149,7 @@
       use:revealOnScroll
       use:scrollContrast
       class="fit-reveal fit-card fit-card--no w-full max-w-[34rem] justify-self-center rounded-[14px] bg-white p-7 shadow-[0_16px_36px_rgba(14,29,38,0.08)] transition-[transform,box-shadow,opacity,filter] duration-150 ease-out md:p-8"
-      style="--reveal-delay: 60ms"
+      style="--reveal-delay: var(--stagger)"
     >
       <div class="fit-card__inner">
         <div class="flex items-center gap-3">
@@ -206,10 +206,10 @@
 
   .fit-reveal {
     opacity: 0;
-    transform: translate3d(0, 26px, 0);
+    transform: translate3d(0, 16px, 0);
     transition:
-      opacity 310ms ease-out,
-      transform 310ms ease-out,
+      opacity var(--dur-entrada) var(--ease-calma),
+      transform var(--dur-entrada) var(--ease-calma),
       box-shadow 150ms ease-out,
       filter 150ms ease-out;
     transition-delay: var(--reveal-delay, 0ms);

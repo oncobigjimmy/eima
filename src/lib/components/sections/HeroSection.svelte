@@ -5,12 +5,10 @@
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { watchReducedMotion } from '$lib/motion';
-  let reducedMotion = false;
+  import TypedSequence from '$lib/components/TypedSequence.svelte';
   /** @type {HTMLVideoElement} */
   let heroVideo;
 
-  /** @param {number} ms */
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   /** @param {string} html */
   function parseInlineHtml(html) {
@@ -46,59 +44,11 @@
   $: prefix = { es: 'Más ', ca: 'Més ', en: 'More ' }[$language];
   $: words = { es: ['energía.', 'salud.', 'vida.'], ca: ['energia.', 'salut.', 'vida.'], en: ['energy.', 'health.', 'life.'] }[$language];
 
-  onMount(() => {
-    let cancelled = false;
-    let generation = 0;
-    let hiddenAt = document.hidden ? performance.now() : null;
-    let hiddenTime = 0;
-    const visibilityChanged = () => {
-      const now = performance.now();
-      if (document.hidden) hiddenAt = now;
-      else if (hiddenAt !== null) { hiddenTime += now - hiddenAt; hiddenAt = null; }
-    };
-    const activeNow = () => (hiddenAt ?? performance.now()) - hiddenTime;
-    document.addEventListener('visibilitychange', visibilityChanged);
-    /** Time advances only while the document is visible. @param {number} ms @param {number} version */
-    async function wait(ms, version) {
-      let remaining = ms;
-      let previous = activeNow();
-      while (remaining > 0 && !cancelled && version === generation) {
-        await sleep(Math.min(25, remaining));
-        const now = activeNow();
-        remaining -= now - previous;
-        previous = now;
-      }
-      while (document.hidden && !cancelled && version === generation) await sleep(50);
-      return !cancelled && version === generation;
-    }
-    /** @param {number} version */
-    async function animate(version) {
-      complete = false;
-      typedPhrase = '';
-      for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
-        const word = words[wordIndex];
-        for (let length = 1; length <= word.length; length++) {
-          if (!await wait(100, version)) return;
-          typedPhrase = word.slice(0, length);
-        }
-        if (wordIndex === words.length - 1) break;
-        if (!await wait(2000, version)) return;
-        for (let length = word.length - 1; length >= 0; length--) {
-          if (!await wait(50, version)) return;
-          typedPhrase = word.slice(0, length);
-        }
-      }
-      complete = true;
-    }
-    const stopMotion = watchReducedMotion(reduced => {
-      reducedMotion = reduced;
-      generation++;
-      if (heroVideo) heroVideo.autoplay = !reduced;
-      if (reduced) { typedPhrase = words[2]; complete = true; heroVideo?.pause(); }
-      else { animate(generation); heroVideo?.play().catch(() => {}); }
-    });
-    return () => { cancelled = true; generation++; stopMotion(); document.removeEventListener('visibilitychange', visibilityChanged); };
-  });
+  onMount(() => watchReducedMotion(reduced => {
+    if (heroVideo) heroVideo.autoplay = !reduced;
+    if (reduced) heroVideo?.pause();
+    else heroVideo?.play().catch(() => {});
+  }));
 </script>
 
 <section class="home-hero relative isolate w-full overflow-hidden" style="min-height: 92vh;">
@@ -129,7 +79,7 @@
         class:review-typed={true}
         aria-label={prefix + words[2]}
       >
-        <span aria-hidden="true">{prefix}</span><span class="typed-text" class:complete aria-hidden="true">{reducedMotion ? words[2] : typedPhrase}</span>
+        <span aria-hidden="true">{prefix}</span>{#key $language}<TypedSequence {words} />{/key}
       </span>
       <span
         class="hero-accent-line mt-3 block font-serif-italic text-3xl md:text-[3.2rem]"
@@ -184,11 +134,8 @@
 
 <style>
   .review-typed { min-height: 1.08em; font-size: clamp(2.5rem, 10vw, 5rem); }
-  .typed-text::after { content: ''; display: inline-block; width: 2px; height: .82em; margin-left: .08em; vertical-align: -.02em; background: currentColor; animation: hero-cursor 1200ms steps(1, end) infinite; }
-  .typed-text.complete::after { animation: hero-cursor 1200ms steps(1, end) 3 forwards; }
-  @keyframes hero-cursor { 0%, 55% { opacity: .65; } 56%, 100% { opacity: 0; } }
   @media (min-width: 768px) { .hero-cta { max-width: 32rem; } }
-  @media (prefers-reduced-motion: reduce) { .typed-text::after { display: none; animation: none; } }
+
   .hero-accent-line {
     font-weight: 300 !important;
   }

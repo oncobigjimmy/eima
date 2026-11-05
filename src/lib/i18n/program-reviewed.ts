@@ -15,7 +15,8 @@ export const programReview = {
     newTiming: '<strong>En algunes situacions pot ser necessari esperar, modificar l’exercici o consultar abans amb el teu equip mèdic. Per això valoram el teu cas i decidim què té sentit per a tu.</strong>',
     intro: 'Un procés perquè no hagis d’improvisar <strong>què fer, quant fer ni com saber si ho estàs fent bé.</strong>',
     badge: 'Valoració + pla + seguiment',
-    side: '<strong style="color: #4083a7;">Empenta</strong> és un programa d’<strong>acompanyament de 12 setmanes.</strong> Però això no significa que hagis d’avançar al mateix ritme que una altra persona.<br /><br />Adaptam l’exercici al <strong>teu punt de partida, la teva evolució i els teus objectius.</strong>',
+    // TODO [CA-revisar]: revisar el párrafo unificado.
+    side: '<strong style="color: #4083a7;">Empenta</strong> és un programa d’<strong>acompanyament de 12 setmanes,</strong> en el qual adaptam l’exercici al <strong>teu punt de partida, la teva evolució i els teus objectius.</strong>',
     bodies: [
       'Començam amb una <strong>breu telefonada</strong> per entendre la teva situació i veure si et podem ajudar. Si encaixa, t’enviam un formulari per recollir la <strong>informació important abans de començar</strong>.',
       'Venim al teu domicili per conèixer-te i <strong>valorar des d’on partim</strong>. Revisam la teva història, els teus símptomes, el teu tractament i la teva condició física per <strong>adaptar el pla a tu des del principi</strong>.',
@@ -40,7 +41,7 @@ export const programReview = {
     newTiming: '<strong>In some situations, you may need to wait, modify exercise or consult your medical team beforehand. That is why we assess your case and decide what makes sense for you.</strong>',
     intro: 'A process so you don’t have to improvise <strong>what to do, how much or how to know whether you’re doing it right.</strong>',
     badge: 'Assessment + plan + follow-up',
-    side: '<strong style="color: #4083a7;">Empenta</strong> is a <strong>12-week support programme.</strong> But that does not mean you have to progress at the same pace as someone else.<br /><br />We adapt exercise to <strong>your starting point, your progress and your goals.</strong>',
+    side: '<strong style="color: #4083a7;">Empenta</strong> is a <strong>12-week support programme,</strong> in which we adapt exercise to <strong>your starting point, your progress and your goals.</strong>',
     bodies: [
       'We start with a <strong>short phone call</strong> to understand your situation and see whether we can help. If it’s a good fit, we send you a form to collect the <strong>important information before we begin</strong>.',
       'We visit your home to get to know you and <strong>assess our starting point</strong>. We review your history, symptoms, treatment and physical condition to <strong>adapt the plan to you from the start</strong>.',

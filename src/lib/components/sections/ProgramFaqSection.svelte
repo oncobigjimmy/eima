@@ -39,6 +39,38 @@
     };
   }
 
+  // Enhance only after hydration: SSR answers and FAQPage text stay unchanged.
+  function shortAnswer(node: HTMLElement, options: { html: string; enabled: boolean }) {
+    function apply(value: typeof options) {
+      node.innerHTML = value.html;
+      if (!value.enabled) return;
+      const text = node.textContent ?? '';
+      const sentences = Array.from(text.matchAll(/[.!?](?=\s|$)/g));
+      if (!sentences.length) return;
+      let end = sentences[0].index! + 1;
+      if (text.slice(0, end).trim().length < 25 && sentences[1]) end = sentences[1].index! + 1;
+      const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+      let remaining = end;
+      let current: Node | null;
+      while ((current = walker.nextNode())) {
+        const length = current.textContent?.length ?? 0;
+        if (remaining <= length) {
+          const range = document.createRange();
+          range.setStart(node, 0);
+          range.setEnd(current, remaining);
+          const span = document.createElement('span');
+          span.className = 'faq-short';
+          span.append(range.extractContents());
+          node.prepend(span);
+          break;
+        }
+        remaining -= length;
+      }
+    }
+    apply(options);
+    return { update: apply };
+  }
+
   function revealOnScroll(node: HTMLElement) {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -98,7 +130,7 @@
                 ? 'border-2 border-[#4083A7] bg-white shadow-[0_16px_34px_rgba(14,29,38,0.10)]'
                 : 'border-2 border-transparent bg-white shadow-[0_10px_24px_rgba(14,29,38,0.06)] hover:border-[#4083A7] hover:shadow-[0_14px_30px_rgba(14,29,38,0.09)]'
             }`}
-            style={`--reveal-delay: ${Math.min(index, 5) * 70}ms`}
+            style={`--reveal-delay: calc(${index} * var(--stagger))`}
           >
             <button
               type="button"
@@ -114,7 +146,7 @@
                 }`}
                 aria-hidden="true"
               >
-                <svg viewBox="0 0 256 256" class="h-11 w-11 fill-current md:h-9 md:w-9">
+                <svg viewBox="0 0 256 256" class="h-11 w-11 md:h-9 md:w-9" fill="currentColor">
                   <path d={faq.icon}></path>
                 </svg>
               </span>
@@ -145,8 +177,8 @@
                 out:slide={{ duration: motionDuration(280) }}
               >
                 <div class="faq-answer text-[14px] font-light leading-[1.75] text-[#245B7D] md:text-[14px]">
-                  {#each faq.a as paragraph}
-                    <p use:htmlContent={renderFaqParagraph(paragraph, whatsappHref)}>{@html renderFaqParagraph(paragraph, whatsappHref)}</p>
+                  {#each faq.a as paragraph, paragraphIndex}
+                    <p use:shortAnswer={{ html: renderFaqParagraph(paragraph, whatsappHref), enabled: paragraphIndex === 0 && !('short' in faq) }}>{@html renderFaqParagraph(paragraph, whatsappHref)}</p>
                   {/each}
 
                   {#if faq.cta}
@@ -212,6 +244,8 @@
     color: inherit;
   }
 
+  .faq-answer :global(.faq-short) { display: block; font-size: 17px; font-weight: 500; color: #233f4e; margin-bottom: 8px; }
+  @media (max-width: 767px) { .faq-answer :global(.faq-short) { font-size: 16px; } }
   .faq-answer p + p {
     margin-top: 0.95rem;
   }
@@ -222,10 +256,10 @@
 
   .faq-reveal {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 16px, 0);
     transition:
-      opacity 560ms ease-out,
-      transform 560ms ease-out,
+      opacity var(--dur-entrada) var(--ease-calma),
+      transform var(--dur-entrada) var(--ease-calma),
       border-color 300ms ease-out,
       box-shadow 300ms ease-out,
       background-color 300ms ease-out;
