@@ -114,7 +114,7 @@
                 }`}
                 aria-hidden="true"
               >
-                <svg viewBox="0 0 256 256" class="h-11 w-11 fill-current md:h-9 md:w-9">
+                <svg viewBox="0 0 256 256" class="h-11 w-11 md:h-9 md:w-9" fill="currentColor">
                   <path d={faq.icon}></path>
                 </svg>
               </span>
