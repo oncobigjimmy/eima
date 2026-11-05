@@ -14,13 +14,11 @@
   import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { watchReducedMotion } from '$lib/motion';
-  let reducedMotion = false;
+  import TypedSequence from '$lib/components/TypedSequence.svelte';
 
   let programCopy = getProgramCopy('es');
   let phrases = programCopy.hero.phrases;
 
-  /** @param {number} ms */
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   /** @type {HTMLVideoElement} */
   let heroVideo;
@@ -47,69 +45,13 @@
   $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
   $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
   $: alternateLinks = getAlternateLinks('program');
-  $: if (phrases !== hero.phrases) {
-    phrases = hero.phrases;
-    phraseIndex = 0;
-    typedPhrase = reducedMotion ? phrases[0] : '';
-    showUnderscore = false;
-  }
+  $: phrases = [hero.phrases[1], hero.phrases[2], hero.phrases[0]];
+  onMount(() => watchReducedMotion(reduced => {
+    if (heroVideo) heroVideo.autoplay = !reduced;
+    if (reduced) heroVideo?.pause();
+    else heroVideo?.play().catch(() => {});
+  }));
 
-  onMount(() => {
-    let cancelled = false;
-    let generation = 0;
-
-    /** @param {number} version */
-    async function animate(version) {
-      while (!cancelled && !reducedMotion && version === generation) {
-        const phrase = phrases[phraseIndex];
-        typedPhrase = '';
-        showUnderscore = false;
-
-        for (let i = 1; i <= phrase.length && !cancelled && !reducedMotion && version === generation; i += 1) {
-          typedPhrase = phrase.slice(0, i);
-          if (i < phrase.length) await sleep(90);
-        }
-
-        if (cancelled || reducedMotion || version !== generation) return;
-        showUnderscore = true;
-        // Original complete-phrase dwell included the final 90 ms typing delay: 810 / 510 ms.
-        await sleep(phraseIndex < phrases.length - 1 ? 2810 : 2510);
-        showUnderscore = false;
-
-        if (cancelled || reducedMotion || version !== generation) return;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
-    }
-
-    const tryPlay = async () => {
-      if (!heroVideo) return;
-      try {
-        await heroVideo.play();
-      } catch {
-        // Ignore autoplay failures in local preview.
-      }
-    };
-
-    const stopMotion = watchReducedMotion((reduced) => {
-      reducedMotion = reduced;
-      generation += 1;
-      if (heroVideo) heroVideo.autoplay = !reduced;
-      if (reduced) {
-        phraseIndex = 0;
-        typedPhrase = phrases[0];
-        showUnderscore = false;
-        heroVideo?.pause();
-      } else {
-        animate(generation);
-        tryPlay();
-      }
-    });
-
-    return () => {
-      cancelled = true;
-      stopMotion();
-    };
-  });
 </script>
 
 <svelte:head>
@@ -163,11 +105,9 @@
       <span
         class="hero-typed-line mt-3 block text-[28px] md:mt-3 md:text-[50px]"
         style="color: var(--color-brand-accent);"
-        aria-label={phrases[phraseIndex]}
+        aria-hidden="true"
       >
-        <span class="inline-block min-w-[14ch]">
-          {typedPhrase}{#if showUnderscore}<span class="typed-underscore">_</span>{/if}
-        </span>
+        {#key pageLanguage}<TypedSequence words={phrases} />{/key}
       </span>
       <span class={`block text-[35px] font-light text-white md:text-[60px] mt-3 md:mt-3`}>
         {hero.line1}
@@ -253,7 +193,7 @@
   :global(.program-es-rhythm #faq) { padding-bottom: var(--program-section-end); }
 
   .hero-typed-line,
-  .hero-typed-line * {
+  .hero-typed-line :global(*) {
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
     font-weight: 300 !important;
     font-style: italic !important;
@@ -263,16 +203,7 @@
     .program-hero-copy { width: fit-content; max-width: 42rem; }
     .program-hero-description, .program-hero-cta { width: 100%; }
   }
-  .hero-typed-line { min-height: 2.04em; display: flex; align-items: flex-end; }
-  @media (min-width: 768px) { .hero-typed-line { min-height: 1.02em; display: block; } }
-  .typed-underscore {
-    display: inline-block;
-    margin-left: 0.02em;
-    animation: program-cursor 1200ms steps(1, end) infinite;
-  }
-
-  @keyframes program-cursor { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .typed-underscore { animation: none; } }
+  .hero-typed-line { min-height: 1.02em; white-space: nowrap; display: block; }
 @media (max-width: 767px) { .program-hero-description { font-size: 14.8px; } }
 </style>
 
