@@ -5,10 +5,12 @@
   export let active = false;
   export let reduced = false;
   export let duration = 700;
+  export let finished = false;
 
   let completed = 0;
   $: if (!active) completed = 0;
   $: if (active && reduced) completed = lines.length;
+  $: finished = active && completed >= lines.length;
 </script>
 
 {#each lines as line, index}

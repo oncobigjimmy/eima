@@ -139,6 +139,20 @@
     ca: { quote: 'He pogut tornar a seguir\nles rutines establertes i\na sentir-me «normal».', highlight: 'a sentir-me «normal»' },
     en: { quote: 'I have been able to follow\nmy established routines again\nand feel “normal”.', highlight: 'and feel “normal”' }
   };
+  const mobileSpanishQuotes: Record<string, string> = {
+    'progress-2': '…puedo volver a la rutina\nde antes del cáncer.',
+    'progress-9': 'Lograr salir a caminar todos\nlos días, a pesar del tratamiento\ny las inyecciones.',
+    'difficult-day-1': 'Hemos ido a caminar pero\nestaba muy cansada. He\nhecho lo que he podido.',
+    'difficult-day-mental-fog': 'Sigo con bastante\n“niebla” en la cabeza.',
+    'difficult-day-2': 'Todo el día sin energía y\ncon asco y vómitos.',
+    'eima-adaptation-1': 'Me encanta que sea un plan\nadaptable al día a día y así\nno me frustro.'
+  };
+  const mobileBridgeLines = {
+    es: 'Lo importante es saber <strong>cómo adaptar<br />el ejercicio</strong> a cada momento,<br />sin exigirte de más.',
+    ca: 'L’important és saber <strong>com adaptar<br />l’exercici</strong> a cada moment,<br />sense exigir-te de més.',
+    en: 'What matters is knowing <strong>how to adapt<br />exercise</strong> at each stage,<br />without pushing yourself too hard.'
+  };
+  $: mobileBridgeSubtitle = proofCopy.rows[0].subtitle?.split('</span>')[0] + '</span><span class="subtitle-line">' + mobileBridgeLines[pageLanguage] + '</span>';
   $: mobileFinal = {
     es: ['Para que puedas', 'volver a hacer las', 'cosas que más', 'echas de menos.'],
     ca: ['Perquè puguis', 'tornar a fer les', 'coses que més', 'enyores.'],
@@ -146,6 +160,7 @@
   }[pageLanguage];
   function phrase(item: WrittenTestimonial, isMobile = mobile) {
     if (isMobile && item.id === 'progress-12') return mobileRoutine[pageLanguage].quote;
+    if (isMobile && pageLanguage === 'es' && mobileSpanishQuotes[item.id]) return mobileSpanishQuotes[item.id];
     return (pageLanguage === 'es' && spanishQuoteLines[item.id]) || item.quote[pageLanguage] || item.caption[pageLanguage];
   }
   function phraseParts(item: WrittenTestimonial, isMobile = mobile) {
@@ -175,14 +190,14 @@
         <article use:halfVerticalSpace={slide.kind === 'response'} class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item, mobile)}
-            <blockquote class="key-phrase"><button class="quote-open" class:quote-mobile-lines={mobile && slide.item.id === 'progress-12'} type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
+            <blockquote class="key-phrase"><button class="quote-open" class:quote-mobile-lines={mobile && (slide.item.id === 'progress-12' || (pageLanguage === 'es' && Boolean(mobileSpanishQuotes[slide.item.id])))} type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
             {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
             <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'} class:hint-running={index === current && markerActive && sectionVisible}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
               <span class="capture-window">{#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} style:filter={slide.item.cleanBackground ? 'contrast(1.15)' : undefined} width={slide.item.width} height={slide.item.height} /></svg>{/if}</span>
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
             <span class="capture-hint" aria-hidden="true"><span class="hint-desktop">{copy.captureHint}</span><span class="hint-mobile">{pageLanguage === 'es' ? 'Pulsa para ampliar' : pageLanguage === 'ca' ? 'Toca per ampliar' : 'Tap to enlarge'}</span></span></button></div>
           {:else if slide.kind === 'bridge1'}
-            <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html proofCopy.rows[0].subtitle}</p>
+            <h3>{copy.bridge1}<span>{copy.bridge1Accent}</span></h3><p class="bridge-body">{@html mobile ? mobileBridgeSubtitle : proofCopy.rows[0].subtitle}</p>
           {:else if slide.kind === 'bridge2'}
             <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
           {:else}
@@ -279,6 +294,7 @@
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); }
     .key-phrase { font-size: 18px; white-space: normal; }
+    .key-phrase span { background-position: left calc(50% + 1px); }
     .quote-mobile-lines { white-space: pre-line; }
     .capture-group { width: min(224px, 100%); }
     .capture-window { height: 115px; flex-basis: 115px; }

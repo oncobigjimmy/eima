@@ -11,6 +11,7 @@
   export let open: (item: WrittenTestimonial) => void;
   let card: HTMLButtonElement;
   let active = false, reduced = false;
+  let highlightsDone = false;
   onMount(() => {
     const observer = new MutationObserver(() => { active = card.classList.contains('scroll-active'); });
     observer.observe(card, { attributes: true, attributeFilter: ['class'] });
@@ -20,8 +21,8 @@
   });
 </script>
 
-<button bind:this={card} use:scrollContrast={'.written-stories'} class="written-card" type="button" tabindex={duplicate ? -1 : 0} aria-label={`${label}${item.alt ? ': ' + item.alt : ''}`} aria-haspopup="dialog" on:click={() => open(item)}>
-  <span class="image-frame"><img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} loading="lazy" draggable="false" /><ResponseHighlights lines={item.markers} {active} {reduced} /></span>
+<button bind:this={card} use:scrollContrast={'.written-stories'} class="written-card" class:highlights-done={highlightsDone} type="button" tabindex={duplicate ? -1 : 0} aria-label={`${label}${item.alt ? ': ' + item.alt : ''}`} aria-haspopup="dialog" on:click={() => open(item)}>
+  <span class="image-frame"><img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} loading="lazy" draggable="false" /><ResponseHighlights lines={item.markers} {active} {reduced} bind:finished={highlightsDone} /></span>
   <span class="magnify" aria-hidden="true"><SearchIcon /></span>
 </button>
 
@@ -34,7 +35,7 @@
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) { .written-card:hover { transform: translateY(-4px) scale(1.035); background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; } .written-card:hover .magnify { opacity: 1; } }
   @media (max-width: 767px) {
     .written-card:global(.scroll-active) { border-color: transparent; box-shadow: 0 3px 12px #233f4e08; }
-    .written-card:global(.scroll-active) .magnify { opacity: 1; }
+    .written-card:global(.scroll-active).highlights-done .magnify { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) { .written-card, .magnify { transition: none; } .written-card:hover { transform: none; } }
 </style>

@@ -440,7 +440,7 @@
   @media (max-width: 360px) { .vsl .cta-note { font-size: 11.5px !important; } }
   @media (max-width: 767px) {
     .instruction-desktop { display: none; }
-    .selection-control { display: block; opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+    .selection-control { display: none; }
     .instruction-mobile { display: inline; }
     .vsl .cta-note { display: none; }
     .situations .section-cta { margin-top: 4rem; }

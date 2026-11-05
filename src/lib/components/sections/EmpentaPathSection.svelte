@@ -38,7 +38,6 @@
   let closingRevealed = true;
   let sectionVisible = false;
   let flightStarted = false;
-  let flightCompleted = false;
   $: if (sectionVisible && closingRevealed) flightStarted = true;
   let width = 1440;
   let height = 260;
@@ -171,7 +170,7 @@
   <footer class="path-follow-up" bind:this={followUp} class:enhanced class:revealed={closingRevealed} class:flying={flightStarted} class:reached={!enhanced || closingRevealed}>
     <h3>{copy.next}</h3>
     <div class="follow-up-circle" aria-hidden="true">
-      <svg class="follow-up-bird" class:landed={flightCompleted} viewBox="0 0 64 64" on:animationend={event => { if (event.target === event.currentTarget) flightCompleted = true; }}>
+      <svg class="follow-up-bird" viewBox="0 0 64 64">
         <g class="bird-lift">
           <path class="bird-back-wing" d="M32 36C38 22 44 15 53 10 51 25 45 34 37 38Z" />
           <path class="bird-body" d="M10 39 20 30 32 35 41 24C46 19 52 22 53 27L60 30 53 32C50 42 38 47 28 42L18 44 21 38Z" />
@@ -249,13 +248,13 @@
   .bird-lift { transform-origin: 34px 33px; }
   .bird-wing { transform-origin: 37px 34px; }
   .flying .follow-up-bird { animation: bird-flight 2.1s linear 3 forwards; }
-  .flying .follow-up-bird.landed { animation: none; transform: translateY(8px); }
   .flying .bird-wing { animation: bird-flap 700ms cubic-bezier(.45,0,.55,1) 9 forwards; }
   .reached.flying .bird-back-wing { animation: bird-back-flap 700ms cubic-bezier(.45,0,.55,1) 9 forwards; transform-origin: 35px 35px; }
   .reached.flying .bird-lift { animation: bird-bob 2.1s ease-in-out 3 forwards; }
   @keyframes bird-flight {
-    0% { transform: translate(-69px, 8px); }
-    100% { transform: translate(69px, 8px); }
+    0%, 100% { transform: translateY(8px); }
+    49.99% { transform: translate(75px, 8px); }
+    50% { transform: translate(-75px, 8px); }
   }
   @keyframes bird-flap { 0%, 100% { transform: rotate(12deg) scaleY(1); } 50% { transform: rotate(-32deg) scaleY(.48) skewX(-8deg); } }
   @keyframes bird-back-flap { 0%, 100% { transform: rotate(-8deg) scaleY(.95); } 50% { transform: rotate(28deg) scaleY(.52) skewX(6deg); } }
