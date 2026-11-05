@@ -195,7 +195,7 @@
       <h2 id="situations-title" class="section-playfair-desktop">{@html ui.situationTitle}</h2>
       <p class="mobile-copy-14">{@html ui.situationIntro}</p>
     </header>
-    <p class="selection-instruction">{selectionCopy.choose}</p>
+    <p class="selection-instruction"><span class="instruction-desktop">{selectionCopy.choose}</span><span class="instruction-mobile">{pageLanguage === 'es' ? 'Pulsa en la situación que más se parezca a la tuya' : pageLanguage === 'ca' ? 'Toca la situació que més s’assembli a la teva' : 'Tap the situation that feels closest to yours'}</span></p>
     <div class="situations-grid" class:has-selection={Boolean($selectedSituation || responseSituation)}>
       {#each situations as situation, i}
         <button type="button" class="situation-card" class:selected={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-pressed={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-haspopup="dialog" aria-label={`${situation.quote} ${selectionCopy.hint}`} on:click={() => selectSituation(situation.letter)} use:standardEntry={i} use:scrollContrast use:pulsePrompt>
@@ -363,19 +363,19 @@
   }
   @media (max-width: 767.98px) {
     .vsl h1 { margin-inline: -12px; }
-    .vsl .section-heading { margin-bottom: 1.125rem; }
+    .vsl .section-heading { margin-bottom: 1.375rem; }
     .programme-line { display: block; white-space: nowrap; }
-    .vsl .section-cta { margin-top: 1.125rem; display: grid; justify-items: center; }
-    .situations-grid { grid-template-columns: 1fr; row-gap: 3.25rem; }
+    .vsl .section-cta { margin-top: 1.375rem; display: grid; justify-items: center; }
+    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 1.5rem; }
     .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
     .recovery h2 { white-space: normal; }
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
     .goal-body { font-size: 14px; }
-    .situation-card { aspect-ratio: auto; min-height: 0; padding: .75rem 1rem; }
-    .situation-card .situation-quote { font-size: 22px; line-height: 1.2; }
-    .situation-letter { font-size: 4.5rem; line-height: .8; margin-bottom: .5rem; transform: none; }
+    .situations-grid .situation-card { width: min(224px, 100%); aspect-ratio: 1; min-height: 0; padding: 1rem; }
+    .situation-card .situation-quote { font-size: 18px; line-height: 1.2; }
+    .situation-letter { font-size: 3.5rem; line-height: .8; margin-bottom: .5rem; transform: none; }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }
@@ -416,6 +416,7 @@
   }
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
+  .instruction-mobile { display: none; }
   .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
   .situation-card:focus-visible .selection-control, .situation-card.selected .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
   .situations .section-cta { margin-top: 4.5rem; }
@@ -436,4 +437,9 @@
 @media (prefers-reduced-motion: reduce) { .selection-control { transition: none; transform: translate(-50%, 0); } }
 @media (max-width: 767px) { .selection-instruction { font-size: 14px; } }
   @media (max-width: 360px) { .vsl .cta-note { font-size: 11.5px !important; } }
+  @media (max-width: 767px) {
+    .instruction-desktop, .selection-control { display: none; }
+    .instruction-mobile { display: inline; }
+    .situations .section-cta { margin-top: 2rem; }
+  }
 </style>
