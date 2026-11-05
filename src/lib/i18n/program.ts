@@ -103,7 +103,7 @@ const esProgram = {
     ],
     closing:
       'Porque <strong>tu cuerpo cambia</strong> semana a semana. Y <strong>el plan también</strong> debe hacerlo.',
-    cta: 'Cuéntanos tu historia'
+    cta: 'Cuéntanos tu caso'
   },
   slogan1: {
     topHtml: 'La <strong>medicina</strong> se centrará en que vivas <span class="slogan-accent">más.</span>',
@@ -334,7 +334,7 @@ const caProgram = {
     ],
     closing:
       'Perquè <strong>el teu cos canvia</strong> setmana a setmana. I <strong>el pla també</strong> ho ha de fer.',
-    cta: 'Explica’ns la teva història'
+    cta: 'Explica’ns el teu cas'
   },
   slogan1: {
     topHtml: 'La <strong>medicina</strong> se centrarà que visquis <span class="slogan-accent">més.</span>',
