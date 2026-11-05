@@ -53,7 +53,7 @@ const esProgram = {
       'Un proceso para que no tengas que improvisar <strong>qué hacer, cuánto hacer ni cómo saber si lo estás haciendo bien.</strong>',
     badge: 'Valoración + plan + seguimiento',
     sideParagraphs: [
-      '<strong style="color: #4083a7;">Empenta</strong> es un programa de <strong>acompañamiento de 12 semanas.</strong> Pero eso no significa que tengas que avanzar al mismo ritmo que otra persona.<br /><br />Adaptamos el ejercicio a <strong>tu punto de partida, tu evolución y tus objetivos.</strong>',
+      '<strong style="color: #4083a7;">Empenta</strong> es un programa de <strong>acompañamiento de 12 semanas,</strong> en el cual adaptamos el ejercicio a <strong>tu punto de partida, tu evolución y tus objetivos.</strong>',
       'Donde valoramos tu punto de partida, diseñamos un plan progresivo y lo adaptamos según cómo vas evolucionando.'
     ],
     items: [

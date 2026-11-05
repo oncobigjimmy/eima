@@ -242,7 +242,7 @@
   .steps-index { display: none; }
   @keyframes progress-stripes { from { background-position: 0 0; } to { background-position: 0 20px; } }
   @media (min-width: 1024px) {
-    .steps-sidebar { max-height: calc(100vh - 112px - 24px); }
+    .steps-sidebar { max-height: calc(100vh - 112px - 24px); min-height: min-content; }
     .steps-sidebar .steps-intro { margin-top: 18px; }
     .steps-sidebar .steps-badge { margin-top: 16px; }
     .steps-sidebar .steps-side-copy { margin-top: 16px; }
