@@ -20,7 +20,7 @@
   ];
   const responsesPerChapter = getFeaturedTestimonials('recupera').length;
   const chapterLength = responsesPerChapter + 1;
-  let current = 0, markerActive = true;
+  let current = 0, markerActive = true, mobile = false;
   let chapterProgress = [100 / responsesPerChapter, 0, 0];
   let sectionVisible = false;
   function seeJourney(node: HTMLElement) {
@@ -36,11 +36,11 @@
   let stage: HTMLDivElement;
   let clickTimer: ReturnType<typeof setTimeout> | undefined;
   onMount(() => {
-    const mobile = window.matchMedia('(max-width: 767px)');
-    const sync = () => { step = mobile.matches ? 262 : 350; };
-    sync(); mobile.addEventListener('change', sync);
+    const mobileMedia = window.matchMedia('(max-width: 767px)');
+    const sync = () => { mobile = mobileMedia.matches; step = mobile ? 262 : 350; };
+    sync(); mobileMedia.addEventListener('change', sync);
     const stopMotion = watchReducedMotion(value => { reduced = value; if (value) dragOffset = 0; });
-    return () => { mobile.removeEventListener('change', sync); stopMotion(); };
+    return () => { mobileMedia.removeEventListener('change', sync); stopMotion(); };
   });
   $: copy = testimonialUi[pageLanguage];
   $: proofCopy = patientProofCopy[pageLanguage];
@@ -134,11 +134,22 @@
     'eima-adaptation-2': 'Me gusta saber lo que tengo que hacer\nal día siguiente.',
     'eima-adaptation-7': 'El vídeo me ayudó a entender por dónde\nestoy y lo que me queda.'
   };
-  function phrase(item: WrittenTestimonial) {
+  const mobileRoutine = {
+    es: { quote: 'He podido volver a seguir\nlas rutinas establecidas y\na sentirme «normal».', highlight: 'a sentirme «normal»' },
+    ca: { quote: 'He pogut tornar a seguir\nles rutines establertes i\na sentir-me «normal».', highlight: 'a sentir-me «normal»' },
+    en: { quote: 'I have been able to follow\nmy established routines again\nand feel “normal”.', highlight: 'and feel “normal”' }
+  };
+  $: mobileFinal = {
+    es: ['Para que puedas', 'volver a hacer las', 'cosas que más', 'echas de menos.'],
+    ca: ['Perquè puguis', 'tornar a fer les', 'coses que més', 'enyores.'],
+    en: ['So you can', 'get back to doing', 'the things you', 'miss the most.']
+  }[pageLanguage];
+  function phrase(item: WrittenTestimonial, isMobile = mobile) {
+    if (isMobile && item.id === 'progress-12') return mobileRoutine[pageLanguage].quote;
     return (pageLanguage === 'es' && spanishQuoteLines[item.id]) || item.quote[pageLanguage] || item.caption[pageLanguage];
   }
-  function phraseParts(item: WrittenTestimonial) {
-    const text = phrase(item), searchable = text.replace(/\n/g, ' '), highlight = item.highlight[pageLanguage];
+  function phraseParts(item: WrittenTestimonial, isMobile = mobile) {
+    const text = phrase(item, isMobile), searchable = text.replace(/\n/g, ' '), highlight = isMobile && item.id === 'progress-12' ? mobileRoutine[pageLanguage].highlight : item.highlight[pageLanguage];
     return highlight && searchable.includes(highlight) ? [text.slice(0, searchable.indexOf(highlight)), text.slice(searchable.indexOf(highlight), searchable.indexOf(highlight) + highlight.length), text.slice(searchable.indexOf(highlight) + highlight.length)] : [text, '', ''];
   }
   onDestroy(() => { clearTimeout(markerTimer); clearTimeout(clickTimer); });
@@ -163,8 +174,8 @@
         {@const magnitude = Math.abs(distance)}
         <article use:halfVerticalSpace={slide.kind === 'response'} class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
           {#if slide.kind === 'response'}
-            {@const parts = phraseParts(slide.item)}
-            <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
+            {@const parts = phraseParts(slide.item, mobile)}
+            <blockquote class="key-phrase"><button class="quote-open" class:quote-mobile-lines={mobile && slide.item.id === 'progress-12'} type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
             {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
             <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'} class:hint-running={index === current && markerActive && sectionVisible}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
               <span class="capture-window">{#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} style:filter={slide.item.cleanBackground ? 'contrast(1.15)' : undefined} width={slide.item.width} height={slide.item.height} /></svg>{/if}</span>
@@ -175,7 +186,7 @@
           {:else if slide.kind === 'bridge2'}
             <h3>{copy.bridge2}<span>{copy.bridge2Accent}</span>{copy.bridge2End}</h3><p class="bridge-body">{@html proofCopy.rows[1].subtitle}</p>
           {:else}
-            <h3>{copy.final}<br /><span>{copy.finalAccent}</span><br />{copy.finalEnd}</h3>
+            <h3>{#if mobile}{mobileFinal[0]}<br /><span>{mobileFinal[1]}<br />{mobileFinal[2]}</span><br />{mobileFinal[3]}{:else}{copy.final}<br /><span>{copy.finalAccent}</span><br />{copy.finalEnd}{/if}</h3>
             <div class="final-cta" inert={index !== current}><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /></div>
           {/if}
           {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / chapterLength))]} on:click={() => go(index)}></button>{/if}
@@ -267,6 +278,7 @@
     .journey-stage { height: 340px; }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .key-phrase { font-size: 18px; white-space: normal; }
+    .quote-mobile-lines { white-space: pre-line; }
     .capture-group { width: min(224px, 100%); }
     .capture-window { height: 115px; flex-basis: 115px; }
     .capture-group.compact .capture-window { height: 100px; flex-basis: 100px; }

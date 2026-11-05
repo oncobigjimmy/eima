@@ -33,7 +33,7 @@
   .written-card:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; } .written-card:focus-visible .magnify { opacity: 1; }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) { .written-card:hover { transform: translateY(-4px) scale(1.035); background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; } .written-card:hover .magnify { opacity: 1; } }
   @media (max-width: 767px) {
-    .written-card:global(.scroll-active) { border-color: #8cd0d6; box-shadow: 0 3px 12px #233f4e08; }
+    .written-card:global(.scroll-active) { border-color: transparent; box-shadow: 0 3px 12px #233f4e08; }
     .written-card:global(.scroll-active) .magnify { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) { .written-card, .magnify { transition: none; } .written-card:hover { transform: none; } }

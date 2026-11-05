@@ -375,7 +375,7 @@
     .goal-body { font-size: 14px; }
     .situations-grid .situation-card { width: min(264px, 100%); aspect-ratio: 1; min-height: 0; padding: 1rem; }
     .situation-card .situation-quote { font-size: 20px; line-height: 1.3; }
-    .situation-letter { font-size: 5rem; line-height: .8; margin-bottom: .5rem; transform: none; }
+    .situation-letter { font-size: 5rem; line-height: .8; margin-bottom: 1.25rem; transform: translateY(-4px); }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }
@@ -417,6 +417,7 @@
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
   .instruction-mobile { display: none; }
+  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .selection-instruction { color: #e8e8f8; }
   .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
   .situation-card:focus-visible .selection-control, .situation-card.selected .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
   .situations .section-cta { margin-top: 4.5rem; }

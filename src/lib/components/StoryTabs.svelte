@@ -25,7 +25,7 @@
 <style>
   .story-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; width: min(100%, 18.5rem); margin: 1.25rem auto 0; padding: .55rem; border-radius: 9999px; background: #fff; box-shadow: 0 9px 22px rgba(14,29,38,.13), inset 0 0 0 1px rgba(35,63,78,.08); }
   .story-tabs.wide { width: min(100%, 28rem); }
-  button { cursor: pointer; min-width: 44px; min-height: 2.8rem; border-radius: 9999px; background: #e8e8f6; color: #233f4e; font-size: 16px; font-weight: 400; line-height: 1; padding: .5rem; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), transform var(--dur-micro) var(--ease-calma), font-weight var(--dur-estado) var(--ease-calma); }
+  button { cursor: pointer; min-width: 44px; min-height: 2.8rem; border-radius: 9999px; background: #e8e8f6; color: #233f4e; font-size: 15px; font-weight: 400; line-height: 1; padding: .5rem; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), transform var(--dur-micro) var(--ease-calma), font-weight var(--dur-estado) var(--ease-calma); }
   button.active-person { background: #4083a7; color: #fff; font-weight: 700; text-shadow: var(--eima-blue-text-shadow); }
   button:focus-visible { outline: 2px solid #245b7d; outline-offset: 4px; }
   @media (hover: hover) and (pointer: fine) { button:hover { transform: translateY(-1px); } }

@@ -60,15 +60,19 @@
     let frame = 0;
     const breakpoint = window.matchMedia('(max-width: 1023px)');
     let sequenceStarted = false;
-    const timers: ReturnType<typeof setTimeout>[] = [];
+    let sequenceFrame = 0;
     function startSequence() {
       if (sequenceStarted || breakpoint.matches || reduced) return;
       sequenceStarted = true;
-      for (let index = 0; index < 4; index++) timers.push(setTimeout(() => {
-        if (reduced) return;
-        timedStage = index;
-        progress = index === 3 ? 1 : thresholds[index];
-      }, 300 + index * 450));
+      const started = performance.now();
+      function advance(now: number) {
+        if (reduced || breakpoint.matches) return;
+        progress = Math.max(0, Math.min(1, (now - started - 400) / 8000));
+        timedStage = thresholds.reduce((active, threshold, index) => progress >= threshold ? index : active, -1);
+        if (progress < 1) sequenceFrame = requestAnimationFrame(advance);
+        else update();
+      }
+      sequenceFrame = requestAnimationFrame(advance);
     }
     const clamp = (value: number) => Math.max(0, Math.min(1, value));
     function update() {
@@ -132,7 +136,7 @@
     breakpoint.addEventListener('change', measure);
     measure();
     return () => {
-      stopMotion(); resize.disconnect(); observer.disconnect(); sequenceObserver.disconnect(); timers.forEach(clearTimeout); cancelAnimationFrame(frame);
+      stopMotion(); resize.disconnect(); observer.disconnect(); sequenceObserver.disconnect(); cancelAnimationFrame(sequenceFrame); cancelAnimationFrame(frame);
       window.removeEventListener('scroll', schedule); window.removeEventListener('resize', measure);
       breakpoint.removeEventListener('change', measure);
     };
@@ -198,19 +202,19 @@
     :global(.path-mobile-break) { display: none; }
     li:first-child .path-stage-copy p { max-width: 320px; }
   }
-  .stage-label { display: block; margin-bottom: 12px; font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .14em; color: #8cd0d6; opacity: 0; transform: translateY(8px); transition: opacity 350ms var(--ease-calma), transform 350ms var(--ease-calma); }
+  .stage-label { display: block; margin-bottom: 12px; font-family: Inter, sans-serif; font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: .14em; color: #8cd0d6; opacity: 0; transform: translateY(8px); transition: opacity 350ms var(--ease-calma), transform 350ms var(--ease-calma); }
   .reached .stage-label { opacity: 1; transform: none; }
   .path-track { position: relative; margin-top: 2.75rem; }
   .path-line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .path-line path { fill: none; stroke-width: 2; stroke-dasharray: 5 9; stroke-linecap: round; }
   .path-base { stroke: #4083a7; opacity: .55; }
-  .path-lit { stroke: #8cd0d6; filter: drop-shadow(0 0 4px #8cd0d680) drop-shadow(0 0 9px #8cd0d633); }
+  .path-line .path-lit { stroke: #a9edf0; stroke-width: 4; filter: drop-shadow(0 0 4px #8cd0d6b3) drop-shadow(0 0 9px #8cd0d666); }
   .path-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; max-width: 1440px; margin: 0 auto; padding: 0 1.5rem 1rem; list-style: none; }
   li { position: relative; min-width: 0; text-align: center; }
   li:nth-child(even) { padding-top: 18px; }
   .path-circle { position: relative; display: grid; place-items: center; width: 108px; height: 108px; margin: 0 auto; border-radius: 50%; border: 2px solid #4083a7; background: #245b7d; transition: background-color 350ms ease, border-color 350ms ease, box-shadow 350ms ease; }
   .path-circle span { font-family: 'Fraunces', Georgia, serif; font-size: 44px; font-weight: 500; color: #e8e8f6; transition: color 350ms ease; }
-  .reached .path-circle { background: #8cd0d6; border-color: #8cd0d6; box-shadow: 0 0 26px 4px #8cd0d62b; }
+  .reached .path-circle { background: #a4e3e6; border-color: #b5f1f3; box-shadow: 0 0 18px 4px #8cd0d680, 0 0 34px 7px #8cd0d640; }
   .reached .path-circle span { color: #233f4e; }
   .path-stage-copy { position: relative; margin-top: 1.35rem; }
   .path-stage-copy h3 { margin: 0; font-family: 'Fraunces', Georgia, serif; color: #e8e8f6; font-size: 27px; line-height: 1.2; font-weight: 500; transition: color 350ms ease; }
@@ -247,10 +251,10 @@
   .bird-back-wing { fill: currentColor; }
   .bird-lift { transform-origin: 34px 33px; }
   .bird-wing { transform-origin: 37px 34px; }
-  .flying .follow-up-bird { animation: bird-flight 2.1s linear 1 forwards; }
-  .flying .bird-wing { animation: bird-flap 700ms cubic-bezier(.45,0,.55,1) 3 forwards; }
-  .reached.flying .bird-back-wing { animation: bird-back-flap 700ms cubic-bezier(.45,0,.55,1) 3 forwards; transform-origin: 35px 35px; }
-  .reached.flying .bird-lift { animation: bird-bob 2.1s ease-in-out 1 forwards; }
+  .flying .follow-up-bird { animation: bird-flight 2.1s linear 3 forwards; }
+  .flying .bird-wing { animation: bird-flap 700ms cubic-bezier(.45,0,.55,1) 9 forwards; }
+  .reached.flying .bird-back-wing { animation: bird-back-flap 700ms cubic-bezier(.45,0,.55,1) 9 forwards; transform-origin: 35px 35px; }
+  .reached.flying .bird-lift { animation: bird-bob 2.1s ease-in-out 3 forwards; }
   @keyframes bird-flight {
     0% { transform: translate(-69px, 8px); }
     100% { transform: translateY(8px); }
