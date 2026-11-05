@@ -37,6 +37,8 @@
   let followUp: HTMLElement;
   let closingRevealed = true;
   let sectionVisible = false;
+  let flightStarted = false;
+  $: if (sectionVisible && closingRevealed) flightStarted = true;
   let width = 1440;
   let height = 260;
   let vertical = false;
@@ -163,7 +165,7 @@
     <p>{@html copy.clarificationTitle}</p>
     <p>{@html copy.clarificationBody}</p>
   </aside>
-  <footer class="path-follow-up" bind:this={followUp} class:enhanced class:revealed={closingRevealed} class:flying={sectionVisible && closingRevealed} class:reached={!enhanced || closingRevealed}>
+  <footer class="path-follow-up" bind:this={followUp} class:enhanced class:revealed={closingRevealed} class:flying={flightStarted} class:reached={!enhanced || closingRevealed}>
     <h3>{copy.next}</h3>
     <div class="follow-up-circle" aria-hidden="true">
       <svg class="follow-up-bird" viewBox="0 0 64 64">
@@ -245,17 +247,17 @@
   .bird-back-wing { fill: currentColor; }
   .bird-lift { transform-origin: 34px 33px; }
   .bird-wing { transform-origin: 37px 34px; }
-  .reached.flying .follow-up-bird { animation: bird-flight 2.1s linear infinite; }
-  .reached.flying .bird-wing { animation: bird-flap 900ms cubic-bezier(.45,0,.55,1) infinite; }
-  .reached.flying .bird-back-wing { animation: bird-back-flap 900ms -60ms cubic-bezier(.45,0,.55,1) infinite; transform-origin: 35px 35px; }
-  .reached.flying .bird-lift { animation: bird-bob 1.4s ease-in-out infinite alternate; }
+  .flying .follow-up-bird { animation: bird-flight 2.1s linear 1 forwards; }
+  .flying .bird-wing { animation: bird-flap 700ms cubic-bezier(.45,0,.55,1) 3 forwards; }
+  .reached.flying .bird-back-wing { animation: bird-back-flap 700ms cubic-bezier(.45,0,.55,1) 3 forwards; transform-origin: 35px 35px; }
+  .reached.flying .bird-lift { animation: bird-bob 2.1s ease-in-out 1 forwards; }
   @keyframes bird-flight {
     0% { transform: translate(-69px, 8px); }
-    100% { transform: translate(65px, 8px); }
+    100% { transform: translateY(8px); }
   }
   @keyframes bird-flap { 0%, 100% { transform: rotate(12deg) scaleY(1); } 50% { transform: rotate(-32deg) scaleY(.48) skewX(-8deg); } }
   @keyframes bird-back-flap { 0%, 100% { transform: rotate(-8deg) scaleY(.95); } 50% { transform: rotate(28deg) scaleY(.52) skewX(6deg); } }
-  @keyframes bird-bob { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-3px) rotate(2deg); } }
+  @keyframes bird-bob { 0%, 100% { transform: none; } 50% { transform: translateY(-3px) rotate(2deg); } }
   .bird-eye { fill: #8cd0d6; }
   .follow-up-label { font-family: 'Fraunces', Georgia, serif; font-size: 27px; line-height: 1.2; color: #e8e8f6; font-weight: 500; margin: 1.1rem 0 1.1rem; transition: color 350ms ease; }
   .reached .follow-up-label { color: #8cd0d6; }
