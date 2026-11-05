@@ -7,6 +7,27 @@
   import { getProgramStepsHash } from '$lib/i18n/routes';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import ServiceIllustration from '$lib/components/ServiceIllustration.svelte';
+  let activeStep = 0;
+  let stepsVisible = false;
+  let mobileBarVisible = false;
+  let headerHeight = 68;
+  /** @type {HTMLElement | undefined} */
+  let trackNode;
+  // TODO [CA-revisar]: revisar las etiquetas del índice y «Pas X de 5».
+  const stepLabels = {
+    es: ['Nos cuentas tu caso', 'Valoración en tu casa', 'Preparamos el terreno', 'Empiezas tu plan', 'Te acompañamos y medimos'],
+    ca: ['Ens contes el teu cas', 'Valoració a casa teva', 'Preparam el terreny', 'Comences el teu pla', "T'acompanyam i mesuram"],
+    en: ['Tell us your situation', 'Assessment at home', 'Preparing the ground', 'Start your plan', 'Support and progress checks']
+  };
+  $: labels = stepLabels[$language];
+  /** @param {number} index */
+  function goToStep(index) {
+    const card = trackNode?.querySelectorAll('.program-step')[index];
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2, behavior: reduced ? 'instant' : 'smooth' });
+  }
   /** @param {HTMLElement} node */
   function revealOnScroll(node) {
     requestAnimationFrame(() => {
@@ -32,13 +53,17 @@
 
   /** @param {HTMLElement} node */
   function trackActiveStep(node) {
+    trackNode = node;
     let frame = 0;
     let reducedMotion = false;
     const update = () => {
       frame = 0;
       const cards = /** @type {HTMLElement[]} */ (Array.from(node.querySelectorAll('.program-step')));
       const bounds = node.getBoundingClientRect();
-      const focusY = window.innerHeight * 0.48;
+      headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 68;
+      const focusY = window.innerWidth >= 1024 ? window.innerHeight / 2 : headerHeight + (window.innerHeight - headerHeight) / 2;
+      stepsVisible = bounds.top < window.innerHeight && bounds.bottom > headerHeight;
+      mobileBarVisible = window.innerHeight / 2 >= bounds.top - 80 && bounds.bottom > headerHeight;
       /** @type {HTMLElement | null} */
       let active = null;
       let closestDistance = Infinity;
@@ -53,19 +78,12 @@
         const line = node.querySelector('.program-line');
         const lineBounds = line?.getBoundingClientRect();
         if (lineBounds) {
-          const drawn = Math.max(0, Math.min(1, (focusY - lineBounds.top) / lineBounds.height));
+          const drawn = Math.max(0, Math.min(1, (window.innerHeight * 0.48 - lineBounds.top) / lineBounds.height));
           node.style.setProperty('--program-line-progress', String(reducedMotion ? 1 : drawn));
-          if (!reducedMotion) {
-            // Activate the card and circle together only when the drawn line reaches its centre.
-            active = null;
-            for (const card of cards) {
-              const circle = card.querySelector('.program-step__point')?.getBoundingClientRect();
-              if (circle && circle.top + circle.height / 2 <= focusY) active = card;
-            }
-            if (bounds.bottom <= 0) active = null;
-          }
+
         }
       }
+      if (active) activeStep = cards.indexOf(active);
       cards.forEach((card) => { card.dataset.scrollActive = card === active ? 'true' : 'false'; });
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -108,7 +126,7 @@
   {/if}
   {#key $language}
     <div class="mx-auto grid max-w-6xl gap-10 px-6 md:px-10 lg:grid-cols-[minmax(18rem,24rem)_1fr] lg:gap-12">
-      <div class="lg:sticky lg:top-28 lg:self-start">
+      <div class="steps-sidebar lg:sticky lg:top-28 lg:self-start">
         <div class="mx-auto max-w-[23rem] text-center lg:mx-0 lg:text-left">
           <h2
             class={`font-display-serif text-[2.4rem] font-medium leading-[0.98] tracking-[0] text-[color:var(--color-brand)] md:text-[50px] section-playfair-desktop`}
@@ -120,7 +138,15 @@
 
           <p class={`steps-intro mt-6 text-[15px] font-light leading-[1.6] text-[#233F4E]`}>{@html introHtml}</p>
 
-          <div class="mt-8 flex justify-center">
+          <nav class="steps-index" aria-label={stepsCopy.headingPrefix + ' ' + stepsCopy.headingHighlight}>
+            <div class="steps-index-track" aria-hidden="true"><div class="steps-index-fill" class:running={stepsVisible} style:height={(activeStep + 1) / 5 * 100 + '%'}></div></div>
+            <ol>
+              {#each labels as label, index}
+                <li><button type="button" class:done={index < activeStep} class:active={index === activeStep} aria-current={index === activeStep ? 'step' : undefined} on:click={() => goToStep(index)}><span>{index + 1}</span>{label}</button></li>
+              {/each}
+            </ol>
+          </nav>
+          <div class="steps-badge mt-8 flex justify-center">
             <div
               class="inline-flex items-center justify-center gap-3 rounded-full bg-[#E8E8F6] px-6 py-3 text-[15px] font-medium text-[#245B7D] shadow-[0_8px_18px_rgba(14,29,38,0.08)]"
             >
@@ -129,7 +155,7 @@
             </div>
           </div>
 
-          <div class={`mt-10 space-y-4 text-[15px] leading-[1.75] text-[#233F4E]`}>
+          <div class={`steps-side-copy mt-10 space-y-4 text-[15px] leading-[1.75] text-[#233F4E]`}>
             {#each sideParagraphs as paragraph}
               <p use:htmlContent={paragraph}>{@html paragraph}</p>
             {/each}
@@ -197,6 +223,28 @@
 </section>
 
 <style>
+  .steps-index { display: none; }
+  @keyframes progress-stripes { from { background-position: 0 0; } to { background-position: 0 20px; } }
+  @media (min-width: 1024px) {
+    .steps-sidebar { max-height: calc(100vh - 112px - 24px); }
+    .steps-sidebar .steps-intro { margin-top: 18px; }
+    .steps-sidebar .steps-badge { margin-top: 16px; }
+    .steps-sidebar .steps-side-copy { margin-top: 16px; }
+    .steps-index { display: grid; grid-template-columns: 10px 1fr; column-gap: 18px; margin-top: 20px; text-align: left; }
+    .steps-index-track { border-radius: 999px; overflow: hidden; background: rgba(35,63,78,.10); }
+    .steps-index-fill { background-color: #4083a7; border-radius: inherit; transition: height var(--dur-entrada) var(--ease-calma); background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; }
+    .steps-index-fill.running { animation: progress-stripes .9s linear infinite; }
+    .steps-index ol { margin: 0; padding: 0; list-style: none; }
+    .steps-index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; text-align: left; font-size: 15px; font-weight: 400; color: #55656f; transition: color var(--dur-estado) var(--ease-calma); }
+    .steps-index button span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 600; color: #233f4e; background: #e8e8f6; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+    .steps-index button.done span { background: #8cd0d6; }
+    .steps-index button.done, .steps-index button.active { color: #233f4e; }
+    .steps-index button.active { font-weight: 600; }
+    .steps-index button.active span { background: #4083a7; color: white; }
+    .steps-index button:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; border-radius: 4px; }
+  }
+  @media (min-width: 1024px) and (max-height: 859px) { .steps-sidebar .steps-badge { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .steps-index-fill, .steps-index-fill.running, .steps-index button, .steps-index button span { animation: none; transition: none; } }
   :global(.steps-mobile-break) { display: none; }
   :global(.steps-desktop-break) { display: none; }
   @media (min-width: 1024px) { :global(.steps-desktop-break) { display: block; } }
