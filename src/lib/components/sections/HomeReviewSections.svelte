@@ -373,9 +373,9 @@
     .section-heading > .recovery-subtitle { font-size: 22px; }
     .goal-subtitle { font-size: 18px; }
     .goal-body { font-size: 14px; }
-    .situations-grid .situation-card { width: min(224px, 100%); aspect-ratio: 1; min-height: 0; padding: 1rem; }
-    .situation-card .situation-quote { font-size: 18px; line-height: 1.2; }
-    .situation-letter { font-size: 3.5rem; line-height: .8; margin-bottom: .5rem; transform: none; }
+    .situations-grid .situation-card { width: min(calc(50vw + 112px), 100%); aspect-ratio: 1; min-height: 0; padding: .8rem; container-type: inline-size; }
+    .situation-card .situation-quote { font-size: calc(8.0357cqw + 2.057px); line-height: 1.2; }
+    .situation-letter { font-size: calc(25cqw + 6.4px); line-height: .8; margin-bottom: .5rem; transform: none; }
     .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
     .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
     .recovery-word { position: relative; width: fit-content; font-size: 32px; }
@@ -440,6 +440,7 @@
   @media (max-width: 767px) {
     .instruction-desktop, .selection-control { display: none; }
     .instruction-mobile { display: inline; }
+    .vsl .cta-note { display: none; }
     .situations .section-cta { margin-top: 2rem; }
   }
 </style>
