@@ -6,6 +6,7 @@ export type ProgramFaq = {
   a: string[];
   icon: string;
   cta?: string;
+  short?: string;
 };
 
 // Phosphor Icons, regular weight (MIT): github.com/phosphor-icons/core
@@ -214,6 +215,8 @@ const esProgram = {
           'No se trata de forzar ni de entrenar pase lo que pase. Se trata de encontrar la forma más <strong>segura, útil y realista</strong> de moverte según tu situación actual.',
           'Si tienes dudas sobre tu caso concreto, puedes explicarnos tu situación {{situationLink}}.'
         ],
+        // TODO: escribir la respuesta corta directa; [CA-revisar] para CA.
+        short: '',
         icon: icons.gear
       },
       {
@@ -444,6 +447,8 @@ const caProgram = {
           'No es tracta de forçar ni d’entrenar passi el que passi. Es tracta de trobar la manera més <strong>segura, útil i realista</strong> de moure’t segons la teva situació actual.',
           'Si tens dubtes sobre el teu cas concret, ens pots explicar la teva situació {{situationLink}}.'
         ],
+        // TODO: escribir la respuesta corta directa; [CA-revisar] para CA.
+        short: '',
         icon: icons.gear
       },
       {
@@ -675,6 +680,8 @@ const enProgram = {
           'It is not about forcing yourself to train no matter what. It is about finding the <strong>safest, most useful and most realistic</strong> way to move according to your current situation.',
           'If you have doubts about your specific case, you can explain your situation to us {{situationLink}}.'
         ],
+        // TODO: escribir la respuesta corta directa; [CA-revisar] para CA.
+        short: '',
         icon: icons.gear
       },
       {
