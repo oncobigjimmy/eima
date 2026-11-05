@@ -16,7 +16,7 @@
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        node.dataset.visible = entry.isIntersecting ? 'true' : 'false';
+        if (entry.isIntersecting) { node.dataset.visible = 'true'; observer.disconnect(); }
       },
       { threshold: 0.22, rootMargin: '0px 0px -10% 0px' }
     );
@@ -145,7 +145,7 @@
             <article
               use:revealOnScroll
               class="program-step relative"
-              style={`--reveal-delay:${index * 120}ms`}
+              style={`--reveal-delay:calc(${index} * var(--stagger))`}
             >
               <div class="program-step__point hidden lg:flex" aria-hidden="true">
                 {step.number}
@@ -217,8 +217,8 @@
   .program-step {
     overflow: visible;
     transition:
-      opacity 780ms ease-out,
-      transform 780ms ease-out,
+      opacity var(--dur-entrada) var(--ease-calma),
+      transform var(--dur-entrada) var(--ease-calma),
       box-shadow 250ms ease-out;
     transition-delay: var(--reveal-delay, 0ms);
   }
@@ -265,7 +265,7 @@
 
   :global(.program-step[data-ready='true'][data-visible='false']) {
     opacity: 0;
-    transform: translate3d(0, 22px, 0);
+    transform: translate3d(0, 16px, 0);
   }
 
   :global(.program-step[data-ready='true'][data-visible='true']) {
@@ -293,14 +293,14 @@
 
     .program-step__card {
       transition:
-        opacity 780ms ease-out,
-        transform 780ms ease-out;
+        opacity var(--dur-entrada) var(--ease-calma),
+        transform var(--dur-entrada) var(--ease-calma);
       transition-delay: var(--reveal-delay, 0ms);
     }
 
     :global(.program-step[data-ready='true'][data-visible='false']) .program-step__card {
       opacity: 0;
-      transform: translate3d(0, 22px, 0);
+      transform: translate3d(0, 16px, 0);
     }
 
     :global(.program-step[data-ready='true'][data-visible='true']) .program-step__card {
@@ -362,6 +362,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    :global(.program-step[data-ready]) ,
+    :global(.program-step[data-ready]) .program-step__card { opacity: 1 !important; transform: none !important; transition: none !important; }
     .program-step__surface,
     .program-step__point-mobile,
     .program-step__point { transition: none; }

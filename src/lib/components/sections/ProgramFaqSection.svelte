@@ -98,7 +98,7 @@
                 ? 'border-2 border-[#4083A7] bg-white shadow-[0_16px_34px_rgba(14,29,38,0.10)]'
                 : 'border-2 border-transparent bg-white shadow-[0_10px_24px_rgba(14,29,38,0.06)] hover:border-[#4083A7] hover:shadow-[0_14px_30px_rgba(14,29,38,0.09)]'
             }`}
-            style={`--reveal-delay: ${Math.min(index, 5) * 70}ms`}
+            style={`--reveal-delay: calc(${index} * var(--stagger))`}
           >
             <button
               type="button"
@@ -222,10 +222,10 @@
 
   .faq-reveal {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 16px, 0);
     transition:
-      opacity 560ms ease-out,
-      transform 560ms ease-out,
+      opacity var(--dur-entrada) var(--ease-calma),
+      transform var(--dur-entrada) var(--ease-calma),
       border-color 300ms ease-out,
       box-shadow 300ms ease-out,
       background-color 300ms ease-out;
