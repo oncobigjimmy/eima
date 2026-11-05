@@ -120,6 +120,12 @@
 
 </script>
 
+<div class="mobile-step-bar" class:shown={mobileBarVisible} style:top={headerHeight + 'px'} aria-hidden="true">
+  <div><strong>{$language === 'ca' ? 'Pas' : $language === 'en' ? 'Step' : 'Paso'} {activeStep + 1} {$language === 'en' ? 'of' : 'de'} 5</strong> · {labels[activeStep]}</div>
+  <div class="mobile-step-segments">
+    {#each labels as _, index}<span class:filled={index <= activeStep} class:current={index === activeStep && stepsVisible}></span>{/each}
+  </div>
+</div>
 <section id={programStepsId} class="program-steps-section relative bg-[#f8f4f0] py-16 md:py-20">
   {#if programStepsId !== 'program-steps'}
     <span id="program-steps" class="program-steps-anchor" aria-hidden="true"></span>
@@ -223,6 +229,16 @@
 </section>
 
 <style>
+  .mobile-step-bar { display: none; }
+  @media (max-width: 1023px) {
+    .mobile-step-bar { display: block; position: fixed; left: 0; right: 0; z-index: 30; padding: 10px 20px 12px; background: rgba(248,244,240,.96); box-shadow: 0 6px 16px rgba(35,63,78,.08); color: #233f4e; font-size: 13px; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
+    .mobile-step-bar.shown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mobile-step-segments { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 8px; }
+    .mobile-step-segments span { height: 8px; border-radius: 999px; background: rgba(35,63,78,.12); transition: background-color var(--dur-estado) var(--ease-calma); }
+    .mobile-step-segments .filled { background-color: #4083a7; }
+    .mobile-step-segments .current { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: progress-stripes .9s linear infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) { .mobile-step-bar, .mobile-step-segments span, .mobile-step-segments .current { transition: none; animation: none; } }
   .steps-index { display: none; }
   @keyframes progress-stripes { from { background-position: 0 0; } to { background-position: 0 20px; } }
   @media (min-width: 1024px) {
