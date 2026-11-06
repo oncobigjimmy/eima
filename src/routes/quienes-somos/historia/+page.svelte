@@ -18,6 +18,34 @@
 
   let activeId = 'miquel';
   let storyFadeDuration = 250;
+  let readingIndex = 0;
+  // TODO [CA-revisar]: revisar el text del comptador de lectures.
+  $: shelfHint = { es: 'Desliza para ver más', ca: 'Llisca per veure’n més', en: 'Swipe to see more' }[pageLanguage];
+  /** @param {HTMLElement} node */
+  function readingShelf(node) {
+    const media = window.matchMedia('(max-width: 767px)');
+    let frame = 0;
+    function update() {
+      frame = 0;
+      const cards = Array.from(node.querySelectorAll('.reading-card'));
+      let selected = 0, distance = Infinity;
+      const first = cards[0];
+      if (first instanceof HTMLElement) cards.forEach((card, index) => {
+        if (!(card instanceof HTMLElement)) return;
+        const delta = Math.abs(card.offsetLeft - first.offsetLeft - node.scrollLeft);
+        if (delta < distance) { distance = delta; selected = index; }
+      });
+      readingIndex = selected;
+      cards.forEach((card, index) => card.classList.toggle('scroll-active', media.matches && index === selected));
+    }
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    node.addEventListener('scroll', schedule, { passive: true });
+    media.addEventListener('change', schedule);
+    const observer = new ResizeObserver(schedule);
+    observer.observe(node);
+    update();
+    return { destroy() { node.removeEventListener('scroll', schedule); media.removeEventListener('change', schedule); observer.disconnect(); cancelAnimationFrame(frame); } };
+  }
   /** @type {ReturnType<typeof parseReading> | null} */
   let selectedCover = null;
   /** @type {string | undefined} */
@@ -54,7 +82,7 @@
 
   async function showOtherStory() {
     if (!otherProfile) return;
-    selectProfile(otherProfile.id);
+    selectProfile(otherProfile.id === 'miquel' ? 'miquel' : 'jaume');
     await tick();
     const tabs = document.querySelector('#historias .story-tabs');
     const title = document.querySelector('.story-profile-name');
@@ -407,45 +435,19 @@
             </header>
 
             <div class="profile-card__body">
-              <div class:readings-grid--compact={true} class="readings-grid hover-dim-group">
+              <div use:readingShelf class:readings-grid--compact={true} class="readings-grid hover-dim-group">
                 {#each getDisplayReadings(activeProfile) as reading}
                   {@const parsedReading = parseReading(reading)}
-                  <article
-                    use:scrollContrast
-                    class:reading-card--compact={true}
-                    class="reading-card hover-dim-item"
-                  >
+                  <button type="button" class="reading-card reading-card--compact hover-dim-item" aria-label={labels.enlargeCover + ' ' + parsedReading.title} on:click={() => (selectedCover = parsedReading)}>
                     {#if parsedReading.cover}
-                      <button
-                        type="button"
-                        class="reading-cover-button"
-                        aria-label={`${labels.enlargeCover} ${parsedReading.title}`}
-                        on:click={() => (selectedCover = parsedReading)}
-                      >
-                        <img
-                          class="reading-cover-image"
-                          src={parsedReading.cover}
-                          alt={`${labels.coverOf} ${parsedReading.title}`} loading="lazy" decoding="async"
-                        />
-                      </button>
-                    {:else}
-                      <div class="reading-cover" aria-hidden="true">
-                        <span>{parsedReading.title.slice(0, 1)}</span>
-                      </div>
-                    {/if}
-                    <h4>{parsedReading.title}</h4>
-                    {#if parsedReading.authorName}
-                      <p class="reading-author">
-                        {parsedReading.authorName}
-                        {#if parsedReading.authorNote}
-                          <em>{parsedReading.authorNote}</em>
-                        {/if}
-                      </p>
-                    {/if}
-
-                  </article>
+                      <span class="reading-cover-button"><img class="reading-cover-image" src={parsedReading.cover} alt={labels.coverOf + ' ' + parsedReading.title} loading="lazy" decoding="async" /></span>
+                    {:else}<span class="reading-cover" aria-hidden="true"><span>{parsedReading.title.slice(0, 1)}</span></span>{/if}
+                    <span class="reading-title">{parsedReading.title}</span>
+                    {#if parsedReading.authorName}<span class="reading-author">{parsedReading.authorName}{#if parsedReading.authorNote}<em>{parsedReading.authorNote}</em>{/if}</span>{/if}
+                  </button>
                 {/each}
               </div>
+              <p class="reading-counter">{readingIndex + 1} {pageLanguage === 'en' ? 'of' : 'de'} {getDisplayReadings(activeProfile).length} · {shelfHint}</p>
             </div>
           </section>
 
@@ -682,7 +684,7 @@
   }
 
   .reading-card--compact { --reading-title-height: 18.9px; --reading-author-height: 17.4px; grid-template-rows: calc(8.85rem + 8px) var(--reading-title-height) var(--reading-author-height); }
-  .reading-card--compact h4, .reading-card--compact p { white-space: nowrap; }
+  .reading-card--compact .reading-title, .reading-card--compact .reading-author { white-space: nowrap; }
 
   .reading-cover {
     display: flex;
@@ -734,7 +736,7 @@
     line-height: 1;
   }
 
-  .reading-card h4 {
+  .reading-card .reading-title {
     transition: color 380ms ease-out, text-shadow 380ms ease-out;
     height: 100%;
     display: flex;
@@ -747,7 +749,7 @@
     color: #233f4e;
   }
 
-  .reading-card p {
+  .reading-card .reading-author {
     transition: color 380ms ease-out, text-shadow 380ms ease-out;
     height: 100%;
     display: block;
@@ -770,9 +772,9 @@
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26, 0 0 22px #8cd0d64d;
     }
-    .reading-card:hover h4 { color: #ffffff; }
+    .reading-card:hover .reading-title { color: #ffffff; }
     .reading-card:hover .reading-author { color: #e8e8f6; }
-    .reading-card:hover h4, .reading-card:hover .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
+    .reading-card:hover .reading-title, .reading-card:hover .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
     .reading-card:hover .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
     .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: .7; filter: none; }
 
@@ -788,7 +790,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reading-card, .reading-cover-image, .reading-card h4, .reading-card p,
+    .reading-card, .reading-cover-image, .reading-card .reading-title, .reading-card .reading-author,
     .education-item, .education-item p, .education-year, .education-dot { transition: none; }
     .reading-card:hover, .reading-card:hover .reading-cover-image,
     .education-item:hover p, .education-item:hover .education-dot,
@@ -988,9 +990,9 @@
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 16px 32px #233f4e40, 0 4px 10px #233f4e26, 0 0 22px #8cd0d64d;
     }
-    .reading-card:global(.scroll-active) h4 { color: #ffffff; }
+    .reading-card:global(.scroll-active) .reading-title { color: #ffffff; }
     .reading-card:global(.scroll-active) .reading-author { color: #e8e8f6; }
-    .reading-card:global(.scroll-active) h4, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
+    .reading-card:global(.scroll-active) .reading-title, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
     .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
     .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: none; }
 
@@ -1058,4 +1060,14 @@
   .other-story-name { display: block; font: 400 20px/1.3 Fraunces, Georgia, serif; color: #233f4e; }
   .other-story svg { width: 24px; height: 24px; color: #4083a7; }
   .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
+  .reading-counter { display: none; }
+  @media (max-width: 767px) {
+    .readings-grid { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 22px 20px 12px; scrollbar-width: none; align-items: stretch; }
+    .readings-grid::-webkit-scrollbar { display: none; }
+    .readings-grid .reading-card { flex: 0 0 132px; width: 132px; min-width: 132px; padding: 10px; grid-template-rows: 124px auto auto; scroll-snap-align: start; }
+    .reading-card--compact .reading-title, .reading-card--compact .reading-author { white-space: normal; overflow-wrap: anywhere; }
+    .reading-cover-button { height: 124px; }
+    .reading-cover-image { max-width: 88px; max-height: 124px; }
+    .reading-counter { display: block; margin: 12px 0 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
+  }
 </style>
