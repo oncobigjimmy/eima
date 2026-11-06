@@ -123,7 +123,7 @@
         <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.closing.cta} class="closing-cta" />
       </div>
     </div>
-    <img class="closing-photo" src="/about-closing-sunset.png" alt={ui.sunsetAlt} loading="lazy" decoding="async" />
+    <div class="closing-visual"><picture><source srcset="/about-closing-sunset.webp" type="image/webp" /><img class="closing-photo" src="/about-closing-sunset.png" alt={ui.sunsetAlt} width="621" height="621" loading="lazy" decoding="async" /></picture><div class="closing-photo-tint" aria-hidden="true"></div></div>
   </div>
 </section>
 
@@ -248,4 +248,8 @@
   @media (hover: none), (pointer: coarse) { .team-person:active span { background: #4083a7; color: #fff; transform: translateX(-50%) scale(.97); } }
   @media (prefers-reduced-motion: reduce) { .team-person span { transition: none; } .team-person:active span { transform: translateX(-50%); } }
   @media (min-width: 768px) { .dictionary-definitions { font-size: 16px; } }
+  .closing-visual { position: relative; isolation: isolate; min-height: 400px; height: 100%; overflow: hidden; }
+  .closing-visual picture { display: block; height: 100%; }
+  .closing-photo-tint { position: absolute; inset: 0; pointer-events: none; background: #245b7d; mix-blend-mode: color; opacity: var(--photo-tint-sunset, var(--photo-tint)); }
+  @media (max-width: 900px) { .closing-visual { max-height: 440px; } }
 </style>
