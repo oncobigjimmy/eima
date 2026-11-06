@@ -229,7 +229,7 @@
   .striped { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: chapter-stripes .9s linear infinite; }
   @keyframes chapter-stripes { from { background-position: 0 0; } to { background-position: 20px 0; } }
   .chapter-mobile { display: none; }
-  .journey-carousel { position: relative; outline-offset: -4px; }
+  .journey-carousel { position: relative; isolation: isolate; outline-offset: -4px; }
   .journey-stage { position: relative; height: 360px; touch-action: pan-y pinch-zoom; user-select: none; cursor: grab; }
   .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
   .journey-stage.dragging .journey-card { transition: none; }
