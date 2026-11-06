@@ -103,7 +103,7 @@
   <div class="mx-auto grid max-w-6xl gap-8 px-6 md:px-10 lg:grid-cols-2 lg:gap-10">
     <article
       use:revealOnScroll
-      use:scrollContrast
+      use:scrollContrast={{ visibleRatio: .75 }}
       class="fit-reveal fit-card fit-card--yes w-full max-w-[34rem] justify-self-center rounded-[14px] bg-white p-7 shadow-[0_16px_36px_rgba(14,29,38,0.08)] transition-[transform,box-shadow,opacity,filter] duration-150 ease-out md:p-8"
       style="--reveal-delay: 0ms"
     >
@@ -147,7 +147,7 @@
 
     <article
       use:revealOnScroll
-      use:scrollContrast
+      use:scrollContrast={{ visibleRatio: .75 }}
       class="fit-reveal fit-card fit-card--no w-full max-w-[34rem] justify-self-center rounded-[14px] bg-white p-7 shadow-[0_16px_36px_rgba(14,29,38,0.08)] transition-[transform,box-shadow,opacity,filter] duration-150 ease-out md:p-8"
       style="--reveal-delay: var(--stagger)"
     >

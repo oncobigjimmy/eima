@@ -13,6 +13,14 @@
   let headerHeight = 68;
   /** @type {HTMLElement | undefined} */
   let trackNode;
+  /** @param {HTMLElement} node */
+  function fitSidebar(node) {
+    const update = () => node.style.setProperty('--steps-sidebar-height', node.scrollHeight + 'px');
+    const observer = new ResizeObserver(update);
+    observer.observe(node);
+    update();
+    return { destroy() { observer.disconnect(); } };
+  }
   // TODO [CA-revisar]: revisar las etiquetas del índice y «Pas X de 5».
   const stepLabels = {
     es: ['Nos cuentas tu caso', 'Valoración en tu casa', 'Preparamos el terreno', 'Empiezas tu plan', 'Te acompañamos y medimos'],
@@ -132,7 +140,7 @@
   {/if}
   {#key $language}
     <div class="mx-auto grid max-w-6xl gap-10 px-6 md:px-10 lg:grid-cols-[minmax(18rem,24rem)_1fr] lg:gap-12">
-      <div class="steps-sidebar lg:sticky lg:top-28 lg:self-start">
+      <div class="steps-sidebar lg:sticky lg:top-28 lg:self-start" use:fitSidebar>
         <div class="mx-auto max-w-[23rem] text-center lg:mx-0 lg:text-left">
           <h2
             class={`font-display-serif text-[2.4rem] font-medium leading-[0.98] tracking-[0] text-[color:var(--color-brand)] md:text-[50px] section-playfair-desktop`}
@@ -203,7 +211,7 @@
                   class="mt-3 text-[22px] leading-[1.2] font-medium text-[#233F4E]"
                   style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 500 !important;"
                 >
-                  {step.title}
+                  <span class="step-title-ink">{step.title}</span>
                 </h3>
                 <p
                   use:htmlContent={step.body}
@@ -243,7 +251,7 @@
   .steps-index { display: none; }
   @keyframes progress-stripes { from { background-position: 0 0; } to { background-position: 0 20px; } }
   @media (min-width: 1024px) {
-    .steps-sidebar { max-height: calc(100vh - 112px - 24px); min-height: min-content; }
+    .steps-sidebar { max-height: none; min-height: min-content; top: clamp(80px, calc(100dvh - var(--steps-sidebar-height, 540px) - 16px), 112px); }
     .steps-sidebar .steps-intro { margin-top: 18px; }
     .steps-sidebar .steps-badge { margin-top: 16px; }
     .steps-sidebar .steps-side-copy { margin-top: 16px; }
@@ -252,7 +260,7 @@
     .steps-index-fill { background-color: #4083a7; border-radius: inherit; transition: height var(--dur-entrada) var(--ease-calma); background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; }
     .steps-index-fill.running { animation: progress-stripes .9s linear infinite; }
     .steps-index ol { margin: 0; padding: 0; list-style: none; }
-    .steps-index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; text-align: left; font-size: 15px; font-weight: 400; color: #55656f; transition: color var(--dur-estado) var(--ease-calma); }
+    .steps-index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; text-align: left; font-size: 15px; font-weight: 300; color: #55656f; transition: color var(--dur-estado) var(--ease-calma); }
     .steps-index button span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 600; color: #233f4e; background: #e8e8f6; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
     .steps-index button.done span { background: #8cd0d6; }
     .steps-index button.done, .steps-index button.active { color: #233f4e; }
@@ -268,6 +276,7 @@
   @media (max-width: 767px) { :global(.steps-mobile-break) { display: block; } }
   :global(.steps-cta) { margin-top: 1.25rem; }
   .steps-intro :global(strong) { font-weight: 700; }
+  .step-title-ink { font: inherit; color: #fff; background: #233f4e; padding: .04em .18em; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: 0 0 3px #071a2580; }
 
   .program-steps-section,
   .program-steps-anchor {
