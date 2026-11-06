@@ -1,4 +1,5 @@
 <script>
+  import { standardEntry } from '$lib/actions/standardEntry';
   import StoryTabs from '$lib/components/StoryTabs.svelte';
   import { selectedSituation } from '$lib/data/situation';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
@@ -16,6 +17,7 @@
   import { motionDuration } from '$lib/motion';
 
   let activeId = 'miquel';
+  let storyFadeDuration = 250;
   /** @type {ReturnType<typeof parseReading> | null} */
   let selectedCover = null;
   /** @type {string | undefined} */
@@ -57,6 +59,8 @@
   };
 
   onMount(() => {
+    const durationToken = getComputedStyle(document.documentElement).getPropertyValue('--dur-estado').trim();
+    storyFadeDuration = parseFloat(durationToken) * (durationToken.endsWith('ms') ? 1 : 1000) || 250;
     const setProfileFromHash = () => {
       const profileId = window.location.hash.replace('#', '');
       if (profileId === 'miquel' || profileId === 'jaume') {
@@ -301,10 +305,10 @@
     {#if activeProfile}
       {#key activeId}
         <article
-          in:fade={{ duration: motionDuration(260) }}
+          in:fade={{ duration: motionDuration(storyFadeDuration) }}
           class="mt-14 space-y-10 md:mt-16 md:space-y-14"
         >
-          <section class="profile-card">
+          <section use:standardEntry class="profile-card">
             <header class="profile-card__header profile-card__header--dark">
               <h2 class="story-name story-profile-name text-white">
                 {activeProfile.name}
@@ -344,7 +348,7 @@
             </div>
           </section>
 
-          <section class="profile-card">
+          <section use:standardEntry class="profile-card">
             <header class="profile-card__header profile-card__header--blue">
               <h3 class="story-side-title section-title-mobile text-[30px] text-white">
                 {activeProfile.educationTitle}
@@ -381,7 +385,7 @@
             </div>
           </section>
 
-          <section class="profile-card profile-card--readings">
+          <section use:standardEntry class="profile-card profile-card--readings">
             <header class="profile-card__header profile-card__header--blue">
               <h3 class="story-side-title section-title-mobile text-[30px] text-white">
                 {activeProfile.readingsTitle}

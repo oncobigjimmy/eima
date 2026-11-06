@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { standardEntry } from '$lib/actions/standardEntry';
   import { selectedSituation } from '$lib/data/situation';
   import { scrollContrast } from '$lib/actions/scrollContrast';
   import type { Language } from '$lib/i18n/copy';
@@ -76,36 +77,13 @@
     observer?.observe(node);
     return { destroy() { cancelled = true; observer?.disconnect(); } };
   }
-  function reveal(node: HTMLElement) {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
-    node.classList.add('will-reveal');
-    let settleTimer: ReturnType<typeof setTimeout>;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        node.classList.add('is-visible');
-        observer.disconnect();
-        settleTimer = setTimeout(() => node.classList.remove('will-reveal', 'is-visible'), 700);
-      }
-    }, { threshold: .12 });
-    observer.observe(node);
-    return { destroy() { observer.disconnect(); clearTimeout(settleTimer); } };
-  }
-  function revealIntro(node: HTMLElement) {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return {};
-    node.classList.add('will-reveal');
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { node.classList.add('is-visible'); observer.disconnect(); }
-    }, { threshold: .12 });
-    observer.observe(node);
-    return { destroy() { observer.disconnect(); } };
-  }
 </script>
 
 <section id="about-us" class="about-intro" class:about-intro--translated={pageLanguage !== 'es'}>
   <div class="about-container">
     <h1 class="about-title">{#each ui.title as line, index}{#if index > 0}{' '}{/if}<span class="about-title__line">{@html pageLanguage === 'es' && index === 1 ? line.replace('forma de', 'forma<br class="about-mobile-break" /> de') : line}</span>{/each}</h1>
     <div class="about-intro-grid">
-      <div class="team-block intro-reveal intro-reveal--left" use:revealIntro>
+      <div class="team-block intro-reveal intro-reveal--left" use:standardEntry>
         <div class="team-photo">
           <img class="team-photo-person team-photo-person--left" src="/story-miquel-crop.png" alt="" aria-hidden="true" />
           <img class="team-photo-person team-photo-person--right" src="/story-jaume-crop.png" alt="" aria-hidden="true" />
@@ -114,7 +92,7 @@
         </div>
         <p class="team-hint">{@html pageLanguage === 'es' ? ui.hint.replace('para conocer', 'para<br class="about-mobile-break" /> conocer') : ui.hint}</p>
       </div>
-      <div class="dictionary-wrap intro-reveal intro-reveal--right" use:revealIntro use:typeOnView={'dictionary'}>
+      <div class="dictionary-wrap intro-reveal intro-reveal--right" use:standardEntry use:typeOnView={'dictionary'}>
         <div class="dictionary-card" use:scrollContrast>
           <div class="dictionary-card__inner">
           <p class="dictionary-word">eima</p>
@@ -146,10 +124,10 @@
 <section class="about-origin" aria-labelledby="origin-title">
   <div class="about-container origin-container">
     <h2 id="origin-title" class="section-playfair-desktop origin-title-mobile">{@html ui.originTitle}</h2>
-    <p class="origin-intro origin-fade mobile-copy-14" use:reveal>{@html ui.intro}</p>
+    <p class="origin-intro origin-fade mobile-copy-14" use:standardEntry>{@html ui.intro}</p>
     <div class="origin-grid hover-dim-group">
       {#each originCards as card, index}
-        <article class="origin-card hover-dim-item" use:reveal use:scrollContrast style={`--delay:${index < 3 ? index * 50 : 180 + (index - 3) * 50}ms`}>
+        <article class="origin-card hover-dim-item" use:standardEntry use:scrollContrast style={`--delay:${index < 3 ? index * 50 : 180 + (index - 3) * 50}ms`}>
           <div class="origin-card-header">
             <span class="origin-number" aria-hidden="true">0{index + 1}</span>
             <h3 class:origin-card-title--first={index === 0 && pageLanguage === 'es'}>{#each card.titleLines as line, lineIndex}{#if lineIndex > 0}{' '}{/if}<span class="origin-card-title-line">{@html index === 0 && pageLanguage === 'es' ? line.replace('hagas ejercicio', 'hagas<br class="about-mobile-break" /> ejercicio').replace('explican cómo', '<br class="about-mobile-break" />explican cómo') : line}</span>{/each}</h3>
@@ -158,8 +136,8 @@
         </article>
       {/each}
     </div>
-    <p class="origin-conclusion origin-fade mobile-copy-14" use:reveal>{@html ui.conclusion}</p>
-    <div class="origin-cta origin-fade" use:reveal>
+    <p class="origin-conclusion origin-fade mobile-copy-14" use:standardEntry>{@html ui.conclusion}</p>
+    <div class="origin-cta origin-fade" use:standardEntry>
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.closing.cta} />
     </div>
   </div>
@@ -199,11 +177,6 @@
   :global(.about-blue), .about-origin h2 :global(span) { color: #8cd0d6; }
   @keyframes blink { 50% { opacity: 0; } }
   .about-intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); align-items: center; gap: clamp(2rem, 4vw, 3rem); margin-top: 3rem; }
-  .intro-reveal { transition: opacity 800ms ease-out, transform 800ms ease-out; }
-  .intro-reveal--left { --intro-offset: -40px; }
-  .intro-reveal--right { --intro-offset: 40px; transition-delay: 100ms; }
-  .intro-reveal:global(.will-reveal) { opacity: 0; transform: translateX(var(--intro-offset)); }
-  .intro-reveal:global(.is-visible) { opacity: 1; transform: none; }
   .team-block { position: relative; display: flex; flex-direction: column; align-items: center; }
   .team-photo { position: relative; width: min(100%, 490px); aspect-ratio: 1.2 / 1; overflow: hidden; border: 1px solid #ffffff30; border-radius: 10px; background: #f8f4f0; }
   .team-photo-person { position: absolute; bottom: 0; width: auto; height: 90%; max-width: none; object-fit: contain; object-position: bottom center; mix-blend-mode: multiply; transition: filter 240ms ease-out; }
@@ -255,11 +228,6 @@
   .origin-card :global(strong) { color: white; font-weight: 700; }
   .origin-card :global(em) { font-style: italic; }
   .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong) { transition: color 260ms ease-out; }
-  .origin-card:global(.will-reveal) { opacity: 0; transform: translateY(14px); transition: opacity 360ms ease-out, filter 175ms ease-out, transform 360ms ease-out, background-color 260ms ease-out, border-color 260ms ease, box-shadow 260ms ease-out, text-shadow 260ms ease-out; transition-delay: var(--delay); }
-  .origin-card:global(.is-visible) { opacity: 1; transform: none; }
-  .origin-fade { transition: opacity 340ms ease-out; }
-  .origin-fade:global(.will-reveal) { opacity: 0; }
-  .origin-fade:global(.is-visible) { opacity: 1; }
   .origin-conclusion { max-width: 560px; margin: var(--origin-surrounding-gap) auto 0; color: #f3f7f8; font-size: 16px; font-weight: 300; line-height: 1.55; text-align: center; }
   .origin-conclusion :global(strong) { color: white; font-weight: 700; }
   .origin-cta { display: flex; justify-content: center; margin-top: 1.5rem; }
@@ -318,4 +286,7 @@
   @media (prefers-reduced-motion: reduce) { .origin-card:global(.scroll-active), .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: none; } }
   @media (min-width: 1024px) { :global(.origin-intro-break) { display: inline; } }
   @media (prefers-reduced-motion: reduce) { .dictionary-cursor, .closing-cursor { animation: none; } .origin-card, .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong), .origin-fade, .team-person span, .dictionary-card, .dictionary-card__inner, .intro-reveal { transition: none; } .origin-card:global(.will-reveal), .origin-fade:global(.will-reveal), .intro-reveal:global(.will-reveal) { opacity: 1; transform: none; } .origin-card:hover, .dictionary-card:hover .dictionary-card__inner { transform: none; } }
+  .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); }
+  .intro-reveal:global(.standard-entry-visible), .origin-card:global(.standard-entry-visible), .origin-fade:global(.standard-entry-visible) { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 1; transform: none; transition: none; } }
 </style>
