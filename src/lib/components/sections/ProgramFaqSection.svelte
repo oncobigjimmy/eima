@@ -192,6 +192,7 @@
     font-family: Inter, system-ui, sans-serif !important;
     font-weight: 400;
   }
+  @media (max-width: 767px) { .faq-question { font-size: 15px; } }
 
   .faq-trigger[aria-expanded='true'] .faq-question {
     text-shadow: var(--eima-blue-text-shadow);

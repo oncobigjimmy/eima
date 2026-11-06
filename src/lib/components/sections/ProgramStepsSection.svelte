@@ -8,6 +8,12 @@
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import ServiceIllustration from '$lib/components/ServiceIllustration.svelte';
   let activeStep = 0;
+  let hoveredStep = -1;
+  let visited = [false, false, false, false, false];
+  let refreshTrack = () => {};
+  $: displayStep = hoveredStep >= 0 ? hoveredStep : activeStep;
+  /** @param {number} index */
+  function highlightStep(index) { hoveredStep = index; refreshTrack(); }
   let stepsVisible = false;
   let mobileBarVisible = false;
   let headerHeight = 68;
@@ -92,16 +98,19 @@
         }
       }
       if (active) activeStep = cards.indexOf(active);
-      cards.forEach((card) => { card.dataset.scrollActive = card === active ? 'true' : 'false'; });
+      const selected = hoveredStep >= 0 ? cards[hoveredStep] : active;
+      if (selected) visited = visited.map((value, index) => value || index < activeStep || cards[index] === selected);
+      cards.forEach((card, index) => { card.dataset.scrollActive = card === selected ? 'true' : 'false'; card.dataset.visited = visited[index] ? 'true' : 'false'; });
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    refreshTrack = schedule;
     const stopMotion = watchReducedMotion((value) => { reducedMotion = value; schedule(); });
     const resizeObserver = new ResizeObserver(schedule);
     resizeObserver.observe(node);
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
-    return { destroy() { stopMotion(); resizeObserver.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
+    return { destroy() { refreshTrack = () => {}; stopMotion(); resizeObserver.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
   }
 
   /** @param {HTMLElement} node @param {string} value */
@@ -156,7 +165,7 @@
             <div class="steps-index-track" aria-hidden="true"><div class="steps-index-fill" class:running={stepsVisible} style:height={(activeStep + 1) / 5 * 100 + '%'}></div></div>
             <ol>
               {#each labels as label, index}
-                <li><button type="button" class:done={index < activeStep} class:active={index === activeStep} aria-current={index === activeStep ? 'step' : undefined} on:click={() => goToStep(index)}><span>{index + 1}</span>{label}</button></li>
+                <li><button type="button" class:done={visited[index]} class:active={index === displayStep} aria-current={index === displayStep ? 'step' : undefined} on:mouseenter={() => highlightStep(index)} on:mouseleave={() => highlightStep(-1)} on:click={() => goToStep(index)}><span>{index + 1}</span>{label}</button></li>
               {/each}
             </ol>
           </nav>
@@ -183,6 +192,8 @@
         <div class="space-y-10 lg:space-y-7">
           {#each steps as step, index}
             <article
+              on:mouseenter={() => { if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) highlightStep(index); }}
+              on:mouseleave={() => highlightStep(-1)}
               use:revealOnScroll
               class="program-step relative"
               style={`--reveal-delay:calc(${index} * var(--stagger))`}
@@ -243,9 +254,9 @@
     .mobile-step-bar.shown { opacity: 1; visibility: visible; transform: translateY(0); }
     :global(body:has(#mobile-menu[aria-hidden="false"])) .mobile-step-bar { display: none; }
     .mobile-step-segments { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 8px; }
-    .mobile-step-segments span { height: 8px; border-radius: 999px; background: rgba(35,63,78,.12); transition: background-color var(--dur-estado) var(--ease-calma); }
+    .mobile-step-segments span { height: 8px; border-radius: 999px; background: #8cd0d6; transition: background-color var(--dur-estado) var(--ease-calma); }
     .mobile-step-segments .filled { background-color: #4083a7; }
-    .mobile-step-segments .current { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: progress-stripes .9s linear infinite; }
+    .mobile-step-segments .current { background-color: #245b7d; background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: progress-stripes .9s linear infinite; }
   }
   @media (prefers-reduced-motion: reduce) { .mobile-step-bar, .mobile-step-segments span, .mobile-step-segments .current { transition: none; animation: none; } }
   .steps-index { display: none; }
@@ -256,16 +267,17 @@
     .steps-sidebar .steps-badge { margin-top: 16px; }
     .steps-sidebar .steps-side-copy { margin-top: 16px; }
     .steps-index { display: grid; grid-template-columns: 10px 1fr; column-gap: 18px; margin-top: 20px; text-align: left; }
-    .steps-index-track { border-radius: 999px; overflow: hidden; background: rgba(35,63,78,.10); }
+    .steps-index-track { border-radius: 999px; overflow: hidden; background: #8cd0d6; }
     .steps-index-fill { background-color: #4083a7; border-radius: inherit; transition: height var(--dur-entrada) var(--ease-calma); background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; }
     .steps-index-fill.running { animation: progress-stripes .9s linear infinite; }
     .steps-index ol { margin: 0; padding: 0; list-style: none; }
-    .steps-index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; text-align: left; font-size: 15px; font-weight: 300; color: #55656f; transition: color var(--dur-estado) var(--ease-calma); }
-    .steps-index button span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 600; color: #233f4e; background: #e8e8f6; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
-    .steps-index button.done span { background: #8cd0d6; }
-    .steps-index button.done, .steps-index button.active { color: #233f4e; }
+    .steps-index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; text-align: left; font-size: 15px; font-weight: 300; color: #8cd0d6; transition: color var(--dur-estado) var(--ease-calma); }
+    .steps-index button span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 600; color: #fff; text-shadow: 0 0 3px #071a2580; background: #8cd0d6; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+    .steps-index button.done span { background: #4083a7; }
+    .steps-index button.done { color: #4083a7; }
+    .steps-index button.active { color: #245b7d; }
     .steps-index button.active { font-weight: 600; }
-    .steps-index button.active span { background: #4083a7; color: white; }
+    .steps-index button.active span { background: #245b7d; color: white; }
     .steps-index button:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; border-radius: 4px; }
   }
   @media (min-width: 1024px) and (max-height: 859px) { .steps-sidebar .steps-badge { display: none; } }
@@ -276,7 +288,7 @@
   @media (max-width: 767px) { :global(.steps-mobile-break) { display: block; } }
   :global(.steps-cta) { margin-top: 1.25rem; }
   .steps-intro :global(strong) { font-weight: 700; }
-  .step-title-ink { font: inherit; color: #fff; background: #233f4e; padding: .04em .18em; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: 0 0 3px #071a2580; }
+  .step-title-ink { font: inherit; color: #233f4e; background: linear-gradient(#233f4e, #233f4e) left center / 0% 100% no-repeat; transition: background-size 900ms var(--ease-calma), color 200ms var(--ease-calma); padding: .04em .18em; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; text-shadow: 0 0 3px #071a2580; }
 
   .program-steps-section,
   .program-steps-anchor {
@@ -314,8 +326,15 @@
   .program-step__point { transition: border-color 260ms ease; }
 
   :global(.program-step[data-scroll-active='true']) .program-step__point-mobile,
-  :global(.program-step[data-scroll-active='true']) .program-step__point { border-color: #8cd0d6; }
+  :global(.program-step[data-scroll-active='true']) .program-step__point { border-color: #233f4e; }
 
+  .program-step__point-mobile, .program-step__point { background: #8cd0d6; color: #fff; font-weight: 600; text-shadow: 0 0 3px #071a2580; }
+  :global(.program-step[data-visited='true']) .program-step__point-mobile, :global(.program-step[data-visited='true']) .program-step__point { background: #4083a7; }
+  :global(.program-step[data-scroll-active='true']) .program-step__point-mobile, :global(.program-step[data-scroll-active='true']) .program-step__point { background: #245b7d; }
+  :global(.program-step[data-scroll-active='true']) .step-title-ink { background-size: 100% 100%; color: #fff; }
+  @media (min-width: 1024px) {
+    :global(.program-steps-track:has(.program-step[data-scroll-active='true']) .program-step[data-scroll-active='false'] .program-step__surface) { filter: blur(.6px); opacity: .88; }
+  }
   .program-step__card {
     margin-top: 2.2rem;
   }
@@ -323,12 +342,12 @@
   .program-step__surface {
     border: 2px solid transparent;
     padding-top: 2.2rem;
-    transition: opacity 260ms ease, transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+    transition: opacity 260ms ease, filter 260ms ease, transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
   }
 
   :global(.program-step[data-scroll-active='true']) .program-step__surface {
     transform: translateY(-4px);
-    border-color: #8cd0d6;
+    border-color: #233f4e;
     box-shadow: var(--eima-halo-light);
   }
 
@@ -389,7 +408,7 @@
       bottom: 2.2rem;
       width: 1px;
       transform: translateX(-50%);
-      background: #e8e8f6;
+      background: #8cd0d6;
     }
 
     .program-line::after {
@@ -399,7 +418,7 @@
       left: 50%;
       width: 2px;
       height: 100%;
-      background: #8cd0d6;
+      background: #4083a7;
       transform: translateX(-50%) scaleY(var(--program-line-progress, 0));
       transform-origin: top;
       pointer-events: none;
@@ -421,11 +440,11 @@
       justify-content: center;
       border-radius: 9999px;
       border: 2px solid transparent;
-      background: #e8e8f6;
-      color: #245b7d;
+      background: #8cd0d6;
+      color: #fff;
       box-shadow: 0 6px 16px rgba(14, 29, 38, 0.05);
       font-size: 30px;
-      font-weight: 300;
+      font-weight: 600;
       line-height: 1;
     }
 
@@ -438,6 +457,7 @@
   @media (prefers-reduced-motion: reduce) {
     :global(.program-step[data-ready]) ,
     :global(.program-step[data-ready]) .program-step__card { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .step-title-ink { transition: none; }
     .program-step__surface,
     .program-step__point-mobile,
     .program-step__point { transition: none; }

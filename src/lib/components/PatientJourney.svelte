@@ -120,12 +120,15 @@
       if (!quote || !capture) return;
       const content = quote.offsetHeight + capture.offsetHeight + parseFloat(getComputedStyle(node).rowGap);
       node.style.setProperty('--response-height', ((320 + content) / 2) + 'px');
+      if (node.classList.contains('central')) node.parentElement?.style.setProperty('--active-response-height', ((320 + content) / 2) + 'px');
     };
     const observer = new ResizeObserver(update);
+    const classes = new MutationObserver(update);
+    classes.observe(node, { attributes: true, attributeFilter: ['class'] });
     if (quote) observer.observe(quote);
     if (capture) observer.observe(capture);
     media.addEventListener('change', update); update();
-    return { destroy() { observer.disconnect(); media.removeEventListener('change', update); } };
+    return { destroy() { observer.disconnect(); classes.disconnect(); media.removeEventListener('change', update); } };
   }
   const spanishQuoteLines: Record<string, string> = {
     'difficult-day-5': '…Náuseas y muchos mareos. No tengo\nfuerzas para nada.',
@@ -183,7 +186,7 @@
   <!-- svelte-ignore a11y_no_noninteractive_tabindex a11y_no_noninteractive_element_interactions -->
   <div class="journey-carousel" role="region" aria-roledescription="carousel" aria-label={copy.eyebrow} tabindex="0" on:keydown={keyboard}>
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div class="journey-stage" class:dragging bind:this={stage} role="presentation" use:seeJourney on:pointerdown={pointerDown} on:pointermove={pointerMove} on:pointerup={pointerUp} on:pointercancel={pointerCancel} on:click|capture={captureClick}>
+    <div class="journey-stage" class:response-active={slides[current].kind === 'response'} class:dragging bind:this={stage} role="presentation" use:seeJourney on:pointerdown={pointerDown} on:pointermove={pointerMove} on:pointerup={pointerUp} on:pointercancel={pointerCancel} on:click|capture={captureClick}>
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
@@ -209,7 +212,7 @@
       {/each}
     </div>
     <div class="restart-slot">{#if current === slides.length - 1}<button type="button" class="restart" on:click={() => go(0)}><span>{copy.restart}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 9M4 4v6h6" /></svg></button>{/if}</div>
-    <div class="journey-navigation"><CarouselControls {current} total={slides.length} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={proofCopy.position} previous={() => go(current - 1)} next={() => go(current + 1)}>
+    <div class="journey-navigation" class:response-active={slides[current].kind === 'response'}><CarouselControls {current} total={slides.length} previousLabel={copy.previous} nextLabel={copy.next} positionLabel={proofCopy.position} previous={() => go(current - 1)} next={() => go(current + 1)}>
     </CarouselControls></div>
   </div>
   <div class="proof-ctas"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /><a class="secondary-cta" href={`${getRoutePath('testimonials', pageLanguage)}?tab=escritas#historias`}>{copy.all}</a></div>
@@ -291,6 +294,7 @@
     h2 { font-size: clamp(26px, 8vw, 30px); } .heading-mobile-break { display: block; } .heading-desktop-space { display: none; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
     .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: 0; } .chapter-bar button { font-size: 12px; }
     .journey-stage { height: 340px; }
+    .journey-stage.response-active { height: calc(255px + var(--active-response-height, 274px) * .25); }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
     .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); }
     .key-phrase { font-size: 18px; white-space: normal; }
@@ -307,6 +311,7 @@
     .restart:is(:hover, :focus-visible) { color: #233f4e; background: #fff; }
     .final { padding-bottom: 56px; }
     .journey-navigation { margin-top: 20px; }
+    .journey-navigation.response-active { margin-top: 15px; }
     .hint-desktop { display: none; } .hint-mobile { display: inline; }
     .hint-running .magnify, .hint-running .capture-hint { animation: mobile-capture-prompt 350ms var(--ease-calma) 2600ms both; }
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
