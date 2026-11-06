@@ -254,7 +254,7 @@
     .origin-card:hover .origin-number { color: #245b7d; }
     .origin-card:hover h3 { color: #233f4e; }
     .origin-card:hover p, .origin-card:hover :global(strong) { color: #233f4e; }
-    .origin-grid:global(.hover-dim-group):has(> .origin-card:hover) > .origin-card:not(:hover):not(:global(.will-reveal)) { opacity: .8; filter: blur(.6px); }
+    .origin-grid:global(.hover-dim-group):has(> .origin-card:hover) > .origin-card:not(:hover):not(:global(.will-reveal)) { opacity: .7; filter: none; }
   }
   @media (hover: none), (pointer: coarse) {
     .origin-grid:global(.hover-dim-group):has(> .origin-card:hover) > .origin-card:not(:hover):not(:global(.will-reveal)) { opacity: 1; filter: none; }

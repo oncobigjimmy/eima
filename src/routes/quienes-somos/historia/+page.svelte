@@ -755,13 +755,13 @@
     .reading-card:hover .reading-author { color: #e8e8f6; }
     .reading-card:hover h4, .reading-card:hover .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
     .reading-card:hover .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
-    .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: .7; filter: blur(1px); }
+    .readings-grid:has(> .reading-card:hover) > .reading-card:not(:hover) { opacity: .7; filter: none; }
 
     .education-item:hover p { transform: scale(1.06); }
     .education-item:hover .education-dot { transform: scale(1.55); }
     .education-year-block:has(.education-item:hover) > .education-year { transform: scale(1.13); }
     .education-timeline:has(.education-item:hover) .education-item:not(:hover),
-    .education-timeline:has(.education-item:hover) .education-year-block:not(:has(.education-item:hover)) > .education-year { opacity: .5; filter: blur(.7px); }
+    .education-timeline:has(.education-item:hover) .education-year-block:not(:has(.education-item:hover)) > .education-year { opacity: .6; filter: none; }
   }
 
   @media (hover: none), (pointer: coarse) {
@@ -961,7 +961,7 @@
     .education-item:global(.scroll-active) .education-dot { transform: scale(1.55); }
     .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: scale(1.13); }
     .education-timeline:has(.education-item:global(.scroll-active)) .education-item:not(:global(.scroll-active)),
-    .education-timeline:has(.education-item:global(.scroll-active)) .education-year-block:not(:has(.education-item:global(.scroll-active))) > .education-year { opacity: .5; filter: blur(.54px); }
+    .education-timeline:has(.education-item:global(.scroll-active)) .education-year-block:not(:has(.education-item:global(.scroll-active))) > .education-year { opacity: .6; filter: none; }
 
     .reading-card:global(.scroll-active) {
       background: #4083a7;
@@ -973,7 +973,7 @@
     .reading-card:global(.scroll-active) .reading-author { color: #e8e8f6; }
     .reading-card:global(.scroll-active) h4, .reading-card:global(.scroll-active) .reading-author { text-shadow: 0 1px 3px #233f4e66, 0 3px 8px #233f4e33; }
     .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.06); box-shadow: 0 18px 38px #071a2540, 0 0 16px #8cd0d6a6, 0 0 42px #8cd0d680; }
-    .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: blur(.77px); }
+    .readings-grid:has(> .reading-card:global(.scroll-active)) > .reading-card:not(:global(.scroll-active)) { opacity: .7; filter: none; }
 
     .story-title {
       font-size: 2.35rem;
