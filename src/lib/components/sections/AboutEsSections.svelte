@@ -17,66 +17,32 @@
   const storyPath = getRoutePath('story', pageLanguage);
   const closingParts = [copy.closing.prefix, copy.closing.accentOne, ` ${copy.closing.middle} `, copy.closing.accentTwo];
   const fullClosing = closingParts.join('');
-  let closingWordStart = 0;
-  const closingWords = fullClosing.split(' ').map((text) => {
-    const word = {
-      text,
-      start: closingWordStart,
-      accent: text === copy.closing.accentOne || text === copy.closing.accentTwo
-    };
-    closingWordStart += text.length + 1;
-    return word;
-  });
+  const closingWords = fullClosing.split(' ').map(text => ({ text, accent: text === copy.closing.accentOne || text === copy.closing.accentTwo }));
   const originCards = ui.cards;
-  let typedClosing = '';
-  let closingTyping = false;
-  let closingCursorPulsing = false;
   let typedDefinitionOne = '';
   let typedDefinitionTwo = '';
   let dictionaryTyping = false;
 
   const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-  function typeOnView(node: HTMLElement, kind: 'closing' | 'dictionary') {
+  function typeOnView(node: HTMLElement) {
     let cancelled = false;
     let started = false;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const complete = () => {
-      if (kind === 'closing') typedClosing = fullClosing;
-      if (kind === 'dictionary') { typedDefinitionOne = copy.dictionary.definitionOne; typedDefinitionTwo = copy.dictionary.definitionTwo; }
-    };
-    if (reduced) { complete(); return {}; }
+    const complete = () => { typedDefinitionOne = copy.dictionary.definitionOne; typedDefinitionTwo = copy.dictionary.definitionTwo; };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { complete(); return {}; }
     const start = async () => {
       if (started) return;
       started = true;
-      if (reduced) { complete(); return; }
-      if (kind === 'dictionary') {
-        dictionaryTyping = true;
-        await sleep(300);
-        for (let i = 1; i <= copy.dictionary.definitionOne.length && !cancelled; i++) { typedDefinitionOne = copy.dictionary.definitionOne.slice(0, i); await sleep(42); }
-        await sleep(350);
-        for (let i = 1; i <= copy.dictionary.definitionTwo.length && !cancelled; i++) { typedDefinitionTwo = copy.dictionary.definitionTwo.slice(0, i); await sleep(38); }
-        dictionaryTyping = false;
-      } else {
-        const text = fullClosing;
-        closingTyping = true;
-        await sleep(220);
-        for (let i = 1; i <= text.length && !cancelled; i++) {
-          typedClosing = text.slice(0, i);
-          await sleep(44);
-        }
-        if (cancelled) return;
-        closingTyping = false;
-        closingCursorPulsing = true;
-        await sleep(3000);
-        closingCursorPulsing = false;
-      }
+      dictionaryTyping = true;
+      await sleep(300);
+      for (let i = 1; i <= copy.dictionary.definitionOne.length && !cancelled; i++) { typedDefinitionOne = copy.dictionary.definitionOne.slice(0, i); await sleep(42); }
+      await sleep(350);
+      for (let i = 1; i <= copy.dictionary.definitionTwo.length && !cancelled; i++) { typedDefinitionTwo = copy.dictionary.definitionTwo.slice(0, i); await sleep(38); }
+      dictionaryTyping = false;
     };
-    if (!('IntersectionObserver' in window)) start();
-    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { observer?.disconnect(); start(); }
-    }, { threshold: .3 }) : null;
-    observer?.observe(node);
-    return { destroy() { cancelled = true; observer?.disconnect(); } };
+    if (!('IntersectionObserver' in window)) { complete(); return {}; }
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { observer.disconnect(); start(); } }, { threshold: .3 });
+    observer.observe(node);
+    return { destroy() { cancelled = true; observer.disconnect(); } };
   }
 </script>
 
@@ -93,7 +59,7 @@
         </div>
         <p class="team-hint">{@html pageLanguage === 'es' ? ui.hint.replace('para conocer', 'para<br class="about-mobile-break" /> conocer') : ui.hint}</p>
       </div>
-      <div class="dictionary-wrap intro-reveal intro-reveal--right" use:standardEntry use:typeOnView={'dictionary'}>
+      <div class="dictionary-wrap intro-reveal intro-reveal--right" use:standardEntry use:typeOnView>
         <div class="dictionary-card" use:scrollContrast>
           <div class="dictionary-card__inner">
           <p class="dictionary-word">eima</p>
@@ -148,10 +114,7 @@
   <div class="closing-grid">
     <div class="closing-copy">
       <div class="closing-content">
-        <h2 class="closing-title section-playfair-desktop" aria-label={fullClosing} use:typeOnView={'closing'}>
-          <span class="closing-title__measure" aria-hidden="true">{#each closingWords as word, index}{#if index > 0}{' '}{/if}<span class="closing-word" class:about-blue={word.accent}>{word.text}</span>{/each}</span>
-          <span class="closing-title__typing" aria-hidden="true">{#each closingWords as word, index}{#if index > 0}{' '}{/if}<span class="closing-word" class:about-blue={word.accent}><span class="closing-word__reserve">{word.text}</span><span class="closing-word__typed">{word.text.slice(0, Math.max(0, Math.min(word.text.length, typedClosing.length - word.start)))}{#if (closingTyping && typedClosing.length >= word.start && typedClosing.length <= word.start + word.text.length) || (closingCursorPulsing && word.start + word.text.length === fullClosing.length)}<i class="closing-cursor" class:closing-cursor--finish={closingCursorPulsing}></i>{/if}</span></span>{/each}</span>
-        </h2>
+        <h2 class="closing-title section-playfair-desktop" use:standardEntry>{#each closingWords as word, index}{#if index > 0}{' '}{/if}<span class="closing-word" class:about-blue={word.accent}>{word.text}</span>{/each}</h2>
         <div class="closing-paragraphs">
           {#each copy.closing.paragraphs as paragraph}
             <p>{@html paragraph}</p>
@@ -233,17 +196,10 @@
   .closing-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: clamp(2.25rem, 4vw, 3rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 3vw, 3rem); }
   .closing-content { display: flex; width: 100%; max-width: 570px; flex-direction: column; align-items: stretch; }
   .closing-title { position: relative; max-width: 650px; font-size: clamp(2.5rem, 4.2vw, 3.6rem); color: #233f4e; }
-  .closing-title__measure { display: block; visibility: hidden; }
-  .closing-title__typing { position: absolute; inset: 0; display: block; }
   .closing-word { position: relative; display: inline-block; white-space: nowrap; }
-  .closing-word__reserve { visibility: hidden; }
-  .closing-word__typed { position: absolute; top: 0; left: 0; white-space: nowrap; }
   .closing-title .about-blue { color: #4083a7; }
   .closing-paragraphs { display: grid; gap: 1rem; max-width: 570px; margin-top: 2rem; color: #233f4e; font-size: 16px; line-height: 1.7; }
   .closing-paragraphs :global(strong) { font-weight: 700; }
-  .closing-cursor { display: inline-block; width: 2px; height: .84em; margin-left: .06em; background: currentColor; animation: blink .8s steps(1) infinite; vertical-align: -.07em; }
-  @keyframes closing-final-pulse { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
-  .closing-cursor--finish { animation: closing-final-pulse 600ms linear 5 forwards; }
   :global(.closing-cta) { align-self: center; margin-top: 1.75rem; }
   .closing-photo { width: 100%; height: 100%; min-height: 400px; object-fit: cover; }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
@@ -282,7 +238,7 @@
   }
   @media (prefers-reduced-motion: reduce) { .origin-card:global(.scroll-active), .dictionary-card:global(.scroll-active) .dictionary-card__inner { transform: none; } }
   @media (min-width: 1024px) { :global(.origin-intro-break) { display: inline; } }
-  @media (prefers-reduced-motion: reduce) { .dictionary-cursor, .closing-cursor { animation: none; } .origin-card, .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong), .origin-fade, .team-person span, .dictionary-card, .dictionary-card__inner, .intro-reveal { transition: none; } .origin-card:global(.will-reveal), .origin-fade:global(.will-reveal), .intro-reveal:global(.will-reveal) { opacity: 1; transform: none; } .origin-card:hover, .dictionary-card:hover .dictionary-card__inner { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .dictionary-cursor { animation: none; } .origin-card, .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong), .origin-fade, .team-person span, .dictionary-card, .dictionary-card__inner, .intro-reveal { transition: none; } .origin-card:global(.will-reveal), .origin-fade:global(.will-reveal), .intro-reveal:global(.will-reveal) { opacity: 1; transform: none; } .origin-card:hover, .dictionary-card:hover .dictionary-card__inner { transform: none; } }
   .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); }
   .intro-reveal:global(.standard-entry-visible), .origin-card:global(.standard-entry-visible), .origin-fade:global(.standard-entry-visible) { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 1; transform: none; transition: none; } }
