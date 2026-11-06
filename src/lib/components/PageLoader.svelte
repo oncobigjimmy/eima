@@ -13,11 +13,11 @@
     const started = performance.now();
     /** @param {number} now */
     function update(now) {
-      progress = Math.min(1, (now - started) / 500);
+      progress = Math.min(1, (now - started) / 700);
       if (progress < 1) frame = requestAnimationFrame(update);
     }
     if (!reduced) frame = requestAnimationFrame(update);
-    const dismissTimer = setTimeout(() => { visible = false; cancelAnimationFrame(frame); }, 500);
+    const dismissTimer = setTimeout(() => { visible = false; cancelAnimationFrame(frame); }, 700);
     return () => {
       cancelAnimationFrame(frame);
       clearTimeout(dismissTimer);
@@ -59,7 +59,7 @@
     pointer-events: none;
     opacity: 1;
     /* A failed JS bundle must not leave the mark on screen indefinitely. */
-    animation: loader-failsafe 0s .5s forwards;
+    animation: loader-failsafe 0s .7s forwards;
   }
   .page-loader svg {
     display: block;
