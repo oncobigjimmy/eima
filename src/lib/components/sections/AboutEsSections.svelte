@@ -87,8 +87,8 @@
         <div class="team-photo">
           <img class="team-photo-person team-photo-person--left" src="/story-miquel-crop.png" alt="" aria-hidden="true" />
           <img class="team-photo-person team-photo-person--right" src="/story-jaume-crop.png" alt="" aria-hidden="true" />
-          <a class="team-person team-person--left" href={`${storyPath}#miquel`} aria-label={`${ui.view} Miquel`}><span>Miquel</span></a>
-          <a class="team-person team-person--right" href={`${storyPath}#jaume`} aria-label={`${ui.view} Jaume`}><span>Jaume</span></a>
+          <a class="team-person team-person--left" href={`${storyPath}#miquel`} aria-label={`${ui.view} Miquel`}><span>Miquel <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span></a>
+          <a class="team-person team-person--right" href={`${storyPath}#jaume`} aria-label={`${ui.view} Jaume`}><span>Jaume <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span></a>
         </div>
         <p class="team-hint">{@html pageLanguage === 'es' ? ui.hint.replace('para conocer', 'para<br class="about-mobile-break" /> conocer') : ui.hint}</p>
       </div>
@@ -186,10 +186,6 @@
   .team-person:focus-visible { outline: 2px solid #8cd0d6; }
   .team-person--left { left: 0; }
   .team-person--right { right: 0; }
-  .team-person span { position: absolute; z-index: 2; top: 10%; left: 50%; transform: translate(-50%, 8px); opacity: 0; padding: .4rem .75rem; border: 1px solid #8cd0d680; border-radius: 6px; color: white; background: #233f4ef0; box-shadow: 0 4px 12px #0e1d2659; transition: opacity 180ms ease, transform 180ms ease; }
-  .team-person--left span { top: max(1px, calc(13.2% - 47px)); left: 54.2%; }
-  .team-person--right span { top: max(1px, calc(13.1% - 47px)); left: 41.2%; }
-  .team-person:hover span, .team-person:focus-visible span { opacity: 1; transform: translate(-50%, 0); }
   .team-photo:has(.team-person--left:hover, .team-person--left:focus-visible) .team-photo-person--right,
   .team-photo:has(.team-person--right:hover, .team-person--right:focus-visible) .team-photo-person--left { filter: blur(2.7px); }
   .team-hint { position: absolute; top: 100%; width: 100%; margin-top: .8rem; color: #e4edef; font-size: 14px; font-style: italic; text-align: center; }
@@ -289,4 +285,9 @@
   .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); }
   .intro-reveal:global(.standard-entry-visible), .origin-card:global(.standard-entry-visible), .origin-fade:global(.standard-entry-visible) { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 1; transform: none; transition: none; } }
+  .team-person span { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #fff; color: #233f4e; font: 600 15px/1 Inter, sans-serif; box-shadow: 0 8px 20px rgba(14,29,38,.18), 0 0 0 1px rgba(35,63,78,.08); transition: background var(--dur-micro) var(--ease-calma), color var(--dur-micro) var(--ease-calma), transform var(--dur-micro) var(--ease-calma); }
+  .team-person:focus-visible span { background: #4083a7; color: #fff; }
+  @media (hover: hover) and (pointer: fine) { .team-person:hover span { background: #4083a7; color: #fff; } }
+  @media (hover: none), (pointer: coarse) { .team-person:active span { background: #4083a7; color: #fff; transform: translateX(-50%) scale(.97); } }
+  @media (prefers-reduced-motion: reduce) { .team-person span { transition: none; } .team-person:active span { transform: translateX(-50%); } }
 </style>
