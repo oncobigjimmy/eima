@@ -279,6 +279,33 @@
       detailNote: detailParts ? detailParts[2] : ''
     };
   };
+
+  /** @param {string} paragraph @param {string} profileId */
+  function storyBlocks(paragraph, profileId) {
+    const source = {
+      es: { prefix: 'Y yo pensaba:', question: '¿Cómo va a mejorar alguien que no puede caminar por el dolor si lo único que hacemos es un masaje en la espalda?', questionMark: 'un masaje en la espalda', statement: 'gran parte del cambio no está solo en lo que te hacen, sino también en lo que tú mismo haces por TU cuerpo.', statementMark: 'lo que tú mismo haces' },
+      ca: { prefix: 'I jo pensava:', question: 'com ha de millorar algú que no pot caminar pel dolor si l’únic que feim és un massatge a l’esquena?', questionMark: 'un massatge a l’esquena', statement: 'gran part del canvi no està només en el que et fan, sinó també en el que tu mateix fas pel TEU cos.', statementMark: 'el que tu mateix fas' },
+      en: { prefix: 'And I thought:', question: 'how is someone who cannot walk because of pain supposed to improve if all we do is massage their back?', questionMark: 'massage their back', statement: 'much of the change comes not only from what is done to you, but also from what you do yourself for YOUR body.', statementMark: 'what you do yourself' }
+    }[pageLanguage];
+    /** @param {string} text */
+    const plain = (text) => ({ kind: 'paragraph', text, emphasis: '' });
+    if (profileId === 'miquel' && paragraph.includes(source.question)) return [plain(source.prefix), { kind: 'quote', text: source.question, emphasis: source.questionMark }];
+    const start = paragraph.indexOf(source.statement);
+    if (profileId === 'jaume' && start >= 0) return [plain(paragraph.slice(0, start).trim()), { kind: 'quote', text: source.statement[0].toUpperCase() + source.statement.slice(1), emphasis: source.statementMark }, plain(paragraph.slice(start + source.statement.length).trim())].filter(block => block.text);
+    return [plain(paragraph)];
+  }
+  /** @param {string} text @param {string} emphasis */
+  function quoteParts(text, emphasis) { const at = text.indexOf(emphasis); return at < 0 ? [text, '', ''] : [text.slice(0, at), emphasis, text.slice(at + emphasis.length)]; }
+  /** @param {HTMLElement} node */
+  function quoteMarker(node) {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (media.matches || !('IntersectionObserver' in window)) { node.classList.add('quote-drawn'); return {}; }
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting && entry.intersectionRatio >= .6) { node.classList.add('quote-drawn'); observer.disconnect(); } }, { threshold: .6 });
+    const changed = () => { if (media.matches) { node.classList.add('quote-drawn'); observer.disconnect(); } };
+    media.addEventListener('change', changed);
+    observer.observe(node);
+    return { destroy() { observer.disconnect(); media.removeEventListener('change', changed); } };
+  }
 </script>
 
 <svelte:head>
@@ -371,18 +398,15 @@
                   </h3>
                   <div class="mt-4 space-y-4 text-[14px] font-light leading-[1.85] text-[#233F4E]/86">
                     {#each section.paragraphs as paragraph}
-                      {@const segments = getMarkedSegments(paragraph, activeProfile.id)}
-                      <p>
-                        {#each segments as segment}
-                          {#if segment.mark === 'bold'}
-                            <strong>{segment.text}</strong>
-                          {:else if segment.mark === 'italic'}
-                            <em>{segment.text}</em>
-                          {:else}
-                            {segment.text}
-                          {/if}
-                        {/each}
-                      </p>
+                      {#each storyBlocks(paragraph, activeProfile.id) as block}
+                        {#if block.kind === 'quote'}
+                          {@const parts = quoteParts(block.text, block.emphasis)}
+                          <blockquote class="story-quote" use:quoteMarker>«{parts[0]}<span class="quote-marker">{parts[1]}</span>{parts[2]}»</blockquote>
+                        {:else}
+                          {@const segments = getMarkedSegments(block.text, activeProfile.id)}
+                          <p>{#each segments as segment}{#if segment.mark === 'bold'}<strong>{segment.text}</strong>{:else if segment.mark === 'italic'}<em>{segment.text}</em>{:else}{segment.text}{/if}{/each}</p>
+                        {/if}
+                      {/each}
                     {/each}
                   </div>
                 </section>
@@ -1062,12 +1086,19 @@
   .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   .reading-counter { display: none; }
   @media (max-width: 767px) {
-    .readings-grid { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 22px 20px 12px; scrollbar-width: none; align-items: stretch; }
+    .profile-card--readings { margin-inline: -20px; width: calc(100% + 40px); }
+    .profile-card--readings .profile-card__body { padding-inline: 0; }
+    .readings-grid { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; padding: 22px 20px 12px; scrollbar-width: none; align-items: stretch; }
     .readings-grid::-webkit-scrollbar { display: none; }
+    .readings-grid::after { content: ''; flex: 0 0 calc(100% - 152px); }
     .readings-grid .reading-card { flex: 0 0 132px; width: 132px; min-width: 132px; padding: 10px; grid-template-rows: 124px auto auto; scroll-snap-align: start; }
     .reading-card--compact .reading-title, .reading-card--compact .reading-author { white-space: normal; overflow-wrap: anywhere; }
     .reading-cover-button { height: 124px; }
     .reading-cover-image { max-width: 88px; max-height: 124px; }
     .reading-counter { display: block; margin: 12px 0 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
   }
+  .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 22px/1.4 Fraunces, Georgia, serif; color: #233f4e; }
+  .story-quote .quote-marker { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 85% / 0% 45% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background-size 800ms var(--ease-calma); }
+  .story-quote:global(.quote-drawn) .quote-marker { background-size: 100% 45%; }
+  @media (prefers-reduced-motion: reduce) { .story-quote .quote-marker { background-size: 100% 45%; transition: none; } }
 </style>
