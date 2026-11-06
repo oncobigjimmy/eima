@@ -4,7 +4,7 @@
   import { selectedSituation } from '$lib/data/situation';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { site } from '$lib/site';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
   import { getWhatsAppHref } from '$lib/i18n/copy';
@@ -33,6 +33,9 @@
   $: labels = storyCopy.labels;
   $: statusLabels = storyCopy.status;
   $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
+  $: otherProfile = storyProfiles.find(profile => profile.id !== activeId);
+  // TODO [CA-revisar]: revisar «Coneix també» i «la història d’en».
+  $: otherStoryCopy = { es: { lead: 'Conoce también', story: 'la historia de' }, ca: { lead: 'Coneix també', story: 'la història d’en' }, en: { lead: 'Also discover', story: 'the story of' } }[pageLanguage];
   $: activeProfile = storyProfiles.find((profile) => profile.id === activeId) ?? storyProfiles[0];
   $: canonicalUrl = getAbsoluteUrl(getLocalizedPath($page.url.pathname, pageLanguage));
   $: alternateLinks = getAlternateLinks('story');
@@ -48,6 +51,17 @@
       window.location.hash = profileId;
     }
   };
+
+  async function showOtherStory() {
+    if (!otherProfile) return;
+    selectProfile(otherProfile.id);
+    await tick();
+    const tabs = document.querySelector('#historias .story-tabs');
+    const title = document.querySelector('.story-profile-name');
+    const header = document.querySelector('header');
+    if (tabs) window.scrollTo({ top: window.scrollY + tabs.getBoundingClientRect().top - (header?.getBoundingClientRect().height ?? 68) - 16, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (title instanceof HTMLElement) title.focus({ preventScroll: true });
+  }
 
   const closeCoverModal = () => {
     selectedCover = null;
@@ -310,7 +324,7 @@
         >
           <section use:standardEntry class="profile-card">
             <header class="profile-card__header profile-card__header--dark">
-              <h2 class="story-name story-profile-name text-white">
+              <h2 tabindex="-1" class="story-name story-profile-name text-white">
                 {activeProfile.name}
               </h2>
               <p class="story-profile-specialty mx-auto mt-3 max-w-2xl text-[20px] font-light leading-[1.7] text-white/86">
@@ -439,6 +453,11 @@
             <p>{activeProfile.cta}</p>
             <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={labels.finalCta} />
           </div>
+          {#if otherProfile}<button class="other-story" type="button" on:click={showOtherStory}>
+            <img src={otherProfile.id === 'miquel' ? '/story-miquel-crop.png' : '/story-jaume-crop.png'} alt="" width="64" height="64" loading="lazy" />
+            <span><span class="other-story-lead">{otherStoryCopy.lead}</span><span class="other-story-name">{otherStoryCopy.story} {otherProfile.id === 'miquel' ? 'Miquel' : 'Jaume'}</span></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
+          </button>{/if}
         </article>
       {/key}
     {/if}
@@ -1033,4 +1052,10 @@
     .education-item:global(.scroll-active) p, .education-item:global(.scroll-active) .education-dot,
     .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: none; }
   }
+  .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #fff; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
+  .other-story img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: center top; }
+  .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; }
+  .other-story-name { display: block; font: 400 20px/1.3 Fraunces, Georgia, serif; color: #233f4e; }
+  .other-story svg { width: 24px; height: 24px; color: #4083a7; }
+  .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
 </style>
