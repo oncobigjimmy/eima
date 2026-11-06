@@ -44,6 +44,7 @@
       if (kind === 'closing') typedClosing = fullClosing;
       if (kind === 'dictionary') { typedDefinitionOne = copy.dictionary.definitionOne; typedDefinitionTwo = copy.dictionary.definitionTwo; }
     };
+    if (reduced) { complete(); return {}; }
     const start = async () => {
       if (started) return;
       started = true;
@@ -99,8 +100,8 @@
           <p class="dictionary-meta">{copy.dictionary.phonetic} <span>·</span> <em>{copy.dictionary.gender}</em> <span>·</span> <strong>{copy.dictionary.region}</strong></p>
           <div class="dictionary-rule"></div>
           <div class="dictionary-definitions">
-            <p><span>1.</span><span>{typedDefinitionOne}{#if dictionaryTyping && typedDefinitionOne.length < copy.dictionary.definitionOne.length}<i class="dictionary-cursor"></i>{/if}</span></p>
-            <p><span>2.</span><span>{typedDefinitionTwo}{#if dictionaryTyping && typedDefinitionOne.length === copy.dictionary.definitionOne.length && typedDefinitionTwo.length < copy.dictionary.definitionTwo.length}<i class="dictionary-cursor"></i>{/if}</span></p>
+            <p><span>1.</span><span class="sr-only">{copy.dictionary.definitionOne}</span><span aria-hidden="true">{typedDefinitionOne}{#if dictionaryTyping && typedDefinitionOne.length < copy.dictionary.definitionOne.length}<i class="dictionary-cursor"></i>{/if}</span></p>
+            <p><span>2.</span><span class="sr-only">{copy.dictionary.definitionTwo}</span><span aria-hidden="true">{typedDefinitionTwo}{#if dictionaryTyping && typedDefinitionOne.length === copy.dictionary.definitionOne.length && typedDefinitionTwo.length < copy.dictionary.definitionTwo.length}<i class="dictionary-cursor"></i>{/if}</span></p>
           </div>
           </div>
         </div>
@@ -290,4 +291,5 @@
   @media (hover: hover) and (pointer: fine) { .team-person:hover span { background: #4083a7; color: #fff; } }
   @media (hover: none), (pointer: coarse) { .team-person:active span { background: #4083a7; color: #fff; transform: translateX(-50%) scale(.97); } }
   @media (prefers-reduced-motion: reduce) { .team-person span { transition: none; } .team-person:active span { transform: translateX(-50%); } }
+  @media (min-width: 768px) { .dictionary-definitions { font-size: 16px; } }
 </style>
