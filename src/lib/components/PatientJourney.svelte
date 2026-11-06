@@ -227,7 +227,7 @@
   .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2.5rem auto 1.25rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
   .chapter-bar button.active { color: #233f4e; font-weight: 600; }
-  .chapter-track { display: block; width: 100%; height: 10px; background: rgba(35,63,78,.10); border-radius: 999px; overflow: hidden; }
+  .chapter-track { display: block; width: 100%; height: 10px; background: #e8e8f6; border-radius: 999px; overflow: hidden; }
   .chapter-fill { display: block; height: 100%; background: #4083a7; border-radius: inherit; transition: width var(--dur-entrada) var(--ease-calma); }
   .striped { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: chapter-stripes .9s linear infinite; }
   @keyframes chapter-stripes { from { background-position: 0 0; } to { background-position: 20px 0; } }

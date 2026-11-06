@@ -81,7 +81,7 @@ const esProgram = {
       },
       {
         number: '4',
-        title: 'Empiezas tu plan adaptado',
+        title: 'Empiezas con un plan adaptado a ti',
         body:
           'Preparamos un <strong>plan de fuerza, ejercicio aeróbico y movilidad</strong> adaptado a tu situación y a las actividades que quieres recuperar o mantener. Para ayudarte con la técnica, <strong>revisaremos vídeos de tus ejercicios</strong> para orientarte sobre cómo realizarlos.',
         icon: 'checklist'
@@ -314,7 +314,7 @@ const caProgram = {
       },
       {
         number: '4',
-        title: 'Comences el teu pla adaptat',
+        title: 'Comences amb un pla adaptat a tu',
         body:
           'Dissenyam un pla d’exercici ajustat a la teva situació actual. Prioritzam una dosi assumible per a tu i l’anam adaptant segons <strong>la teva tolerància, els teus símptomes i la teva evolució</strong>.',
         icon: 'checklist'
@@ -547,7 +547,7 @@ const enProgram = {
       },
       {
         number: '4',
-        title: 'Your tailored plan begins',
+        title: 'You start with a plan adapted to you',
         body:
           'We design an exercise plan tailored to your current situation. We prioritise a level that feels manageable for you. We adapt it according to <strong>your tolerance, symptoms and progress</strong>.',
         icon: 'checklist'

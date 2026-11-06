@@ -8,12 +8,7 @@
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import ServiceIllustration from '$lib/components/ServiceIllustration.svelte';
   let activeStep = 0;
-  let hoveredStep = -1;
   let visited = [false, false, false, false, false];
-  let refreshTrack = () => {};
-  $: displayStep = hoveredStep >= 0 ? hoveredStep : activeStep;
-  /** @param {number} index */
-  function highlightStep(index) { hoveredStep = index; refreshTrack(); }
   let stepsVisible = false;
   let mobileBarVisible = false;
   let headerHeight = 68;
@@ -75,17 +70,16 @@
       const cards = /** @type {HTMLElement[]} */ (Array.from(node.querySelectorAll('.program-step')));
       const bounds = node.getBoundingClientRect();
       headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 68;
-      const focusY = window.innerWidth >= 1024 ? window.innerHeight / 2 : headerHeight + (window.innerHeight - headerHeight) / 2;
+      const focusY = window.innerWidth >= 1024 ? window.innerHeight * .48 : headerHeight + (window.innerHeight - headerHeight) / 2;
       stepsVisible = bounds.top < window.innerHeight && bounds.bottom > headerHeight;
       mobileBarVisible = window.innerHeight / 2 >= bounds.top - 80 && bounds.bottom > headerHeight;
       /** @type {HTMLElement | null} */
       let active = null;
-      let closestDistance = Infinity;
       if (bounds.top < window.innerHeight * 0.85 && bounds.bottom > window.innerHeight * 0.15) {
+        active = cards[0];
         for (const card of cards) {
-          const rect = card.getBoundingClientRect();
-          const distance = Math.abs(rect.top + rect.height / 2 - focusY);
-          if (distance < closestDistance) { active = card; closestDistance = distance; }
+          const point = card.querySelector(window.innerWidth >= 1024 ? '.program-step__point' : '.program-step__point-mobile');
+          if (point && point.getBoundingClientRect().top <= focusY) active = card;
         }
       }
       if (window.innerWidth >= 1024) {
@@ -98,19 +92,18 @@
         }
       }
       if (active) activeStep = cards.indexOf(active);
-      const selected = hoveredStep >= 0 ? cards[hoveredStep] : active;
+      const selected = active;
       if (selected) visited = visited.map((value, index) => value || index < activeStep || cards[index] === selected);
       cards.forEach((card, index) => { card.dataset.scrollActive = card === selected ? 'true' : 'false'; card.dataset.visited = visited[index] ? 'true' : 'false'; });
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
-    refreshTrack = schedule;
     const stopMotion = watchReducedMotion((value) => { reducedMotion = value; schedule(); });
     const resizeObserver = new ResizeObserver(schedule);
     resizeObserver.observe(node);
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
-    return { destroy() { refreshTrack = () => {}; stopMotion(); resizeObserver.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
+    return { destroy() { stopMotion(); resizeObserver.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (frame) cancelAnimationFrame(frame); } };
   }
 
   /** @param {HTMLElement} node @param {string} value */
@@ -165,7 +158,7 @@
             <div class="steps-index-track" aria-hidden="true"><div class="steps-index-fill" class:running={stepsVisible} style:height={(activeStep + 1) / 5 * 100 + '%'}></div></div>
             <ol>
               {#each labels as label, index}
-                <li><button type="button" class:done={visited[index]} class:active={index === displayStep} aria-current={index === displayStep ? 'step' : undefined} on:mouseenter={() => highlightStep(index)} on:mouseleave={() => highlightStep(-1)} on:click={() => goToStep(index)}><span>{index + 1}</span>{label}</button></li>
+                <li><button type="button" class:done={visited[index]} class:active={index === activeStep} aria-current={index === activeStep ? 'step' : undefined} on:click={() => goToStep(index)}><span>{index + 1}</span>{label}</button></li>
               {/each}
             </ol>
           </nav>
@@ -192,8 +185,6 @@
         <div class="space-y-10 lg:space-y-7">
           {#each steps as step, index}
             <article
-              on:mouseenter={() => { if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) highlightStep(index); }}
-              on:mouseleave={() => highlightStep(-1)}
               use:revealOnScroll
               class="program-step relative"
               style={`--reveal-delay:calc(${index} * var(--stagger))`}
@@ -254,7 +245,7 @@
     .mobile-step-bar.shown { opacity: 1; visibility: visible; transform: translateY(0); }
     :global(body:has(#mobile-menu[aria-hidden="false"])) .mobile-step-bar { display: none; }
     .mobile-step-segments { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 8px; }
-    .mobile-step-segments span { height: 8px; border-radius: 999px; background: #8cd0d6; transition: background-color var(--dur-estado) var(--ease-calma); }
+    .mobile-step-segments span { height: 8px; border-radius: 999px; background: #e8e8f6; transition: background-color var(--dur-estado) var(--ease-calma); }
     .mobile-step-segments .filled { background-color: #4083a7; }
     .mobile-step-segments .current { background-color: #245b7d; background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: progress-stripes .9s linear infinite; }
   }
@@ -267,17 +258,17 @@
     .steps-sidebar .steps-badge { margin-top: 16px; }
     .steps-sidebar .steps-side-copy { margin-top: 16px; }
     .steps-index { display: grid; grid-template-columns: 10px 1fr; column-gap: 18px; margin-top: 20px; text-align: left; }
-    .steps-index-track { border-radius: 999px; overflow: hidden; background: #8cd0d6; }
+    .steps-index-track { border-radius: 999px; overflow: hidden; background: #e8e8f6; }
     .steps-index-fill { background-color: #4083a7; border-radius: inherit; transition: height var(--dur-entrada) var(--ease-calma); background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; }
     .steps-index-fill.running { animation: progress-stripes .9s linear infinite; }
     .steps-index ol { margin: 0; padding: 0; list-style: none; }
     .steps-index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; text-align: left; font-size: 15px; font-weight: 300; color: #8cd0d6; transition: color var(--dur-estado) var(--ease-calma); }
-    .steps-index button span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 600; color: #fff; text-shadow: 0 0 3px #071a2580; background: #8cd0d6; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
-    .steps-index button.done span { background: #4083a7; }
+    .steps-index button span { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; font-weight: 400; color: #233f4e; text-shadow: none; background: #8cd0d6; transition: background-color var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
+    .steps-index button.done span { background: #4083a7; color: #fff; font-weight: 600; text-shadow: 0 0 3px #071a2580; }
     .steps-index button.done { color: #4083a7; }
     .steps-index button.active { color: #245b7d; }
     .steps-index button.active { font-weight: 600; }
-    .steps-index button.active span { background: #245b7d; color: white; }
+    .steps-index button.active span { background: #245b7d; color: #fff; font-weight: 600; text-shadow: 0 0 3px #071a2580; }
     .steps-index button:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; border-radius: 4px; }
   }
   @media (min-width: 1024px) and (max-height: 859px) { .steps-sidebar .steps-badge { display: none; } }
@@ -326,15 +317,16 @@
   .program-step__point { transition: border-color 260ms ease; }
 
   :global(.program-step[data-scroll-active='true']) .program-step__point-mobile,
-  :global(.program-step[data-scroll-active='true']) .program-step__point { border-color: #233f4e; }
+  :global(.program-step[data-scroll-active='true']) .program-step__point { border-color: transparent; }
 
-  .program-step__point-mobile, .program-step__point { background: #8cd0d6; color: #fff; font-weight: 600; text-shadow: 0 0 3px #071a2580; }
-  :global(.program-step[data-visited='true']) .program-step__point-mobile, :global(.program-step[data-visited='true']) .program-step__point { background: #4083a7; }
-  :global(.program-step[data-scroll-active='true']) .program-step__point-mobile, :global(.program-step[data-scroll-active='true']) .program-step__point { background: #245b7d; }
-  :global(.program-step[data-scroll-active='true']) .step-title-ink { background-size: 100% 100%; color: #fff; }
+  .program-step__point-mobile, .program-step__point { background: #8cd0d6; color: #233f4e; font-weight: 400; text-shadow: none; }
+  :global(.program-step[data-visited='true']) .program-step__point-mobile, :global(.program-step[data-visited='true']) .program-step__point { background: #4083a7; color: #fff; font-weight: 600; text-shadow: 0 0 3px #071a2580; }
+  :global(.program-step[data-scroll-active='true']) .program-step__point-mobile, :global(.program-step[data-scroll-active='true']) .program-step__point { background: #245b7d; color: #fff; font-weight: 600; text-shadow: 0 0 3px #071a2580; }
+  :global(.program-step[data-visited='true']) .step-title-ink { background-size: 100% 100%; color: #fff; }
   @media (min-width: 1024px) {
     :global(.program-steps-track:has(.program-step[data-scroll-active='true']) .program-step[data-scroll-active='false'] .program-step__surface) { filter: blur(.6px); opacity: .88; }
   }
+  @keyframes step-card-lift { 0% { transform: translateY(0) scale(1); } 65% { transform: translateY(-5px) scale(1.018); } 100% { transform: translateY(-4px) scale(1.012); } }
   .program-step__card {
     margin-top: 2.2rem;
   }
@@ -346,9 +338,9 @@
   }
 
   :global(.program-step[data-scroll-active='true']) .program-step__surface {
-    transform: translateY(-4px);
-    border-color: #233f4e;
-    box-shadow: var(--eima-halo-light);
+    animation: step-card-lift 500ms var(--ease-calma) both;
+    border-color: transparent;
+    box-shadow: 0 12px 30px #233f4e26;
   }
 
   :global(.program-steps-track:has(.program-step[data-scroll-active='true']) .program-step[data-scroll-active='false'] .program-step__surface) {
@@ -406,7 +398,7 @@
       left: var(--program-axis);
       top: 2.2rem;
       bottom: 2.2rem;
-      width: 1px;
+      width: 2px;
       transform: translateX(-50%);
       background: #8cd0d6;
     }
@@ -416,9 +408,9 @@
       position: absolute;
       top: 0;
       left: 50%;
-      width: 2px;
+      width: 3px;
       height: 100%;
-      background: #4083a7;
+      background: #245b7d;
       transform: translateX(-50%) scaleY(var(--program-line-progress, 0));
       transform-origin: top;
       pointer-events: none;
@@ -441,10 +433,10 @@
       border-radius: 9999px;
       border: 2px solid transparent;
       background: #8cd0d6;
-      color: #fff;
+      color: #233f4e;
       box-shadow: 0 6px 16px rgba(14, 29, 38, 0.05);
       font-size: 30px;
-      font-weight: 600;
+      font-weight: 400;
       line-height: 1;
     }
 
@@ -461,7 +453,7 @@
     .program-step__surface,
     .program-step__point-mobile,
     .program-step__point { transition: none; }
-    :global(.program-step[data-scroll-active='true']) .program-step__surface { transform: none !important; }
+    :global(.program-step[data-scroll-active='true']) .program-step__surface { animation: none; transform: none !important; }
   }
 </style>
 
