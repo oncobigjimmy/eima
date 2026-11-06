@@ -52,12 +52,14 @@
     <div class="about-intro-grid">
       <div class="team-block intro-reveal intro-reveal--left" use:standardEntry>
         <div class="team-photo">
+          <div class="team-photo-images">
           <img class="team-photo-person team-photo-person--left" src="/story-miquel-crop.png" alt="" aria-hidden="true" />
           <img class="team-photo-person team-photo-person--right" src="/story-jaume-crop.png" alt="" aria-hidden="true" />
+          </div>
           <a class="team-person team-person--left" href={`${storyPath}#miquel`} aria-label={`${ui.view} Miquel`}><span>Miquel <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span></a>
           <a class="team-person team-person--right" href={`${storyPath}#jaume`} aria-label={`${ui.view} Jaume`}><span>Jaume <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span></a>
         </div>
-        <p class="team-hint">{@html pageLanguage === 'es' ? ui.hint.replace('para conocer', 'para<br class="about-mobile-break" /> conocer') : ui.hint}</p>
+        <p class="team-hint"><span class="team-hint-desktop">{@html ui.hint}</span><span class="team-hint-mobile">{pageLanguage === 'es' ? 'Pulsa en uno de nosotros para conocer su historia.' : pageLanguage === 'ca' ? 'Toca un de nosaltres per conèixer la seva història.' : 'Tap either of us to discover our story.'}</span></p>
       </div>
       <div class="dictionary-wrap intro-reveal intro-reveal--right" use:standardEntry use:typeOnView>
         <div class="dictionary-card" use:scrollContrast>
@@ -252,4 +254,18 @@
   .closing-visual picture { display: block; height: 100%; }
   .closing-photo-tint { position: absolute; inset: 0; pointer-events: none; background: #245b7d; mix-blend-mode: color; opacity: var(--photo-tint-sunset, var(--photo-tint)); }
   @media (max-width: 900px) { .closing-visual { max-height: 440px; } }
+  .team-photo-images { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+  .team-hint-mobile { display: none; }
+  /* TODO [CA-revisar]: revisar la indicació mòbil per triar una història. */
+  @media (max-width: 767px) {
+    .about-intro { padding-top: 5.5rem; }
+    .about-intro-grid { margin-top: 2rem; gap: 1.5rem; }
+    .team-photo { overflow: visible; }
+    .team-person span { top: 0; bottom: auto; min-height: 32px; padding: 0 14px; transform: translate(-50%, -50%); background: #4083a7; color: #fff; }
+    .team-hint { margin-top: .625rem; font-size: clamp(10px, 3.05vw, 12px); white-space: nowrap; }
+    .team-hint-desktop { display: none; }
+    .team-hint-mobile { display: inline; }
+    .team-person:active span { transform: translate(-50%, -50%) scale(.97); }
+  }
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) { .team-person:active span { transform: translate(-50%, -50%); } }
 </style>
