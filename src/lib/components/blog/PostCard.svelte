@@ -27,6 +27,7 @@
   href={post.path ?? `/blog/${post.slug}`}
   class="post-card group hover-dim-item flex h-full flex-col rounded-[10px] border border-transparent bg-white p-7 shadow-[0_1px_3px_rgba(14,29,38,0.06)] md:p-6"
 >
+  {#if post.readingMinutes}<p class="post-reading-time">{post.readingMinutes} min</p>{/if}
   <h2
     class="post-card-title text-xl leading-snug md:line-clamp-3 md:min-h-[5.15rem] md:text-[1.35rem]"
   >
@@ -46,9 +47,17 @@
       <span class="whitespace-nowrap">{post.readingMinutes} min</span>
     {/if}
   </div>
+  <!-- TODO [CA-revisar]: revisar «Llegir l’article». -->
+  <span class="post-read">{post.language === 'ca' ? 'Llegir l’article' : post.language === 'en' ? 'Read article' : 'Leer artículo'} →</span>
 </a>
 
 <style>
+  .post-reading-time { margin: 0 0 10px; font: 400 12px/1.5 Inter, sans-serif; color: #55656f; }
+  .post-read { display: flex; align-items: center; min-height: 44px; margin-top: 12px; }
+  .post-card:is(:hover, :focus-visible, :global(.scroll-active)) .post-reading-time { color: inherit; }
+  :global(.blog-post-grid:has(> .post-card:is(:hover, :focus-visible)) > .post-card:not(:hover):not(:focus-visible)),
+  :global(.blog-post-grid:has(> .post-card.scroll-active) > .post-card:not(.scroll-active)) { opacity: .7; filter: none; }
+
   .post-card {
     color: #233f4e;
     transition: opacity 175ms ease-out, background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out, color 380ms ease-out;
