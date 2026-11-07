@@ -381,7 +381,7 @@
   .keep-reading { margin-top: 32px; }
   .keep-reading-label { margin-bottom: 12px; text-transform: uppercase; font: 400 12px/1.5 Inter, sans-serif; letter-spacing: .12em; color: #245b7d; }
   .keep-reading-card { display: block; padding: 22px 20px; border-radius: 14px; background: #233f4e; color: #f4f4f8; }
-  .keep-reading-card h2 { margin: 10px 0; font: 400 21px/1.3 Fraunces, serif; }
+  .keep-reading-card h2 { color: #f4f4f8; margin: 10px 0; font: 400 21px/1.3 Fraunces, serif; }
   .keep-reading-card p { font: 400 14px/1.7 Inter, sans-serif; }
   .keep-reading-card .keep-reading-time { font-size: 12px; }
   .keep-reading-card span { display: flex; align-items: center; min-height: 44px; margin-top: 12px; color: #8cd0d6; }
