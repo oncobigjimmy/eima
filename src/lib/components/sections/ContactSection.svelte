@@ -1,4 +1,5 @@
 <script>
+  import { standardEntry } from '$lib/actions/standardEntry';
   import { selectedSituation } from '$lib/data/situation';
   import { contactLayout } from '$lib/i18n/reviewed';
   import { site } from '$lib/site';
@@ -7,6 +8,12 @@
 
   $: layout = contactLayout[$language];
   $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
+  // TODO [CA-revisar]: revisar les traduccions de contacte i els passos.
+  $: contactAuditCopy = {
+    es: { titles: ['Abrir WhatsApp', 'Llamar', 'Enviar un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes', 'Con dos líneas basta: qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Te contestamos Miquel o Jaume en persona, en [TODO: menos de X horas].'], ['Llamada breve gratuita', 'Vemos si podemos ayudarte. Si no encaja, te lo decimos con total honestidad.']], reassurance: 'Sin compromiso. Escribir no te obliga a empezar nada.' },
+    ca: { titles: ['Obrir WhatsApp', 'Telefonar', 'Enviar un correu'], fast: 'La manera més ràpida', after: ['Què passa ', 'després?'], steps: [['Ens escrius', 'Amb dues línies basta: què et passa i en quin moment del tractament estàs.'], ['Et responem', 'Et contestam en Miquel o en Jaume en persona, en [TODO: menys de X hores].'], ['Trucada breu gratuïta', 'Veim si et podem ajudar. Si no encaixa, t’ho deim amb tota honestedat.']], reassurance: 'Sense compromís. Escriure no t’obliga a començar res.' },
+    en: { titles: ['Open WhatsApp', 'Call us', 'Send an email'], fast: 'The quickest way', after: ['What happens ', 'next?'], steps: [['You write to us', 'A couple of lines is enough: tell us what is happening and where you are in your treatment.'], ['We reply', 'Miquel or Jaume will reply personally within [TODO: fewer than X hours].'], ['Free short call', 'We see whether we can help. If it is not a good fit, we will tell you honestly.']], reassurance: 'No obligation. Writing to us does not commit you to starting anything.' }
+  }[$language];
 </script>
 
 <section id="contacto" class="contact-page" class:contact-page--es={true} class:contact-page--ca={$language === 'ca'}>
@@ -36,7 +43,7 @@
               />
             </svg>
           </span>
-          <span class="contact-method__label">WhatsApp</span>
+          <span class="contact-method__label"><strong>{contactAuditCopy.titles[0]}</strong><small>{contactAuditCopy.fast} · +34 604 52 97 31</small></span><span class="contact-method__arrow" aria-hidden="true">→</span>
         </a>
 
         <a href={site.phoneHref} class="contact-method contact-method--phone">
@@ -47,7 +54,7 @@
               />
             </svg>
           </span>
-          <span class="contact-method__label">{site.phone}</span>
+          <span class="contact-method__label"><strong>{contactAuditCopy.titles[1]}</strong><small>+34 604 52 97 31 · [TODO horario]</small></span><span class="contact-method__arrow" aria-hidden="true">→</span>
         </a>
 
         <a href={`mailto:${site.email}`} class="contact-method contact-method--email">
@@ -58,13 +65,20 @@
               />
             </svg>
           </span>
-          <span class="contact-method__label">{site.email}</span>
+          <span class="contact-method__label"><strong>{contactAuditCopy.titles[2]}</strong><small>{site.email}</small></span><span class="contact-method__arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </div>
   </div>
 </section>
 
+<section class="contact-next" aria-labelledby="contact-next-title">
+  <div class="contact-inner">
+    <h2 id="contact-next-title">{contactAuditCopy.after[0]}<span>{contactAuditCopy.after[1]}</span></h2>
+    <ol>{#each contactAuditCopy.steps as step, index}<li use:standardEntry={index}><span class="contact-next-number">{index + 1}</span><div><h3>{step[0]}</h3><p>{step[1]}</p></div></li>{/each}</ol>
+    <p class="contact-reassurance">{contactAuditCopy.reassurance}</p>
+  </div>
+</section>
 <style>
   .contact-page {
     position: relative;
@@ -269,4 +283,31 @@
     .contact-methods { margin-top: calc(2rem + 8px); }
   }
 @media (max-width: 767px) { .contact-intro p { font-size: 14.8px; } }
+
+  .contact-copy { max-width: none; }
+  .contact-methods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .contact-method { display: grid; grid-template-columns: 48px minmax(0, 1fr) 20px; gap: 12px; width: 100%; padding: 16px; border-radius: 16px; background: rgba(255,255,255,.08); border: 1px solid rgba(140,208,214,.3); transition: background-color var(--dur-micro) var(--ease-calma), transform var(--dur-micro) var(--ease-calma); }
+  .contact-method:is(:hover, :focus-visible) { transform: none; color: #fff; }
+  .contact-method:focus-visible { outline: 2px solid #8cd0d6; outline-offset: 3px; }
+  .contact-method:active { transform: scale(.98); }
+  .contact-method .contact-method__icon { width: 48px; height: 48px; background: #4083a7; }
+  .contact-method--whatsapp .contact-method__icon { background: #25d366; }
+  .contact-method__icon::before { display: none; }
+  .contact-method .contact-method__label, .contact-method:is(:hover, :focus-visible) .contact-method__label { color: #fff; font-weight: 400; }
+  .contact-method__label strong { display: block; font: 600 16px/1.4 Inter, sans-serif; }
+  .contact-method__label small { display: block; margin-top: 4px; font: 400 13px/1.5 Inter, sans-serif; color: #d1dfe5; }
+  .contact-method__arrow { color: #8cd0d6; font-size: 24px; }
+  .contact-next { padding: 56px 0; background: #f8f4f0; }
+  .contact-next h2 { font: 500 clamp(28px, 3vw, 36px)/1.2 'Playfair Display', Georgia, serif; color: #233f4e; }
+  .contact-next h2 span { color: #4083a7; font: inherit; }
+  .contact-next ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 32px 0; list-style: none; padding: 0; }
+  .contact-next li { display: grid; grid-template-columns: 44px minmax(0,1fr); gap: 14px; }
+  .contact-next-number { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #e8e8f6; font: 400 20px Fraunces, serif; color: #233f4e; }
+  .contact-next li:last-child .contact-next-number { background: #8cd0d6; }
+  .contact-next h3 { font: 400 20px/1.3 Fraunces, serif; color: #233f4e; }
+  .contact-next li p { margin-top: 8px; font: 400 15px/1.7 Inter, sans-serif; color: #245b7d; }
+  .contact-reassurance { padding: 18px; border-radius: 12px; background: #fff; text-align: center; font: 400 14px/1.6 Inter, sans-serif; color: #233f4e; }
+  @media (hover: hover) and (pointer: fine) { .contact-method:hover { background: rgba(255,255,255,.14); } }
+  @media (max-width: 767px) { .contact-methods, .contact-next ol { grid-template-columns: 1fr; } .contact-next li p { font-size: 14px; } }
+  @media (prefers-reduced-motion: reduce) { .contact-method { transition: none; } .contact-method:active { transform: none; } }
 </style>
