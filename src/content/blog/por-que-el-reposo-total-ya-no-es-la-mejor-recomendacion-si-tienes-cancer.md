@@ -42,12 +42,13 @@ Desde ahí, en nuestro <a class="empenta-inline-link" href="/como-funciona#progr
   <div class="blog-program-cta__copy">
     <p><strong>Por eso no trabajamos a base de sesiones sueltas.</strong></p>
     <p>
-      Trabajamos con un acompañamiento estructurado de <strong>12 semanas</strong>, con una primera
-      valoración en tu casa y un seguimiento online <strong>para adaptar el proceso según tu momento.</strong>
+      Trabajamos con un acompañamiento estructurado de <strong>12 semanas</strong>,<br class="hidden lg:block" />
+      con una primera valoración en tu casa y un seguimiento online<br class="hidden lg:block" />
+      <strong>para adaptar el proceso según tu momento.</strong>
     </p>
     <p>
-      Haz clic abajo, donde te enseñamos paso a paso cómo funciona nuestro
-      <strong class="blog-program-cta__program">Programa Empenta.</strong>
+      Haz clic abajo, donde te enseñamos paso a paso<br class="hidden lg:block" />
+      cómo funciona nuestro <strong class="blog-program-cta__program">Programa Empenta.</strong>
     </p>
   </div>
   <a class="blog-program-cta__button" href="/como-funciona#program-steps">

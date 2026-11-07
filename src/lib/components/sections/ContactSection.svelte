@@ -10,7 +10,7 @@
   $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
   // TODO [CA-revisar]: revisar les traduccions de contacte i els passos.
   $: contactAuditCopy = {
-    es: { titles: ['Abrir WhatsApp', 'Llamar', 'Enviar un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes o llamas', 'Cuéntanos brevemente qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Te contestamos en menos de 24 horas.'], ['Llamada breve y gratuita', 'Valoramos si podemos ayudarte. Si no encaja, te lo decimos con honestidad.']], reassurance: ['Hablar con nosotros no te obliga', 'a empezar nada todavía.'] },
+    es: { titles: ['Habla por WhatsApp', 'Llama al teléfono', 'Envía un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes o llamas', 'Cuéntanos brevemente qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Te contestamos en menos de 24 horas.'], ['Llamada breve y gratuita', 'Valoramos si podemos ayudarte. Si no encaja, te lo decimos con honestidad.']], reassurance: ['Hablar con nosotros no te obliga', 'a empezar nada todavía.'] },
     ca: { titles: ['Obrir WhatsApp', 'Telefonar', 'Enviar un correu'], fast: 'La manera més ràpida', after: ['Què passa ', 'després?'], steps: [['Ens escrius o ens crides', 'Conta’ns breument què et passa i en quin moment del tractament estàs.'], ['Et responem', 'Et contestam en menys de 24 hores.'], ['Trucada breu i gratuïta', 'Valoram si et podem ajudar. Si no encaixa, t’ho deim amb honestedat.']], reassurance: ['Parlar amb nosaltres no t’obliga', 'a començar res encara.'] },
     en: { titles: ['Open WhatsApp', 'Call us', 'Send an email'], fast: 'The quickest way', after: ['What happens ', 'next?'], steps: [['Write or call us', 'Briefly tell us what is happening and where you are in treatment.'], ['We reply', 'We will get back to you within 24 hours.'], ['Free short call', 'We will see whether we can help. If not, we will tell you honestly.']], reassurance: ['Talking with us does not commit you', 'to starting anything yet.'] }
   }[$language];
@@ -62,7 +62,7 @@
               />
             </svg>
           </span>
-          <span class="contact-method__label"><strong>{#if $language === 'es'}<span class="contact-title-desktop">Hablar por WhatsApp</span><span class="contact-title-mobile">{contactAuditCopy.titles[0]}</span>{:else}{contactAuditCopy.titles[0]}{/if}</strong><small>{contactAuditCopy.fast}</small></span><span class="contact-method__arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></span>
+          <span class="contact-method__label"><strong>{#if $language === 'es'}<span class="contact-title-desktop">Habla por WhatsApp</span><span class="contact-title-mobile">{contactAuditCopy.titles[0]}</span>{:else}{contactAuditCopy.titles[0]}{/if}</strong><small>{contactAuditCopy.fast}</small></span><span class="contact-method__arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></span>
         </a>
 
         <a href={site.phoneHref} class="contact-method contact-method--phone">
@@ -73,7 +73,7 @@
               />
             </svg>
           </span>
-          <span class="contact-method__label"><strong>{#if $language === 'es'}<span class="contact-title-desktop">Llamar al teléfono</span><span class="contact-title-mobile">{contactAuditCopy.titles[1]}</span>{:else}{contactAuditCopy.titles[1]}{/if}</strong><small>{site.phoneLocal}</small></span><span class="contact-method__arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></span>
+          <span class="contact-method__label"><strong>{#if $language === 'es'}<span class="contact-title-desktop">Llama al teléfono</span><span class="contact-title-mobile">{contactAuditCopy.titles[1]}</span>{:else}{contactAuditCopy.titles[1]}{/if}</strong><small>{site.phoneLocal}</small></span><span class="contact-method__arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></span>
         </a>
 
         <a href={`mailto:${site.email}`} class="contact-method contact-method--email">
@@ -318,7 +318,8 @@
   .contact-method__label small { display: block; margin-top: 4px; font: 400 13px/1.5 Inter, sans-serif; color: #d1dfe5; }
   .contact-method__arrow { display: grid; place-items: center; color: #8cd0d6; font: 400 32px/1 Inter, sans-serif; }
   .contact-method__arrow svg { width: 24px; height: 24px; }
-  .contact-title-desktop { display: none; }
+  .contact-title-desktop { display: inline; }
+  .contact-title-mobile { display: none; }
   .contact-next { padding: 56px 0; background: #f8f4f0; }
   .contact-next h2 { margin: 0 auto; text-align: center; font: 500 32px/1.2 'Playfair Display', Georgia, serif; color: #233f4e; }
   .contact-next h2 span { color: #4083a7; font: inherit; }
@@ -344,13 +345,14 @@
     .contact-methods { max-width: 1080px; gap: 36px; margin-inline: auto; }
     .contact-method { min-height: 80px; padding: 10px 12px; grid-template-columns: 48px minmax(0, 1fr) 40px; gap: 10px; }
     .contact-method__whatsapp { width: 1.775rem; height: 1.775rem; }
-    .contact-method__label strong { font: 500 19px/1.1 Fraunces, Georgia, serif; color: #fff; }
+    .contact-method__label strong { font: 500 18px/1.1 Fraunces, Georgia, serif; color: #fff; }
     .contact-method__label { display: flex; height: 45px; flex-direction: column; justify-content: space-between; }
-    .contact-method__label small { margin-top: 0; font-size: 14px; font-weight: 300; line-height: 1.2; }
+    .contact-method__label small { margin-top: 0; font-size: 15px; font-weight: 300; line-height: 1.2; }
     .contact-title-desktop { display: inline; }
     .contact-title-mobile { display: none; }
-    .contact-method__arrow svg { width: 40px; height: 40px; }
-    .contact-next ol::before, .contact-next ol::after { top: 42px; height: 4px; }
+    .contact-method__arrow svg { width: 34px; height: 34px; transition: transform var(--dur-estado) var(--ease-calma); }
+    .contact-method:is(:hover, :focus-visible) .contact-method__arrow svg { transform: rotate(-45deg); }
+    .contact-next ol::before, .contact-next ol::after { top: 42px; height: 4px; border-radius: 999px; }
     .contact-next ol:global(.journey-visible)::before, .contact-next ol:global(.journey-visible)::after { transition: transform 3s linear .15s; }
     .contact-next-number { width: 88px; height: 88px; font-size: 40px; filter: none; }
     .contact-next li { opacity: .24; }
@@ -376,10 +378,12 @@
   @media (hover: hover) and (pointer: fine) { .contact-method:hover { background: rgba(255,255,255,.14); } }
   @media (max-width: 767px) {
     .contact-methods, .contact-next ol { grid-template-columns: 1fr; }
-    .contact-methods { gap: 24px; }
+    .contact-page { padding-top: 5rem; padding-bottom: 1.5rem; }
+    .contact-intro { margin-top: 1.6rem; line-height: 1.4; }
+    .contact-methods { gap: 12px; margin-top: 2.2rem; }
     .contact-method { min-height: 80px; padding: 10px 12px; grid-template-columns: 48px minmax(0, 1fr) 32px; }
     .contact-method__label strong { font: 500 18px/1.1 Fraunces, Georgia, serif; }
-    .contact-method__label small { margin-top: 3px; font-size: 14px; font-weight: 300; line-height: 1.2; }
+    .contact-method__label small { margin-top: 6px; font-size: 14px; font-weight: 300; line-height: 1.2; }
     .contact-method__whatsapp { width: 1.775rem; height: 1.775rem; }
     .contact-method__arrow svg { width: 32px; height: 32px; }
     .contact-next ol { gap: 36px; grid-auto-rows: 1fr; }
@@ -400,5 +404,5 @@
     .contact-next ol:global(.journey-visible) li:nth-child(2)::after { transition-delay: 1.5s; }
     @keyframes contact-mobile-step { from { opacity: .24; } to { opacity: 1; } }
   }
-  @media (prefers-reduced-motion: reduce) { .contact-method { transition: none; } .contact-method:active { transform: none; } .contact-next ol::before, .contact-next ol::after, .contact-next li::after { transition: none !important; transform: none !important; } .contact-next-number { animation: none !important; filter: none; } .contact-next li { opacity: 1; animation: none !important; } .contact-reassurance { opacity: 1; animation: none !important; } .contact-reassurance span { clip-path: none; animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .contact-method, .contact-method__arrow svg { transition: none; } .contact-method:active { transform: none; } .contact-next ol::before, .contact-next ol::after, .contact-next li::after { transition: none !important; transform: none !important; } .contact-next-number { animation: none !important; filter: none; } .contact-next li { opacity: 1; animation: none !important; } .contact-reassurance { opacity: 1; animation: none !important; } .contact-reassurance span { clip-path: none; animation: none !important; } }
 </style>

@@ -127,6 +127,8 @@
 
 <style>
   .footer { text-shadow: var(--eima-dark-copy-shadow); }
+  @media (max-width: 767px) { .footer-main-grid { gap: 0; padding-top: 0; padding-bottom: 0; } .footer-main-grid > div { padding-top: 2rem; padding-bottom: 2rem; } }
+  @media (min-width: 768px) { .footer-main-grid > div { padding-top: 0; padding-bottom: 0; } }
   .footer-heading { font-family: 'Playfair Display', Georgia, serif; }
   @media (min-width: 1024px) { .footer-contact-column { padding-top: 12px; } }
   .footer-page-links { display: grid; grid-auto-flow: column; grid-template-columns: repeat(2, max-content); grid-template-rows: repeat(3, auto); gap: .5rem 1rem; width: max-content; }

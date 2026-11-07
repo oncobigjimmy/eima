@@ -200,6 +200,7 @@
   .closing-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: clamp(2.25rem, 4vw, 3rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 3vw, 3rem); }
   .closing-content { display: flex; width: 100%; max-width: 570px; flex-direction: column; align-items: stretch; }
   .closing-title { position: relative; max-width: 650px; font-size: clamp(2.5rem, 4.2vw, 3.6rem); color: #233f4e; }
+  @media (max-width: 767px) { .closing-title.section-playfair-desktop { font-size: 36px !important; } }
   .closing-word { position: relative; display: inline-block; white-space: nowrap; }
   .closing-title .about-blue { color: #4083a7; }
   .closing-paragraphs { display: grid; gap: 1rem; max-width: 570px; margin-top: 2rem; color: #233f4e; font-size: 16px; line-height: 1.7; }

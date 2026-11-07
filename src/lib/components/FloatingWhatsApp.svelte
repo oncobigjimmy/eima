@@ -99,12 +99,14 @@
 <style>
   .floating-whatsapp { position: fixed; z-index: 50; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); width: 56px; height: 56px; overflow: hidden; border-radius: 999px; background: #25d366; color: #fff; box-shadow: 0 10px 24px rgba(14,29,38,.22); opacity: 1; transform: scale(1); transition: width 450ms var(--ease-calma), opacity 200ms var(--ease-calma), transform 200ms var(--ease-calma); }
   .floating-whatsapp.expanded { width: min(calc(100vw - 32px), 420px); }
+  @media (min-width: 1024px) { .floating-whatsapp.expanded { width: min(calc(100vw - 32px), 350px); } .wa-bar-link { font-size: 16px; padding-left: 20px; padding-right: 0; } }
   .floating-whatsapp.is-hidden { opacity: 0; transform: scale(.9); pointer-events: none; }
   .wa-icon-link { position: absolute; right: 0; top: 0; width: 56px; height: 56px; display: grid; place-items: center; }
   .wa-icon-link svg { width: 30px; height: 30px; }
   .wa-bar-link { position: absolute; inset: 0 56px 0 0; display: flex; align-items: center; justify-content: center; gap: .3em; text-align: center; padding: 0 8px; font: 400 15px/1.3 Inter, sans-serif; white-space: nowrap; }
   .wa-bar-link, .wa-bar-link strong, .wa-bar-link span { color: #fff; }
   .wa-bar-link { opacity: 0; visibility: hidden; transition: opacity 200ms var(--ease-calma), visibility 200ms; }
+  @media (max-width: 767px) { .wa-bar-link { padding-left: 20px; padding-right: 0; } }
   .wa-bar-link strong { font-weight: 700; }
   .wa-bar-link span { font-weight: 400; }
   .expanded .wa-bar-link { opacity: 1; visibility: visible; transition-delay: 200ms; }

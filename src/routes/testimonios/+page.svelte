@@ -292,7 +292,7 @@
 <section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
   <div>
     <h2 id="testimonios-cta-title" class="testimonials-closing-title">
-      {@html ctaHeading}
+       {#if pageLanguage === 'es'}Si quieres <span class="closing-accent">cambiar tu<span class="closing-mobile-break"><br /></span><span class="closing-desktop-space">&nbsp;</span>situación</span> actual,<span class="closing-mobile-break">&nbsp;pero<br /></span><span class="closing-desktop-break"><br /></span><span class="closing-desktop-only">pero&nbsp;</span>no sabes cómo hacerlo...{:else}{@html ctaHeading}{/if}
     </h2>
   </div>
   <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} />
@@ -1071,6 +1071,10 @@
   .testimonials-section { padding-bottom: 1.75rem; }
   .testimonials-cta { padding-top: 1.75rem; padding-bottom: 3.5rem; }
 }
+  .closing-mobile-break { display: none; font: inherit; }
+  .closing-desktop-only { font: inherit; }
+  @media (max-width: 767px) { .closing-mobile-break { display: inline; } .closing-desktop-break, .closing-desktop-only, .closing-desktop-space { display: none; } .testimonials-cta h2 { line-height: 1.12; } }
+  .testimonials-cta { padding-top: 1.2rem; }
   .testimonials-cta h2 :global(.closing-accent) { color: #4083a7; font: inherit; }
   @media (max-width: 767px) { .testimonials-cta h2 { font-size: 24px; } }
 </style>

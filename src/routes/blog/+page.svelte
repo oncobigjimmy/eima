@@ -113,14 +113,16 @@
   }
 
 @media (max-width: 767px) { .blog-hero-content p { font-size: 14.8px; } }
-  .blog-faq-card { display: block; max-width: 960px; border: 1px solid transparent; text-decoration: none; transition: border-color 200ms ease, box-shadow 200ms ease; }
+  .blog-faq-card { display: block; max-width: 1100px; border: 1px solid transparent; text-decoration: none; transition: border-color 200ms ease, box-shadow 200ms ease; }
   .blog-faq-card:is(:hover, :focus-visible) { border-color: #4083a7; }
   .blog-faq-card:focus-visible { outline: 2px solid #4083a7; outline-offset: 3px; }
   .blog-faq-card h2 { margin-bottom: 12px; font: 500 24px/1.3 'Playfair Display', Georgia, serif; color: #245b7d; }
   @media (min-width: 768px) { .blog-faq-card h2 { font-size: 30px; } }
   .blog-faq-card p { font: 300 15px/1.65 Inter, sans-serif; color: #4083a7; }
   .blog-faq-link { color: #245b7d; font-weight: 700; border-bottom: 1px dotted currentColor; }
-  .blog-faq-break { display: none; }
+  .blog-faq-break { display: block; height: .7rem; }
+  .blog-faq-desktop-break { display: none; }
+  @media (min-width: 1024px) { .blog-faq-card { max-width: 760px; } .blog-faq-desktop-break { display: block; } .blog-faq-card p { font-size: clamp(13px, 1.17vw, 15px); } }
   @media (max-width: 767px) { .blog-faq-break { display: block; height: .7rem; } }
 </style>
 
@@ -138,7 +140,7 @@
 
     <a href={`${getRoutePath('program', data.language)}#faq`} class="blog-faq-card mx-auto mt-10 rounded-xl bg-white p-6 shadow-[0_3px_12px_rgba(35,63,78,.10)] md:mt-12 md:p-6">
       <h2>{ui.questions}</h2>
-      <p>{#if data.language === 'es'}Sabemos que este tema genera muchas dudas: <strong><em>qué tipo de ejercicio es seguro, cuándo empezar, qué hacer si hay fatiga, dolor, metástasis, anemia o miedo a moverse.</em></strong><span class="blog-faq-break" aria-hidden="true"></span> Puedes consultar nuestras{:else}{ui.questionsBefore}{/if}{' '}<span class="blog-faq-link">{ui.faq}</span> {ui.questionsAfter}</p>
+      <p>{#if data.language === 'es'}Sabemos que este tema genera muchas dudas: <strong><em>qué tipo de ejercicio es seguro, cuándo empezar,<br class="blog-faq-desktop-break" /> qué hacer si hay fatiga, dolor, metástasis, anemia o miedo a moverse.</em></strong><span class="blog-faq-break" aria-hidden="true"></span> Puedes consultar nuestras{:else}{ui.questionsBefore}{/if}{' '}<span class="blog-faq-link">{ui.faq}</span> {ui.questionsAfter}</p>
     </a>
     <div class="mx-auto mt-8 flex max-w-3xl flex-col items-center justify-center gap-4 text-center md:flex-row md:gap-6 md:text-left">
       <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ui.cta} />

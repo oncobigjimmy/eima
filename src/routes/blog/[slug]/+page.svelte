@@ -4,6 +4,7 @@
   import { getPost, getPostAlternates } from '$lib/blog/posts.js';
   import { getAuthor } from '$lib/blog/authors.js';
   import PostMeta from '$lib/components/blog/PostMeta.svelte';
+  import PostCard from '$lib/components/blog/PostCard.svelte';
   import AuthorSupport from '$lib/components/blog/AuthorSupport.svelte';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
 
@@ -75,6 +76,10 @@
   onMount(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
+    /** @type {Element | null} */
+    let activeCard = null;
+    /** @type {ReturnType<typeof setTimeout> | undefined} */
+    let revealTimer;
     const update = () => {
       frame = 0;
       const cards = Array.from(document.querySelectorAll('.prose-blog .source-card'));
@@ -86,7 +91,11 @@
         const current = Math.abs((rect.top + rect.bottom) / 2 - center);
         if (rect.top <= center + window.innerHeight * .15 && rect.bottom >= center - window.innerHeight * .15 && current < distance) { closest = card; distance = current; }
       }
-      for (const card of cards) card.classList.toggle('source-active', reduced.matches || card === closest);
+      if (closest !== activeCard) {
+        clearTimeout(revealTimer); activeCard = closest;
+        for (const card of cards) card.classList.remove('source-active');
+        if (closest) revealTimer = setTimeout(() => closest.classList.add('source-active'), reduced.matches ? 0 : 1000);
+      }
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const container = document.querySelector('.prose-blog');
@@ -97,7 +106,7 @@
     window.addEventListener('load', schedule, true);
     reduced.addEventListener('change', schedule);
     schedule();
-    return () => { changes.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); window.removeEventListener('load', schedule, true); reduced.removeEventListener('change', schedule); cancelAnimationFrame(frame); };
+    return () => { changes.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); window.removeEventListener('load', schedule, true); reduced.removeEventListener('change', schedule); cancelAnimationFrame(frame); clearTimeout(revealTimer); };
   });
 </script>
 
@@ -137,11 +146,7 @@
   <div class="site-hero-overlay absolute inset-0" aria-hidden="true"></div>
 
   <div class="blog-post-hero-content photo-text-contrast--light relative z-10 mx-auto max-w-6xl px-6 md:px-10 pt-24 md:pt-32 pb-16">
-    <nav aria-label={ui.breadcrumbs} class="blog-post-breadcrumb text-sm font-light text-white/70">
-      <a href={homePath} class="hover:text-white">{ui.home}</a>
-      <span aria-hidden="true" class="mx-2">/</span>
-      <a href={blogPath} class="hover:text-white">Blog</a>
-    </nav>
+
     <h1 class={`blog-post-title font-light text-white ${data.heroTitleClass ?? ''}`}>
       {#if data.language === 'es' && data.slug === 'por-que-cada-vez-hay-mas-gente-joven-con-cancer-que-esta-pasando'}
         ¿Por qué cada vez hay más <br class="hidden md:block" />
@@ -159,6 +164,9 @@
         ¿Puede el <span class="blog-post-title-accent">ejercicio</span> frenar el <br class="hidden md:block" />
         crecimiento de un tumor? <br class="hidden md:block" />
         ¿Qué dice la ciencia?
+      {:else if data.language === 'es' && data.slug === 'por-que-el-reposo-total-ya-no-es-la-mejor-recomendacion-si-tienes-cancer'}
+        Por qué el <span class="blog-post-title-accent">reposo total</span> ya no es<br class="hidden lg:block" />
+        la mejor recomendación<br class="hidden lg:block" /> si tienes cáncer
       {:else if titleParts}
         {titleParts[0]}<span class="blog-post-title-accent">{data.titleAccent}</span>{titleParts.slice(1).join(data.titleAccent)}
       {:else}
@@ -173,6 +181,18 @@
       {:else if data.language === 'es' && data.slug === 'es-seguro-hacer-ejercicio-durante-la-quimioterapia-o-deberia-esperar-a-terminarla'}
         Empezar a hacer ejercicio durante la quimioterapia no solo es seguro. <br class="hidden md:block" />
         Sino que puede ayudar a <strong class="font-bold text-white">combatir la toxicidad</strong> y preservar tu capacidad física.
+      {:else if data.language === 'es' && data.slug === 'por-que-he-tenido-un-cancer-si-no-hay-antecedentes-en-toda-mi-familia'}
+        La genética influye, pero nuestro entorno y <strong class="font-bold text-white">estilo de vida</strong> también pesan mucho.<br class="hidden lg:block" />
+        Entenderlo ayuda a recuperar margen de acción durante el proceso.
+      {:else if data.language === 'es' && data.slug === 'puede-el-ejercicio-frenar-el-crecimiento-de-un-tumor-que-dice-la-ciencia'}
+        El ejercicio puede movilizar <strong class="font-bold text-white">células guardianas</strong> del sistema inmune<br class="hidden lg:block" />
+        y cambiar el ambiente interno del cuerpo para ponérselo más difícil al tumor.
+      {:else if data.language === 'es' && data.slug === 'sirve-de-algo-hacer-ejercicio-si-tengo-cancer-esto-dice-la-ciencia'}
+        El ejercicio físico no es un extra: es una <strong class="font-bold text-white">intervención biológica</strong> que puede<br class="hidden lg:block" />
+        ayudarte a tolerar mejor el tratamiento y reducir efectos secundarios.
+      {:else if data.language === 'es' && data.slug === 'por-que-el-reposo-total-ya-no-es-la-mejor-recomendacion-si-tienes-cancer'}
+        Durante años se recomendó descansar por sistema durante el cáncer.<br class="hidden lg:block" />
+        Hoy sabemos que el <strong class="font-bold text-white">ejercicio adaptado</strong> puede ayudar al cuerpo a resistir mejor el proceso.
       {:else if heroDescriptionParts}
         {heroDescriptionParts[0]}<strong class="font-bold text-white">{data.heroEmphasis}</strong>{heroDescriptionParts.slice(1).join(data.heroEmphasis)}
       {:else}
@@ -256,6 +276,7 @@
     border-left: 4px solid #8cd0d6;
     padding: 0.1rem 0 0.1rem 1.15rem;
   }
+  @media (min-width: 1024px) { :global(.prose-blog .blog-program-cta__copy) { width: fit-content; max-width: 100%; margin-inline: auto; text-align: left; } :global(.prose-blog .blog-program-cta__copy p) { font-size: 16px; } :global(.prose-blog .blog-program-cta__button) { margin-top: 1.75rem; } }
 
   :global(.prose-blog .blog-program-cta__copy p) {
     color: #233f4e;
@@ -316,6 +337,8 @@
       box-shadow 300ms ease-out;
     width: fit-content;
   }
+
+  @media (min-width: 1024px) { :global(.prose-blog .blog-program-cta__copy p) { font-size: 16px; } :global(.prose-blog .blog-program-cta__button) { margin-top: 1.75rem; } }
 
   :global(.prose-blog .blog-program-cta__button::before) {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
@@ -379,7 +402,6 @@
       grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     }
 
-    .blog-post-hero-content nav,
     .blog-post-hero-content h1,
     .blog-post-hero-content p {
       grid-column: 1;
@@ -411,39 +433,37 @@
     .blog-post-description { margin-left: auto; margin-right: auto; }
   }
   :global(.prose-blog a.source-card) { position: relative; min-height: 44px; transition: transform var(--dur-micro) var(--ease-calma); }
-  @media (min-width: 768px) { :global(.prose-blog .source-card) { display: grid; grid-template-columns: minmax(0, 1fr); width: min(100%, 300px); margin-inline: auto; gap: 0; } :global(.prose-blog .source-card img) { grid-area: 1 / 1; margin: 0; align-self: end; } :global(.prose-blog .source-card > span) { grid-area: 2 / 1; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; margin-top: 22px; } :global(.prose-blog .source-card .source-go) { grid-area: 1 / 1; position: relative; inset: auto; z-index: 1; align-self: end; justify-self: center; transform: translateY(50%); } }
+  @media (min-width: 768px) { :global(.prose-blog .source-card) { display: grid; grid-template-columns: minmax(0, 1fr); width: min(100%, 300px); margin-inline: auto; gap: 0; } :global(.prose-blog .source-card img) { grid-area: 1 / 1; margin: 0; align-self: end; justify-self: center; } :global(.prose-blog .source-card > span) { grid-area: 2 / 1; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; margin-top: 22px; text-align: center; } :global(.prose-blog .source-card .source-go) { grid-area: 1 / 1; position: relative; inset: auto; z-index: 1; align-self: end; justify-self: center; transform: translateY(50%); } }
+  @media (min-width: 1024px) { :global(.prose-blog .source-grid) { align-items: start; justify-items: center; } :global(.prose-blog .source-card) { grid-template-rows: 350px auto; align-self: start; } :global(.prose-blog .source-card img) { width: 100% !important; height: 350px !important; max-width: 100% !important; max-height: none !important; object-fit: contain !important; object-position: center !important; background: #fff; } }
   :global(.prose-blog .source-go) { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; background: #233f4e; color: #fff; }
   :global(.prose-blog .source-go svg) { width: 20px; height: 20px; transition: transform var(--dur-micro) var(--ease-calma); }
   :global(.prose-blog .source-label) { display: none; font: 400 13px/1.5 Inter, sans-serif; color: #245b7d; }
   @media (hover: hover) and (pointer: fine) { :global(.prose-blog a.source-card:hover) { transform: translateY(-4px); } :global(.prose-blog .source-card:hover .source-go svg) { transform: translate(2px,-2px); } }
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) { :global(.prose-blog a.source-card:hover), :global(.prose-blog .source-card:hover img) { transform: none !important; } }
   @media (prefers-reduced-motion: reduce) { :global(.prose-blog a.source-card), :global(.prose-blog .source-go svg) { transition: none; } :global(.prose-blog a.source-card:hover), :global(.prose-blog .source-card:hover .source-go svg) { transform: none; } }
-  .article-closing-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 12px; }
-  .keep-reading { margin-top: 0; align-self: stretch; }
-  .keep-reading-card { display: flex; flex-direction: column; height: 100%; min-height: 100%; padding: 22px 20px; border-radius: 14px; background: #233f4e; color: #f4f4f8; }
-  .keep-reading-card h2 { color: #f4f4f8; margin: 10px 0; font: 400 21px/1.3 Fraunces, serif; }
-  .keep-reading-card h2 span { color: #8cd0d6; font-family: inherit; font-size: inherit; font-weight: inherit; }
-  .keep-reading-card .keep-reading-summary { font: 300 14px/1.7 Inter, sans-serif; }
-  .keep-reading-footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: auto; padding-top: 18px; }
-  .keep-reading-footer span { display: flex; align-items: center; min-height: 40px; color: #8cd0d6; }
-  .keep-reading-footer .keep-reading-label { justify-self: start; font: 500 12px/1.4 Inter, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
-  .keep-reading-footer .keep-reading-time { justify-self: center; font: 400 12px/1.5 Inter, sans-serif; }
-  .keep-reading-footer .keep-reading-link { justify-self: end; justify-content: center; width: 40px; height: 40px; min-height: 40px; border-radius: 50%; background: #f8f4f0; color: #4083a7; box-shadow: 0 3px 9px #071a251c; }
-  .keep-reading-footer .keep-reading-link svg { width: 18px; height: 18px; }
-  @media (min-width: 1024px) { .keep-reading-card { padding: 18px 20px; } .keep-reading-card h2 { margin: 6px 0 8px; font-size: 22px; } .keep-reading-card .keep-reading-summary { line-height: 1.55; } }
-  @media (min-width: 1024px) { .article-closing-grid { position: relative; left: 50%; width: min(calc(100vw - 80px), 1100px); grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 40px; transform: translateX(-50%); } }
-  @media (max-width: 767px) { .blog-post-hero-content { padding-bottom: 32px; } .article-page { padding-top: 32px; } .blog-post-title { font-size: 32px; } :global(.prose-blog h2), :global(.prose-blog h3) { font-size: 22px !important; } :global(.prose-blog h2) { margin-top: 30px; } :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 300; } }
+  .article-closing-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 10px; }
+  .keep-reading { margin-top: 0; align-self: stretch; display: flex; flex-direction: column; gap: 12px; }
+  .keep-reading > :global(.post-card) { flex: 1; }
+  .keep-reading-cta { align-self: center; display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; background: #e3e8f8; color: #245b7d; font: 500 13px Inter, sans-serif; transition: background-color 200ms, color 200ms, opacity 200ms; }
+  .keep-reading-cta svg { width: 16px; height: 16px; }
+  .keep-reading-cta:hover, .keep-reading-cta:focus-visible { background: #245b7d; color: white; }
+  @media (min-width: 1024px) { .keep-reading :global(.post-card-arrow) { display: none; } }
+  @media (min-width: 1024px) and (hover: hover) { .keep-reading-cta { opacity: 0; } .keep-reading:hover .keep-reading-cta, .keep-reading:focus-within .keep-reading-cta { opacity: 1; } }
+  .prose-blog { padding-bottom: 48px; }
+  @media (min-width: 1024px) { .article-closing-grid { position: relative; left: 50%; width: min(calc(100vw - 80px), 1000px); grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 40px; transform: translateX(-50%); } }
+  @media (max-width: 767px) { .blog-post-hero-content { padding-top: 3rem; padding-bottom: 32px; } .article-page { padding-top: 32px; } .blog-post-title { font-size: 32px; } :global(.prose-blog h2), :global(.prose-blog h3) { font-size: 22px !important; } :global(.prose-blog h2) { margin-top: 30px; } :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 300; } }
   :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 300; line-height: 1.7; }
   @media (min-width: 768px) { :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-size: 17px; } }
   @media (max-width: 767px) {
     :global(.prose-blog .source-grid) { grid-template-columns: minmax(0, 1fr); justify-items: center; }
     :global(.prose-blog .source-card) { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; width: min(100%, 300px); margin-inline: auto; }
     :global(.prose-blog .source-card > span) { grid-area: 2 / 1; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; margin-top: 22px; font: 400 16px/1.3 Inter, sans-serif; }
-    :global(.prose-blog .source-card img) { grid-area: 1 / 1; margin: 0; align-self: end; justify-self: center; }
-    :global(.prose-blog .source-go) { position: relative; inset: auto; grid-area: 1 / 1; z-index: 1; align-self: end; justify-self: center; margin: 0; opacity: 0; transform: translateY(calc(50% + 8px)) scale(.94); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
-    :global(.prose-blog .source-label) { display: block; grid-area: 3 / 1; margin-top: 4px; opacity: 0; transform: translateY(6px); transition: opacity var(--dur-estado) var(--ease-calma) 80ms, transform var(--dur-estado) var(--ease-calma) 80ms; }
+    :global(.prose-blog .source-card img) { grid-area: 1 / 1; margin: 0; align-self: end; justify-self: center; box-shadow: 0 12px 28px rgba(35,63,78,.23); }
+    :global(.prose-blog .source-go) { position: relative; inset: auto; grid-area: 1 / 1; z-index: 1; align-self: end; justify-self: center; margin: 0; opacity: 0; transform: translateY(50%); transition: opacity var(--dur-estado) var(--ease-calma); }
+    :global(.prose-blog .source-label) { display: none; grid-area: 3 / 1; margin-top: 4px; opacity: 0; transform: translateY(6px); transition: opacity var(--dur-estado) var(--ease-calma) 80ms, transform var(--dur-estado) var(--ease-calma) 80ms; }
     :global(.prose-blog .source-card.source-active .source-go) { opacity: 1; transform: translateY(50%); }
     :global(.prose-blog .source-card.source-active .source-label) { opacity: 1; transform: none; }
-    :global(.prose-blog .source-card.source-active .source-go svg) { animation: source-arrow-in 450ms var(--ease-calma) both; }
+
     @keyframes source-arrow-in { from { transform: translate(-5px,5px) rotate(-35deg); } to { transform: translate(2px,-2px) rotate(0); } }
   }
   @media (prefers-reduced-motion: reduce) { :global(.prose-blog .source-go), :global(.prose-blog .source-label), :global(.prose-blog .source-go svg) { transition: none !important; animation: none !important; } :global(.prose-blog .source-label), :global(.prose-blog .source-go svg) { transform: none !important; } }
@@ -469,10 +489,8 @@
     {#if nextPost}
       <!-- TODO [CA-revisar]: revisar «Continua llegint» i «Llegir l’article». -->
       <aside class="keep-reading">
-        <a class="keep-reading-card" href={nextPost.path} data-card>
-          <h2>{#if nextTitleParts}{nextTitleParts[0]}<span>{nextPost.titleAccent}</span>{nextTitleParts.slice(1).join(nextPost.titleAccent)}{:else}{nextPost.title}{/if}</h2><p class="keep-reading-summary">{nextPost.description}</p>
-          <div class="keep-reading-footer"><span class="keep-reading-label">{data.language === 'ca' ? 'Continua llegint' : data.language === 'en' ? 'Keep reading' : 'Sigue leyendo'}</span>{#if nextPost.readingMinutes}<span class="keep-reading-time">{nextPost.readingMinutes} min</span>{:else}<span></span>{/if}<span class="keep-reading-link" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 18 18 6M7 6h11v11" /></svg></span></div>
-        </a>
+        <PostCard post={nextPost} />
+        <a class="keep-reading-cta" href={nextPost.path}>{data.language === 'ca' ? 'Continuar llegint' : data.language === 'en' ? 'Keep reading' : 'Seguir leyendo'} <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></a>
       </aside>
     {/if}
     </div>

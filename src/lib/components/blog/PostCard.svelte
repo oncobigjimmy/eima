@@ -52,6 +52,7 @@
   .post-card-footer { margin-top: auto; padding-top: 20px; }
   .post-card-arrow { display: grid; flex: 0 0 38px; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: #fff; color: #233f4e; box-shadow: 0 4px 12px #071a2530; opacity: 0; transform: translate(-6px, 6px) rotate(-35deg); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
   .post-card-arrow svg { width: 20px; height: 20px; }
+  .post-card:is(:hover, :focus-visible, :global(.scroll-active)) .post-card-arrow { background: #e8e8f6; }
   .post-card:is(:hover, :focus-visible, :global(.scroll-active)) .post-card-arrow { opacity: 1; transform: translate(0, 0) rotate(0); }
   @media (max-width: 767px) { .post-card:global(.scroll-active) .post-card-arrow { opacity: 1; transform: translate(0, 0) rotate(0); } }
   :global(.blog-post-grid:has(> .post-card:is(:hover, :focus-visible)) > .post-card:not(:hover):not(:focus-visible)),
