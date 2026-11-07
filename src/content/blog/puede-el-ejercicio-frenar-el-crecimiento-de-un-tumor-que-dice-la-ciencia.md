@@ -16,6 +16,8 @@ keywords: "ejercicio y tumor, células natural killer ejercicio, células asesin
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 **Respuesta directa:** El ejercicio no sustituye los tratamientos médicos (quimioterapia, radioterapia, inmunoterapia, hormonoterapia o cirugía), pero es uno de los estímulos biológicos más potentes que existen.
 
 La evidencia muestra que un ejercicio bien pautado y con la intensidad adecuada puede movilizar el sistema inmune, reducir la inflamación y modificar mecanismos relacionados con el microambiente tumoral. No hablamos de un simple "paseo suave"; hablamos de usar el movimiento para que el cuerpo esté en las mejores condiciones biológicas para **afrontar la enfermedad y maximizar la eficacia de los tratamientos.**

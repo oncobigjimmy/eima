@@ -16,11 +16,22 @@ keywords: "ejercicio durante cáncer, ejercicio como medicina, fisioterapia onco
 readingMinutes: 5
 ---
 
+<script>
+  import KeyQuote from '$lib/components/blog/KeyQuote.svelte';
+  import KeyPoints from '$lib/components/blog/KeyPoints.svelte';
+</script>
+
 La evidencia científica demuestra que, adaptando la dosis a cada paciente, el movimiento ayuda a tolerar mejor los tratamientos oncológicos, reduce drásticamente los efectos secundarios como la fatiga crónica, preserva la masa muscular y activa el sistema inmune. No se trata de "moverse un poco", sino de **utilizar el ejercicio como un escudo** de apoyo.
+
+<KeyPoints language="es" points={["El ejercicio adaptado ayuda a tolerar mejor los tratamientos.","Reduce efectos secundarios como la fatiga.","La clave es ajustar la dosis a cada persona."]} />
 
 Si te han diagnosticado cáncer, lo más probable es que tu entorno más cercano te diga frases como: *"descansa", "no te esfuerces"* o *"quédate en el sofá para guardar fuerzas"*. Es una reacción normal que nace del cariño, porque los tratamientos agotan de verdad.
 
-Pero aquí aparece un **malentendido importante:** descansar no siempre significa recuperarse mejor. En muchos casos, el reposo absoluto mantenido puede hacer que pierdas más fuerza, más masa muscular, más capacidad física y más autonomía.
+Pero aquí aparece un **malentendido importante:** 
+
+<KeyQuote text="descansar no siempre significa recuperarse mejor." highlight="descansar no siempre significa" />
+
+ En muchos casos, el reposo absoluto mantenido puede hacer que pierdas más fuerza, más masa muscular, más capacidad física y más autonomía.
 
 La ciencia actual va en otra dirección: el ejercicio adaptado puede ser una de las herramientas más importantes para **ayudar al cuerpo a resistir mejor el proceso.**
 

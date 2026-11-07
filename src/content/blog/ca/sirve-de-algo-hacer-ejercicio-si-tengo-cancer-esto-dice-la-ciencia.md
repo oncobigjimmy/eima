@@ -16,11 +16,23 @@ keywords: "càncer, exercici terapèutic, fisioteràpia oncològica, fatiga, pol
 readingMinutes: 5
 ---
 
+<script>
+  import KeyQuote from '$lib/components/blog/KeyQuote.svelte';
+  import KeyPoints from '$lib/components/blog/KeyPoints.svelte';
+</script>
+
 L’evidència científica demostra que, adaptant la dosi a cada pacient, el moviment ajuda a tolerar millor els tractaments oncològics, redueix dràsticament els efectes secundaris com la fatiga crònica, preserva la massa muscular i activa el sistema immunitari. No es tracta de «moure’s una mica», sinó d’**utilitzar l’exercici com un escut** de suport.
+
+<!-- TODO [CA-revisar]: revisar els punts clau. -->
+<KeyPoints language="ca" points={["L’exercici adaptat ajuda a tolerar millor els tractaments.","Redueix efectes secundaris com la fatiga.","La clau és ajustar la dosi a cada persona."]} />
 
 Si t’han diagnosticat càncer, el més probable és que el teu entorn més proper et digui frases com: *«descansa», «no t’esforcis»* o *«queda’t al sofà per reservar forces»*. És una reacció normal que neix de l’afecte, perquè els tractaments esgoten de debò.
 
-Però aquí apareix un **malentès important:** descansar no sempre significa recuperar-se millor. En molts casos, el repòs absolut mantingut pot fer que perdis més força, més massa muscular, més capacitat física i més autonomia.
+Però aquí apareix un **malentès important:** 
+
+<KeyQuote text="descansar no sempre significa recuperar-se millor." highlight="descansar no sempre significa" />
+
+ En molts casos, el repòs absolut mantingut pot fer que perdis més força, més massa muscular, més capacitat física i més autonomia.
 
 La ciència actual va en una altra direcció: l’exercici adaptat pot ser una de les eines més importants per **ajudar el cos a resistir millor el procés.**
 

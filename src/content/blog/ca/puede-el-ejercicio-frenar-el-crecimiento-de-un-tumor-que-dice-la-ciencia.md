@@ -16,6 +16,8 @@ keywords: "càncer, exercici terapèutic, fisioteràpia oncològica, sistema imm
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 **Resposta directa:** l’exercici no substitueix els tractaments mèdics (quimioteràpia, radioteràpia, immunoteràpia, hormonoteràpia o cirurgia), però és un dels estímuls biològics més potents que existeixen.
 
 L’evidència mostra que un exercici ben pautat i amb la intensitat adequada pot mobilitzar el sistema immunitari, reduir la inflamació i modificar mecanismes relacionats amb el microambient tumoral. No parlam d’un simple «passeig suau»; parlam d’utilitzar el moviment perquè el cos estigui en les millors condicions biològiques per **afrontar la malaltia i maximitzar l’eficàcia dels tractaments.**

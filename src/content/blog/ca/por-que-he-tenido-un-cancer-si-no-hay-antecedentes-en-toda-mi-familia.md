@@ -16,6 +16,8 @@ keywords: "càncer, prevenció, hàbits, estil de vida, exercici terapèutic"
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Quan una persona rep un diagnòstic de càncer, una de les primeres preguntes sol ser: *«Per què m’ha passat això a mi?»*
 
 I si a la família no hi ha antecedents, el dubte encara pesa més: *«Com pot ser, si ningú de la meva família ha tingut càncer?»*

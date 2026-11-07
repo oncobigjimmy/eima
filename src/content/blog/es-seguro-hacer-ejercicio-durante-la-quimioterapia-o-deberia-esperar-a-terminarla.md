@@ -17,6 +17,8 @@ keywords: "ejercicio durante quimioterapia, ejercicio y quimio, fisioterapia onc
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Si estás recibiendo quimioterapia, lo más probable es que sientas que tu cuerpo no está para esfuerzos. Es posible que te hayan dicho que *guardes fuerzas* o que el ejercicio podría ser peligroso en tu situación.
 
 Sin embargo, la respuesta directa es clara: la ciencia médica ha demostrado que el ejercicio supervisado no solo es seguro durante la quimioterapia, sino que es el momento óptimo para empezar y **una de las mejores formas de combatir la toxicidad del tratamiento.**

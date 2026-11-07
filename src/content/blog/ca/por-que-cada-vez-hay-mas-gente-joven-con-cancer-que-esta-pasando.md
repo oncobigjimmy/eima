@@ -15,6 +15,8 @@ keywords: "càncer, adults joves, prevenció, exercici terapèutic, oncologia"
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Durant molt de temps hem cregut que el càncer era una malaltia lligada gairebé exclusivament a l’envelliment. I és cert que l’edat continua sent un dels grans factors de risc. Però les dades més recents de la **Societat Espanyola d’Oncologia Mèdica (SEOM)** per a 2026 posen una idea important damunt la taula: el nombre de casos en persones joves i adults de mitjana edat també està creixent.
 
 Si comparam les estimacions de 2020 amb les de 2026, veim que els casos en majors de 65 anys augmenten un **8,24%**. En les persones menors de 65 anys, la pujada és del **9,75%**.

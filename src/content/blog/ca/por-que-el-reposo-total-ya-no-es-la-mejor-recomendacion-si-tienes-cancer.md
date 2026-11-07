@@ -16,6 +16,8 @@ keywords: "càncer, exercici terapèutic, fatiga, tractament oncològic"
 readingMinutes: 4
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Durant anys, la recomanació estàndard era clara: «no t’esforcis, descansa». Però la medicina ha evolucionat i avui sabem que, en la majoria de situacions, quedar-se al llit per sistema **pot ser contraproduent**.
 
 La ciència és contundent quan afirma que l’exercici físic adaptat no només és segur, sinó que és una peça clau perquè el cos resisteixi millor el procés.

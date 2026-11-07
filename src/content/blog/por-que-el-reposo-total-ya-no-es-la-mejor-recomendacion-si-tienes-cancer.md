@@ -16,6 +16,8 @@ keywords: "descanso total cáncer, ejercicio adaptado cáncer, ejercicio tratami
 readingMinutes: 4
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Durante años, la recomendación estándar era clara: "no te esfuerces, descansa". Sin embargo, la medicina ha evolucionado y hoy sabemos que, en la mayoría de las situaciones, quedarse en la cama por sistema **puede ser contraproducente**.
 
 La ciencia es rotunda al afirmar que el ejercicio físico adaptado no solo es seguro, sino que es una pieza clave para que el cuerpo resista mejor el proceso.

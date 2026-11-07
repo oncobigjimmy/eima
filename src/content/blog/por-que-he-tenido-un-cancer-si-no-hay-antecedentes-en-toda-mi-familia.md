@@ -16,6 +16,8 @@ keywords: "cáncer sin antecedentes familiares, cáncer genético, hábitos y c�
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Cuando una persona recibe un diagnóstico de cáncer, una de las primeras preguntas suele ser: *"¿Por qué me ha pasado esto a mí?"*
 
 Y si en la familia no hay antecedentes, la duda todavía pesa más: *"¿Cómo puede ser, si nadie de mi familia ha tenido cáncer?"*

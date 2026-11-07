@@ -15,6 +15,8 @@ keywords: "cáncer en gente joven, cáncer adultos jóvenes, ejercicio y cáncer
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Durante mucho tiempo hemos creído que el cáncer era una enfermedad ligada casi exclusivamente al envejecimiento. Y es cierto que la edad sigue siendo uno de los grandes factores de riesgo. Pero los datos más recientes de la **Sociedad Española de Oncología Médica (SEOM)** para 2026 ponen una idea importante encima de la mesa: el número de casos en personas jóvenes y adultos de mediana edad también está creciendo.
 
 Si comparamos las estimaciones de 2020 con las de 2026, vemos que los casos en mayores de 65 años aumentan un **8,24%**. En las personas menores de 65 años, la subida es del **9,75%**.

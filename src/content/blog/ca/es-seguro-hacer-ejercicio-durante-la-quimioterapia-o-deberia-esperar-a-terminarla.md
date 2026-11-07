@@ -16,6 +16,8 @@ keywords: "càncer, quimioteràpia, exercici terapèutic, fatiga, fisioteràpia 
 readingMinutes: 5
 ---
 
+<!-- TODO: [Elegir 1–2 frases para KeyQuote o KeyPoints.] -->
+
 Si estàs rebent quimioteràpia, el més probable és que sentis que el teu cos no està per fer esforços. És possible que t’hagin dit que *reservis forces* o que l’exercici podria ser perillós en la teva situació.
 
 Però la resposta directa és clara: la ciència mèdica ha demostrat que l’exercici supervisat no només és segur durant la quimioteràpia, sinó que és el moment òptim per començar i **una de les millors maneres de combatre la toxicitat del tractament.**
