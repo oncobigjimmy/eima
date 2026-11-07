@@ -46,26 +46,27 @@ En definitiva, no es tracta només de sobreviure al diagnòstic. Es tracta d’a
 
 ## Fonts
 
+<!-- TODO [CA-revisar]: revisar les etiquetes dels estudis. -->
 <div class="source-grid">
   <a
     class="source-card"
     href="https://www.seom.org/seomcms/images/stories/recursos/Cifras_del_cancer_2020.pdf"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Las cifras del cáncer en España 2020 (s’obre en una pestanya nova)">
     <img src="/blog/cifras-cancer-espana-2020.png" alt="Portada de l’informe Las cifras del cáncer en España 2020 de la SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2020</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 
   <a
     class="source-card"
     href="https://seom.org/images/Las_Cifras_del_Cancer_en_Espanya_2026.pdf"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Las cifras del cáncer en España 2026 (s’obre en una pestanya nova)">
     <img src="/blog/cifras-cancer-espana-2026.png" alt="Portada de l’informe Las cifras del cáncer en España 2026 de la SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2026</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 </div>
 
 <style>

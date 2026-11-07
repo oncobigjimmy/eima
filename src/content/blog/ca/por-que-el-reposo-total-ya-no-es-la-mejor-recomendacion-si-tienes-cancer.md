@@ -65,26 +65,27 @@ A partir d’aquí, en el nostre <a class="empenta-inline-link" href="/ca/com-fu
 
 ## Fonts
 
+<!-- TODO [CA-revisar]: revisar les etiquetes dels estudis. -->
 <div class="source-grid">
   <a
     class="source-card"
     href="https://doi.org/10.1249/MSS.0b013e3181e0c112"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="American College of Sports Medicine Roundtable on Exercise Guidelines for Cancer Survivors (s’obre en una pestanya nova)">
     <img src="/blog/acsm-roundtable-exercise-guidelines-2010.png" alt="Portada del consens de l’American College of Sports Medicine sobre exercici per a supervivents de càncer" loading="lazy" decoding="async" />
     <span>American College of Sports Medicine Roundtable on Exercise Guidelines for Cancer Survivors</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 
   <a
     class="source-card"
     href="https://doi.org/10.1249/MSS.0000000000002116"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Exercise Guidelines for Cancer Survivors: Consensus Statement from International Multidisciplinary Roundtable (s’obre en una pestanya nova)">
     <img src="/blog/exercise-guidelines-cancer-survivors-2019.png" alt="Portada del consens internacional Exercise Guidelines for Cancer Survivors" loading="lazy" decoding="async" />
     <span>Exercise Guidelines for Cancer Survivors: Consensus Statement from International Multidisciplinary Roundtable</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 </div>
 
 <style>

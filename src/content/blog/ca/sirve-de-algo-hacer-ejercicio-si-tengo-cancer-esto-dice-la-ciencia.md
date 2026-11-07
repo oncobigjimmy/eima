@@ -108,16 +108,17 @@ Recorda que l’exercici no competeix amb l’oncologia mèdica; **la potencia.*
 
 ## Fonts
 
+<!-- TODO [CA-revisar]: revisar les etiquetes dels estudis. -->
 <div class="source-grid">
   <a
     class="source-card"
     href="https://doi.org/10.1152/physiol.00019.2013"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Exercise is the Real Polypill (s’obre en una pestanya nova)">
     <img src="/blog/exercise-real-polypill-2013.png" alt="Exercise is the Real Polypill. Physiology, 2013." loading="lazy" decoding="async" />
     <span>Exercise is the Real Polypill</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 </div>
 
 <style>

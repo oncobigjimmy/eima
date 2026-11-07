@@ -93,48 +93,49 @@ En el nostre <a class="empenta-inline-link" href="/ca/com-funciona#programa-empe
 
 ## Fonts
 
+<!-- TODO [CA-revisar]: revisar les etiquetes dels estudis. -->
 <div class="source-grid">
   <a
     class="source-card"
     href="https://doi.org/10.1016/j.cmet.2017.09.015"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Molecular Mechanisms Linking Exercise to Cancer Prevention and Treatment (s’obre en una pestanya nova)">
     <img
       src="/blog/hojman-molecular-mechanisms-2018.png"
       alt="Molecular Mechanisms Linking Exercise to Cancer Prevention and Treatment. Cell Metabolism, 2018."
       loading="lazy" decoding="async"
     />
     <span>Molecular Mechanisms Linking Exercise to Cancer Prevention and Treatment</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 
   <a
     class="source-card"
     href="https://doi.org/10.1016/j.cmet.2016.01.011"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Voluntary Running Suppresses Tumor Growth through Epinephrine- and IL-6-Dependent NK Cell Mobilization and Redistribution (s’obre en una pestanya nova)">
     <img
       src="/blog/pedersen-running-nk-2016.png"
       alt="Voluntary Running Suppresses Tumor Growth through Epinephrine- and IL-6-Dependent NK Cell Mobilization and Redistribution. Cell Metabolism, 2016."
       loading="lazy" decoding="async"
     />
     <span>Voluntary Running Suppresses Tumor Growth through Epinephrine- and IL-6-Dependent NK Cell Mobilization and Redistribution</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 
   <a
     class="source-card"
     href="https://doi.org/10.1016/j.jshs.2024.101001"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Can exercise kill tumors? (s’obre en una pestanya nova)">
     <img
       src="/blog/can-exercise-kill-tumors-2025.png"
       alt="Can exercise kill tumors? Journal of Sport and Health Science, 2025."
       loading="lazy" decoding="async"
     />
     <span>Can exercise kill tumors?</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Veure l’estudi ↗</small></a>
 </div>
 
 <style>

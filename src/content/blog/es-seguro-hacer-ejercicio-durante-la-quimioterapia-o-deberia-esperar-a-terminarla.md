@@ -68,28 +68,28 @@ El objetivo final no es batir récords deportivos, sino utilizar el movimiento c
     href="https://doi.org/10.1016/j.jaccao.2022.07.006"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Optimal Timing of a Physical Exercise Intervention to Improve Cardiorespiratory Fitness During or After Chemotherapy (se abre en una pestaña nueva)">
     <img
       src="/blog/optimal-timing-exercise-chemotherapy-2022.png"
       alt="Optimal Timing of a Physical Exercise Intervention to Improve Cardiorespiratory Fitness During or After Chemotherapy. JACC: CardioOncology, 2022."
       loading="lazy" decoding="async"
     />
     <span>Optimal Timing of a Physical Exercise Intervention to Improve Cardiorespiratory Fitness During or After Chemotherapy</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
 
   <a
     class="source-card"
     href="https://doi.org/10.1200/JCO.2006.08.2024"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Effects of Aerobic and Resistance Exercise in Breast Cancer Patients Receiving Adjuvant Chemotherapy (se abre en una pestaña nueva)">
     <img
       src="/blog/courneya-exercise-chemotherapy-2007.png"
       alt="Effects of Aerobic and Resistance Exercise in Breast Cancer Patients Receiving Adjuvant Chemotherapy. Journal of Clinical Oncology, 2007."
       loading="lazy" decoding="async"
     />
     <span>Effects of Aerobic and Resistance Exercise in Breast Cancer Patients Receiving Adjuvant Chemotherapy</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
 </div>
 
 <style>

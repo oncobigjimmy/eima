@@ -52,20 +52,20 @@ En definitiva, no se trata solo de sobrevivir al diagnóstico. Se trata de llega
     href="https://www.seom.org/seomcms/images/stories/recursos/Cifras_del_cancer_2020.pdf"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Las cifras del cáncer en España 2020 (se abre en una pestaña nueva)">
     <img src="/blog/cifras-cancer-espana-2020.png" alt="Portada del informe Las cifras del cáncer en España 2020 de SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2020</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
 
   <a
     class="source-card"
     href="https://seom.org/images/Las_Cifras_del_Cancer_en_Espanya_2026.pdf"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Las cifras del cáncer en España 2026 (se abre en una pestaña nueva)">
     <img src="/blog/cifras-cancer-espana-2026.png" alt="Portada del informe Las cifras del cáncer en España 2026 de SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2026</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
 </div>
 
 <style>

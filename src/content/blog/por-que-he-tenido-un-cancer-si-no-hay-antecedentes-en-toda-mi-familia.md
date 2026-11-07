@@ -90,10 +90,10 @@ Recuerda que: *"Aunque no puedas controlarlo todo, sí puedes ayudar a tu cuerpo
     href="https://doi.org/10.1007/s11095-008-9661-9"
     target="_blank"
     rel="noopener noreferrer"
-  >
+   aria-label="Cancer is a Preventable Disease that Requires Major Lifestyle Changes (se abre en una pestaña nueva)">
     <img src="/blog/anand-cancer-preventable-2008.png" alt="Primera página del artículo Cancer is a Preventable Disease that Requires Major Lifestyle Changes" loading="lazy" decoding="async" />
     <span>Cancer is a Preventable Disease that Requires Major Lifestyle Changes</span>
-  </a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
 </div>
 
 <style>
