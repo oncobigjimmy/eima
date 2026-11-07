@@ -291,7 +291,7 @@
 
 <section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
   <div>
-    <h2 id="testimonios-cta-title" class="mobile-copy-14">
+    <h2 id="testimonios-cta-title" class="testimonials-closing-title">
       {@html ctaHeading}
     </h2>
   </div>
@@ -703,9 +703,9 @@
 
   .testimonials-cta h2 {
     color: var(--color-brand);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 18px;
-    font-weight: 300;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    font-weight: 500;
     letter-spacing: 0;
     line-height: 1.45;
     max-width: 50rem;
@@ -1069,4 +1069,6 @@
   .testimonials-section { padding-bottom: 1.75rem; }
   .testimonials-cta { padding-top: 1.75rem; padding-bottom: 3.5rem; }
 }
+  .testimonials-cta h2 :global(.closing-accent) { color: #4083a7; font: inherit; }
+  @media (max-width: 767px) { .testimonials-cta h2 { font-size: 24px; } }
 </style>

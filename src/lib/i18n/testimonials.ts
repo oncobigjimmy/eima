@@ -40,8 +40,8 @@ const copy = {
     ],
     before: 'Antes', after: 'Ahora', view: 'Ver testimonio de', upcoming: 'Próximo testimonio de',
     captionBefore: 'Conoce la historia de ', captionAfter: '', dialog: 'Testimonio de', close: 'Cerrar video',
-    ctaHeading: 'Si <strong>quieres cambiar</strong> tu situación actual, pero <strong>no sabes cómo</strong> hacerlo.',
-    cta: 'Háblanos de tu caso',
+    ctaHeading: 'Si quieres <span class="closing-accent">cambiar tu situación</span> actual, pero no sabes cómo hacerlo.',
+    cta: 'Cuéntanos tu caso',
     testimonials: [] as Testimonial[]
   },
   ca: {
@@ -55,7 +55,7 @@ const copy = {
     ],
     before: 'Abans', after: 'Ara', view: 'Veure el testimoni de', upcoming: 'Pròxim testimoni de',
     captionBefore: 'Coneix la història de ', captionAfter: '', dialog: 'Testimoni de', close: 'Tancar el vídeo',
-    ctaHeading: 'Si <strong>vols canviar</strong> la teva situació actual, però <strong>no saps com</strong> fer-ho.',
+    ctaHeading: 'Si vols <span class="closing-accent">canviar la teva situació</span> actual, però no saps com fer-ho.',
     cta: 'Conta’ns el teu cas',
     testimonials: [
       {
