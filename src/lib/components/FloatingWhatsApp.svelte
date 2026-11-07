@@ -20,29 +20,44 @@
   /** @param {HTMLElement} node */
   function avoidControls(node) {
     const blocked = new Set();
-    let initialized = false;
+    let observed = new Set();
+    let frame = 0;
+    let ready = false;
+    const collisionSelector = 'p, h1, h2, h3, h4, li, a, button, input, select, textarea, [data-card], [class*="-card"], [role="dialog"]';
+    const check = () => {
+      frame = 0;
+      const rect = node.getBoundingClientRect();
+      const x = rect.right - rect.height / 2, y = rect.top + rect.height / 2;
+      const covered = document.elementsFromPoint(x, y).some(element => !node.contains(element) && element !== node && !!element.closest(collisionSelector));
+      hidden = !ready || blocked.size > 0 || covered;
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(check); };
     const observer = new IntersectionObserver(entries => {
-      initialized = true;
+      ready = true;
       for (const entry of entries) {
-        const isCta = entry.target.matches('a[href*="wa.me"]');
+        const isCta = entry.target.matches('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
         if (entry.isIntersecting && (!isCta || entry.intersectionRatio >= .5)) blocked.add(entry.target);
         else blocked.delete(entry.target);
       }
-      hidden = blocked.size > 0;
+      schedule();
     }, { threshold: [0, .5] });
-    let observed = new Set();
     const refresh = () => {
-      const targets = new Set(document.querySelectorAll('.home-hero, [class$="-hero"], footer, a[href*="wa.me"]:not(.floating-whatsapp)'));
+      const heading = document.querySelector('main h1');
+      const hero = heading?.closest('section') ?? heading?.parentElement;
+      const targets = new Set(document.querySelectorAll('footer, a[href*="wa.me"], a[href*="api.whatsapp.com"]'));
+      if (hero) targets.add(hero);
+      for (const target of targets) if (node.contains(target)) targets.delete(target);
       for (const target of observed) if (!targets.has(target)) { observer.unobserve(target); blocked.delete(target); }
-      let added = false;
-      for (const target of targets) if (!observed.has(target)) { observer.observe(target); added = true; }
+      for (const target of targets) if (!observed.has(target)) observer.observe(target);
       observed = targets;
-      hidden = !initialized || added || blocked.size > 0;
+      schedule();
     };
     const changes = new MutationObserver(refresh);
     changes.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
     refresh();
-    return { destroy() { observer.disconnect(); changes.disconnect(); } };
+    return { update() { hidden = true; ready = false; observer.disconnect(); blocked.clear(); observed.clear(); refresh(); }, destroy() { observer.disconnect(); changes.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); cancelAnimationFrame(frame); } };
   }
 </script>
 
@@ -52,7 +67,7 @@
   target="_blank"
   rel="noopener noreferrer"
   aria-label={whatsappLabel}
-  use:avoidControls
+  use:avoidControls={pathname}
   class:is-hidden={hidden}
   tabindex={hidden ? -1 : 0}
   aria-hidden={hidden}
