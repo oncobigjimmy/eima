@@ -55,7 +55,7 @@ En definitiva, no se trata solo de sobrevivir al diagnóstico. Se trata de llega
    aria-label="Las cifras del cáncer en España 2020 (se abre en una pestaña nueva)">
     <img src="/blog/cifras-cancer-espana-2020.png" alt="Portada del informe Las cifras del cáncer en España 2020 de SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2020</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 
   <a
     class="source-card"
@@ -65,7 +65,7 @@ En definitiva, no se trata solo de sobrevivir al diagnóstico. Se trata de llega
    aria-label="Las cifras del cáncer en España 2026 (se abre en una pestaña nueva)">
     <img src="/blog/cifras-cancer-espana-2026.png" alt="Portada del informe Las cifras del cáncer en España 2026 de SEOM" loading="lazy" decoding="async" />
     <span>Las cifras del cáncer en España 2026</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 </div>
 
 <style>

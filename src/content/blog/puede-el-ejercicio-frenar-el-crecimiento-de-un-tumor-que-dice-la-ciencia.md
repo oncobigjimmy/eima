@@ -106,7 +106,7 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
       loading="lazy" decoding="async"
     />
     <span>Molecular Mechanisms Linking Exercise to Cancer Prevention and Treatment</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 
   <a
     class="source-card"
@@ -120,7 +120,7 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
       loading="lazy" decoding="async"
     />
     <span>Voluntary Running Suppresses Tumor Growth through Epinephrine- and IL-6-Dependent NK Cell Mobilization and Redistribution</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 
   <a
     class="source-card"
@@ -134,7 +134,7 @@ En nuestro <a class="empenta-inline-link" href="/como-funciona#program-steps">Pr
       loading="lazy" decoding="async"
     />
     <span>Can exercise kill tumors?</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 </div>
 
 <style>

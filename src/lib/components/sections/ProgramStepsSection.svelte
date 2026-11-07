@@ -326,7 +326,6 @@
   @media (min-width: 1024px) {
     :global(.program-steps-track:has(.program-step[data-scroll-active='true']) .program-step[data-scroll-active='false'] .program-step__surface) { filter: blur(.6px); opacity: .88; }
   }
-  @keyframes step-card-lift { 0% { transform: translateY(0) scale(1); } 65% { transform: translateY(-5px) scale(1.018); } 100% { transform: translateY(-4px) scale(1.012); } }
   .program-step__card {
     margin-top: 2.2rem;
   }
@@ -338,7 +337,7 @@
   }
 
   :global(.program-step[data-scroll-active='true']) .program-step__surface {
-    animation: step-card-lift 500ms var(--ease-calma) both;
+    animation: none;
     border-color: transparent;
     box-shadow: 0 12px 30px #233f4e26;
   }

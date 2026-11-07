@@ -32,9 +32,9 @@
   .magnify { position: absolute; right: 16px; bottom: 16px; display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 10px; background: #233f4e; color: #fff; box-shadow: 0 3px 12px #233f4e12; opacity: 0; transition: opacity var(--dur-estado) var(--ease-calma); }
   .magnify :global(svg) { filter: drop-shadow(0 1px 2px #071a2566); }
   .written-card:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; } .written-card:focus-visible .magnify { opacity: 1; }
-  @media (min-width: 768px) and (hover: hover) and (pointer: fine) { .written-card:hover { transform: translateY(-4px) scale(1.035); background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; } .written-card:hover .magnify { opacity: 1; } }
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) { .written-card:hover { transform: translateY(-4px) scale(1.035); background: #fff; border-color: #4083a7; border-width: 1px; padding: 12px; box-shadow: 0 3px 12px #233f4e08; } .written-card:hover .magnify { opacity: 1; } }
   @media (max-width: 767px) {
-    .written-card:global(.scroll-active) { border-color: transparent; box-shadow: 0 3px 12px #233f4e08; }
+    .written-card:global(.scroll-active) { border-color: #4083a7; border-width: 1px; padding: 12px; box-shadow: 0 3px 12px #233f4e08; }
     .written-card:global(.scroll-active).highlights-done .magnify { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) { .written-card, .magnify { transition: none; } .written-card:hover { transform: none; } }

@@ -171,6 +171,7 @@
   .about-origin h2 :global(span) { color: #8cd0d6; }
   .origin-intro { max-width: 760px; margin: 1.5rem auto 0; color: #f3f7f8; font-size: 16px; font-weight: 300; line-height: 1.5; text-align: center; }
   .origin-intro :global(strong) { font-weight: 700; }
+  .origin-intro :global(.origin-keyword) { color: #8cd0d6; }
   :global(.origin-intro-break) { display: none; }
   .origin-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; align-items: stretch; gap: 1rem; margin-top: var(--origin-surrounding-gap); }
   .origin-card { border: 1px solid #8cd0d63d; border-radius: 9px; padding: 1.25rem; background: #ffffff0a; text-shadow: var(--eima-dark-copy-shadow); transition: opacity 175ms ease, filter 175ms ease-out, transform 360ms ease-out, background-color 260ms ease-out, border-color 260ms ease, box-shadow 260ms ease-out, text-shadow 260ms ease-out; }
@@ -192,6 +193,7 @@
   .origin-number, .origin-card h3, .origin-card p, .origin-card :global(strong) { transition: color 260ms ease-out; }
   .origin-conclusion { max-width: 560px; margin: var(--origin-surrounding-gap) auto 0; color: #f3f7f8; font-size: 16px; font-weight: 300; line-height: 1.55; text-align: center; }
   .origin-conclusion :global(strong) { color: white; font-weight: 700; }
+  .origin-conclusion :global(.origin-brand) { color: #8cd0d6; }
   .origin-cta { display: flex; justify-content: center; margin-top: 1.5rem; }
   .about-closing { overflow: hidden; }
   .closing-grid { display: grid; grid-template-columns: 1.1fr .9fr; max-width: 1280px; margin: auto; }
@@ -205,7 +207,7 @@
   :global(.closing-cta) { align-self: center; margin-top: 1.75rem; }
   .closing-photo { width: 100%; height: 100%; min-height: 400px; object-fit: cover; }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .origin-card:hover { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: var(--eima-halo-light); text-shadow: none; }
+    .origin-card:hover { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 0 18px 3px #d9f7ff55, 0 10px 24px #8cd0d63d; text-shadow: none; }
     .origin-card:hover .origin-number { color: #245b7d; }
     .origin-card:hover h3 { color: #233f4e; }
     .origin-card:hover p, .origin-card:hover :global(strong) { color: #233f4e; }
@@ -230,7 +232,7 @@
     .team-hint { font-size: clamp(11px, 3.3vw, 14px); }
     .origin-card h3.origin-card-title--first { font-size: clamp(12px, calc(8.5vw - 15px), 18px); }
     .origin-card-title--first .origin-card-title-line { display: inline; }
-    .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: var(--eima-halo-light); text-shadow: none; }
+    .origin-card:global(.scroll-active) { background: #f8f4f0; border-color: #4083a7; transform: translateY(-4px); box-shadow: 0 0 18px 3px #d9f7ff55, 0 10px 24px #8cd0d63d; text-shadow: none; }
     .origin-card:global(.scroll-active) .origin-number { color: #245b7d; }
     .origin-card:global(.scroll-active) h3, .origin-card:global(.scroll-active) p, .origin-card:global(.scroll-active) :global(strong) { color: #233f4e; }
     .dictionary-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-halo-dark); }
@@ -245,6 +247,7 @@
   .intro-reveal:global(.standard-entry-visible), .origin-card:global(.standard-entry-visible), .origin-fade:global(.standard-entry-visible) { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 1; transform: none; transition: none; } }
   .team-person span { position: absolute; top: 0; bottom: auto; left: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; min-height: 32px; padding: 0 14px; border-radius: 999px; background: #4083a7; color: #fff; text-shadow: 0 0 3px #071a2566; font: 600 15px/1 Inter, sans-serif; box-shadow: 0 8px 20px rgba(14,29,38,.18), 0 0 0 1px rgba(35,63,78,.08); transition: background var(--dur-micro) var(--ease-calma), color var(--dur-micro) var(--ease-calma), transform var(--dur-micro) var(--ease-calma); }
+  @media (min-width: 1024px) { .team-person span { top: 2%; } }
   .team-person:focus-visible span { background: #4083a7; color: #fff; }
   @media (hover: hover) and (pointer: fine) { .team-person:hover span { background: #4083a7; color: #fff; } }
   @media (hover: none), (pointer: coarse) { .team-person:active span { background: #4083a7; color: #fff; transform: translate(-50%, -50%) scale(.97); } }

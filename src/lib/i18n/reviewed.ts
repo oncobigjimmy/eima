@@ -49,8 +49,8 @@ export const aboutSections = {
     hint: 'Elige a uno de nosotros para conocer su historia.', view: 'Conoce la historia de',
     bannerTop: 'El <strong>cáncer</strong> puede cambiar tus planes.', bannerBottom: 'Queremos ayudarte a que <strong>no pare <span class="slogan-accent">tu vida</span> por completo.</strong>',
     originTitle: '¿De dónde nace <span>Eima Salut?</span>',
-    intro: 'Al acompañar a personas con cáncer, vimos que muchas sabían que moverse podía ayudarles. Lo difícil era saber <strong>qué hacer, cuánto hacer y cómo adaptarlo</strong> a su situación.',
-    conclusion: '<strong>Por eso creamos Eima Salut:</strong> para ayudarte a saber qué hacer, adaptarlo cuando sea necesario y conseguir que forme parte de tu vida.',
+    intro: 'Al acompañar a personas con cáncer, vimos que muchas sabían que moverse podía ayudarles. Lo difícil era <strong>saber <span class="origin-keyword">qué</span> hacer, <span class="origin-keyword">cuánto</span> hacer y <span class="origin-keyword">cómo</span> adaptarlo a su situación.</strong>',
+    conclusion: '<strong>Y por eso creamos <span class="origin-brand">Eima Salut.</span></strong> Para ayudarte a saber qué hacer, adaptarlo cuando sea necesario y conseguir que forme parte de tu vida.',
     sunsetAlt: 'Atardecer junto al mar en Mallorca',
     cards: [
       { titleLines: ['Te dicen que hagas ejercicio,', 'pero no te explican cómo'], body: 'En una consulta hay muchas decisiones que tomar y <strong>no siempre hay tiempo para explicar</strong> qué ejercicio hacer, cuánto o cómo adaptarlo a tu situación.' },

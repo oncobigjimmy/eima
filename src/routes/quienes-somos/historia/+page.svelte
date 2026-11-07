@@ -1014,8 +1014,8 @@
     .story-journey-title { font-size: 40px; }
     .story-profile-name { font-size: 30px; }
     .story-profile-specialty { font-size: 16px; line-height: 1.4; }
-    .story-section-heading { font-size: 24px !important; }
-    .story-section-heading.jaume-story-heading { font-size: 24px !important; }
+    .story-section-heading { font-size: 22px !important; }
+    .story-section-heading.jaume-story-heading { font-size: 22px !important; }
 
     .education-item:global(.scroll-active) p { transform: scale(1.06); }
     .education-item:global(.scroll-active) .education-dot { transform: scale(1.55); }
@@ -1093,7 +1093,7 @@
     .education-item:global(.scroll-active) p, .education-item:global(.scroll-active) .education-dot,
     .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: none; }
   }
-  .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #4083a7; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
+  .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: min(100%, max(320px, 50%)); margin-inline: auto; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #4083a7; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
   .other-story img { width: 64px; height: 64px; border-radius: 50%; background: #fff; object-fit: cover; object-position: center top; }
   .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
   .other-story-name { display: block; font: 400 22px/1.3 Fraunces, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }

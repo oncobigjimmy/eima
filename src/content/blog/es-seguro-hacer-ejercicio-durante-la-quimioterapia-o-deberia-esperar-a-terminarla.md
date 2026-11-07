@@ -75,7 +75,7 @@ El objetivo final no es batir récords deportivos, sino utilizar el movimiento c
       loading="lazy" decoding="async"
     />
     <span>Optimal Timing of a Physical Exercise Intervention to Improve Cardiorespiratory Fitness During or After Chemotherapy</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 
   <a
     class="source-card"
@@ -89,7 +89,7 @@ El objetivo final no es batir récords deportivos, sino utilizar el movimiento c
       loading="lazy" decoding="async"
     />
     <span>Effects of Aerobic and Resistance Exercise in Breast Cancer Patients Receiving Adjuvant Chemotherapy</span>
-  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio ↗</small></a>
+  <i class="source-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M6 6h12v12" /></svg></i><small class="source-label">Ver estudio →</small></a>
 </div>
 
 <style>

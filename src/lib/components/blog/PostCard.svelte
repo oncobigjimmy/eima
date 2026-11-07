@@ -27,7 +27,6 @@
   href={post.path ?? `/blog/${post.slug}`}
   class="post-card group hover-dim-item flex h-full flex-col rounded-[10px] border border-transparent bg-white p-7 shadow-[0_1px_3px_rgba(14,29,38,0.06)] md:p-6"
 >
-  {#if post.readingMinutes}<p class="post-reading-time">{post.readingMinutes} min</p>{/if}
   <h2
     class="post-card-title text-xl leading-snug md:line-clamp-3 md:min-h-[5.15rem] md:text-[1.35rem]"
   >
@@ -37,28 +36,29 @@
       {post.title}
     {/if}
   </h2>
-  <p class="mt-3 text-sm font-light leading-relaxed opacity-75 md:line-clamp-3 md:min-h-[4rem]">{post.description}</p>
-  <div class="mt-7 flex flex-wrap items-center justify-start gap-x-3 gap-y-1 text-left text-xs font-light opacity-70">
-    <span class="whitespace-nowrap">{author.name}</span>
-    <span aria-hidden="true" class="opacity-70">&middot;</span>
-    <time class="whitespace-nowrap" datetime={post.date}>{formatDate(post.date, getBlogCopy(post.language ?? 'es').locale)}</time>
-    {#if post.readingMinutes}
+  <p class="post-card-description mt-3 text-sm font-light leading-relaxed opacity-75 md:line-clamp-3 md:min-h-[4rem]">{post.description}</p>
+  <div class="post-card-footer mt-7 flex items-end justify-between gap-3 text-left text-xs font-light opacity-70">
+    <div class="post-card-meta flex flex-wrap items-center gap-x-2 gap-y-1">
+      <span class="whitespace-nowrap">{author.name}</span>
       <span aria-hidden="true" class="opacity-70">&middot;</span>
-      <span class="whitespace-nowrap">{post.readingMinutes} min</span>
-    {/if}
+      <time class="whitespace-nowrap" datetime={post.date}>{formatDate(post.date, getBlogCopy(post.language ?? 'es').locale)}</time>
+      {#if post.readingMinutes}<span aria-hidden="true" class="opacity-70">&middot;</span><span class="whitespace-nowrap">{post.readingMinutes} min</span>{/if}
+    </div>
+    <span class="post-card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 18 18 6M7 6h11v11" /></svg></span>
   </div>
-  <!-- TODO [CA-revisar]: revisar «Llegir l’article». -->
-  <span class="post-read">{post.language === 'ca' ? 'Llegir l’article' : post.language === 'en' ? 'Read article' : 'Leer artículo'} →</span>
 </a>
 
 <style>
-  .post-reading-time { margin: 0 0 10px; font: 400 12px/1.5 Inter, sans-serif; color: #55656f; }
-  .post-read { display: flex; align-items: center; min-height: 44px; margin-top: 12px; }
-  .post-card:is(:hover, :focus-visible, :global(.scroll-active)) .post-reading-time { color: inherit; }
+  .post-card-footer { margin-top: auto; padding-top: 20px; }
+  .post-card-arrow { display: grid; flex: 0 0 38px; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: #fff; color: #233f4e; box-shadow: 0 4px 12px #071a2530; opacity: 0; transform: translate(-6px, 6px) rotate(-35deg); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
+  .post-card-arrow svg { width: 20px; height: 20px; }
+  .post-card:is(:hover, :focus-visible, :global(.scroll-active)) .post-card-arrow { opacity: 1; transform: translate(0, 0) rotate(0); }
+  @media (max-width: 767px) { .post-card:global(.scroll-active) .post-card-arrow { opacity: 1; transform: translate(0, 0) rotate(0); } }
   :global(.blog-post-grid:has(> .post-card:is(:hover, :focus-visible)) > .post-card:not(:hover):not(:focus-visible)),
   :global(.blog-post-grid:has(> .post-card.scroll-active) > .post-card:not(.scroll-active)) { opacity: .7; filter: none; }
 
   .post-card {
+    position: relative;
     color: #233f4e;
     transition: opacity 175ms ease-out, background-color 380ms ease-out, border-color 380ms ease-out, box-shadow 380ms ease-out, color 380ms ease-out;
   }
@@ -89,9 +89,12 @@
     .post-card:hover .post-card-title span, .post-card:focus-visible .post-card-title span { color: #8cd0d6; }
   }
   @media (max-width: 767px) {
+    .post-card-title { font-size: 18px; }
+    .post-card-description { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; font-size: 13px; }
+    .post-card-footer { font-size: 11px; }
     .post-card:global(.scroll-active) { background: var(--eima-card-hover-background); border-color: var(--eima-card-hover-border); box-shadow: var(--eima-card-hover-shadow); text-shadow: var(--eima-dark-copy-shadow); color: #fff; }
     .post-card:global(.scroll-active) .post-card-title { color: #fff; }
     .post-card:global(.scroll-active) .post-card-title span { color: #8cd0d6; }
   }
-  @media (prefers-reduced-motion: reduce) { .post-card, .post-card-title, .post-card-title span { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .post-card, .post-card-title, .post-card-title span, .post-card-arrow { transition: none; } .post-card-arrow { transform: none; } }
 </style>

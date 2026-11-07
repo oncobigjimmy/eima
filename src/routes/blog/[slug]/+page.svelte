@@ -8,6 +8,7 @@
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
 
   import { getBlogCopy } from '$lib/i18n/blog';
+  import { onMount } from 'svelte';
   import { getRoutePath } from '$lib/i18n/routes';
   export let data;
   $: ui = getBlogCopy(data.language);
@@ -69,6 +70,35 @@
       ? data.title.split(data.titleAccent)
       : null;
   $: nextPost = post?.nextPost ? getPost(post.nextPost, data.language) : null;
+  $: nextTitleParts = nextPost?.titleAccent && nextPost.title.includes(nextPost.titleAccent) ? nextPost.title.split(nextPost.titleAccent) : null;
+
+  onMount(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const cards = Array.from(document.querySelectorAll('.prose-blog .source-card'));
+      const center = window.innerHeight / 2;
+      let closest = null;
+      let distance = Infinity;
+      for (const card of cards) {
+        const rect = (card.querySelector('img') ?? card).getBoundingClientRect();
+        const current = Math.abs((rect.top + rect.bottom) / 2 - center);
+        if (rect.top <= center + window.innerHeight * .15 && rect.bottom >= center - window.innerHeight * .15 && current < distance) { closest = card; distance = current; }
+      }
+      for (const card of cards) card.classList.toggle('source-active', reduced.matches || card === closest);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const container = document.querySelector('.prose-blog');
+    const changes = new MutationObserver(schedule);
+    if (container) changes.observe(container, { childList: true, subtree: true });
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('load', schedule, true);
+    reduced.addEventListener('change', schedule);
+    schedule();
+    return () => { changes.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); window.removeEventListener('load', schedule, true); reduced.removeEventListener('change', schedule); cancelAnimationFrame(frame); };
+  });
 </script>
 
 <svelte:head>
@@ -251,6 +281,8 @@
     text-decoration: none !important;
     transition: color 220ms ease;
   }
+  :global(.prose-blog a:not(.source-card):not(.blog-program-cta__button)) { border-bottom: 1px dotted currentColor; color: #4083a7; font-weight: 500; padding-bottom: .06em; text-decoration: none !important; transition: color 220ms ease; }
+  :global(.prose-blog a:not(.source-card):not(.blog-program-cta__button):hover) { color: #233f4e; }
 
   :global(.prose-blog .empenta-inline-link:hover) {
     color: #233f4e;
@@ -372,25 +404,53 @@
       font-size: 50px;
     }
   }
+  @media (min-width: 1024px) {
+    .blog-post-breadcrumb { display: none; }
+    .blog-post-hero-content { display: block; padding-top: 6rem; text-align: center; }
+    .blog-post-title { margin: 0 auto; }
+    .blog-post-description { margin-left: auto; margin-right: auto; }
+  }
   :global(.prose-blog a.source-card) { position: relative; min-height: 44px; transition: transform var(--dur-micro) var(--ease-calma); }
+  @media (min-width: 768px) { :global(.prose-blog .source-card) { display: grid; grid-template-columns: minmax(0, 1fr); width: min(100%, 300px); margin-inline: auto; gap: 0; } :global(.prose-blog .source-card img) { grid-area: 1 / 1; margin: 0; align-self: end; } :global(.prose-blog .source-card > span) { grid-area: 2 / 1; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; margin-top: 22px; } :global(.prose-blog .source-card .source-go) { grid-area: 1 / 1; position: relative; inset: auto; z-index: 1; align-self: end; justify-self: center; transform: translateY(50%); } }
   :global(.prose-blog .source-go) { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; background: #233f4e; color: #fff; }
   :global(.prose-blog .source-go svg) { width: 20px; height: 20px; transition: transform var(--dur-micro) var(--ease-calma); }
-  :global(.prose-blog .source-label) { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #245b7d; }
+  :global(.prose-blog .source-label) { display: none; font: 400 13px/1.5 Inter, sans-serif; color: #245b7d; }
   @media (hover: hover) and (pointer: fine) { :global(.prose-blog a.source-card:hover) { transform: translateY(-4px); } :global(.prose-blog .source-card:hover .source-go svg) { transform: translate(2px,-2px); } }
   @media (prefers-reduced-motion: reduce) { :global(.prose-blog a.source-card), :global(.prose-blog .source-go svg) { transition: none; } :global(.prose-blog a.source-card:hover), :global(.prose-blog .source-card:hover .source-go svg) { transform: none; } }
-  .keep-reading { margin-top: 32px; }
-  .keep-reading-label { margin-bottom: 12px; text-transform: uppercase; font: 400 12px/1.5 Inter, sans-serif; letter-spacing: .12em; color: #245b7d; }
-  .keep-reading-card { display: block; padding: 22px 20px; border-radius: 14px; background: #233f4e; color: #f4f4f8; }
+  .article-closing-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 12px; }
+  .keep-reading { margin-top: 0; align-self: stretch; }
+  .keep-reading-card { display: flex; flex-direction: column; height: 100%; min-height: 100%; padding: 22px 20px; border-radius: 14px; background: #233f4e; color: #f4f4f8; }
   .keep-reading-card h2 { color: #f4f4f8; margin: 10px 0; font: 400 21px/1.3 Fraunces, serif; }
-  .keep-reading-card p { font: 400 14px/1.7 Inter, sans-serif; }
-  .keep-reading-card .keep-reading-time { font-size: 12px; }
-  .keep-reading-card span { display: flex; align-items: center; min-height: 44px; margin-top: 12px; color: #8cd0d6; }
-  :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 400; line-height: 1.7; }
+  .keep-reading-card h2 span { color: #8cd0d6; font-family: inherit; font-size: inherit; font-weight: inherit; }
+  .keep-reading-card .keep-reading-summary { font: 300 14px/1.7 Inter, sans-serif; }
+  .keep-reading-footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: auto; padding-top: 18px; }
+  .keep-reading-footer span { display: flex; align-items: center; min-height: 40px; color: #8cd0d6; }
+  .keep-reading-footer .keep-reading-label { justify-self: start; font: 500 12px/1.4 Inter, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+  .keep-reading-footer .keep-reading-time { justify-self: center; font: 400 12px/1.5 Inter, sans-serif; }
+  .keep-reading-footer .keep-reading-link { justify-self: end; justify-content: center; width: 40px; height: 40px; min-height: 40px; border-radius: 50%; background: #f8f4f0; color: #4083a7; box-shadow: 0 3px 9px #071a251c; }
+  .keep-reading-footer .keep-reading-link svg { width: 18px; height: 18px; }
+  @media (min-width: 1024px) { .keep-reading-card { padding: 18px 20px; } .keep-reading-card h2 { margin: 6px 0 8px; font-size: 22px; } .keep-reading-card .keep-reading-summary { line-height: 1.55; } }
+  @media (min-width: 1024px) { .article-closing-grid { position: relative; left: 50%; width: min(calc(100vw - 80px), 1100px); grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 40px; transform: translateX(-50%); } }
+  @media (max-width: 767px) { .blog-post-hero-content { padding-bottom: 32px; } .article-page { padding-top: 32px; } .blog-post-title { font-size: 32px; } :global(.prose-blog h2), :global(.prose-blog h3) { font-size: 22px !important; } :global(.prose-blog h2) { margin-top: 30px; } :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 300; } }
+  :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 300; line-height: 1.7; }
   @media (min-width: 768px) { :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-size: 17px; } }
+  @media (max-width: 767px) {
+    :global(.prose-blog .source-grid) { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+    :global(.prose-blog .source-card) { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; width: min(100%, 300px); margin-inline: auto; }
+    :global(.prose-blog .source-card > span) { grid-area: 2 / 1; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; margin-top: 22px; font: 400 16px/1.3 Inter, sans-serif; }
+    :global(.prose-blog .source-card img) { grid-area: 1 / 1; margin: 0; align-self: end; justify-self: center; }
+    :global(.prose-blog .source-go) { position: relative; inset: auto; grid-area: 1 / 1; z-index: 1; align-self: end; justify-self: center; margin: 0; opacity: 0; transform: translateY(calc(50% + 8px)) scale(.94); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
+    :global(.prose-blog .source-label) { display: block; grid-area: 3 / 1; margin-top: 4px; opacity: 0; transform: translateY(6px); transition: opacity var(--dur-estado) var(--ease-calma) 80ms, transform var(--dur-estado) var(--ease-calma) 80ms; }
+    :global(.prose-blog .source-card.source-active .source-go) { opacity: 1; transform: translateY(50%); }
+    :global(.prose-blog .source-card.source-active .source-label) { opacity: 1; transform: none; }
+    :global(.prose-blog .source-card.source-active .source-go svg) { animation: source-arrow-in 450ms var(--ease-calma) both; }
+    @keyframes source-arrow-in { from { transform: translate(-5px,5px) rotate(-35deg); } to { transform: translate(2px,-2px) rotate(0); } }
+  }
+  @media (prefers-reduced-motion: reduce) { :global(.prose-blog .source-go), :global(.prose-blog .source-label), :global(.prose-blog .source-go svg) { transition: none !important; animation: none !important; } :global(.prose-blog .source-label), :global(.prose-blog .source-go svg) { transform: none !important; } }
 </style>
 
-<article class="py-16 md:py-20">
-  <div class="mx-auto max-w-3xl px-6 md:px-10">
+<article class="article-page py-16 md:py-20">
+  <div class="article-page-inner mx-auto max-w-3xl px-6 md:px-10">
     <PostMeta
       date={data.date}
       updated={data.updated}
@@ -404,17 +464,17 @@
       {/if}
     </div>
 
+    <div class="article-closing-grid">
     <AuthorSupport {author} language={data.language} />
     {#if nextPost}
       <!-- TODO [CA-revisar]: revisar «Continua llegint» i «Llegir l’article». -->
       <aside class="keep-reading">
-        <p class="keep-reading-label">{data.language === 'ca' ? 'Continua llegint' : data.language === 'en' ? 'Keep reading' : 'Sigue leyendo'}</p>
         <a class="keep-reading-card" href={nextPost.path} data-card>
-          {#if nextPost.readingMinutes}<p class="keep-reading-time">{nextPost.readingMinutes} min</p>{/if}
-          <h2>{nextPost.title}</h2><p>{nextPost.description}</p>
-          <span>{data.language === 'ca' ? 'Llegir l’article' : data.language === 'en' ? 'Read article' : 'Leer artículo'} →</span>
+          <h2>{#if nextTitleParts}{nextTitleParts[0]}<span>{nextPost.titleAccent}</span>{nextTitleParts.slice(1).join(nextPost.titleAccent)}{:else}{nextPost.title}{/if}</h2><p class="keep-reading-summary">{nextPost.description}</p>
+          <div class="keep-reading-footer"><span class="keep-reading-label">{data.language === 'ca' ? 'Continua llegint' : data.language === 'en' ? 'Keep reading' : 'Sigue leyendo'}</span>{#if nextPost.readingMinutes}<span class="keep-reading-time">{nextPost.readingMinutes} min</span>{:else}<span></span>{/if}<span class="keep-reading-link" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 18 18 6M7 6h11v11" /></svg></span></div>
         </a>
       </aside>
     {/if}
+    </div>
   </div>
 </article>

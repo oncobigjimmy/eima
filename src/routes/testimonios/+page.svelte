@@ -355,8 +355,7 @@
 <style>
   .testimonials-tabs { scroll-margin-top: 6rem; margin-bottom: var(--testimonials-tabs-gap); }
   .testimonials-tabs :global(.story-tabs) { margin-top: 0; }
-  :global(.testimonials-mobile-break) { display: none; }
-  @media (max-width: 767px) { :global(.testimonials-mobile-break) { display: block; } }
+  :global(.testimonials-mobile-break) { display: block; }
   :global(body:has(.testimonial-modal)) {
     overflow: hidden;
   }
@@ -399,21 +398,21 @@
     color: white;
     margin: 0 auto;
     max-width: 80rem;
-    padding: 7.5rem 1.5rem 4.4rem;
+    padding: 5.625rem 1.5rem 4.4rem;
     position: relative;
     z-index: 1;
   }
 
   @media (min-width: 1024px) {
     .testimonials-hero__content {
-      padding-top: 110px;
+      padding-top: 82.5px;
     }
   }
 
   .testimonials-hero h1 {
     color: white;
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    font-size: clamp(32px, 9vw, 50px);
+    font-size: 35px;
     white-space: nowrap;
     font-weight: 500;
     letter-spacing: 0;
@@ -814,7 +813,7 @@
     }
 
     .testimonials-hero h1 {
-      font-size: 60px;
+      font-size: 35px;
     }
 
     .testimonials-hero__lead p {
@@ -846,6 +845,7 @@
       white-space: nowrap;
     }
   }
+  @media (min-width: 1024px) { .testimonials-hero h1 { font-size: 70px; } .testimonials-cta h2 { line-height: 1.12; } }
 
   @media (max-width: 1023px) {
     .testimonial-card {
@@ -867,7 +867,7 @@
     }
 
     .testimonials-hero__content {
-      padding-top: 6.7rem;
+      padding-top: 5.025rem;
       padding-bottom: 4rem;
     }
 
@@ -878,6 +878,8 @@
     .testimonials-hero__lead p {
       font-size: 15px;
     }
+
+    .testimonials-hero h1 { font-size: 40px; }
 
     .testimonials-hero__lead br {
       display: none;
