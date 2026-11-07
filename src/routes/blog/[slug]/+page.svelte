@@ -4,7 +4,7 @@
   import { getPost, getPostAlternates } from '$lib/blog/posts.js';
   import { getAuthor } from '$lib/blog/authors.js';
   import PostMeta from '$lib/components/blog/PostMeta.svelte';
-  import AuthorBox from '$lib/components/blog/AuthorBox.svelte';
+  import AuthorSupport from '$lib/components/blog/AuthorSupport.svelte';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
 
   import { getBlogCopy } from '$lib/i18n/blog';
@@ -378,6 +378,13 @@
   :global(.prose-blog .source-label) { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #245b7d; }
   @media (hover: hover) and (pointer: fine) { :global(.prose-blog a.source-card:hover) { transform: translateY(-4px); } :global(.prose-blog .source-card:hover .source-go svg) { transform: translate(2px,-2px); } }
   @media (prefers-reduced-motion: reduce) { :global(.prose-blog a.source-card), :global(.prose-blog .source-go svg) { transition: none; } :global(.prose-blog a.source-card:hover), :global(.prose-blog .source-card:hover .source-go svg) { transform: none; } }
+  .keep-reading { margin-top: 32px; }
+  .keep-reading-label { margin-bottom: 12px; text-transform: uppercase; font: 400 12px/1.5 Inter, sans-serif; letter-spacing: .12em; color: #245b7d; }
+  .keep-reading-card { display: block; padding: 22px 20px; border-radius: 14px; background: #233f4e; color: #f4f4f8; }
+  .keep-reading-card h2 { margin: 10px 0; font: 400 21px/1.3 Fraunces, serif; }
+  .keep-reading-card p { font: 400 14px/1.7 Inter, sans-serif; }
+  .keep-reading-card .keep-reading-time { font-size: 12px; }
+  .keep-reading-card span { display: flex; align-items: center; min-height: 44px; margin-top: 12px; color: #8cd0d6; }
 </style>
 
 <article class="py-16 md:py-20">
@@ -395,34 +402,17 @@
       {/if}
     </div>
 
+    <AuthorSupport {author} language={data.language} />
     {#if nextPost}
-      <aside class="mt-12 rounded-[10px] bg-[color:var(--color-brand-accent)]/15 p-7 shadow-[0_1px_3px_rgba(14,29,38,0.06)]">
-        <p class="mb-3 text-xs uppercase tracking-[0.12em] text-[color:var(--color-brand-soft)]">{ui.next}</p>
-        <a class="blog-next-link block text-2xl font-light leading-tight" href={nextPost.path}>
-          {nextPost.title}
+      <!-- TODO [CA-revisar]: revisar «Continua llegint» i «Llegir l’article». -->
+      <aside class="keep-reading">
+        <p class="keep-reading-label">{data.language === 'ca' ? 'Continua llegint' : data.language === 'en' ? 'Keep reading' : 'Sigue leyendo'}</p>
+        <a class="keep-reading-card" href={nextPost.path} data-card>
+          {#if nextPost.readingMinutes}<p class="keep-reading-time">{nextPost.readingMinutes} min</p>{/if}
+          <h2>{nextPost.title}</h2><p>{nextPost.description}</p>
+          <span>{data.language === 'ca' ? 'Llegir l’article' : data.language === 'en' ? 'Read article' : 'Leer artículo'} →</span>
         </a>
-        <p class="mt-3 text-sm font-light leading-relaxed opacity-80 line-clamp-4">
-          {nextPost.description}
-        </p>
-        <PrimaryCta href={nextPost.path} label={ui.read} class="mx-auto mt-5" />
       </aside>
     {/if}
-
-    <AuthorBox {author} language={data.language} />
-
-    <aside class="mt-12 rounded-[10px] bg-[color:var(--color-brand-accent)]/15 p-7 text-center">
-      <h2 class="text-xl font-light mb-2">{ui.contactTitle}</h2>
-      <p class="opacity-80 font-light text-sm mb-4">
-        {ui.contactText}
-      </p>
-      <PrimaryCta href={contactPath} label={ui.contact} />
-    </aside>
-
-    <section class="mt-8 rounded-[10px] bg-white p-6 shadow-[0_1px_3px_rgba(14,29,38,0.06)]">
-      <h2 class="text-xl font-medium mb-3">{ui.questions}</h2>
-      <p class="text-sm font-light opacity-85 leading-relaxed">
-        {ui.questionsBefore} <a href={`${programPath}#faq`} class="text-[color:var(--color-brand-soft)] underline underline-offset-3">{ui.faq}</a> {ui.questionsAfter}
-      </p>
-    </section>
   </div>
 </article>
