@@ -1116,7 +1116,7 @@
     .reading-card--compact .reading-title, .reading-card--compact .reading-author { white-space: normal; overflow-wrap: anywhere; }
     .reading-cover-button { height: 155px; }
     .reading-cover-image { max-width: 110px; max-height: 155px; }
-    .reading-navigation { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 24px; }
+    .reading-navigation { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 18px; }
     .reading-counter { display: block; margin: 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
   }
   .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 20px/1.4 Fraunces, Georgia, serif; color: #233f4e; }
