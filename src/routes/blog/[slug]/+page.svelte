@@ -385,6 +385,8 @@
   .keep-reading-card p { font: 400 14px/1.7 Inter, sans-serif; }
   .keep-reading-card .keep-reading-time { font-size: 12px; }
   .keep-reading-card span { display: flex; align-items: center; min-height: 44px; margin-top: 12px; color: #8cd0d6; }
+  :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-weight: 400; line-height: 1.7; }
+  @media (min-width: 768px) { :global(.prose-blog > p), :global(.prose-blog li:not(.key-points li)) { font-size: 17px; } }
 </style>
 
 <article class="py-16 md:py-20">
