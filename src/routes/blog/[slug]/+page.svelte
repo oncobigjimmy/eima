@@ -324,8 +324,13 @@
   }
 
   :global(.prose-blog h2) {
+    color: #245b7d;
+    margin-top: 48px;
+    margin-bottom: 16px;
     line-height: 1.18;
   }
+
+  :global(.prose-blog h3) { color: #4083a7; }
 
   :global(.prose-blog .source-card img) {
     border: 1px solid transparent;
