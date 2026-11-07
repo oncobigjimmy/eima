@@ -412,8 +412,9 @@
 
   .testimonials-hero h1 {
     color: white;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-    font-size: clamp(2.7rem, 12vw, 3.45rem);
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 9vw, 50px);
+    white-space: nowrap;
     font-weight: 500;
     letter-spacing: 0;
     line-height: 0.98;
