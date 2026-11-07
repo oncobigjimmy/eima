@@ -19,8 +19,19 @@
   let activeId = 'miquel';
   let storyFadeDuration = 250;
   let readingIndex = 0;
-  // TODO [CA-revisar]: revisar el text del comptador de lectures.
-  $: shelfHint = { es: 'Desliza para ver más', ca: 'Llisca per veure’n més', en: 'Swipe to see more' }[pageLanguage];
+  /** @type {HTMLElement | undefined} */
+  let shelfNode;
+  /** @param {number} direction */
+  function moveReading(direction) {
+    if (!shelfNode) return;
+    const cards = Array.from(shelfNode.querySelectorAll('.reading-card'));
+    const index = Math.max(0, Math.min(cards.length - 1, readingIndex + direction));
+    const card = cards[index];
+    const first = cards[0];
+    if (!(card instanceof HTMLElement) || !(first instanceof HTMLElement)) return;
+    shelfNode.scrollTo({ left: index === 0 ? 0 : card.offsetLeft - first.offsetLeft + 20 + card.offsetWidth / 2 - shelfNode.clientWidth / 2, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+  $: shelfNavigation = { es: ['Libro anterior', 'Libro siguiente'], ca: ['Llibre anterior', 'Llibre següent'], en: ['Previous book', 'Next book'] }[pageLanguage];
   /** @param {HTMLElement} node */
   function readingShelf(node) {
     const media = window.matchMedia('(max-width: 767px)');
@@ -263,7 +274,7 @@
       }
 
       return true;
-    });
+    }).reverse();
   };
 
   /** @param {string} item */
@@ -459,7 +470,7 @@
             </header>
 
             <div class="profile-card__body">
-              <div use:readingShelf class:readings-grid--compact={true} class="readings-grid hover-dim-group">
+              <div bind:this={shelfNode} use:readingShelf class:readings-grid--compact={true} class="readings-grid hover-dim-group">
                 {#each getDisplayReadings(activeProfile) as reading}
                   {@const parsedReading = parseReading(reading)}
                   <button type="button" class="reading-card reading-card--compact hover-dim-item" aria-label={labels.enlargeCover + ' ' + parsedReading.title} on:click={() => (selectedCover = parsedReading)}>
@@ -471,7 +482,11 @@
                   </button>
                 {/each}
               </div>
-              <p class="reading-counter">{readingIndex + 1} {pageLanguage === 'en' ? 'of' : 'de'} {getDisplayReadings(activeProfile).length} · {shelfHint}</p>
+              <div class="reading-navigation">
+                <button type="button" aria-label={shelfNavigation[0]} disabled={readingIndex === 0} on:click={() => moveReading(-1)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" /></svg></button>
+                <p class="reading-counter" aria-live="polite">{readingIndex + 1} {pageLanguage === 'en' ? 'of' : 'de'} {getDisplayReadings(activeProfile).length}</p>
+                <button type="button" aria-label={shelfNavigation[1]} disabled={readingIndex === getDisplayReadings(activeProfile).length - 1} on:click={() => moveReading(1)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></button>
+              </div>
             </div>
           </section>
 
@@ -1081,10 +1096,16 @@
   .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #4083a7; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
   .other-story img { width: 64px; height: 64px; border-radius: 50%; background: #fff; object-fit: cover; object-position: center top; }
   .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
-  .other-story-name { display: block; font: 400 20px/1.3 Fraunces, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
-  .other-story svg { width: 24px; height: 24px; color: #fff; filter: drop-shadow(0 0 2px #071a2566); }
+  .other-story-name { display: block; font: 400 22px/1.3 Fraunces, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
+  .other-story svg { width: 28px; height: 28px; transform: translateX(-5px); color: #fff; filter: drop-shadow(0 0 2px #071a2566); }
   .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   .reading-counter { display: none; }
+  .reading-navigation { display: none; }
+  .reading-navigation button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #8cd0d6; color: #233f4e; transition: background-color var(--dur-micro) var(--ease-calma); }
+  .reading-navigation button:hover:not(:disabled) { background: #4083a7; color: #fff; }
+  .reading-navigation button:disabled { opacity: .45; }
+  .reading-navigation button:focus-visible { outline: 2px solid #245b7d; outline-offset: 3px; }
+  .reading-navigation svg { width: 22px; height: 22px; }
   @media (max-width: 767px) {
     .profile-card--readings { margin-inline: 0; width: 100%; }
     .profile-card--readings .profile-card__body { padding-inline: 0; }
@@ -1095,7 +1116,8 @@
     .reading-card--compact .reading-title, .reading-card--compact .reading-author { white-space: normal; overflow-wrap: anywhere; }
     .reading-cover-button { height: 155px; }
     .reading-cover-image { max-width: 110px; max-height: 155px; }
-    .reading-counter { display: block; margin: 20px 0 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
+    .reading-navigation { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 24px; }
+    .reading-counter { display: block; margin: 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
   }
   .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 20px/1.4 Fraunces, Georgia, serif; color: #233f4e; }
   .story-quote .quote-marker { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 85% / 0% 45% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background-size 800ms var(--ease-calma); }
