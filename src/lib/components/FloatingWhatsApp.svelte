@@ -5,6 +5,7 @@
   import { language } from '$lib/i18n/language';
 
   $: pathname = $page.url.pathname;
+  $: isContact = ['/contacto', '/ca/contacte', '/en/contact'].includes(pathname.replace(/\/$/, '')); 
   $: isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
   $: currentLanguage = isBlog ? 'es' : $language;
   $: whatsappHref = getWhatsAppHref(currentLanguage, pathname === '/', $selectedSituation);
@@ -45,6 +46,7 @@
   }
 </script>
 
+{#if !isContact}
 <a
   href={whatsappHref}
   target="_blank"
@@ -63,6 +65,7 @@
     />
   </svg>
 </a>
+{/if}
 
 <style>
   .floating-whatsapp { opacity: 1; transform: scale(1); transition: opacity 200ms var(--ease-calma), transform 200ms var(--ease-calma); }
