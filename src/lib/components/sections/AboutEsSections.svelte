@@ -144,7 +144,7 @@
   @keyframes blink { 50% { opacity: 0; } }
   .about-intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); align-items: center; gap: clamp(2rem, 4vw, 3rem); margin-top: 3rem; }
   .team-block { position: relative; display: flex; flex-direction: column; align-items: center; }
-  .team-photo { position: relative; width: min(100%, 490px); aspect-ratio: 1.2 / 1; overflow: hidden; border: 1px solid #ffffff30; border-radius: 10px; background: #f8f4f0; }
+  .team-photo { position: relative; width: min(100%, 490px); aspect-ratio: 1.3 / 1; overflow: visible; border: 1px solid #ffffff30; border-radius: 10px; background: #f8f4f0; }
   .team-photo-person { position: absolute; bottom: 0; width: auto; height: 90%; max-width: none; object-fit: contain; object-position: bottom center; mix-blend-mode: multiply; transition: filter 240ms ease-out; }
   .team-photo-person--left { left: 2.5%; }
   .team-photo-person--right { right: 2.5%; }
@@ -244,11 +244,11 @@
   .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-entrada) var(--ease-calma), transform var(--dur-entrada) var(--ease-calma); }
   .intro-reveal:global(.standard-entry-visible), .origin-card:global(.standard-entry-visible), .origin-fade:global(.standard-entry-visible) { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .intro-reveal:global(.standard-entry-pending), .origin-card:global(.standard-entry-pending), .origin-fade:global(.standard-entry-pending) { opacity: 1; transform: none; transition: none; } }
-  .team-person span { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #fff; color: #233f4e; font: 600 15px/1 Inter, sans-serif; box-shadow: 0 8px 20px rgba(14,29,38,.18), 0 0 0 1px rgba(35,63,78,.08); transition: background var(--dur-micro) var(--ease-calma), color var(--dur-micro) var(--ease-calma), transform var(--dur-micro) var(--ease-calma); }
+  .team-person span { position: absolute; top: 0; bottom: auto; left: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; min-height: 32px; padding: 0 14px; border-radius: 999px; background: #4083a7; color: #fff; text-shadow: 0 0 3px #071a2566; font: 600 15px/1 Inter, sans-serif; box-shadow: 0 8px 20px rgba(14,29,38,.18), 0 0 0 1px rgba(35,63,78,.08); transition: background var(--dur-micro) var(--ease-calma), color var(--dur-micro) var(--ease-calma), transform var(--dur-micro) var(--ease-calma); }
   .team-person:focus-visible span { background: #4083a7; color: #fff; }
   @media (hover: hover) and (pointer: fine) { .team-person:hover span { background: #4083a7; color: #fff; } }
-  @media (hover: none), (pointer: coarse) { .team-person:active span { background: #4083a7; color: #fff; transform: translateX(-50%) scale(.97); } }
-  @media (prefers-reduced-motion: reduce) { .team-person span { transition: none; } .team-person:active span { transform: translateX(-50%); } }
+  @media (hover: none), (pointer: coarse) { .team-person:active span { background: #4083a7; color: #fff; transform: translate(-50%, -50%) scale(.97); } }
+  @media (prefers-reduced-motion: reduce) { .team-person span { transition: none; } .team-person:active span { transform: translate(-50%, -50%); } }
   @media (min-width: 768px) { .dictionary-definitions { font-size: 16px; } }
   .closing-visual { position: relative; isolation: isolate; min-height: 400px; height: 100%; overflow: hidden; }
   .closing-visual picture { display: block; height: 100%; }
@@ -258,7 +258,7 @@
   .team-hint-mobile { display: none; }
   /* TODO [CA-revisar]: revisar la indicació mòbil per triar una història. */
   @media (max-width: 767px) {
-    .about-intro { padding-top: 5.5rem; }
+    .about-intro { padding-top: 5rem; }
     .about-intro-grid { margin-top: 2rem; gap: 1.5rem; }
     .team-photo { overflow: visible; }
     .team-person span { top: 0; bottom: auto; min-height: 32px; padding: 0 14px; transform: translate(-50%, -50%); background: #4083a7; color: #fff; }
@@ -268,4 +268,5 @@
     .team-person:active span { transform: translate(-50%, -50%) scale(.97); }
   }
   @media (max-width: 767px) and (prefers-reduced-motion: reduce) { .team-person:active span { transform: translate(-50%, -50%); } }
+  .team-person span svg { filter: drop-shadow(0 0 2px #071a2566); }
 </style>

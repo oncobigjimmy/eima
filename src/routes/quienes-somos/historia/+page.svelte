@@ -32,7 +32,7 @@
       const first = cards[0];
       if (first instanceof HTMLElement) cards.forEach((card, index) => {
         if (!(card instanceof HTMLElement)) return;
-        const delta = Math.abs(card.offsetLeft - first.offsetLeft - node.scrollLeft);
+        const delta = Math.abs(card.offsetLeft - first.offsetLeft + 20 + card.offsetWidth / 2 - node.scrollLeft - node.clientWidth / 2);
         if (delta < distance) { distance = delta; selected = index; }
       });
       readingIndex = selected;
@@ -999,7 +999,7 @@
     .story-journey-title { font-size: 40px; }
     .story-profile-name { font-size: 30px; }
     .story-profile-specialty { font-size: 16px; line-height: 1.4; }
-    .story-section-heading { font-size: 22px; }
+    .story-section-heading { font-size: 24px !important; }
     .story-section-heading.jaume-story-heading { font-size: 24px !important; }
 
     .education-item:global(.scroll-active) p { transform: scale(1.06); }
@@ -1078,27 +1078,36 @@
     .education-item:global(.scroll-active) p, .education-item:global(.scroll-active) .education-dot,
     .education-year-block:has(.education-item:global(.scroll-active)) > .education-year { transform: none; }
   }
-  .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #fff; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
-  .other-story img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: center top; }
-  .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; }
-  .other-story-name { display: block; font: 400 20px/1.3 Fraunces, Georgia, serif; color: #233f4e; }
-  .other-story svg { width: 24px; height: 24px; color: #4083a7; }
+  .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #4083a7; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
+  .other-story img { width: 64px; height: 64px; border-radius: 50%; background: #fff; object-fit: cover; object-position: center top; }
+  .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
+  .other-story-name { display: block; font: 400 20px/1.3 Fraunces, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
+  .other-story svg { width: 24px; height: 24px; color: #fff; filter: drop-shadow(0 0 2px #071a2566); }
   .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   .reading-counter { display: none; }
   @media (max-width: 767px) {
-    .profile-card--readings { margin-inline: -20px; width: calc(100% + 40px); }
+    .profile-card--readings { margin-inline: 0; width: 100%; }
     .profile-card--readings .profile-card__body { padding-inline: 0; }
-    .readings-grid { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; padding: 22px 20px 12px; scrollbar-width: none; align-items: stretch; }
+    .readings-grid { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 0; padding: 22px 20px 18px; scrollbar-width: none; align-items: stretch; }
     .readings-grid::-webkit-scrollbar { display: none; }
-    .readings-grid::after { content: ''; flex: 0 0 calc(100% - 152px); }
-    .readings-grid .reading-card { flex: 0 0 132px; width: 132px; min-width: 132px; padding: 10px; grid-template-rows: 124px auto auto; scroll-snap-align: start; }
+    .readings-grid::after { content: ''; flex: 0 0 max(0px, calc(50% - 128px)); }
+    .readings-grid .reading-card { flex: 0 0 188px; width: 188px; min-width: 188px; padding: 14px; grid-template-rows: 155px auto auto; scroll-snap-align: center; }
     .reading-card--compact .reading-title, .reading-card--compact .reading-author { white-space: normal; overflow-wrap: anywhere; }
-    .reading-cover-button { height: 124px; }
-    .reading-cover-image { max-width: 88px; max-height: 124px; }
-    .reading-counter { display: block; margin: 12px 0 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
+    .reading-cover-button { height: 155px; }
+    .reading-cover-image { max-width: 110px; max-height: 155px; }
+    .reading-counter { display: block; margin: 20px 0 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
   }
-  .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 22px/1.4 Fraunces, Georgia, serif; color: #233f4e; }
+  .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 20px/1.4 Fraunces, Georgia, serif; color: #233f4e; }
   .story-quote .quote-marker { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 85% / 0% 45% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background-size 800ms var(--ease-calma); }
   .story-quote:global(.quote-drawn) .quote-marker { background-size: 100% 45%; }
   @media (prefers-reduced-motion: reduce) { .story-quote .quote-marker { background-size: 100% 45%; transition: none; } }
+  @media (max-width: 767px) {
+    .readings-grid .reading-card { box-shadow: 0 3px 8px #233f4e14; }
+    .readings-grid .reading-card .reading-title { font-size: 15px; }
+    .readings-grid .reading-card .reading-author { font-size: 13px; }
+    .readings-grid .reading-card:global(.scroll-active) { transform: translateY(-3px) scale(1.01); box-shadow: 0 5px 12px #233f4e24; }
+    .readings-grid .reading-card .reading-cover-image { box-shadow: 0 3px 8px #071a2526; }
+    .readings-grid .reading-card:global(.scroll-active) .reading-cover-image { transform: scale(1.03); box-shadow: 0 3px 8px #071a2533, 0 0 8px #8cd0d680; }
+  }
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) { .readings-grid .reading-card:global(.scroll-active), .readings-grid .reading-card:global(.scroll-active) .reading-cover-image { transform: none; } }
 </style>
