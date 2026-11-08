@@ -18,6 +18,16 @@ export type PatientResponse = {
 // Selected patient responses; each image appears in one narrative row only.
 export const patientResponses: PatientResponse[] = [
   {
+    id: 'difficult-day-ten-hard-days',
+    category: 'difficult-day',
+    image: '/patient-responses/difficult-day-ten-hard-days.jpg',
+    width: 989,
+    height: 782,
+    highlight: 'Han sido 10 días duros...ojalá ya empecemos a recuperar!!!!',
+    alt: 'Respuesta real de paciente: esta semana le han condicionado mucho cansancio o falta de energía y náuseas, mareos o vértigo. Han sido 10 días duros...ojalá ya empecemos a recuperar!!!!',
+    underlines: [{ x: 3.1, y: 83.1, width: 43.2, height: 4.8 }]
+  },
+  {
     id: 'progress-return-pilates',
     category: 'progress',
     image: '/patient-responses/progress-return-pilates.jpg',
@@ -445,6 +455,10 @@ export const patientResponses: PatientResponse[] = [
 ];
 
 const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
+  'difficult-day-ten-hard-days': {
+    ca: 'Han estat 10 dies durs...tant de bo ja comencem a recuperar!!!!',
+    en: 'It’s been 10 tough days...hopefully we’ll start recovering now!!!!'
+  },
   'progress-return-pilates': {
     ca: 'Tornar a les classes de pilates.',
     en: 'Returning to Pilates classes.'
