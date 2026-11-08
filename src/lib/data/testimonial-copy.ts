@@ -12,7 +12,7 @@ export const testimonialUi = {
     final: 'Para que puedas', finalAccent: 'volver a hacer las cosas', finalEnd: 'que echas de menos.',
     tabs: ['Historias en vídeo', 'Historias escritas'],
     filters: ['Todas', 'Lo que se recupera', 'Los días difíciles', 'Cómo te acompañamos'], filter: 'Filtrar:',
-    pause: 'Pausar movimiento', resume: 'Reanudar'
+    pause: 'Pausar movimiento', resume: 'Reanudar', explored: 'Historias exploradas'
   },
   ca: {
     eyebrow: 'Respostes reals de pacients', heading: 'El que ens expliquen cada setmana els nostres pacients', headingBefore: 'El que ens expliquen cada setmana', headingAccent: 'els nostres pacients', headingAfter: '',
@@ -25,7 +25,7 @@ export const testimonialUi = {
     final: 'Perquè puguis', finalAccent: 'tornar a fer les coses', finalEnd: 'que enyores.',
     tabs: ['Històries en vídeo', 'Històries escrites'],
     filters: ['Totes', 'El que es recupera', 'Els dies difícils', "Com t'acompanyam"], filter: 'Filtrar:',
-    pause: 'Aturar moviment', resume: 'Reprendre'
+    pause: 'Aturar moviment', resume: 'Reprendre', explored: 'Històries explorades'
   },
   en: {
     eyebrow: 'Real patient responses', heading: 'What our patients tell us each week', headingBefore: 'What we hear each week from', headingAccent: 'our patients', headingAfter: '',
@@ -38,6 +38,6 @@ export const testimonialUi = {
     final: 'So you can', finalAccent: 'get back to doing the things', finalEnd: 'you miss.',
     tabs: ['Video stories', 'Written stories'],
     filters: ['All', 'What you regain', 'Difficult days', 'How we support you'], filter: 'Filter:',
-    pause: 'Pause movement', resume: 'Resume'
+    pause: 'Pause movement', resume: 'Resume', explored: 'Stories explored'
   }
 } satisfies Record<Language, object>;

@@ -2,6 +2,7 @@
   import { onMount, tick } from 'svelte';
   import { standardEntry } from '$lib/actions/standardEntry';
   import { draggableMarquee } from '$lib/actions/draggableMarquee';
+  import { trackExplored } from '$lib/actions/trackExplored';
   import { watchReducedMotion } from '$lib/motion';
   import type { Language } from '$lib/i18n/copy';
   import { writtenTestimonials, testimonialChapters, type WrittenTestimonial } from '$lib/data/patient-responses';
@@ -12,6 +13,15 @@
   let mobile = false, reduced = true, paused = false, filter = 0, openFilter = false;
   let filterRoot: HTMLDivElement, filterButton: HTMLButtonElement;
   let enlarged: WrittenTestimonial | null = null;
+  let explored = new Set<string>();
+  let headerHeight = 76;
+  let controlsHeight = 54;
+  let controls: HTMLDivElement;
+  $: exploredCount = filtered.filter(item => explored.has(item.id)).length;
+  $: progress = filtered.length ? Math.round(exploredCount / filtered.length * 100) : 0;
+  function markExplored(id: string) {
+    if (!explored.has(id)) explored = new Set([...explored, id]);
+  }
   $: copy = testimonialUi[pageLanguage];
   $: filtered = filter === 0 ? writtenTestimonials : writtenTestimonials.filter(item => item.chapter === testimonialChapters[filter - 1]);
   $: marquee = filter === 0 && !mobile && !reduced;
@@ -21,7 +31,14 @@
     const sync = () => { mobile = media.matches; };
     sync(); media.addEventListener('change', sync);
     const stop = watchReducedMotion(value => { reduced = value; });
-    return () => { media.removeEventListener('change', sync); stop(); };
+    const header = document.querySelector('header');
+    const headerObserver = new ResizeObserver(() => {
+      headerHeight = header?.getBoundingClientRect().height ?? 76;
+      controlsHeight = controls.getBoundingClientRect().height;
+    });
+    if (header) { headerHeight = header.getBoundingClientRect().height; headerObserver.observe(header); }
+    headerObserver.observe(controls);
+    return () => { media.removeEventListener('change', sync); stop(); headerObserver.disconnect(); };
   });
   function select(index: number) { filter = index; openFilter = false; if (mobile) filterButton?.focus(); }
   function outside(event: PointerEvent) { if (openFilter && event.target instanceof Node && !filterRoot?.contains(event.target)) openFilter = false; }
@@ -36,7 +53,7 @@
 </script>
 
 <svelte:window on:pointerdown={outside} />
-<div class="written-stories">
+<div class="written-stories" style:--stories-header-height={`${headerHeight}px`} use:trackExplored={{ top: headerHeight + controlsHeight, blocked: Boolean(enlarged), onSeen: markExplored }}>
   <div class="desktop-filters" aria-label={copy.filter} use:standardEntry>
     {#each copy.filters as label, index}<button type="button" class:active={filter === index} aria-pressed={filter === index} on:click={() => select(index)}>{label}</button>{/each}
   </div>
@@ -46,8 +63,14 @@
       {#each copy.filters as label, index}<button type="button" role="option" aria-selected={filter === index} tabindex={filter === index ? 0 : -1} on:click={() => select(index)} on:keydown={event => filterKey(event, index)}>{label}</button>{/each}
     </div>{/if}
   </div>
+  <div class="exploration-controls" bind:this={controls}>
+    <div class="exploration-progress">
+      <div class="exploration-label"><span>{copy.explored}</span><span class="exploration-percent" aria-hidden="true">{progress} %</span></div>
+      <div class="exploration-track" role="progressbar" aria-label={`${copy.explored}: ${copy.filters[filter]}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress}><span style:width={`${progress}%`}></span></div>
+    </div>
+    {#if marquee}<div class="motion-control"><button type="button" aria-pressed={paused} on:click={() => { paused = !paused; }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{#if paused}<path d="m9 5 11 7-11 7Z" />{:else}<path d="M8 5v14M16 5v14" />{/if}</svg>{paused ? copy.resume : copy.pause}</button></div>{/if}
+  </div>
   {#if marquee}
-    <div class="motion-control"><button type="button" aria-pressed={paused} on:click={() => { paused = !paused; }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{#if paused}<path d="m9 5 11 7-11 7Z" />{:else}<path d="M8 5v14M16 5v14" />{/if}</svg>{paused ? copy.resume : copy.pause}</button></div>
     <div class="marquee" class:paused>
       {#each rows as row, index}
         <!-- Arrow-key navigation is provided by draggableMarquee. -->
@@ -81,21 +104,30 @@
   .mobile-filter { display: none; }
   .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: center; }
   .written-slot { display: flex; align-items: center; justify-content: center; height: 100%; min-width: 0; }
-  .motion-control { display: flex; justify-content: flex-end; margin-bottom: .75rem; }
+  .exploration-controls { position: sticky; top: var(--stories-header-height); z-index: 15; display: flex; align-items: center; gap: 28px; margin-bottom: 1rem; padding-block: 8px; background: #f8f4f0; }
+  .exploration-progress { flex: 1; min-width: 0; }
+  .exploration-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; color: #233f4e; font-size: 13px; line-height: 1.4; }
+  .exploration-percent { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .exploration-track { height: 4px; border-radius: 999px; background: #dce7eb; overflow: hidden; }
+  .exploration-track > span { display: block; height: 100%; border-radius: inherit; background: #4083a7; transition: width 350ms var(--ease-calma); }
+  .motion-control { display: flex; flex: 0 0 auto; justify-content: flex-end; }
   .motion-control button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: .6rem 1rem; font-size: 13px; font-weight: 500; border: 1px solid #4083a740; border-radius: 999px; background: #fff; color: #233f4e; box-shadow: 0 3px 12px #233f4e08; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   .motion-control svg { width: 18px; height: 18px; color: #4083a7; }
+  .motion-control button { justify-content: center; min-width: 176px; }
   .motion-control button[aria-pressed="true"] { background: #e8e8f6; border-color: #4083a7; }
   .marquee-window { overflow: hidden; padding: 26px 0 28px; cursor: grab; touch-action: pan-y; user-select: none; }
   .marquee-window:global(.is-dragging), .marquee-window:global(.is-dragging) :global(.written-card) { cursor: grabbing; }
   .marquee-window:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; }
-  .marquee { display: grid; row-gap: 4px; }
+  .marquee { display: grid; row-gap: 4px; margin-inline: -1.25rem; }
   .marquee-track { display: flex; width: max-content; will-change: transform; }
   .marquee-copy { display: flex; gap: 24px; padding-right: 24px; align-items: center; }
   .marquee-copy :global(.written-card) { width: 260px; flex: 0 0 260px; }
   button:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   @media (max-width: 767px) {
+    .exploration-controls { position: sticky; top: var(--stories-header-height); z-index: 15; margin-inline: -1rem; padding: 10px 1rem 12px; margin-bottom: 1.25rem; }
+    .exploration-label { font-size: 12px; margin-bottom: 7px; }
     .desktop-filters { display: none; }
-    .mobile-filter { display: block; position: relative; z-index: 2; margin-bottom: 1.5rem; }
+    .mobile-filter { display: block; position: relative; z-index: 20; margin-bottom: 1.5rem; }
     .filter-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 48px; padding: .5rem 1rem; border: 1px solid rgba(35,63,78,.25); border-radius: 12px; background: #fff; font-size: 14px; border-color: #8cd0d6; }
     .filter-toggle span { display: grid; place-items: center; width: 28px; height: 28px; color: #233f4e; transition: transform var(--dur-estado) var(--ease-calma); } .filter-toggle span svg { width: 26px; height: 26px; } .filter-toggle span.rotated { transform: rotate(180deg); }
     .filter-options { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; padding: 6px; border-radius: 12px; box-shadow: 0 12px 32px #233f4e26; }
@@ -108,5 +140,5 @@
     .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
     .written-stories:not(:has(:global(.written-card:hover))):has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(1px); opacity: .8; }
   }
-  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button, .exploration-track > span { transition: none; } }
 </style>

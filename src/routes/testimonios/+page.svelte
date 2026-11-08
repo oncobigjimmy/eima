@@ -207,7 +207,7 @@
 </section>
 
 <section class="testimonials-section" aria-labelledby="testimonios-title">
-  <div class="testimonials-section__inner">
+  <div class="testimonials-section__inner" class:written={activeTab === 'escritas'}>
     <h2 id="testimonios-title" class="sr-only">{copy.section}</h2>
 
     <div id="historias" class="testimonials-tabs" bind:this={tabsRoot}><StoryTabs items={[{ id: 'videos', label: writtenCopy.tabs[0] }, { id: 'escritas', label: writtenCopy.tabs[1] }]} selected={activeTab} label={copy.section} prefix="testimonials" wide onSelect={chooseTab} /></div>
@@ -456,6 +456,9 @@
   .testimonials-section__inner {
     margin: 0 auto;
     max-width: 80rem;
+  }
+  @media (min-width: 768px) {
+    .testimonials-section__inner.written { max-width: none; }
   }
 
   .testimonials-grid {

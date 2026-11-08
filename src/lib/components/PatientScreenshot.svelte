@@ -7,6 +7,7 @@
   import type { WrittenTestimonial } from '$lib/data/patient-responses';
   export let item: WrittenTestimonial;
   export let label: string;
+  // Both physical marquee copies share this identity for exploration progress.
   export let duplicate = false;
   export let open: (item: WrittenTestimonial) => void;
   let card: HTMLButtonElement;
@@ -22,7 +23,7 @@
 </script>
 
 <button bind:this={card} use:scrollContrast={'.written-stories'} class="written-card" class:highlights-done={highlightsDone} type="button" tabindex={duplicate ? -1 : 0} aria-label={`${label}${item.alt ? ': ' + item.alt : ''}`} aria-haspopup="dialog" on:click={() => open(item)}>
-  <span class="image-frame"><img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} loading="lazy" draggable="false" /><ResponseHighlights lines={item.markers} {active} {reduced} bind:finished={highlightsDone} /></span>
+  <span class="image-frame" data-testimonial-id={item.id}><img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} loading="lazy" draggable="false" /><ResponseHighlights lines={item.markers} {active} {reduced} bind:finished={highlightsDone} /></span>
   <span class="magnify" aria-hidden="true"><SearchIcon /></span>
 </button>
 
