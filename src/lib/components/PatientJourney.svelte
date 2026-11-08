@@ -18,10 +18,13 @@
     ...getFeaturedTestimonials('dificiles').map(item => ({ kind: 'response' as const, item })), { kind: 'bridge2' },
     ...getFeaturedTestimonials('acompanamos').map(item => ({ kind: 'response' as const, item })), { kind: 'final' }
   ];
-  const responsesPerChapter = getFeaturedTestimonials('recupera').length;
-  const chapterLength = responsesPerChapter + 1;
+  const chapterCounts = testimonialChapters.map(chapter => getFeaturedTestimonials(chapter).length);
+  const chapterStarts = [0, chapterCounts[0] + 1, chapterCounts[0] + chapterCounts[1] + 2];
+  function chapterFor(index: number) {
+    return index >= chapterStarts[2] ? 2 : index >= chapterStarts[1] ? 1 : 0;
+  }
   let current = 0, markerActive = true, mobile = false;
-  let chapterProgress = [100 / responsesPerChapter, 0, 0];
+  let chapterProgress = [100 / chapterCounts[0], 0, 0];
   let sectionVisible = false;
   function seeJourney(node: HTMLElement) {
     const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { sectionVisible = true; observer.disconnect(); } }, { threshold: .12 });
@@ -45,13 +48,13 @@
   $: copy = testimonialUi[pageLanguage];
   $: proofCopy = patientProofCopy[pageLanguage];
   $: whatsappHref = getWhatsAppHref(pageLanguage, false, $selectedSituation);
-  $: chapter = Math.min(2, Math.floor(current / chapterLength));
+  $: chapter = chapterFor(current);
   function go(index: number) {
     const next = Math.max(0, Math.min(slides.length - 1, index));
     if (next === current) return;
     current = next; markerActive = false; clearTimeout(markerTimer);
-    const activeChapter = Math.min(2, Math.floor(current / chapterLength));
-    chapterProgress = chapterProgress.map((progress, index) => index < activeChapter ? 100 : index === activeChapter ? Math.max(progress, Math.min(100, ((current % chapterLength) + 1) / responsesPerChapter * 100)) : progress);
+    const activeChapter = chapterFor(current);
+    chapterProgress = chapterProgress.map((progress, index) => index < activeChapter ? 100 : index === activeChapter ? Math.max(progress, Math.min(100, (current - chapterStarts[activeChapter] + 1) / chapterCounts[activeChapter] * 100)) : progress);
     markerTimer = setTimeout(() => { markerActive = true; }, 0);
   }
   function keyboard(event: KeyboardEvent) {
@@ -177,7 +180,7 @@
   <header use:standardEntry><h2 id="patient-proof-title">{#if pageLanguage === 'es'}Lo que nos cuentan<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>cada semana</span>{:else if pageLanguage === 'ca'}El que ens expliquen<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>cada setmana</span>{:else}What we hear<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>each week from</span>{/if}<br /><span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
   <div class="chapter-bar">
     {#each testimonialChapters as key, index}
-      <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(index * chapterLength)}>
+      <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(chapterStarts[index])}>
         <span class="chapter-track" aria-hidden="true"><span class="chapter-fill" class:striped={chapter === index} style={`width:${chapterProgress[index]}%`}></span></span>
         <span class="chapter-desktop">{copy.chapters[index]}</span><span class="chapter-mobile">{copy.shortChapters[index]}</span>
       </button>
@@ -207,7 +210,7 @@
             <h3>{#if mobile}{mobileFinal[0]}<br /><span>{mobileFinal[1]}<br />{mobileFinal[2]}</span><br />{mobileFinal[3]}{:else}{copy.final}<br /><span>{copy.finalAccent}</span><br />{copy.finalEnd}{/if}</h3>
             <div class="final-cta" inert={index !== current}><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={copy.cta} /></div>
           {/if}
-          {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[Math.min(2, Math.floor(index / chapterLength))]} on:click={() => go(index)}></button>{/if}
+          {#if index !== current && magnitude <= 2.2}<button class="side-select" type="button" tabindex="-1" aria-label={slide.kind === 'response' ? phrase(slide.item) : copy.chapters[chapterFor(index)]} on:click={() => go(index)}></button>{/if}
         </article>
       {/each}
     </div>

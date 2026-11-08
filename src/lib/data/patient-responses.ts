@@ -18,6 +18,16 @@ export type PatientResponse = {
 // Selected patient responses; each image appears in one narrative row only.
 export const patientResponses: PatientResponse[] = [
   {
+    id: 'progress-return-pilates',
+    category: 'progress',
+    image: '/patient-responses/progress-return-pilates.jpg',
+    width: 986,
+    height: 337,
+    highlight: 'Volver a las clases de pilates.',
+    alt: 'Respuesta de paciente sobre su pequeña victoria de la semana: volver a las clases de pilates.',
+    underlines: [{ x: 3.4, y: 75.8, width: 56.6, height: 11 }]
+  },
+  {
     id: 'difficult-day-weak-fog',
     category: 'difficult-day',
     image: '/patient-responses/difficult-day-weak-fog.jpg',
@@ -435,6 +445,10 @@ export const patientResponses: PatientResponse[] = [
 ];
 
 const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
+  'progress-return-pilates': {
+    ca: 'Tornar a les classes de pilates.',
+    en: 'Returning to Pilates classes.'
+  },
   'difficult-day-complicated-week': {
     ca: 'Setmana més complicada. Fins ahir divendres no em vaig sentir més animada.',
     en: 'A more difficult week. I didn’t feel more upbeat until yesterday, Friday.'
@@ -609,6 +623,10 @@ export type WrittenTestimonial = {
 // Gallery responses without a home excerpt keep their screenshot caption.
 // TODO [CA-revisar]: revisar las traducciones de las citas.
 const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText }> = {
+  'progress-return-pilates': {
+    quote: { es: 'Volver a las clases de pilates.', ca: 'Tornar a les classes de pilates.', en: 'Returning to Pilates classes.' },
+    highlight: { es: 'Volver a las clases de pilates', ca: 'Tornar a les classes de pilates', en: 'Returning to Pilates classes' }
+  },
   'progress-9': {
     quote: { es: 'Lograr salir a caminar todos los días, a pesar del tratamiento y las inyecciones.', ca: 'Aconseguir sortir a caminar cada dia, malgrat el tractament i les injeccions.', en: 'Managing to go for a walk every day, despite treatment and injections.' },
     highlight: { es: 'Lograr salir a caminar todos los días', ca: 'Aconseguir sortir a caminar cada dia', en: 'Managing to go for a walk every day' }
@@ -646,11 +664,12 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
   }
 };
-const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-4","difficult-day-weak-fog","difficult-day-5","difficult-day-2","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
+const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-return-pilates","progress-9","difficult-day-1","difficult-day-4","difficult-day-weak-fog","difficult-day-5","difficult-day-2","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
 // Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
 const confirmedPatientInitials: Record<string, string> = {
+  "progress-return-pilates": "A.",
   "progress-7": "A.",
   "progress-1": "A.",
   "progress-2": "A.",
