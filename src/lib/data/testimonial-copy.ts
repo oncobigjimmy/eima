@@ -12,7 +12,15 @@ export const testimonialUi = {
     final: 'Para que puedas', finalAccent: 'volver a hacer las cosas', finalEnd: 'que echas de menos.',
     tabs: ['Historias en vídeo', 'Historias escritas'],
     filters: ['Todas', 'Lo que se recupera', 'Los días difíciles', 'Cómo te acompañamos'], filter: 'Filtrar:',
-    pause: 'Pausar movimiento', resume: 'Reanudar', explored: 'Historias exploradas'
+    pause: 'Pausar movimiento', resume: 'Reanudar', explored: 'Historias exploradas',
+    completion: {
+      eyebrow: 'Cada historia, una persona', heading: 'Ahora queremos escucharte a ti.',
+      intro: 'Has recorrido todas estas experiencias reales de nuestros pacientes.',
+      question: '¿Te has sentido identificado con algún comentario? ¿Te ha surgido alguna duda?',
+      invitation: 'Cuéntanos qué estás viviendo y lo hablamos contigo.',
+      cta: 'Hablemos por WhatsApp', free: 'Esta primera conversación es gratuita y sin compromiso.',
+      dismiss: 'Seguir explorando', close: 'Cerrar invitación'
+    }
   },
   ca: {
     eyebrow: 'Respostes reals de pacients', heading: 'El que ens expliquen cada setmana els nostres pacients', headingBefore: 'El que ens expliquen cada setmana', headingAccent: 'els nostres pacients', headingAfter: '',
@@ -25,7 +33,15 @@ export const testimonialUi = {
     final: 'Perquè puguis', finalAccent: 'tornar a fer les coses', finalEnd: 'que enyores.',
     tabs: ['Històries en vídeo', 'Històries escrites'],
     filters: ['Totes', 'El que es recupera', 'Els dies difícils', "Com t'acompanyam"], filter: 'Filtrar:',
-    pause: 'Aturar moviment', resume: 'Reprendre', explored: 'Històries explorades'
+    pause: 'Aturar moviment', resume: 'Reprendre', explored: 'Històries explorades',
+    completion: {
+      eyebrow: 'Cada història, una persona', heading: "Ara et volem escoltar a tu.",
+      intro: 'Has recorregut totes aquestes experiències reals dels nostres pacients.',
+      question: "T’has sentit identificat amb qualque comentari? T’ha sorgit cap dubte?",
+      invitation: "Explica’ns què estàs vivint i en parlam amb tu.",
+      cta: 'Parlem per WhatsApp', free: 'Aquesta primera conversa és gratuïta i sense compromís.',
+      dismiss: 'Continuar explorant', close: 'Tancar la invitació'
+    }
   },
   en: {
     eyebrow: 'Real patient responses', heading: 'What our patients tell us each week', headingBefore: 'What we hear each week from', headingAccent: 'our patients', headingAfter: '',
@@ -38,6 +54,14 @@ export const testimonialUi = {
     final: 'So you can', finalAccent: 'get back to doing the things', finalEnd: 'you miss.',
     tabs: ['Video stories', 'Written stories'],
     filters: ['All', 'What you regain', 'Difficult days', 'How we support you'], filter: 'Filter:',
-    pause: 'Pause movement', resume: 'Resume', explored: 'Stories explored'
+    pause: 'Pause movement', resume: 'Resume', explored: 'Stories explored',
+    completion: {
+      eyebrow: 'Every story, a person', heading: 'Now we’d like to hear your story.',
+      intro: 'You’ve explored all these real experiences from our patients.',
+      question: 'Did any of their words resonate with you? Do you have any questions?',
+      invitation: 'Tell us what you’re going through. We’re here to talk it through with you.',
+      cta: 'Let’s talk on WhatsApp', free: 'This first conversation is free, with no obligation.',
+      dismiss: 'Keep exploring', close: 'Close invitation'
+    }
   }
 } satisfies Record<Language, object>;
