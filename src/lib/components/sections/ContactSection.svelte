@@ -405,4 +405,9 @@
     @keyframes contact-mobile-step { from { opacity: .24; } to { opacity: 1; } }
   }
   @media (prefers-reduced-motion: reduce) { .contact-method, .contact-method__arrow svg { transition: none; } .contact-method:active { transform: none; } .contact-next ol::before, .contact-next ol::after, .contact-next li::after { transition: none !important; transform: none !important; } .contact-next-number { animation: none !important; filter: none; } .contact-next li { opacity: 1; animation: none !important; } .contact-reassurance { opacity: 1; animation: none !important; } .contact-reassurance span { clip-path: none; animation: none !important; } }
+
+  @media (min-width: 1024px) {
+    .contact-page { padding-bottom: 50px; }
+    .contact-next { padding-top: 50px; padding-bottom: 50px; }
+  }
 </style>

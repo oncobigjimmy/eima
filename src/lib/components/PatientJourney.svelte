@@ -220,11 +220,11 @@
 {#if enlarged}<ScreenshotModal item={enlarged} {pageLanguage} close={() => { enlarged = null; }} />{/if}
 
 <style>
-  .patient-proof { background: #f8f4f0; padding: 2rem 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
+  .patient-proof { background: #f8f4f0; padding: var(--home-section-start, 3.75rem) 0 var(--home-section-end, 3.75rem); overflow: clip; color: #233f4e; }
   header { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
   h2 span { font: inherit; color: #4083a7; }
   h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 50px; font-weight: 500; line-height: 1.15; }
-  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2.5rem auto 1.25rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2.5rem auto .15rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
   .chapter-bar button.active { color: #233f4e; font-weight: 600; }
   .chapter-track { display: block; width: 100%; height: 10px; background: #e8e8f6; border-radius: 999px; overflow: hidden; }
@@ -280,7 +280,7 @@
   .bridge-body :global(.subtitle-line + .subtitle-line) { margin-top: .5rem; }
   .bridge-body { font: 300 14px/1.65 Inter, sans-serif; color: #F4F4F8; margin-top: 1rem; }
   .final { height: 320px; margin-top: -160px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
-  .final h3 { font-size: 30px; margin-bottom: 1rem; } .final h3 span { color: #8cd0d6; }
+  .final h3 { font-size: 30px; margin-bottom: 2.5rem; } .final h3 span { color: #8cd0d6; }
   .restart-slot { position: absolute; top: 150px; left: calc(50% + 215px); width: 150px; }
   .restart { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 58px; color: #233f4e; font-size: 13px; padding: 8px 12px; border: 1px solid transparent; border-radius: 12px; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   .restart svg { width: 22px; height: 22px; }
@@ -305,7 +305,7 @@
     .capture-group.compact .capture-window { height: 100px; flex-basis: 100px; }
     .bridge { height: 310px; margin-top: -155px; }
     .final { height: 320px; margin-top: -160px; }
-    h3 { font-size: 28px; } .final h3 { font-size: 26px; }
+    h3 { font-size: 28px; } .final h3 { font-size: 26px; margin-bottom: 1rem; }
     .restart-slot { position: absolute; z-index: 110; top: 273px; left: calc(50% - 134px); width: 268px; display: flex; justify-content: center; height: 44px; margin: 0; }
     .restart { flex-direction: row; min-height: 44px; color: #F4F4F8; }
     .restart:is(:hover, :focus-visible) { color: #233f4e; background: #fff; }

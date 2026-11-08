@@ -349,6 +349,7 @@
     width: 100%;
     height: 0;
     background: var(--color-active);
+    border-radius: 999px;
   }
 
   .timeline__card {

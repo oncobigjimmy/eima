@@ -346,7 +346,7 @@
   .recovery-symbol { position: absolute; z-index: -1; width: 250px; height: 150px; left: 0; top: 50%; transform: translateY(-50%); color: #e8e8f6; opacity: .78; filter: blur(1px); pointer-events: none; }
   .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: 0; transition: opacity 650ms ease; }
   .recovery-row:global(.goal-visible) > .recovery-symbol { opacity: .78; }
-  .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: #233f4e30; transform-origin: left; }
+  .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1.5px; background: #233f4e30; transform-origin: left; }
   .recovery-word { position: relative; width: fit-content; font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
   .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; -webkit-text-stroke: .4px #4083a7; paint-order: stroke fill; }
     .recovery-word:global(.word-pending) { color: #233f4e; }
@@ -417,7 +417,8 @@
   .situation-card { width: 100%; cursor: pointer; }
   .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
   .instruction-mobile { display: none; }
-  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .selection-instruction { color: #e8e8f8; }
+  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #f8f4f0; }
+  .selection-instruction { color: #e8e8f8; }
   .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
   .situation-card:focus-visible .selection-control, .situation-card.selected .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
   .situations .section-cta { margin-top: 4.5rem; }

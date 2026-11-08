@@ -24,12 +24,12 @@ export const homeEsReview = {
     note: 'Valoraremos tu caso, resolveremos tus dudas y te diremos si este acompañamiento encaja contigo.'
   },
   valueProps: {
-    headingHtml: 'Tu <span class="value-heading-accent">salud</span> importa. Tu <span class="value-heading-accent">tiempo</span> también.',
+    headingHtml: 'Tu <span class="value-heading-accent">salud</span> importa.<br class="home-mobile-break"> Tu <span class="value-heading-accent">tiempo</span> también.',
     mobileIntro: 'Nuestro <strong class="summary-programme">Programa Empenta</strong><br />te acompaña durante <strong>12 semanas.</strong>',
     intro: '',
     steps: [
       { title: 'Claridad desde el principio', bodyLines: ['En la primera valoración vemos tu situación, tus objetivos y<br class="home-desktop-break"> qué necesitas ahora mismo para que sepas <strong>qué hacer,<br class="home-desktop-break"> cuánto hacer y cómo adaptarlo.</strong>'], icon: 'list' },
-      { title: 'Menos desplazamientos', bodyLines: ['La <strong>primera valoración</strong> la hacemos <strong>en tu casa</strong> y <strong>después</strong><br class="home-desktop-break"> te acompañamos <strong>online</strong>, sin añadir <br class="home-mobile-break"><span class="travel-mobile-phrase">desplazamientos<br class="home-desktop-break"> habituales</span><br class="home-mobile-break"> <span class="travel-mobile-phrase">a tu semana.</span>'], icon: 'car' },
+      { title: 'Menos desplazamientos', bodyLines: ['La <strong>primera valoración</strong> la<br class="home-mobile-break"> hacemos <strong>en tu casa</strong> y <strong>después</strong><br class="home-mobile-break home-desktop-break"> te acompañamos <strong>online</strong>, sin<br class="home-mobile-break"> añadir desplazamientos<br class="home-mobile-break"> habituales a tu semana.'], icon: 'car' },
       { title: 'Apoyo sin tener que pedir cita', bodyLines: ['Si algo te preocupa, un ejercicio no te sale o no sabes cómo<br class="home-desktop-break"> adaptarlo, <strong>no tienes que esperar a la siguiente cita</strong>. Nos<br class="home-desktop-break"> escribes y ajustamos tu plan contigo cuando sea necesario.'], icon: 'support' },
       { title: 'Se adapta a tu vida, no al revés', bodyLines: ['Adaptamos el ejercicio a <strong>cómo te encuentres, tus<br class="home-desktop-break"> tratamientos y tus horarios</strong>, para que puedas incorporarlo<br class="home-desktop-break"> a tu vida sin depender de un calendario rígido.'], icon: 'calendar' }
     ],

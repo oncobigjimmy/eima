@@ -18,6 +18,19 @@ export type PatientResponse = {
 // Selected patient responses; each image appears in one narrative row only.
 export const patientResponses: PatientResponse[] = [
   {
+    id: 'difficult-day-weak-fog',
+    category: 'difficult-day',
+    image: '/patient-responses/difficult-day-weak-fog.jpg',
+    width: 937,
+    height: 280,
+    highlight: 'Muy débil y mucha “niebla”.',
+    alt: 'Comentario de paciente: Hola. No he podido llegar ni a los 40 minutos. Muy débil y mucha niebla. No entiendo muy bien qué pasa, pero así va la cosa esta semana.',
+    underlines: [
+      { x: 86, y: 32, width: 10, height: 13 },
+      { x: 3, y: 53, width: 46, height: 13 }
+    ]
+  },
+  {
     "id": "difficult-day-2",
     "category": "difficult-day",
     "image": "/patient-responses/difficult-day-2.jpg",
@@ -608,6 +621,10 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     quote: { es: 'He podido ir de viaje a buen ritmo y hacer todas las cosas que tenía planeadas.', ca: 'He pogut anar de viatge a bon ritme i fer tot el que tenia planejat.', en: 'I have been able to travel at a good pace and do everything I had planned.' },
     highlight: { es: 'He podido ir de viaje a buen ritmo', ca: 'He pogut anar de viatge a bon ritme', en: 'I have been able to travel at a good pace' }
   },
+  'difficult-day-weak-fog': {
+    quote: { es: 'Muy débil y mucha “niebla”.', ca: 'Molt dèbil i molta “boira”.', en: 'Very weak and a lot of “fog”.' },
+    highlight: { es: 'Muy débil y mucha “niebla”', ca: 'Molt dèbil i molta “boira”', en: 'Very weak and a lot of “fog”' }
+  },
   'difficult-day-4': {
     quote: { es: 'Sensación de malestar todo el día, estómago duro sin ganas de comer.', ca: 'Sensació de malestar tot el dia, panxa dura i sense ganes de menjar.', en: 'Feeling unwell all day, a hard stomach and no appetite.' },
     highlight: { es: 'malestar todo el día', ca: 'malestar tot el dia', en: 'unwell all day' }
@@ -629,7 +646,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
   }
 };
-const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-4","difficult-day-mental-fog","difficult-day-5","difficult-day-2","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
+const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-9","difficult-day-1","difficult-day-4","difficult-day-weak-fog","difficult-day-5","difficult-day-2","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
 // Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
@@ -659,6 +676,7 @@ const confirmedPatientInitials: Record<string, string> = {
   "difficult-day-bad-day": "T.",
   "difficult-day-complicated-week": "P.",
   "difficult-day-mental-fog": "T.",
+  "difficult-day-weak-fog": "T.",
   "eima-adaptation-1": "A.",
   "eima-adaptation-2": "A.",
   "eima-adaptation-3": "A.",

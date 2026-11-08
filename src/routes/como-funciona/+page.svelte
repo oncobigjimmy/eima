@@ -205,6 +205,12 @@
   }
   .hero-typed-line { min-height: 1.02em; white-space: nowrap; display: block; }
 @media (max-width: 767px) { .program-hero-description { font-size: 14.8px; } }
+
+  :global(html:has(.program-es-rhythm)) { scroll-behavior: auto; }
+  @media (min-width: 1024px) {
+    .program-es-rhythm { --program-section-start: 50px; --program-section-end: 50px; }
+    :global(.program-es-rhythm .empenta-path), :global(.program-es-rhythm .program-fit-section) { padding-top: 50px; padding-bottom: 50px; }
+  }
 </style>
 
 

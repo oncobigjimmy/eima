@@ -124,6 +124,8 @@
   .blog-faq-desktop-break { display: none; }
   @media (min-width: 1024px) { .blog-faq-card { max-width: 760px; } .blog-faq-desktop-break { display: block; } .blog-faq-card p { font-size: clamp(13px, 1.17vw, 15px); } }
   @media (max-width: 767px) { .blog-faq-break { display: block; height: .7rem; } }
+
+  @media (min-width: 1024px) { .blog-entries { padding-top: 50px; padding-bottom: 50px; } }
 </style>
 
 <section class="blog-entries pb-8 md:pb-11">

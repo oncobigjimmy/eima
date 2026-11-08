@@ -405,7 +405,7 @@
 
   @media (min-width: 1024px) {
     .testimonials-hero__content {
-      padding-top: 82.5px;
+      padding-top: 99px;
     }
   }
 
@@ -1077,4 +1077,9 @@
   .testimonials-cta { padding-top: 1.2rem; }
   .testimonials-cta h2 :global(.closing-accent) { color: #4083a7; font: inherit; }
   @media (max-width: 767px) { .testimonials-cta h2 { font-size: 24px; } }
+
+  @media (min-width: 1024px) {
+    .testimonials-section { padding-top: 50px; padding-bottom: 25px; }
+    .testimonials-cta { padding-top: 25px; padding-bottom: 50px; }
+  }
 </style>

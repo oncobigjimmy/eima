@@ -467,6 +467,8 @@
     @keyframes source-arrow-in { from { transform: translate(-5px,5px) rotate(-35deg); } to { transform: translate(2px,-2px) rotate(0); } }
   }
   @media (prefers-reduced-motion: reduce) { :global(.prose-blog .source-go), :global(.prose-blog .source-label), :global(.prose-blog .source-go svg) { transition: none !important; animation: none !important; } :global(.prose-blog .source-label), :global(.prose-blog .source-go svg) { transform: none !important; } }
+
+  @media (min-width: 1024px) { .article-page { padding-top: 50px; padding-bottom: 50px; } }
 </style>
 
 <article class="article-page py-16 md:py-20">
