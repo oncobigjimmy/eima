@@ -7,6 +7,7 @@
   import type { Language } from '$lib/i18n/copy';
   import { writtenTestimonials, testimonialChapters, type WrittenTestimonial } from '$lib/data/patient-responses';
   import { testimonialUi } from '$lib/data/testimonial-copy';
+  import { testimonialCompletionShown } from '$lib/data/testimonial-completion';
   import PatientScreenshot from '$lib/components/PatientScreenshot.svelte';
   import ScreenshotModal from '$lib/components/ScreenshotModal.svelte';
   import TestimonialCompletion from '$lib/components/TestimonialCompletion.svelte';
@@ -15,7 +16,7 @@
   let filterRoot: HTMLDivElement, filterButton: HTMLButtonElement;
   let enlarged: WrittenTestimonial | null = null;
   let explored = new Set<string>();
-  let completionOpen = false, completionShown = false;
+  let completionOpen = false;
   let headerHeight = 76;
   let controlsHeight = 54;
   let controls: HTMLDivElement;
@@ -23,10 +24,10 @@
   $: progress = filtered.length ? Math.round(exploredCount / filtered.length * 100) : 0;
   function markExplored(id: string) {
     if (!explored.has(id)) explored = new Set([...explored, id]);
-    if (!completionShown && writtenTestimonials.every(item => explored.has(item.id))) {
-      completionShown = true;
+  }
+  $: if (!$testimonialCompletionShown && filtered.length > 0 && exploredCount === filtered.length) {
+      testimonialCompletionShown.set(true);
       completionOpen = true;
-    }
   }
   $: copy = testimonialUi[pageLanguage];
   $: filtered = filter === 0 ? writtenTestimonials : writtenTestimonials.filter(item => item.chapter === testimonialChapters[filter - 1]);
@@ -111,7 +112,7 @@
   .mobile-filter { display: none; }
   .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: center; }
   .written-slot { display: flex; align-items: center; justify-content: center; height: 100%; min-width: 0; }
-  .exploration-controls { position: sticky; top: calc(var(--stories-header-height) - 1px); z-index: 15; display: flex; align-items: center; min-height: 60px; margin: 0 -1.25rem 1rem; padding: 8px 1.25rem; background: #f8f4f0; }
+  .exploration-controls { position: sticky; top: calc(var(--stories-header-height) - 1px); z-index: 15; display: flex; align-items: center; min-height: 72px; margin: 0 -1.25rem 1rem; padding: 8px 1.25rem 20px; background: #f8f4f0; }
   .exploration-progress { flex: none; width: min(52rem, 56%, calc(100% - 408px)); margin-inline: auto; min-width: 0; }
   .exploration-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; color: #233f4e; font-size: 13px; font-weight: 700; line-height: 1.4; }
   .exploration-percent { font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -131,7 +132,7 @@
   .marquee-copy :global(.written-card) { width: 260px; flex: 0 0 260px; }
   button:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   @media (max-width: 767px) {
-    .exploration-controls { margin-inline: -1rem; padding: 10px 1rem 12px; min-height: 0; margin-bottom: 1.25rem; }
+    .exploration-controls { margin-inline: -1rem; padding: 10px 1rem 20px; min-height: 0; margin-bottom: 1.25rem; }
     .exploration-progress { flex: 1; width: 100%; margin-inline: 0; }
     .exploration-label { font-size: 12px; margin-bottom: 7px; }
     .desktop-filters { display: none; }

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { ctaSurface } from '$lib/actions/ctaSurface';
+  export let surface: 'auto' | 'light' | 'dark' | 'hero' = 'auto';
   export let href: string | undefined = undefined;
   export let label: string;
   export let target: string | undefined = undefined;
@@ -12,7 +14,7 @@
 </script>
 
 {#if href}
-  <a class={`primary-cta cta-arrow-button ${className}`} class:primary-cta--shadowless={shadowless} {href} {target} {rel} aria-label={ariaLabel} on:click={onClick}>
+  <a use:ctaSurface={surface} class={`primary-cta cta-arrow-button ${className}`} class:primary-cta--shadowless={shadowless} {href} {target} {rel} aria-label={ariaLabel} on:click={onClick}>
     <span class="primary-cta__label">{label}</span>
     <span class="cta-arrow-swap" aria-hidden="true">
       <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg>
@@ -20,7 +22,7 @@
     </span>
   </a>
 {:else}
-  <button class={`primary-cta cta-arrow-button ${className}`} class:primary-cta--shadowless={shadowless} {type} aria-label={ariaLabel} on:click={onClick}>
+  <button use:ctaSurface={surface} class={`primary-cta cta-arrow-button ${className}`} class:primary-cta--shadowless={shadowless} {type} aria-label={ariaLabel} on:click={onClick}>
     <span class="primary-cta__label">{label}</span>
     <span class="cta-arrow-swap" aria-hidden="true">
       <svg class="cta-arrow-swap__right" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg>
@@ -37,8 +39,9 @@
 @media (hover: hover) and (pointer: fine) { .primary-cta:hover .primary-cta__label { text-shadow: var(--eima-active-text-shadow); } }
 .primary-cta:focus-visible :global(.cta-arrow-swap svg) { filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533); }
 @media (hover: hover) and (pointer: fine) { .primary-cta:hover :global(.cta-arrow-swap svg) { filter: drop-shadow(0 0 3px #071a2566) drop-shadow(0 0 7px #071a2533); } }
-.primary-cta:focus-visible { transform: translateY(-3px) scale(1.03); background: #4083a7; color: white; font-weight: 700; box-shadow: 0 10px 24px #4083a747; }
-@media (hover: hover) and (pointer: fine) { .primary-cta:hover { transform: translateY(-3px) scale(1.03); background: #4083a7; color: white; font-weight: 700; box-shadow: 0 10px 24px #4083a747; } }
+.primary-cta:focus-visible { transform: translateY(-3px) scale(1.03); background: var(--cta-hover, #4083a7); color: white; font-weight: 700; box-shadow: 0 10px 24px #4083a747; }
+@media (hover: hover) and (pointer: fine) { .primary-cta:hover { transform: translateY(-3px) scale(1.03); background: var(--cta-hover, #4083a7); color: white; font-weight: 700; box-shadow: 0 10px 24px #4083a747; } }
+@media (hover: none), (pointer: coarse) { .primary-cta:active { background: var(--cta-hover, #4083a7); color: white; } }
 .primary-cta.primary-cta--shadowless, .primary-cta.primary-cta--shadowless:focus-visible { box-shadow: none; text-shadow: none; }
 @media (hover: hover) and (pointer: fine) { .primary-cta.primary-cta--shadowless:hover { box-shadow: none; text-shadow: none; } }
 .primary-cta:focus-visible::before { transform: translateX(260%) skewX(-18deg); }

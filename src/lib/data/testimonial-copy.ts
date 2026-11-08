@@ -15,8 +15,8 @@ export const testimonialUi = {
     pause: 'Pausar movimiento', resume: 'Reanudar', explored: 'Historias exploradas',
     completion: {
       eyebrow: 'Cada historia, una persona', heading: 'Ahora queremos escucharte a ti.',
-      intro: 'Has recorrido todas estas experiencias reales de nuestros pacientes.',
-      question: '¿Te has sentido identificado con algún comentario? ¿Te ha surgido alguna duda?',
+      intro: 'Has recorrido todas estas experiencias reales', introEnd: 'de nuestros pacientes.',
+      question: '¿Te has sentido identificado con algún comentario?', questionEnd: '¿Te ha surgido alguna duda?',
       invitation: 'Cuéntanos qué estás viviendo y lo hablamos contigo.',
       cta: 'Hablemos por WhatsApp', free: 'Esta primera conversación es gratuita y sin compromiso.',
       dismiss: 'Seguir explorando', close: 'Cerrar invitación'
@@ -36,8 +36,8 @@ export const testimonialUi = {
     pause: 'Aturar moviment', resume: 'Reprendre', explored: 'Històries explorades',
     completion: {
       eyebrow: 'Cada història, una persona', heading: "Ara et volem escoltar a tu.",
-      intro: 'Has recorregut totes aquestes experiències reals dels nostres pacients.',
-      question: "T’has sentit identificat amb qualque comentari? T’ha sorgit cap dubte?",
+      intro: 'Has recorregut totes aquestes experiències reals', introEnd: 'dels nostres pacients.',
+      question: "T’has sentit identificat amb qualque comentari?", questionEnd: 'T’ha sorgit cap dubte?',
       invitation: "Explica’ns què estàs vivint i en parlam amb tu.",
       cta: 'Parlem per WhatsApp', free: 'Aquesta primera conversa és gratuïta i sense compromís.',
       dismiss: 'Continuar explorant', close: 'Tancar la invitació'
@@ -57,8 +57,8 @@ export const testimonialUi = {
     pause: 'Pause movement', resume: 'Resume', explored: 'Stories explored',
     completion: {
       eyebrow: 'Every story, a person', heading: 'Now we’d like to hear your story.',
-      intro: 'You’ve explored all these real experiences from our patients.',
-      question: 'Did any of their words resonate with you? Do you have any questions?',
+      intro: 'You’ve explored all these real experiences', introEnd: 'from our patients.',
+      question: 'Did any of their words resonate with you?', questionEnd: 'Do you have any questions?',
       invitation: 'Tell us what you’re going through. We’re here to talk it through with you.',
       cta: 'Let’s talk on WhatsApp', free: 'This first conversation is free, with no obligation.',
       dismiss: 'Keep exploring', close: 'Close invitation'

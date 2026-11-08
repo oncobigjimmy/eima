@@ -126,7 +126,7 @@
     </div>
 
     <div class="hero-cta mt-10 flex flex-col items-center gap-4">
-      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} shadowless />
+      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={hero.cta} surface="hero" shadowless />
 
     </div>
   </div>

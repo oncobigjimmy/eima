@@ -354,7 +354,7 @@
 
   :global(.prose-blog .blog-program-cta__button:hover),
   :global(.prose-blog .blog-program-cta__button:focus-visible) {
-    background: #4083a7;
+    background: #245b7d;
     box-shadow: 0 10px 24px rgba(64, 131, 167, 0.28);
     color: #ffffff;
     font-weight: 700;
@@ -445,7 +445,12 @@
   .keep-reading { margin-top: 0; align-self: stretch; display: flex; flex-direction: column; gap: 12px; }
   .keep-reading > :global(.post-card) { flex: 1; }
   .keep-reading-cta { align-self: center; display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; background: #e3e8f8; color: #245b7d; font: 500 13px Inter, sans-serif; transition: background-color 200ms, color 200ms, opacity 200ms; }
+  .keep-reading-cta { background: #8cd0d6; color: #233f4e; box-shadow: 0 3px 9px #071a251c; }
   .keep-reading-cta svg { width: 16px; height: 16px; }
+  .keep-reading-cta svg { transition: transform 220ms ease; }
+  .keep-reading-cta:is(:hover, :focus-visible) svg { transform: rotate(-45deg); }
+  @media (hover: none), (pointer: coarse) { :global(.prose-blog .blog-program-cta__button:active) { background: #245b7d; color: #fff; } .keep-reading-cta:active svg { transform: rotate(-45deg); } }
+  @media (prefers-reduced-motion: reduce) { .keep-reading-cta svg { transition: none; } }
   .keep-reading-cta:hover, .keep-reading-cta:focus-visible { background: #245b7d; color: white; }
   @media (min-width: 1024px) { .keep-reading :global(.post-card-arrow) { display: none; } }
   @media (min-width: 1024px) and (hover: hover) { .keep-reading-cta { opacity: 0; } .keep-reading:hover .keep-reading-cta, .keep-reading:focus-within .keep-reading-cta { opacity: 1; } }
