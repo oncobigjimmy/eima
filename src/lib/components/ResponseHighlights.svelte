@@ -6,6 +6,7 @@
   export let reduced = false;
   export let duration = 700;
   export let finished = false;
+  export let light = false;
 
   let completed = 0;
   $: if (!active) completed = 0;
@@ -16,6 +17,7 @@
 {#each lines as line, index}
   <span
     class="marker"
+    class:light
     class:drawing={active && !reduced && index === completed}
     class:drawn={active && index < completed}
     aria-hidden="true"
@@ -26,6 +28,7 @@
 
 <style>
   .marker { position: absolute; pointer-events: none; background: #4083a752; border-radius: 2px 5px 3px 2px; clip-path: polygon(1% 4%, 99% 0, 100% 94%, 0 100%); mix-blend-mode: multiply; transform: scaleX(0); transform-origin: left center; }
+  .marker.light { background: #8cd0d680; mix-blend-mode: screen; }
   .drawing { animation: marker-draw var(--marker-duration, 700ms) linear both; }
   .drawn { transform: scaleX(1); }
   @keyframes marker-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }

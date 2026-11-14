@@ -11,12 +11,45 @@ export type PatientResponse = {
   height: number;
   highlight: string;
   alt: string;
+  lightMarkers?: boolean;
   /** Underline coordinates as percentages of the original screenshot. */
   underlines?: { x: number; y: number; width: number; height: number }[];
 };
 
 // Selected patient responses; each image appears in one narrative row only.
 export const patientResponses: PatientResponse[] = [
+  {
+    id: 'acompanamiento-whatsapp', category: 'eima-adaptation',
+    image: '/patient-responses/acompanamiento-whatsapp.png', width: 1170, height: 1178,
+    highlight: 'Un gran acompañamiento, no solo ejercicio físico.',
+    alt: 'Mensaje de paciente: Contactar con vosotros ha sido la mejor decisión que he tomado. Destaca el acompañamiento, el seguimiento diario, las explicaciones y los ánimos en su recuperación física y mental.',
+    lightMarkers: true,
+    underlines: [{ x: 7.1, y: 1.0, width: 66, height: 4.7 }, { x: 7.1, y: 6.6, width: 60, height: 4.8 }]
+  },
+  {
+    id: 'acompanamiento-planificacion', category: 'eima-adaptation',
+    image: '/patient-responses/acompanamiento-planificacion.jpg', width: 548, height: 216,
+    highlight: 'La planificación y el seguimiento me son de gran ayuda, porque yo soy más desorganizada.',
+    alt: 'Respuesta real de paciente: La planificación y el seguimiento me son de gran ayuda, porque yo soy más desorganizada.'
+  },
+  {
+    id: 'progreso-fuerza-confianza', category: 'progress',
+    image: '/patient-responses/progreso-fuerza-confianza.jpg', width: 545, height: 478,
+    highlight: 'Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza.',
+    alt: 'Respuesta real de paciente: Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza. Recuperar fuerza y tolerar de la mejor forma posible el tratamiento era lo que quería, y pienso que sí lo hemos conseguido.'
+  },
+  {
+    id: 'progreso-actividad-anterior', category: 'progress',
+    image: '/patient-responses/progreso-actividad-anterior.jpg', width: 547, height: 331,
+    highlight: 'Realizar la misma actividad física que antes del diagnóstico, esa es mi meta.',
+    alt: 'Respuesta real de paciente: Su meta es realizar la misma actividad física que antes del diagnóstico; considera que lo están consiguiendo y que ya ha valido la pena.'
+  },
+  {
+    id: 'progreso-fuerza-durante-tratamiento', category: 'progress',
+    image: '/patient-responses/progreso-fuerza-durante-tratamiento.png', width: 1106, height: 531,
+    highlight: 'Me encuentro muy bien durante el tratamiento y me parece irreal tener esta fuerza.',
+    alt: 'Respuesta real de paciente en catalán: Se encuentra muy bien durante el tratamiento, salvo por la neuropatía; cree que aún pueden quedar momentos complicados y le parece irreal tener esta fuerza.'
+  },
   {
     id: 'difficult-day-ten-hard-days',
     category: 'difficult-day',
@@ -455,6 +488,11 @@ export const patientResponses: PatientResponse[] = [
 ];
 
 const patientCaptionTranslations: Record<string, { ca: string; en: string }> = {
+  'acompanamiento-whatsapp': { ca: 'Un gran acompanyament, no només exercici físic.', en: 'Great support, not just physical exercise.' },
+  'acompanamiento-planificacion': { ca: 'La planificació i el seguiment m’ajuden molt, perquè soc més desorganitzada.', en: 'Planning and follow-up help me a great deal, because I am more disorganised.' },
+  'progreso-fuerza-confianza': { ca: 'El meu cos ha recuperat la força i amb això jo he recuperat seguretat i confiança.', en: 'My body has regained its strength, and with it I have regained a sense of security and confidence.' },
+  'progreso-actividad-anterior': { ca: 'Fer la mateixa activitat física que abans del diagnòstic és el meu objectiu.', en: 'My goal is to do the same physical activity as before my diagnosis.' },
+  'progreso-fuerza-durante-tratamiento': { ca: 'Me trob molt bé durant el tractament i em sembla irreal tenir aquesta força.', en: 'I feel very well during treatment, and having this strength feels unreal.' },
   'difficult-day-ten-hard-days': {
     ca: 'Han estat 10 dies durs...tant de bo ja comencem a recuperar!!!!',
     en: 'It’s been 10 tough days...hopefully we’ll start recovering now!!!!'
@@ -631,12 +669,25 @@ export type WrittenTestimonial = {
   width: number; height: number; alt: string; caption: Record<Language, string>;
   /** Whiten the pale blue capture-app footer without cropping any text. */
   cleanBackground?: boolean;
+  lightMarkers?: boolean;
 };
 // Five home testimonials per chapter, in the final order approved by the user.
 // Confirmed initials are recorded below.
 // Gallery responses without a home excerpt keep their screenshot caption.
 // TODO [CA-revisar]: revisar las traducciones de las citas.
 const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText }> = {
+  'acompanamiento-whatsapp': {
+    quote: { es: '…un gran acompañamiento, no solo ejercicio físico.', ca: '…un gran acompanyament, no només exercici físic.', en: '…great support, not just physical exercise.' },
+    highlight: { es: 'un gran acompañamiento', ca: 'un gran acompanyament', en: 'great support' }
+  },
+  'progreso-fuerza-confianza': {
+    quote: { es: 'Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza.', ca: 'El meu cos ha recuperat la força i amb això jo he recuperat seguretat i confiança.', en: 'My body has regained its strength, and with it I have regained a sense of security and confidence.' },
+    highlight: { es: 'seguridad y confianza', ca: 'seguretat i confiança', en: 'security and confidence' }
+  },
+  'progreso-fuerza-durante-tratamiento': {
+    quote: { es: '…me parece irreal tener esta fuerza.', ca: '…me sembla irreal tenir aquesta força.', en: '…having this strength feels unreal.' },
+    highlight: { es: 'irreal tener esta fuerza', ca: 'irreal tenir aquesta força', en: 'this strength feels unreal' }
+  },
   'progress-return-pilates': {
     quote: { es: 'Volver a las clases de pilates.', ca: 'Tornar a les classes de pilates.', en: 'Returning to Pilates classes.' },
     highlight: { es: 'Volver a las clases de pilates', ca: 'Tornar a les classes de pilates', en: 'Returning to Pilates classes' }
@@ -678,7 +729,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
     highlight: { es: 'Me he sentido acompañada', ca: 'M’he sentit acompanyada', en: 'I have felt supported' }
   }
 };
-const featuredIds = ["progress-2","progress-11","progress-12","progress-3","progress-return-pilates","progress-9","difficult-day-1","difficult-day-4","difficult-day-weak-fog","difficult-day-5","difficult-day-2","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
+const featuredIds = ["progreso-fuerza-confianza","progreso-fuerza-durante-tratamiento","progress-2","progress-11","progress-12","progress-3","progress-return-pilates","progress-9","difficult-day-1","difficult-day-4","difficult-day-weak-fog","difficult-day-5","difficult-day-2","acompanamiento-whatsapp","eima-adaptation-1","eima-adaptation-9","eima-adaptation-2","eima-adaptation-7","eima-adaptation-11"];
 const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progress: 'recupera', 'difficult-day': 'dificiles', 'eima-adaptation': 'acompanamos' };
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
 // Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
@@ -939,7 +990,7 @@ export const writtenTestimonials: WrittenTestimonial[] = [
   ...patientResponses.map(item => ({
     id: item.image.split('/').pop()!.replace(/\.[^.]+$/, ''), image: item.image, chapter: chapterByCategory[item.category], initial: confirmedPatientInitials[item.image.split('/').pop()!.replace(/\.[^.]+$/, '')] ?? null,
     quote: examples[item.id]?.quote ?? pendingText(), highlight: examples[item.id]?.highlight ?? pendingText(),
-    featured: featuredIds.includes(item.id), markers: item.underlines ?? [],
+    featured: featuredIds.includes(item.id), markers: item.underlines ?? [], lightMarkers: item.lightMarkers,
     width: item.width, height: item.height, alt: item.alt,
     caption: { es: item.highlight, ca: patientCaptionTranslations[item.id]?.ca ?? item.highlight, en: patientCaptionTranslations[item.id]?.en ?? item.highlight }
   })),
