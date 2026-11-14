@@ -6,6 +6,7 @@
   import { getProgramCopy } from '$lib/i18n/program';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import { motionDuration } from '$lib/motion';
+  import { scrollContrast } from '$lib/actions/scrollContrast';
 
   let openIndex: number | null = 0;
 
@@ -95,13 +96,14 @@
             use:revealOnScroll
             class={`faq-reveal faq-card overflow-hidden rounded-[14px] transition-all duration-300 ${
               openIndex === index
-                ? 'border-2 border-[#4083A7] bg-white shadow-[0_16px_34px_rgba(14,29,38,0.10)]'
+                ? 'border-2 border-[#4083A7] bg-[#4083A7] shadow-[0_16px_34px_rgba(14,29,38,0.10)]'
                 : 'border-2 border-transparent bg-white shadow-[0_10px_24px_rgba(14,29,38,0.06)] hover:border-[#4083A7] hover:shadow-[0_14px_30px_rgba(14,29,38,0.09)]'
             }`}
             style={`--reveal-delay: calc(${index} * var(--stagger))`}
           >
             <button
               type="button"
+              use:scrollContrast={{ groupSelector: '#faq' }}
               class={`faq-trigger group flex w-full items-center gap-4 px-5 py-4 text-left transition-colors duration-300 md:px-6 md:py-3 ${
                 openIndex === index ? 'bg-[#4083A7] text-white' : 'bg-white text-[#4083A7]'
               }`}
@@ -140,7 +142,7 @@
 
             {#if openIndex === index}
               <div
-                class="px-5 pb-5 pt-4 md:px-6"
+                class="bg-white px-5 pb-5 pt-4 md:px-6"
                 in:slide={{ duration: motionDuration(340) }}
                 out:slide={{ duration: motionDuration(280) }}
               >
@@ -189,16 +191,25 @@
   }
 
   .faq-question {
-    font-family: Inter, system-ui, sans-serif !important;
+    font-family: 'Fraunces', Georgia, serif !important;
     font-weight: 400;
   }
   @media (max-width: 767px) { .faq-question { font-size: 15px; } }
+  @media (min-width: 768px) { .faq-question { font-size: 18px; } }
+
+  @media (max-width: 767px) {
+    .faq-trigger:global(.scroll-active) { background-color: #4083a7; color: white; }
+    .faq-trigger:global(.scroll-active) > span:first-child,
+    .faq-trigger:global(.scroll-active) .faq-question { color: white; }
+    .faq-trigger:global(.scroll-active) > span:last-child { background-color: white; border-color: white; color: #4083a7; }
+  }
 
   .faq-trigger[aria-expanded='true'] .faq-question {
     text-shadow: var(--eima-blue-text-shadow);
   }
 
   .faq-question :global(strong) {
+    font-family: inherit;
     font-weight: 700;
   }
 

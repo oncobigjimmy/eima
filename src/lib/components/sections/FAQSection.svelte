@@ -54,7 +54,7 @@
           class="flex items-center justify-between cursor-pointer list-none gap-4 px-6 py-4 text-left"
           on:click|preventDefault={() => toggle(i)}
         >
-          <span class="text-[15px] md:text-base font-light">
+          <span class="faq-question text-[15px] md:text-base font-light">
             {@html faq.q}
           </span>
           <span
@@ -92,6 +92,12 @@
     </div>
   </div>
 </section>
+
+<style>
+  .faq-question, .faq-question :global(*) {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+</style>
 
 
 

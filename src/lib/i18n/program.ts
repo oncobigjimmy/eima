@@ -140,7 +140,7 @@ const esProgram = {
     bottomCta: 'Escríbenos',
     faqs: [
       {
-        q: '¿Es <strong>seguro hacer ejercicio</strong> durante el tratamiento del cáncer (quimioterapia o radioterapia)?',
+        q: '¿Es <strong>seguro hacer ejercicio</strong> durante los tratamientos del cáncer?',
         a: [
           'En la mayoría de casos, <strong>sí.</strong> Hacer ejercicio durante el tratamiento oncológico puede ser seguro cuando está <strong>adaptado</strong> a tu situación, tus síntomas y el momento de tu tratamiento.',
           'Por eso en Empenta no trabajamos con pautas genéricas. Primero <strong>valoramos tu caso</strong>, entendemos cómo estás y <strong>ajustamos el ejercicio a ti, no tú al ejercicio.</strong>',
@@ -211,7 +211,7 @@ const esProgram = {
         a: [
           '<strong>Precisamente por eso no damos pautas genéricas.</strong>',
           'Si tienes dolor, anemia, metástasis óseas, bajada importante de defensas, neuropatía u otros efectos secundarios del tratamiento, el ejercicio no se elimina automáticamente, pero sí <strong>debe adaptarse con más precisión.</strong>',
-          '<strong>En situaciones como metástasis óseas, anemia importante o dolor nuevo, puede ser necesaria una valoración médica antes de empezar o continuar determinados ejercicios. Y si aparecen fiebre u otros síntomas agudos, lo prioritario es consultar con tu equipo médico antes de entrenar.</strong>',
+          'En situaciones como metástasis óseas, anemia importante o dolor nuevo, puede ser necesaria una <strong>valoración médica</strong> antes de empezar o continuar determinados ejercicios. Y si aparecen fiebre u otros síntomas agudos, lo prioritario es consultar con tu <strong>equipo médico</strong> antes de entrenar.',
           'En algunos casos habrá que bajar la intensidad. En otros, cambiar el tipo de ejercicio, reducir la duración, modificar posiciones o evitar ciertos movimientos. Y en momentos concretos, puede tener sentido pausar, priorizar movilidad suave o centrarnos solo en mantener actividad básica.',
           'No se trata de forzar ni de entrenar pase lo que pase. Se trata de encontrar la forma más <strong>segura, útil y realista</strong> de moverte según tu situación actual.',
           'Si tienes dudas sobre tu caso concreto, puedes explicarnos tu situación {{situationLink}}.'
@@ -225,7 +225,7 @@ const esProgram = {
         a: [
           'En general, si tu situación lo permite, suele tener más sentido <strong>empezar poco a poco durante el tratamiento oncológico</strong> que esperar al momento perfecto.',
           'Muchas veces ese momento perfecto tarda mucho en llegar. Y mientras tanto, pueden pasar semanas o meses en los que podrías haber empezado a moverte, aunque fuera poco, para conservar mejor tu <strong>fuerza, movilidad, energía y autonomía.</strong>',
-          'No se trata de empezar fuerte, sino de empezar con <strong>una dosis adaptada a ti.</strong> <strong>En algunas situaciones puede ser necesario esperar, modificar el ejercicio o consultar previamente con tu equipo médico. Por eso valoramos tu caso y decidimos qué tiene sentido para ti.</strong>',
+          'No se trata de empezar fuerte, sino de empezar con <strong>una dosis adaptada a ti.</strong> En algunas situaciones puede ser necesario esperar, modificar el ejercicio o consultar previamente con tu equipo médico. Por eso valoramos tu caso y decidimos qué tiene sentido para ti.',
           'Si no sabes si es buen momento para empezar, puedes preguntarnos {{askLink}}.'
         ],
         icon: icons.hourglass
@@ -373,7 +373,7 @@ const caProgram = {
     bottomCta: 'Escriu-nos',
     faqs: [
       {
-        q: 'És segur <strong>fer exercici</strong> durant el tractament del càncer (quimioteràpia o radioteràpia)?',
+        q: 'És segur <strong>fer exercici</strong> durant els tractaments del càncer?',
         a: [
           'En la majoria de casos, <strong>sí.</strong> Fer exercici durant el tractament oncològic pot ser segur quan està <strong>adaptat</strong> a la teva situació, als teus símptomes i al moment del teu tractament.',
           'Per això a Empenta no treballam amb pautes genèriques. Primer <strong>valoram el teu cas</strong>, entenem com estàs i <strong>ajustam l’exercici a tu, no tu a l’exercici.</strong>',
@@ -606,7 +606,7 @@ const enProgram = {
     bottomCta: 'Write to us',
     faqs: [
       {
-        q: 'Is it <strong>safe to exercise</strong> during chemotherapy or radiotherapy?',
+        q: 'Is it <strong>safe to exercise</strong> during cancer treatments?',
         a: [
           'In most cases, <strong>yes.</strong> Exercising during cancer treatment can be safe when it is <strong>adapted</strong> to your situation, your symptoms and the stage of your treatment.',
           'That’s why Empenta does not use generic exercise plans. First, we <strong>assess your situation</strong>, understand how you are and <strong>build the exercise around you.</strong>',
