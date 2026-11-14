@@ -380,6 +380,7 @@
     background: #245b7d;
     padding: 1.15rem 1.5rem 1rem;
   }
+  @media (hover: hover) { .timeline__card:hover .timeline__card-title { font-weight: 700 !important; } }
 
   .timeline__card-title {
     text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566;
@@ -514,13 +515,13 @@
   }
   .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) {
     font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.4;
-    color: #fff; padding: .12em .4em .18em; margin-inline: -.1em;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 70' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M18 13 Q126 6 248 11 T481 10 Q490 10 493 17 Q498 34 491 51 Q488 57 478 57 Q353 62 244 58 T18 60 Q9 59 7 51 Q3 34 9 21 Q12 15 18 13Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left center; background-size: 0% 100%;
+    color: #fff; padding: .12em .2em .18em; margin-inline: -.05em;
+    background-image: linear-gradient(#fff, #fff); background-repeat: no-repeat; background-position: left center; background-size: 0% 84%;
     box-decoration-break: clone; -webkit-box-decoration-break: clone;
     transition: background-size 800ms var(--ease-calma), color var(--dur-estado) var(--ease-calma);
   }
   .timeline-summary :global(.summary-programme) { font-weight: 700; }
-  .timeline-summary :global(.summary-marker.marker-visible), .timeline-summary :global(.summary-programme.marker-visible) { background-size: 100% 100%; color: #233f4e; text-shadow: none; }
+  .timeline-summary :global(.summary-marker.marker-visible), .timeline-summary :global(.summary-programme.marker-visible) { background-size: 100% 84%; color: #233f4e; text-shadow: none; }
   @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) { background-size: 100% 100%; color: #233f4e; text-shadow: none; transition: none; } }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
   .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #F4F4F8; transition: color var(--dur-estado) var(--ease-calma); }

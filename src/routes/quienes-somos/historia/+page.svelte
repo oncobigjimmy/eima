@@ -95,7 +95,7 @@
     if (!otherProfile) return;
     selectProfile(otherProfile.id === 'miquel' ? 'miquel' : 'jaume');
     await tick();
-    const tabs = document.querySelector('#historias .story-tabs');
+    const tabs = document.querySelector('#historias .team-photo-frame');
     const title = document.querySelector('.story-profile-name');
     const header = document.querySelector('header');
     if (tabs) window.scrollTo({ top: window.scrollY + tabs.getBoundingClientRect().top - (header?.getBoundingClientRect().height ?? 68) - 16, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -496,7 +496,7 @@
           </div>
           {#if otherProfile}<button class="other-story" type="button" on:click={showOtherStory}>
             <img src={otherProfile.id === 'miquel' ? '/story-miquel-crop.png' : '/story-jaume-crop.png'} alt="" width="64" height="64" loading="lazy" />
-            <span><span class="other-story-lead">{otherStoryCopy.lead}</span><span class="other-story-name">{otherStoryCopy.story} {otherProfile.id === 'miquel' ? 'Miquel' : 'Jaume'}</span></span>
+            <span><span class="other-story-lead">{otherStoryCopy.lead}</span><span class="other-story-name">{otherStoryCopy.story} <span class="other-story-person">{otherProfile.id === 'miquel' ? 'Miquel' : 'Jaume'}</span></span></span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
           </button>{/if}
         </article>
@@ -1097,6 +1097,7 @@
   .other-story img { width: 64px; height: 64px; border-radius: 50%; background: #fff; object-fit: cover; object-position: center top; }
   .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
   .other-story-name { display: block; font: 400 22px/1.3 Fraunces, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
+  .other-story-person { font: inherit; color: #233f4e; text-shadow: none; background: #fff; border-radius: 3px; padding: 0 .1em; box-decoration-break: clone; }
   .other-story svg { width: 28px; height: 28px; transform: translateX(-5px); color: #fff; filter: drop-shadow(0 0 2px #071a2566); }
   .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   .reading-counter { display: none; }

@@ -10,9 +10,9 @@
   $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
   // TODO [CA-revisar]: revisar les traduccions de contacte i els passos.
   $: contactAuditCopy = {
-    es: { titles: ['Habla por WhatsApp', 'Llama al teléfono', 'Envía un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes o llamas', 'Cuéntanos brevemente qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Te contestamos en menos de 24 horas.'], ['Llamada breve y gratuita', 'Valoramos si podemos ayudarte. Si no encaja, te lo decimos con honestidad.']], reassurance: ['Hablar con nosotros no te obliga', 'a empezar nada todavía.'] },
-    ca: { titles: ['Obrir WhatsApp', 'Telefonar', 'Enviar un correu'], fast: 'La manera més ràpida', after: ['Què passa ', 'després?'], steps: [['Ens escrius o ens crides', 'Conta’ns breument què et passa i en quin moment del tractament estàs.'], ['Et responem', 'Et contestam en menys de 24 hores.'], ['Trucada breu i gratuïta', 'Valoram si et podem ajudar. Si no encaixa, t’ho deim amb honestedat.']], reassurance: ['Parlar amb nosaltres no t’obliga', 'a començar res encara.'] },
-    en: { titles: ['Open WhatsApp', 'Call us', 'Send an email'], fast: 'The quickest way', after: ['What happens ', 'next?'], steps: [['Write or call us', 'Briefly tell us what is happening and where you are in treatment.'], ['We reply', 'We will get back to you within 24 hours.'], ['Free short call', 'We will see whether we can help. If not, we will tell you honestly.']], reassurance: ['Talking with us does not commit you', 'to starting anything yet.'] }
+    es: { titles: ['Habla por WhatsApp', 'Llama al teléfono', 'Envía un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes o llamas', 'Cuéntanos brevemente qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Si no contestamos, salta el contestador. Te respondemos en menos de 12 horas.'], ['Llamada breve y gratuita', 'Valoramos si podemos ayudarte. Si no encaja, te lo decimos con honestidad.']], reassurance: ['Hablar con nosotros no te obliga', 'a empezar nada todavía.'] },
+    ca: { titles: ['Obrir WhatsApp', 'Telefonar', 'Enviar un correu'], fast: 'La manera més ràpida', after: ['Què passa ', 'després?'], steps: [['Ens escrius o ens crides', 'Conta’ns breument què et passa i en quin moment del tractament estàs.'], ['Et responem', 'Si no contestam, salta el contestador. Et responem en menys de 12 hores.'], ['Trucada breu i gratuïta', 'Valoram si et podem ajudar. Si no encaixa, t’ho deim amb honestedat.']], reassurance: ['Parlar amb nosaltres no t’obliga', 'a començar res encara.'] },
+    en: { titles: ['Open WhatsApp', 'Call us', 'Send an email'], fast: 'The quickest way', after: ['What happens ', 'next?'], steps: [['Write or call us', 'Briefly tell us what is happening and where you are in treatment.'], ['We reply', 'If we miss your call, our answering service will respond. We will reply within 12 hours.'], ['Free short call', 'We will see whether we can help. If not, we will tell you honestly.']], reassurance: ['Talking with us does not commit you', 'to starting anything yet.'] }
   }[$language];
   /** @param {HTMLOListElement} node */
   function journeyReveal(node) {
@@ -21,7 +21,7 @@
     let visible = false;
     const reveal = () => {
       const rect = node.getBoundingClientRect();
-      if (!visible && rect.top < window.innerHeight * .85 && rect.bottom > window.innerHeight * .15) {
+      if (!visible && rect.top < window.innerHeight * (window.matchMedia('(min-width: 768px)').matches ? .72 : .55) && rect.bottom > window.innerHeight * .15) {
         visible = true;
         node.classList.add('journey-visible');
       }
@@ -340,6 +340,9 @@
   .contact-next h3 { font: 400 20px/1.3 Fraunces, serif; color: #233f4e; }
   .contact-next li p { margin-top: 8px; font: 400 15px/1.4 Inter, sans-serif; color: #245b7d; }
   .contact-reassurance { display: grid; gap: 0; justify-content: center; padding: 18px; border-radius: 12px; background: #fff; box-shadow: 0 6px 18px #233f4e12; text-align: center; font: 400 16px/1.5 Inter, sans-serif; color: #233f4e; }
+  @media (min-width: 768px) { .contact-reassurance { display: flex; flex-wrap: wrap; column-gap: .25em; width: fit-content; max-width: 100%; margin-inline: auto; } }
+  @keyframes contact-step-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) { .contact-next ol:global(.journey-visible) li:nth-of-type(2) .contact-next-number { animation: contact-step-pulse .45s ease .75s; } .contact-next ol:global(.journey-visible) li:nth-of-type(3) .contact-next-number { animation: contact-step-pulse .45s ease 1.4s; } }
   .contact-desktop-break { display: none; }
   @media (min-width: 1024px) {
     .contact-methods { max-width: 1080px; gap: 36px; margin-inline: auto; }
@@ -404,6 +407,10 @@
     .contact-next ol:global(.journey-visible) li:nth-child(2)::after { transition-delay: 1.5s; }
     @keyframes contact-mobile-step { from { opacity: .24; } to { opacity: 1; } }
   }
+  @media (prefers-reduced-motion: no-preference) { .contact-next ol:global(.journey-visible) li:nth-of-type(2) .contact-next-number { animation: contact-step-pulse .45s ease 1.45s; } .contact-next ol:global(.journey-visible) li:nth-of-type(3) .contact-next-number { animation: contact-step-pulse .45s ease 2.9s; } }
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) { .contact-next ol:global(.journey-visible) li:nth-of-type(2) .contact-next-number { animation-delay: 1.3s; } .contact-next ol:global(.journey-visible) li:nth-of-type(3) .contact-next-number { animation-delay: 2.8s; } }
+  @keyframes contact-mobile-typing { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) { .contact-reassurance span { clip-path: inset(0 100% 0 0); } .contact-next ol:global(.journey-visible) + .contact-reassurance span:first-child { animation: contact-mobile-typing .8s steps(28, end) 3.2s both; } .contact-next ol:global(.journey-visible) + .contact-reassurance span:last-child { animation: contact-mobile-typing .65s steps(24, end) 4s both; } }
   @media (prefers-reduced-motion: reduce) { .contact-method, .contact-method__arrow svg { transition: none; } .contact-method:active { transform: none; } .contact-next ol::before, .contact-next ol::after, .contact-next li::after { transition: none !important; transform: none !important; } .contact-next-number { animation: none !important; filter: none; } .contact-next li { opacity: 1; animation: none !important; } .contact-reassurance { opacity: 1; animation: none !important; } .contact-reassurance span { clip-path: none; animation: none !important; } }
 
   @media (min-width: 1024px) {

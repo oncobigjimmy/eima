@@ -195,6 +195,7 @@
   .origin-conclusion :global(strong) { color: #f8f4f0; font-weight: 700; }
   .origin-conclusion :global(.origin-brand) { color: #8cd0d6; }
   .origin-cta { display: flex; justify-content: center; margin-top: 1.5rem; }
+  @media (hover: hover) { .origin-card:hover h3, .origin-card:hover h3 span { font-weight: 700 !important; } }
   .about-closing { overflow: hidden; }
   .closing-grid { display: grid; grid-template-columns: 1.1fr .9fr; max-width: 1280px; margin: auto; }
   .closing-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: clamp(2.25rem, 4vw, 3rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 3vw, 3rem); }

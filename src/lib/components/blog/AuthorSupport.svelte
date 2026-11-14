@@ -15,7 +15,7 @@
 <aside class="author-support" data-card>
   <a class="author-support-person" href={authorHref} aria-label={ui.written + ' ' + author.name}><img src={author.avatar} alt="" loading="lazy" /><div><p class="author-support-label">{ui.written}</p><p class="author-support-name">{author.name}</p><p class="author-support-role">{author.role}</p></div></a>
   <hr />
-  <h2>{#if language === 'es'}¿Quieres que te<span class="mobile-title-break"><br /></span><span class="desktop-space">&nbsp;</span><span>acompañemos</span><span class="mobile-title-break"> en<br /></span><span class="desktop-space">&nbsp;en&nbsp;</span>tu proceso?{:else}{copy.title[0]}<span>{copy.title[1]}</span>{copy.title[2]}{/if}</h2>
+  <h2>{#if language === 'es'}¿Quieres que te<span class="mobile-title-break"><br /></span><span class="desktop-space">&nbsp;</span><span>acompañemos</span><span class="mobile-title-break">&nbsp;en<br /></span><span class="desktop-space">&nbsp;en&nbsp;</span>tu proceso?{:else}{copy.title[0]}<span>{copy.title[1]}</span>{copy.title[2]}{/if}</h2>
   <p class="author-support-text">{#if language === 'es'}Primera toma de contacto gratuita<br class="mobile-description-break" /><span class="desktop-space">&nbsp;</span>y sin compromiso.{:else}{copy.text}{/if}</p>
   <div class="author-support-links"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ui.cta} /></div>
 </aside>
@@ -30,7 +30,7 @@
   .author-support-name { font: 400 20px/1.4 Fraunces, serif; }
   .author-support-role { font: 400 13px/1.5 Inter, sans-serif; color: #245b7d; }
   .mobile-title-break, .mobile-description-break { display: none; }
-  @media (max-width: 767px) { .mobile-title-break, .mobile-description-break { display: inline; } .desktop-space { display: none; } .author-support h2 { font-size: 26px; } }
+  @media (max-width: 767px) { .mobile-title-break, .mobile-description-break { display: inline; white-space: pre-wrap; } .desktop-space { display: none; } .author-support h2 { font-size: 26px; } }
   hr { margin: 20px 0; border: 0; border-top: 1px solid #233f4e1a; }
   h2 { font: 500 22px/1.3 'Playfair Display', Georgia, serif; }
   h2 span { font: inherit; color: #4083a7; }

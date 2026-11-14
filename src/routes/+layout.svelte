@@ -91,7 +91,7 @@
   </main>
 
   <Footer />
-  <FloatingWhatsApp />
+  {#if getRouteKey($page.url.pathname) !== 'contact'}<FloatingWhatsApp />{/if}
 </div>
 
 <style>

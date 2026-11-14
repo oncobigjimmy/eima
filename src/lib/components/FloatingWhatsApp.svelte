@@ -28,7 +28,7 @@
     function showBar() {
       expanded = true;
       clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => { expanded = false; }, 3000);
+      closeTimer = setTimeout(() => { expanded = false; }, 2000);
     }
     function check() {
       frame = 0;
