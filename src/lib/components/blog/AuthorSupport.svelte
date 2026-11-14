@@ -15,7 +15,7 @@
 <aside class="author-support" data-card>
   <a class="author-support-person" href={authorHref} aria-label={ui.written + ' ' + author.name}><img src={author.avatar} alt="" loading="lazy" /><div><p class="author-support-label">{ui.written}</p><p class="author-support-name">{author.name}</p><p class="author-support-role">{author.role}</p></div></a>
   <hr />
-  <h2>{#if language === 'es'}¿Quieres que te<span class="mobile-title-break"><br /></span><span class="desktop-space">&nbsp;</span><span>acompañemos</span><span class="mobile-title-break">&nbsp;en<br /></span><span class="desktop-space">&nbsp;en&nbsp;</span>tu proceso?{:else}{copy.title[0]}<span>{copy.title[1]}</span>{copy.title[2]}{/if}</h2>
+  <h2>{#if language === 'es'}¿Quieres que <span>te</span><span class="mobile-title-break"><br /></span><span class="desktop-space">&nbsp;</span><span>acompañemos</span><span class="mobile-title-break">&nbsp;en<br /></span><span class="desktop-space">&nbsp;en&nbsp;</span>tu proceso?{:else}{copy.title[0]}<span>{copy.title[1]}</span>{copy.title[2]}{/if}</h2>
   <p class="author-support-text">{#if language === 'es'}Primera toma de contacto gratuita<br class="mobile-description-break" /><span class="desktop-space">&nbsp;</span>y sin compromiso.{:else}{copy.text}{/if}</p>
   <div class="author-support-links"><PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ui.cta} /></div>
 </aside>

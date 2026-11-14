@@ -305,7 +305,7 @@
     --color-point-svg: #245b7d;
     --color-active: #245b7d;
     --color-point-active-svg: #ffffff;
-    --line-w: 2px;
+    --line-w: 4px;
     --item-gap-y: 1.9rem;
     --point-size: 3.9rem;
     --point-gap: 1.25rem;
@@ -380,8 +380,6 @@
     background: #245b7d;
     padding: 1.15rem 1.5rem 1rem;
   }
-  @media (hover: hover) { .timeline__card:hover .timeline__card-title { font-weight: 700 !important; } }
-
   .timeline__card-title {
     text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566;
     font-family: 'Fraunces', Georgia, 'Times New Roman', serif;

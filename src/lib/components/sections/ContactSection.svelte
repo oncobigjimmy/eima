@@ -94,7 +94,7 @@
 <section class="contact-next" aria-labelledby="contact-next-title">
   <div class="contact-inner">
     <h2 id="contact-next-title">{contactAuditCopy.after[0]}<span>{contactAuditCopy.after[1]}</span></h2>
-    <ol use:journeyReveal>{#each contactAuditCopy.steps as step, index}<li><span class="contact-next-number">{index + 1}</span><div><h3>{step[0]}</h3><p>{#if $language === 'es' && index === 0}Cuéntanos brevemente qué te pasa y en qué<br class="contact-desktop-break" /> momento del tratamiento estás.{:else if $language === 'es' && index === 2}Valoramos si podemos ayudarte. Si no encaja,<br class="contact-desktop-break" /> te lo decimos con honestidad.{:else}{step[1]}{/if}</p></div></li>{/each}</ol>
+    <ol use:journeyReveal>{#each contactAuditCopy.steps as step, index}<li><span class="contact-next-number">{index + 1}</span><div><h3>{step[0]}</h3><p>{#if $language === 'es' && index === 0}Cuéntanos brevemente qué te pasa y en qué<br class="contact-desktop-break" /> momento del tratamiento estás.{:else if $language === 'es' && index === 1}Si no contestamos, salta el contestador. Te<br class="contact-desktop-break" /> respondemos en menos de 12 horas.{:else if $language === 'es' && index === 2}Valoramos si podemos ayudarte. Si no encaja,<br class="contact-desktop-break" /> te lo decimos con honestidad.{:else}{step[1]}{/if}</p></div></li>{/each}</ol>
     <p class="contact-reassurance">{#if $language === 'es'}<span>Hablar con nosotros <strong>no te obliga</strong>{' '}</span><span><strong>a empezar</strong> nada todavía.</span>{:else}<span>{contactAuditCopy.reassurance[0]}</span><span>{contactAuditCopy.reassurance[1]}</span>{/if}</p>
   </div>
 </section>
