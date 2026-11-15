@@ -105,7 +105,7 @@
 
 <style>
   :global(.parallax-slogan .slogan-accent) {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400;
     font-style: italic;
     font-size: 1.20em;

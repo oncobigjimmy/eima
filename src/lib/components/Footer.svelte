@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { selectedSituation } from '$lib/data/situation';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
   import { site } from '$lib/site';
@@ -9,6 +10,19 @@
   import { getHeaderLinks } from '$lib/i18n/headerLinks';
 
   const year = new Date().getFullYear();
+  /** @type {HTMLElement} */
+  let footer;
+  let darkBackground = false;
+
+  onMount(() => {
+    const layout = footer.closest('.site-water-layout');
+    if (!layout) return;
+    const sync = () => { darkBackground = layout.getAttribute('data-water-phase') === 'deep'; };
+    const observer = new MutationObserver(sync);
+    observer.observe(layout, { attributes: true, attributeFilter: ['data-water-phase'] });
+    sync();
+    return () => observer.disconnect();
+  });
 
   $: pathname = $page.url.pathname;
   $: isBlog = ['/blog', '/ca/blog', '/en/blog'].some((path) => pathname === path || pathname.startsWith(`${path}/`));
@@ -21,16 +35,16 @@
   $: brandName = site.name;
 </script>
 
-<footer class="footer bg-dark text-[color:var(--color-inverse)]">
+<footer class="footer" class:dark-background={darkBackground} bind:this={footer} data-water-tone="mist">
   <div
     class="footer-main-grid mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-4 md:gap-0 md:px-10"
   >
-    <div class="flex flex-col items-center justify-center border-b border-white/14 pb-8 md:items-start md:border-b-0 md:border-r md:border-white/18 md:pb-0 md:pr-6">
-      <BrandLogo id="footer-logo" light class="h-20 w-auto md:h-24" />
+    <div class="flex flex-col items-center justify-center border-b pb-8 md:items-start md:border-b-0 md:border-r md:pb-0 md:pr-6">
+      <BrandLogo id="footer-logo" light={darkBackground} class="h-20 w-auto md:h-24" />
     </div>
 
     <div
-      class="footer-contact-column flex flex-col items-center justify-center gap-4 border-b border-white/14 pb-8 text-center md:border-b-0 md:border-r md:border-white/18 md:px-6 md:pb-0"
+      class="footer-contact-column flex flex-col items-center justify-center gap-4 border-b pb-8 text-center md:border-b-0 md:border-r md:px-6 md:pb-0"
     >
       <p class="footer-heading text-[24px] font-medium tracking-[0.02em]">{copy.footer.contact}</p>
       <div class="footer-social-grid">
@@ -39,7 +53,7 @@
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
-          class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10"
+          class="footer-social relative flex items-center justify-center rounded-full border transition-colors"
         >
           <span class="footer-social-tooltip">WhatsApp</span>
           <svg class="h-5 w-5" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
@@ -52,7 +66,7 @@
         <a
           href={site.phoneHref}
           aria-label="Llamar"
-          class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10"
+          class="footer-social relative flex items-center justify-center rounded-full border transition-colors"
         >
           <span class="footer-social-tooltip">{copy.footer.phone}</span>
           <span class="material-symbols-rounded !text-[18px]">call</span>
@@ -60,7 +74,7 @@
         <a
           href={`mailto:${site.email}`}
           aria-label="Email"
-          class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10"
+          class="footer-social relative flex items-center justify-center rounded-full border transition-colors"
         >
           <span class="footer-social-tooltip">Email</span>
           <span class="material-symbols-rounded !text-[18px]">mail</span>
@@ -70,16 +84,16 @@
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
-          class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10"
+          class="footer-social relative flex items-center justify-center rounded-full border transition-colors"
         >
           <span class="footer-social-tooltip">Instagram</span>
           <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
         </a>
-        <a href={site.socials.facebook} target="_blank" rel="noopener noreferrer" class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10" aria-label="Facebook">
+        <a href={site.socials.facebook} target="_blank" rel="noopener noreferrer" class="footer-social relative flex items-center justify-center rounded-full border transition-colors" aria-label="Facebook">
           <span class="footer-social-tooltip">Facebook</span>
           <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.77-3.89 1.1 0 2.25.2 2.25.2v2.47H15.2c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12Z" /></svg>
         </a>
-        <a href={site.socials.youtube} target="_blank" rel="noopener noreferrer" class="footer-social relative flex h-11 w-11 items-center justify-center rounded-full border border-white/40 transition-colors hover:bg-white/10" aria-label="YouTube">
+        <a href={site.socials.youtube} target="_blank" rel="noopener noreferrer" class="footer-social relative flex items-center justify-center rounded-full border transition-colors" aria-label="YouTube">
           <span class="footer-social-tooltip">YouTube</span>
           <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z" /></svg>
         </a>
@@ -87,7 +101,7 @@
     </div>
 
     <div
-      class="flex flex-col items-center justify-center border-b border-white/14 text-center pb-8 md:border-b-0 md:border-r md:border-white/18 md:px-6 md:pb-0"
+      class="flex flex-col items-center justify-center border-b text-center pb-8 md:border-b-0 md:border-r md:px-6 md:pb-0"
     >
       <p class="footer-heading mb-4 text-[24px] font-medium">{copy.footer.pageMenu}</p>
       <ul class="footer-page-links text-sm font-light opacity-90">
@@ -111,7 +125,7 @@
     </div>
   </div>
 
-  <div class="border-t border-white/10">
+  <div class="footer-note border-t">
     <div
       class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-5 text-center text-xs opacity-70 md:flex-row md:px-10"
     >
@@ -126,7 +140,9 @@
 </footer>
 
 <style>
-  .footer { text-shadow: var(--eima-dark-copy-shadow); }
+  .footer { background: #f8f4f0; color: #233f4e; }
+  .footer.dark-background { background: #233f4e; color: #f8f4f0; text-shadow: var(--eima-dark-copy-shadow); }
+  .footer-main-grid > div, .footer-note { border-color: color-mix(in srgb, currentColor 20%, transparent); }
   @media (max-width: 767px) { .footer-main-grid { gap: 0; padding-top: 0; padding-bottom: 0; } .footer-main-grid > div { padding-top: 2rem; padding-bottom: 2rem; } }
   @media (min-width: 768px) { .footer-main-grid > div { padding-top: 0; padding-bottom: 0; } }
   .footer-heading { font-family: 'Playfair Display', Georgia, serif; }
@@ -137,7 +153,8 @@
     .footer-main-grid > div:nth-child(2) { border-right: 0; }
   }
   .footer-social-grid { display: grid; grid-template-columns: repeat(3, 2.5rem); gap: .5rem; }
-  .footer-social { width: 2.5rem; height: 2.5rem; }
+  .footer-social { width: 2.5rem; height: 2.5rem; border-color: color-mix(in srgb, currentColor 40%, transparent); }
+  .footer-social:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
   .footer-social svg { width: 18px; height: 18px; }
   .footer-social-tooltip {
     background: rgba(24, 24, 27, 0.92);

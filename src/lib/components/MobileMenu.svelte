@@ -57,6 +57,7 @@
   <div class="menu-layer menu-layer--first" aria-hidden="true"></div>
   <div class="menu-layer menu-layer--second" aria-hidden="true"></div>
   <div class="menu-panel absolute inset-0 overflow-y-auto overscroll-contain bg-[#233F4E]">
+  <canvas class="menu-water" aria-hidden="true"></canvas>
   <nav class="mt-24 mb-10 flex flex-col gap-2 px-8">
     {#each links as link, index (link.href)}
       <a
@@ -83,6 +84,8 @@
 </div>
 
 <style>
+  .menu-panel { isolation: isolate; background: var(--water-deep) fixed; }
+  .menu-water { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
   .mobile-menu { pointer-events: none; visibility: hidden; transition: visibility 0s 620ms; }
   .mobile-menu--open { pointer-events: auto; visibility: visible; transition-delay: 0s; }
   .menu-layer { position: absolute; inset: 0; }

@@ -13,7 +13,7 @@
 
 <article lang="es" class="max-w-3xl mx-auto px-6 md:px-8 pt-24 pb-16 prose-blog">
   <h1>Política de Privacidad</h1>
-  <p class="text-secondary">Última actualización: 17 de abril de 2026</p>
+  <p class="text-secondary">Última actualización: 5 de octubre de 2026</p>
 
   <h2>Responsable del tratamiento</h2>
   <p>
@@ -24,9 +24,10 @@
 
   <h2>Datos que recogemos</h2>
   <ul>
-    <li>Datos que nos facilitas al rellenar el formulario de contacto: nombre, email, teléfono, localidad y el mensaje que nos envíes.</li>
+    <li>Datos que nos facilitas al contactar por WhatsApp, teléfono o correo electrónico: datos de identificación y contacto y el contenido de tu consulta.</li>
     <li>Datos técnicos de navegación imprescindibles para el funcionamiento del sitio.</li>
   </ul>
+  <p>Este sitio no dispone de un formulario de contacto ni de una pasarela de pago.</p>
 
   <h2>Finalidad</h2>
   <p>
@@ -37,8 +38,22 @@
 
   <h2>Base legal</h2>
   <p>
-    El tratamiento se basa en tu consentimiento expreso al enviar el formulario y en la ejecución de
-    la relación asistencial cuando se produce.
+    La base jurídica aplicable a cada tratamiento, incluida la condición que permita tratar datos
+    de salud cuando corresponda, debe concretarse con el responsable del tratamiento antes de
+    dar esta política por definitiva. Contactar con nosotros no equivale por sí solo a autorizar
+    cualquier uso de tus datos.
+  </p>
+
+  <h2>Servicios externos y medición</h2>
+  <p>
+    Los enlaces de WhatsApp y redes sociales te llevan a servicios externos. Los vídeos de
+    testimonios utilizan un reproductor de YouTube que se carga cuando lo abres. Estos servicios
+    pueden tratar datos según sus propias políticas; los proveedores, destinatarios y posibles
+    transferencias aplicables deben concretarse en la versión definitiva de esta política.
+  </p>
+  <p>
+    No se ha instalado Google Analytics ni otra herramienta de seguimiento de visitas en la web.
+    Search Console se utiliza para revisar la presencia del sitio en la búsqueda de Google.
   </p>
 
   <h2>Conservación</h2>

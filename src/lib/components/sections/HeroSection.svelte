@@ -51,7 +51,7 @@
   }));
 </script>
 
-<section class="home-hero relative isolate w-full overflow-hidden" style="min-height: 92vh;">
+<section class="home-hero relative isolate w-full overflow-hidden" style="min-height: 92vh;" data-water-media>
   <video
     bind:this={heroVideo}
     class="absolute inset-0 h-full w-full object-cover"
@@ -68,7 +68,7 @@
   <div
     class="site-hero-overlay absolute inset-0"
     aria-hidden="true"
-  ></div>
+  ><canvas class="hero-water"></canvas></div>
 
   <div class={`home-hero-content photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-20 md:px-10 md:pt-24 lg:pt-[111px]`}>
     <div class="max-w-3xl leading-[1.02] tracking-tight">

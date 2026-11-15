@@ -12,8 +12,8 @@ export const homeSections = {
     situationLines: [["“Nunca he hecho","ejercicio y no","sabría por dónde","empezar.”"],["“Hacía ejercicio,","pero ahora no sé","cómo adaptarlo","al tratamiento.”"],["“Quiero moverme,","pero la fatiga, el dolor","o el miedo a pasarme","me frenan.”"],["“He terminado","el tratamiento, pero","todavía no me siento","como antes.”"]],
     situationClosing: 'Sea cual sea tu punto de partida, primero necesitamos entender tu situación.',
     recoveryTitle: '¿Qué queremos que <span>consigas?</span>', recoverySubtitle: '<strong>Las <span class="brush-accent">3R</span> de tu progreso</strong>',
-    firstGoalBody: 'Buscamos que te muevas con menos fatiga, menos rigidez, menos miedo y más sensación de control sobre tu cuerpo y tu rutina del día a día.',
-    thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello que disfrutas y es importante para ti: <em>salir de excursión, jugar al pádel o al golf, hacer pilates o seguir trabajando.</em>'
+    firstGoalBody: 'Buscamos que te muevas con <strong>menos fatiga</strong>, <strong>menos rigidez</strong>, <strong>menos miedo</strong> y <strong>más sensación de control</strong> sobre tu cuerpo y tu rutina del día a día.',
+    thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello <br class="rtext-desktop-break" />que <strong>disfrutas y es importante para ti.</strong>'
   },
   ca: {
     vslBefore: 'T’explicam com funciona', vslAfter: '', programme: 'El nostre programa d’exercici per a persones amb càncer a Mallorca',
@@ -25,8 +25,8 @@ export const homeSections = {
     situationLines: [["“Mai he fet","exercici i no sabria","per on","començar.”"],["“Feia exercici,","però ara no sé","com adaptar-lo","al tractament.”"],["“Vull moure’m, però","la fatiga, el dolor","o la por de passar-me","em frenen.”"],["“He acabat","el tractament, però","encara no em sent","com abans.”"]],
     situationClosing: 'Sigui quin sigui el teu punt de partida, primer necessitam entendre la teva situació.',
     recoveryTitle: 'Què volem que <span>aconsegueixis?</span>', recoverySubtitle: '<strong>Les <span class="brush-accent">3R</span> del teu progrés</strong>',
-    firstGoalBody: 'Cercam que et moguis amb menys fatiga, menys rigidesa, menys por i més sensació de control sobre el teu cos i la teva rutina del dia a dia.',
-    thirdGoalSubtitle: 'amb confiança allò que és important per a tu', thirdGoalBody: 'Volem ajudar-te a continuar fent (o tornar a fer) allò que gaudeixes i és important per a tu: <em>anar d’excursió, jugar a pàdel o a golf, fer pilates o continuar treballant.</em>'
+    firstGoalBody: 'Cercam que et moguis amb <strong>menys fatiga</strong>, <strong>menys rigidesa</strong>, <strong>menys por</strong> i <strong>més sensació de control</strong> sobre el teu cos i la teva rutina del dia a dia.',
+    thirdGoalSubtitle: 'amb confiança allò que és important per a tu', thirdGoalBody: 'Volem ajudar-te a continuar fent (o tornar a fer) allò que <strong>gaudeixes i és important per a tu.</strong>'
   },
   en: {
     vslBefore: 'We explain how', vslAfter: ' works', programme: 'Our exercise programme for people with cancer in Mallorca',
@@ -38,8 +38,8 @@ export const homeSections = {
     situationLines: [["“I’ve never","exercised and wouldn’t","know where","to start.”"],["“I used to exercise,","but now I don’t know","how to adapt it","to treatment.”"],["“I want to move, but","fatigue, pain or fear","of overdoing it","hold me back.”"],["“I have finished","treatment, but I still","don’t feel like","I did before.”"]],
     situationClosing: 'Whatever your starting point, we first need to understand your situation.',
     recoveryTitle: 'What do we want you to <span>achieve?</span>', recoverySubtitle: '<strong>The <span class="brush-accent">3Rs</span> of your progress</strong>',
-    firstGoalBody: 'We want you to move with less fatigue, less stiffness, less fear and a greater sense of control over your body and your daily routine.',
-    thirdGoalSubtitle: 'with confidence to what matters to you', thirdGoalBody: 'We want to help you keep doing (or return to) what you enjoy and what matters to you: <em>going hiking, playing padel or golf, doing Pilates or continuing to work.</em>'
+    firstGoalBody: 'We want you to move with <strong>less fatigue</strong>, <strong>less stiffness</strong>, <strong>less fear</strong> and <strong>a greater sense of control</strong> over your body and your daily routine.',
+    thirdGoalSubtitle: 'with confidence to what matters to you', thirdGoalBody: 'We want to help you keep doing (or return to) <strong>what you enjoy and what matters to you.</strong>'
   }
 };
 

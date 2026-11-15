@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "./secondary-cta.css";
   import { onDestroy, onMount } from 'svelte';
   import { watchReducedMotion } from '$lib/motion';
   import { standardEntry } from '$lib/actions/standardEntry';
@@ -10,6 +11,7 @@
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
   import ScreenshotModal from '$lib/components/ScreenshotModal.svelte';
   import CarouselControls from '$lib/components/CarouselControls.svelte';
+  import { eimaBar } from '$lib/actions/eimaBar';
   import SearchIcon from '$lib/components/SearchIcon.svelte';
   export let pageLanguage: Language = 'es';
   type Slide = { kind: 'response'; item: WrittenTestimonial } | { kind: 'bridge1' | 'bridge2' | 'final' };
@@ -19,6 +21,7 @@
     ...getFeaturedTestimonials('acompanamos').map(item => ({ kind: 'response' as const, item })), { kind: 'final' }
   ];
   const chapterCounts = testimonialChapters.map(chapter => getFeaturedTestimonials(chapter).length);
+  const chapterColors = ['#245b7d', '#4083a7', '#66aabf'];
   const chapterStarts = [0, chapterCounts[0] + 1, chapterCounts[0] + chapterCounts[1] + 2];
   function chapterFor(index: number) {
     return index >= chapterStarts[2] ? 2 : index >= chapterStarts[1] ? 1 : 0;
@@ -110,7 +113,7 @@
   };
   function previewBox(item: WrittenTestimonial) {
     const top = Math.round(item.height * (previewTop[item.id] ?? 0));
-    const bottom = item.id === 'progress-12' ? Math.round(item.height * .49) : item.height;
+    const bottom = item.id === 'progress-12' ? Math.round(item.height * .49) : item.id === 'progreso-fuerza-confianza' ? Math.round(item.height * .44) : item.height;
     return `0 ${top} ${item.width} ${bottom - top}`;
   }
   // Halve the existing 320px card's empty top/bottom space at every width.
@@ -178,13 +181,18 @@
 
 <section class="patient-proof" aria-labelledby="patient-proof-title">
   <header use:standardEntry><h2 id="patient-proof-title">{#if pageLanguage === 'es'}Lo que nos cuentan<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>cada semana</span>{:else if pageLanguage === 'ca'}El que ens expliquen<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>cada setmana</span>{:else}What we hear<span class="heading-week"><br class="heading-mobile-break" /><span class="heading-desktop-space">{' '}</span>each week from</span>{/if}<br /><span>{copy.headingAccent}</span>{copy.headingAfter}</h2></header>
-  <div class="chapter-bar">
-    {#each testimonialChapters as key, index}
-      <button type="button" class:active={chapter === index} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(chapterStarts[index])}>
-        <span class="chapter-track" aria-hidden="true"><span class="chapter-fill" class:striped={chapter === index} style={`width:${chapterProgress[index]}%`}></span></span>
-        <span class="chapter-desktop">{copy.chapters[index]}</span><span class="chapter-mobile">{copy.shortChapters[index]}</span>
-      </button>
-    {/each}
+  <div class="chapter-bar eb eb-segments" data-eb="segments" data-drive="manual" data-duration="650" use:eimaBar={{ value: chapterProgress.reduce((sum, progress) => sum + progress, 0) / 300, slide: current, visible: sectionVisible }}>
+    <div class="eb-segs" aria-hidden="true">
+      {#each chapterColors as color}<div class="eb-seg" style:--chapter-color={color}><div class="eb-seg-fill"></div></div>{/each}
+    </div>
+    <div class="eb-labels">
+      {#each testimonialChapters as _, index}
+        <button type="button" class="eb-seg-label" class:active={chapter === index} style:--chapter-color={chapterColors[index]} aria-current={chapter === index ? 'step' : undefined} on:click={() => go(chapterStarts[index])}>
+          <svg class="eb-check" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" pathLength="1"/><path d="m6.5 11.3 3 3 6-6.4" pathLength="1"/></svg>
+          <span class="chapter-desktop">{copy.chapters[index].replace(/^\s*\d+\s*[·.]\s*/, '')}</span><span class="chapter-mobile">{copy.shortChapters[index]}</span>
+        </button>
+      {/each}
+    </div>
   </div>
   <!-- svelte-ignore a11y_no_noninteractive_tabindex a11y_no_noninteractive_element_interactions -->
   <div class="journey-carousel" role="region" aria-roledescription="carousel" aria-label={copy.eyebrow} tabindex="0" on:keydown={keyboard}>
@@ -193,7 +201,7 @@
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article use:halfVerticalSpace={slide.kind === 'response'} class="journey-card" class:blue-response={slide.kind === 'response'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
+        <article use:halfVerticalSpace={slide.kind === 'response'} class="journey-card" class:blue-response={slide.kind === 'response'} class:recovery-response={slide.kind === 'response' && slide.item.chapter === 'recupera'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--chapter-color={slide.kind === 'response' ? chapterColors[testimonialChapters.indexOf(slide.item.chapter)] : '#233f4e'} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item, mobile)}
             <blockquote class="key-phrase"><button class="quote-open" class:quote-mobile-lines={mobile && (slide.item.id === 'progress-12' || (pageLanguage === 'es' && Boolean(mobileSpanishQuotes[slide.item.id])))} type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
@@ -227,20 +235,22 @@
   header { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
   h2 span { font: inherit; color: #4083a7; }
   h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 50px; font-weight: 500; line-height: 1.15; }
-  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2.5rem auto .15rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .chapter-bar button { display: flex; flex-direction: column; gap: 10px; min-height: 56px; padding: 0 0 8px; color: #55656f; font-size: 14px; font-weight: 400; text-align: center; }
-  .chapter-bar button.active { color: #233f4e; font-weight: 600; }
-  .chapter-track { display: block; width: 100%; height: 10px; background: #e8e8f6; border-radius: 999px; overflow: hidden; }
-  .chapter-fill { display: block; height: 100%; background: #4083a7; border-radius: inherit; transition: width var(--dur-entrada) var(--ease-calma); }
-  .striped { background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.28) 0 7px, transparent 7px 14px); background-size: 20px 20px; animation: chapter-stripes .9s linear infinite; }
-  @keyframes chapter-stripes { from { background-position: 0 0; } to { background-position: 20px 0; } }
+  .chapter-bar { width: min(720px, calc(100% - 40px)); margin: 2.5rem auto .15rem; }
+  .chapter-bar .eb-seg-fill { background: var(--chapter-color); }
+  .chapter-bar .eb-labels { margin-top: 8px; }
+  .chapter-bar .eb-seg-label { position: relative; display: block; min-height: 44px; padding-bottom: 23px; color: var(--chapter-color); font-size: 14px; white-space: nowrap; text-align: center; }
+  .chapter-bar .eb-seg-label.active { font-weight: 700; }
+  .chapter-bar .eb-check { position: absolute; inset: auto auto 0 50%; transform: translateX(-50%); opacity: 0; }
+  .chapter-bar .eb-check circle { fill: var(--chapter-color); stroke: none; }
+  .chapter-bar .eb-check path { stroke: white; filter: drop-shadow(0 1px 1px #233f4e60); }
+  .chapter-bar .eb-seg-label:global(.is-done) .eb-check { opacity: 1; }
   .chapter-mobile { display: none; }
   .journey-carousel { position: relative; isolation: isolate; outline-offset: -4px; }
   .journey-stage { position: relative; height: 360px; touch-action: pan-y pinch-zoom; user-select: none; cursor: grab; }
   .journey-stage.dragging, .journey-stage.dragging .quote-open, .journey-stage.dragging .side-select { cursor: grabbing; }
   .journey-stage.dragging .journey-card { transition: none; }
   .journey-card { position: absolute; left: 50%; top: 20px; width: 390px; height: 320px; padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #fff; border-radius: 12px; box-shadow: 0 18px 38px #071a2524; transform: translateX(calc(-50% + var(--distance) * 350px)) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); transition: transform var(--dur-entrada) var(--ease-calma), filter var(--dur-entrada) var(--ease-calma), opacity var(--dur-entrada) var(--ease-calma); }
-  .key-phrase { white-space: pre-line; font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
+  .key-phrase { white-space: pre-line; font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1.42; font-weight: 300; font-style: italic; min-height: 0; margin: 0; text-align: center; }
   .quote-open { display: block; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-align: inherit; cursor: grab; }
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left center / 0% 84% no-repeat; padding-block: 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 84%; transition: background-size 1100ms var(--ease-calma) 200ms; }
@@ -259,10 +269,12 @@
   .hint-mobile { display: none; }
   /* Response cards share the blue testimonial treatment. */
   @media (min-width: 768px) { .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); } }
-  .blue-response { background: #4083a7; color: #fff; }
+  .blue-response { background: var(--chapter-color); color: #fff; }
   .blue-response .key-phrase { color: #fff; }
   .blue-response .quote-open { text-shadow: 0 0 3px #071a2580, 0 0 5px #071a2533; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
+  .recovery-response .key-phrase span { background-image: linear-gradient(#102c3b, #102c3b); }
+  .recovery-response .magnify { background: #102c3b; }
   .blue-response button:focus-visible { outline-color: #f8f4f0; }
   @media (hover: hover) and (pointer: fine) {
     .central.blue-response:is(:hover, :focus-within) .capture-hint { opacity: 1; transform: translateY(0); }
@@ -290,12 +302,13 @@
   @media (hover: hover) and (pointer: fine) { .restart:is(:hover, :focus-visible) { background: #fff; border-color: #8cd0d6; } }
   .side-select { position: absolute; inset: 0; width: 100%; border-radius: inherit; cursor: grab; }
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
-  .secondary-cta { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #233f4e; border-radius: 999px; padding: .75rem 1.5rem; min-height: 44px; font-size: 15px; font-weight: 500; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma); }
   button:focus-visible, a:focus-visible, .journey-carousel:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
-  @media (hover: hover) and (pointer: fine) { .secondary-cta:hover { background: #233f4e; color: #fff; } }
   @media (max-width: 767px) {
     h2 { font-size: clamp(26px, 8vw, 30px); } .heading-mobile-break { display: block; } .heading-desktop-space { display: none; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
-    .chapter-bar { gap: 8px; margin-top: 2rem; margin-bottom: 0; } .chapter-bar button { font-size: 12px; }
+    .chapter-bar { margin-top: 2rem; margin-bottom: 0; }
+    .chapter-bar .eb-labels { margin-top: 5px; }
+    .chapter-bar .eb-seg-label { min-height: 35px; padding-bottom: 18px; font-size: clamp(9px, 2.75vw, 12px); }
+    .chapter-bar .eb-check { width: 15px; height: 15px; }
     .journey-stage { height: 340px; }
     .journey-stage.response-active { height: calc(255px + var(--active-response-height, 274px) * .25); }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
@@ -318,8 +331,8 @@
     .hint-desktop { display: none; } .hint-mobile { display: inline; }
     .hint-running .magnify, .hint-running .capture-hint { animation: mobile-capture-prompt 350ms var(--ease-calma) 2600ms both; }
     .proof-ctas { width: 300px; max-width: 100%; padding: 0; margin: 2rem auto 0; flex-direction: column; }
-    .proof-ctas :global(.primary-cta), .secondary-cta { width: 100%; }
+    .proof-ctas :global(.primary-cta), :global(.secondary-cta) { width: 100%; }
   }
   @keyframes mobile-capture-prompt { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  @media (prefers-reduced-motion: reduce) { .striped { animation: none; } .key-phrase span { background-size: 100% 84%; } .chapter-fill, .journey-card, .key-phrase .marked, .secondary-cta, .magnify, .capture-hint { transition: none; } .hint-running .magnify, .hint-running .capture-hint { animation: none; opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .key-phrase span { background-size: 100% 84%; } .journey-card, .key-phrase .marked, .magnify, .capture-hint { transition: none; } .hint-running .magnify, .hint-running .capture-hint { animation: none; opacity: 1; transform: none; } }
 </style>

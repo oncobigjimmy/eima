@@ -79,8 +79,12 @@ export function draggableMarquee(node, options) {
   function click(event) {
     if (suppressClick) { event.preventDefault(); event.stopPropagation(); suppressClick = false; }
   }
-  function enter() { hovered = true; sync(); }
-  function leave() { hovered = false; sync(); }
+  /** @param {EventTarget | null} target */
+  function isCard(target) { return target instanceof Element && Boolean(target.closest('.written-card')); }
+  /** @param {PointerEvent} event */
+  function over(event) { if (event.pointerType !== 'touch' && isCard(event.target)) { hovered = true; sync(); } }
+  /** @param {PointerEvent} event */
+  function out(event) { if (event.pointerType !== 'touch' && isCard(event.target) && !isCard(event.relatedTarget)) { hovered = false; sync(); } }
   function focusIn() { focused = true; sync(); }
   function focusOut() { queueMicrotask(() => { focused = node.contains(document.activeElement); sync(); }); }
   /** @param {KeyboardEvent} event */
@@ -93,8 +97,8 @@ export function draggableMarquee(node, options) {
   node.addEventListener('pointerup', up);
   node.addEventListener('pointercancel', up);
   node.addEventListener('click', click, true);
-  node.addEventListener('pointerenter', enter);
-  node.addEventListener('pointerleave', leave);
+  node.addEventListener('pointerover', over);
+  node.addEventListener('pointerout', out);
   node.addEventListener('focusin', focusIn);
   node.addEventListener('focusout', focusOut);
   node.addEventListener('keydown', keydown);
@@ -107,8 +111,8 @@ export function draggableMarquee(node, options) {
       observer.disconnect(); animation?.cancel();
       node.removeEventListener('pointerdown', down); node.removeEventListener('pointermove', move);
       node.removeEventListener('pointerup', up); node.removeEventListener('pointercancel', up);
-      node.removeEventListener('click', click, true); node.removeEventListener('pointerenter', enter);
-      node.removeEventListener('pointerleave', leave); node.removeEventListener('focusin', focusIn);
+      node.removeEventListener('click', click, true); node.removeEventListener('pointerover', over);
+      node.removeEventListener('pointerout', out); node.removeEventListener('focusin', focusIn);
       node.removeEventListener('focusout', focusOut); node.removeEventListener('keydown', keydown);
     }
   };

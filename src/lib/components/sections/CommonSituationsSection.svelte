@@ -285,7 +285,7 @@
 
   .common-situations-title,
   .common-situations-title * {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
   }
 

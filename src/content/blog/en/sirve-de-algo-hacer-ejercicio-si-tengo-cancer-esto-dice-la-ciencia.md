@@ -136,7 +136,7 @@ Remember that exercise does not compete with medical oncology; **it enhances it.
 
   .expert-quote-card p {
     color: #233f4e;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 1.1rem;
     font-style: italic;

@@ -6,7 +6,6 @@
   import ProgramStepsSection from '$lib/components/sections/ProgramStepsSection.svelte';
   import ProgramFitSection from '$lib/components/sections/ProgramFitSection.svelte';
   import ProgramFaqSection from '$lib/components/sections/ProgramFaqSection.svelte';
-  import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
   import EmpentaPathSection from '$lib/components/sections/EmpentaPathSection.svelte';
   import { getWhatsAppHref } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
@@ -72,7 +71,7 @@
 </svelte:head>
 
 <div class:program-es-rhythm={true}>
-<section class="program-hero relative w-full overflow-hidden">
+<section class="program-hero relative w-full overflow-hidden" data-water-media>
   <video
     bind:this={heroVideo}
     class="absolute inset-0 h-full w-full object-cover"
@@ -90,7 +89,7 @@
   <div
     class="site-hero-overlay absolute inset-0"
     aria-hidden="true"
-  ></div>
+  ><canvas class="hero-water"></canvas></div>
 
   <div class={`program-hero-content photo-text-contrast relative z-10 mx-auto max-w-7xl px-6 pb-10 md:px-10 pt-18 md:pt-22 lg:pt-[98px]`}>
     <h1 class="sr-only">
@@ -155,18 +154,6 @@
   </div>
 </section>
 
-<ParallaxSloganSection
-  image="/Gemini_Generated_Image_bhw0rlbhw0rlbhw0-70.png"
-  compact
-  sectionClass="program-banner"
-  topHtml={programCopy.slogan2.topHtml}
-  bottomHtml={programCopy.slogan2.bottomHtml}
-  mobileTopSize={18}
-  desktopTopSize={24}
-  mobileBottomSize={20}
-  desktopBottomSize={33}
-/>
-
 <ProgramFaqSection />
 </div>
 
@@ -185,7 +172,6 @@
     padding-bottom: var(--program-section-end);
   }
 
-  :global(.program-es-rhythm .program-banner) { padding-bottom: 0; }
 
   :global(.program-es-rhythm .program-fit-section),
   :global(.program-es-rhythm #faq) { padding-top: var(--program-section-start); }
@@ -194,7 +180,7 @@
 
   .hero-typed-line,
   .hero-typed-line :global(*) {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
     font-weight: 300 !important;
     font-style: italic !important;
   }

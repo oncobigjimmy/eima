@@ -175,7 +175,7 @@
   /** @type {Record<string, string>} */
   const readingCovers = {
     'Explain Pain': '/book-explain-pain.png',
-    'Aches & Pains': '/book-aches-pains.png',
+    'Aches and Pains': '/book-aches-pains.png',
     'Understanding sciatica': '/book-understanding-sciatica.png',
     'Understanding Sciatica': '/book-understanding-sciatica.png',
     'The Biomechanics of Low Back Pain': '/book-biomechanics-back-pain.png',
@@ -203,8 +203,8 @@
 
   /** @param {string} title */
   const displayReadingTitle = (title) => {
-    if (title.startsWith('Aches & Pains') || title.toLowerCase().startsWith('aches and pains')) {
-      return 'Aches & Pains';
+    if (/^aches (?:and|&) pains/i.test(title)) {
+      return 'Aches and Pains';
     }
 
     if (title.startsWith('Medio ambiente y salud:')) {
@@ -268,7 +268,7 @@
       const parsed = parseReading(reading);
       const key = parsed.title;
 
-      if (profile.id === 'jaume' && key === 'Aches & Pains') {
+      if (profile.id === 'jaume' && key === 'Aches and Pains') {
         if (seen.has(key)) return false;
         seen.add(key);
       }
@@ -496,7 +496,7 @@
           </div>
           {#if otherProfile}<button class="other-story" type="button" on:click={showOtherStory}>
             <img src={otherProfile.id === 'miquel' ? '/story-miquel-crop.png' : '/story-jaume-crop.png'} alt="" width="64" height="64" loading="lazy" />
-            <span><span class="other-story-lead">{otherStoryCopy.lead}</span><span class="other-story-name">{otherStoryCopy.story} <span class="other-story-person">{otherProfile.id === 'miquel' ? 'Miquel' : 'Jaume'}</span></span></span>
+            <span><span class="other-story-lead">{otherStoryCopy.lead}</span><span class="other-story-name">{otherStoryCopy.story} {otherProfile.id === 'miquel' ? 'Miquel' : 'Jaume'}</span></span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
           </button>{/if}
         </article>
@@ -554,7 +554,7 @@
 
   .story-section-heading,
   .story-side-title {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
   }
 
@@ -645,7 +645,7 @@
     transition: transform 260ms ease-out, opacity 175ms ease-out, filter 175ms ease-out;
     padding-top: 0;
     text-align: right;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Newsreader', Georgia, serif;
     font-size: 18px;
     font-weight: 700;
     line-height: 1.65;
@@ -776,6 +776,7 @@
   }
 
   .reading-card .reading-title {
+    font-family: 'Playfair Display', Georgia, serif;
     transition: color 380ms ease-out, text-shadow 380ms ease-out;
     height: 100%;
     display: flex;
@@ -1096,8 +1097,7 @@
   .other-story { display: grid; grid-template-columns: 64px minmax(0, 1fr) 24px; align-items: center; gap: 14px; width: min(100%, max(320px, 50%)); margin-inline: auto; min-height: 44px; padding: 14px 18px 14px 14px; border: 1px solid rgba(64,131,167,.35); border-radius: 16px; background: #4083a7; box-shadow: 0 10px 26px rgba(35,63,78,.06); text-align: left; }
   .other-story img { width: 64px; height: 64px; border-radius: 50%; background: #fff; object-fit: cover; object-position: center top; }
   .other-story-lead { display: block; font: 400 13px/1.5 Inter, sans-serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
-  .other-story-name { display: block; font: 400 22px/1.3 Fraunces, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
-  .other-story-person { font: inherit; color: #233f4e; text-shadow: none; background: #fff; border-radius: 3px; padding: 0 .1em; box-decoration-break: clone; }
+  .other-story-name { display: block; font: 400 22px/1.3 Newsreader, Georgia, serif; color: #fff; text-shadow: 0 0 3px #071a2566; }
   .other-story svg { width: 28px; height: 28px; transform: translateX(-5px); color: #fff; filter: drop-shadow(0 0 2px #071a2566); }
   .other-story:focus-visible, .story-profile-name:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   .reading-counter { display: none; }
@@ -1120,7 +1120,7 @@
     .reading-navigation { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 18px; }
     .reading-counter { display: block; margin: 0; font: 400 13px/1.5 Inter, sans-serif; color: #55656f; text-align: center; }
   }
-  .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 20px/1.4 Fraunces, Georgia, serif; color: #233f4e; }
+  .story-quote { margin: 22px 0; padding: 4px 0 4px 16px; border-left: 3px solid #8cd0d6; font: italic 400 20px/1.4 Newsreader, Georgia, serif; color: #233f4e; }
   .story-quote .quote-marker { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left 85% / 0% 45% no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background-size 800ms var(--ease-calma); }
   .story-quote:global(.quote-drawn) .quote-marker { background-size: 100% 45%; }
   @media (prefers-reduced-motion: reduce) { .story-quote .quote-marker { background-size: 100% 45%; transition: none; } }

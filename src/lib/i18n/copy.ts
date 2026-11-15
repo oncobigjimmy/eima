@@ -175,14 +175,14 @@ const esCopy = {
           title: 'Recuperar',
           subtitle: 'fuerza y energía para tu día a día',
           body:
-            'Queremos que vuelvas a sentirte más capaz en cosas cotidianas como caminar, subir escaleras, cargar bolsas o terminar el día menos agotado/a.',
+            'Queremos que <strong>vuelvas a sentirte más capaz en cosas cotidianas</strong> como caminar, subir escaleras, cargar bolsas o terminar el día menos agotado/a.',
           icon: 'recover'
         },
         {
           title: 'Retomar',
           subtitle: 'con confianza lo importante para ti',
           body:
-            'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello que disfrutas y es importante para ti: <em>salir de excursión, jugar al pádel o al golf, hacer pilates o seguir trabajando.</em>',
+            'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello que disfrutas y es importante para ti.',
           icon: 'resume'
         }
       ]
@@ -405,7 +405,7 @@ const caCopy = {
           title: 'Recuperar',
           subtitle: 'força i energia per al teu dia a dia',
           body:
-            'Volem que tornis a sentir-te més capaç en coses quotidianes com caminar, pujar escales, carregar bosses o acabar el dia menys esgotat/ada.',
+            'Volem que <strong>tornis a sentir-te més capaç en coses quotidianes</strong> com caminar, pujar escales, carregar bosses o acabar el dia menys esgotat/ada.',
           icon: 'recover'
         },
         {
@@ -639,7 +639,7 @@ const enCopy = {
           title: 'Recover',
           subtitle: 'strength and energy for your daily life',
           body:
-            'We want you to feel more capable again in everyday activities such as walking, climbing stairs, carrying shopping bags or finishing the day feeling less exhausted.',
+            'We want you to <strong>feel more capable again in everyday activities</strong> such as walking, climbing stairs, carrying shopping bags or finishing the day feeling less exhausted.',
           icon: 'recover'
         },
         {

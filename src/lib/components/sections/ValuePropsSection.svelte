@@ -1,8 +1,11 @@
 <script>
   import { afterUpdate, onMount } from 'svelte';
-  import { getCopy } from '$lib/i18n/copy';
+  import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
+  import { getAboutCopy } from '$lib/i18n/about';
+  import { selectedSituation } from '$lib/data/situation';
   import { language } from '$lib/i18n/language';
-  import { getProgramStepsHash, getRoutePath } from '$lib/i18n/routes';
+  import { getRoutePath, getProgramStepsHash } from '$lib/i18n/routes';
+  import '../secondary-cta.css';
   import PrimaryCta from '$lib/components/PrimaryCta.svelte';
 
   /** @param {HTMLElement} node */
@@ -72,8 +75,18 @@
   let requestTimelineUpdate;
 
   $: valueCopy = getCopy($language).home.valueProps;
+  $: closing = getAboutCopy($language).closing;
+  $: closingBreak = closing.middle.lastIndexOf(' ');
+  const closingDesktopBreaks = ['quede en ', 'sin que el ', 'un seguimiento ', 'vida diaria ya ', 'desplazamientos innecesarios '];
+  $: closingParagraphs = $language === 'es'
+    ? closing.paragraphs.map(paragraph => closingDesktopBreaks.reduce(
+        (text, phrase) => text.replace(phrase, phrase + '<br class="closing-desktop-break" />'), paragraph
+      ))
+    : closing.paragraphs;
+  const programLabels = { es: 'Cómo funciona el programa', ca: 'Com funciona el programa', en: 'How the programme works' };
+  $: programHref = getRoutePath('program', $language) + '#' + getProgramStepsHash($language);
+  $: closingHref = getWhatsAppHref($language, true, $selectedSituation);
   $: steps = valueCopy.steps;
-  $: programHref = `${getRoutePath('program', $language)}#${getProgramStepsHash($language)}`;
 
   afterUpdate(() => {
     requestTimelineUpdate?.();
@@ -251,31 +264,63 @@
       </div>
     </div>
 
-    <div use:summaryContrast class="timeline-summary mx-auto mt-14 max-w-5xl md:mt-16">
-      <div class="timeline-summary__content">
-        {#if valueCopy.summaryStrong}
-          <p class="timeline-summary__line timeline-summary__line--strong">
-            {valueCopy.summaryStrong}
-          </p>
-        {/if}
-        {#each valueCopy.summaryLines as line, index}
-          {#if index === 0}
-            <p class="timeline-summary__line timeline-summary__line--inter summary-intro-desktop" use:htmlContent={line}>{@html line}</p>
-            <p class="timeline-summary__line timeline-summary__line--inter summary-intro-mobile">{@html valueCopy.mobileIntro}</p>
-          {:else}
-            <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}>{@html line}</p>
-          {/if}
-        {/each}
+    <div id="closing-section" class="home-closing">
+      <div class="home-closing-copy">
+        <h2 class="home-closing-title">
+          <span class="closing-line">{closing.prefix}<em>{closing.accentOne}</em> {closing.middle.slice(0, closingBreak)}</span>{' '}
+          <span class="closing-line">{closing.middle.slice(closingBreak + 1)} <em>{closing.accentTwo}</em></span>
+        </h2>
+        <div class="home-closing-paragraphs">
+          {#each closingParagraphs as paragraph}<p>{@html paragraph}</p>{/each}
+        </div>
+        <div class="closing-contact"><PrimaryCta href={closingHref} target="_blank" rel="noopener noreferrer" label={closing.cta} /><a class="secondary-cta closing-program-desktop" href={programHref}>{programLabels[$language]}</a></div>
       </div>
-
-    </div>
-    <div class="summary-cta flex justify-center">
-      <PrimaryCta href={programHref} label={valueCopy.cta} />
+      <div class="home-closing-program">
+        <div use:summaryContrast class="timeline-summary">
+          <div class="timeline-summary__content">
+            {#if valueCopy.summaryStrong}
+              <p class="timeline-summary__line timeline-summary__line--strong">{valueCopy.summaryStrong}</p>
+            {/if}
+            {#each valueCopy.summaryLines as line, index}
+              {#if index === 0}
+                <p class="timeline-summary__line timeline-summary__line--inter summary-intro-desktop" use:htmlContent={line}>{@html line}</p>
+                <p class="timeline-summary__line timeline-summary__line--inter summary-intro-mobile">{@html valueCopy.mobileIntro}</p>
+              {:else}
+                <p class="timeline-summary__line timeline-summary__line--inter" use:htmlContent={line}>{@html line}</p>
+              {/if}
+            {/each}
+          </div>
+        </div>
+        <a class="secondary-cta closing-program-mobile" href={programHref}>{programLabels[$language]}</a>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  .home-closing { display: grid; grid-template-columns: minmax(0, 1.27fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2.75rem); align-items: center; margin-top: clamp(3rem, 6vw, 5rem); }
+  .home-closing-copy { container-type: inline-size; }
+  .home-closing-title { margin: 0; font: 500 clamp(24px, 9.35cqi, 50px)/1.14 'Playfair Display', Georgia, serif; color: #233f4e; }
+  .home-closing-title span, .home-closing-title em { font: inherit; }
+  .home-closing-title .closing-line { display: block; }
+  .home-closing-title em { color: #4083a7; }
+  .home-closing-paragraphs { display: grid; gap: 1rem; margin-top: clamp(1.25rem, 3vw, 2rem); color: #233f4e; font-size: 16px; line-height: 1.7; }
+  .home-closing-paragraphs :global(strong) { font-weight: 700; }
+  .home-closing-paragraphs :global(.closing-desktop-break) { display: none; }
+  @media (min-width: 1024px) {
+    @container (min-width: 560px) { .home-closing-paragraphs :global(.closing-desktop-break) { display: revert; } }
+  }
+  .closing-contact { display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; margin-top: 1.75rem; }
+  .home-closing :global(.secondary-cta) { color: #233f4e; }
+  @media (hover: hover) and (pointer: fine) { .home-closing :global(.secondary-cta:hover) { color: #fff; } }
+  .closing-program-mobile { display: none; }
+  :global([data-water-phase="deep"]) .home-closing :global(.secondary-cta) { border-color: #8cd0d6; color: #fff; }
+  @media (max-width: 767px) {
+    .home-closing { margin-top: 3.75rem; }
+    .closing-program-desktop { display: none; }
+    .closing-program-mobile { display: flex; width: fit-content; margin: 1.4rem auto 0; }
+  }
+  @media (max-width: 900px) { .home-closing { grid-template-columns: minmax(0,1fr); } }
   .translated-heading { --section-playfair-desktop-size: 44px; }
   .updated-heading :global(.value-heading-accent) { color: #4083a7; font: inherit; }
   .summary-intro-mobile { display: none; }
@@ -283,7 +328,6 @@
     .summary-intro-desktop { display: none; }
     .summary-intro-mobile { display: block; }
     section.home-es { padding-bottom: 25px; }
-    .home-es .summary-cta { margin-top: 25px; }
   }
   .home-es :global(.home-mobile-break) { display: none; }
   @media (max-width: 767px) {
@@ -382,7 +426,7 @@
   }
   .timeline__card-title {
     text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 24px;
     line-height: 1.2;
@@ -489,12 +533,10 @@
     transform: translate3d(0, 0, 0);
   }
 
-  .summary-cta { margin-top: 50px; }
   .timeline-summary {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    max-width: 810px;
     border: 1px solid #8cd0d652;
     border-radius: 24px;
     padding: clamp(1.5rem, 3vw, 2.25rem);
@@ -512,16 +554,17 @@
     transition: opacity var(--dur-estado) var(--ease-calma);
   }
   .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) {
-    font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.4;
+    font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.4;
     color: #fff; padding: .12em .2em .18em; margin-inline: -.05em;
-    background-image: linear-gradient(#fff, #fff); background-repeat: no-repeat; background-position: left center; background-size: 0% 84%;
+    background-image: linear-gradient(#fff, #fff); background-repeat: no-repeat; background-position: left 25%; background-size: 0% 84%;
     box-decoration-break: clone; -webkit-box-decoration-break: clone;
     transition: background-size 800ms var(--ease-calma), color var(--dur-estado) var(--ease-calma);
   }
   .timeline-summary :global(.summary-programme) { font-weight: 700; }
   .timeline-summary :global(.summary-marker.marker-visible), .timeline-summary :global(.summary-programme.marker-visible) { background-size: 100% 84%; color: #233f4e; text-shadow: none; }
-  @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) { background-size: 100% 100%; color: #233f4e; text-shadow: none; transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .timeline-summary :global(.summary-marker), .timeline-summary :global(.summary-programme) { background-size: 100% 84%; color: #233f4e; text-shadow: none; transition: none; } }
   .timeline-summary__content { display: flex; flex-direction: column; gap: .95rem; }
+  .timeline-summary :global(.home-desktop-break) { display: none; }
   .timeline-summary .timeline-summary__line { text-shadow: 0 0 8px #071a2580, 0 0 18px #071a2566; font-size: 17px; color: #F4F4F8; transition: color var(--dur-estado) var(--ease-calma); }
   .timeline-summary :global(strong) { color: #ffffff; transition: color var(--dur-estado) var(--ease-calma); }
   .timeline-summary:global(.summary-reading) { background: #17313e; box-shadow: 0 20px 50px #233f4e26, inset 0 1px 0 #ffffff45; }
@@ -542,7 +585,7 @@
   }
 
   .timeline-summary__line--serif {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 20px;
     line-height: 1.45;

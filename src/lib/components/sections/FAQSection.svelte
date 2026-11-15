@@ -95,7 +95,7 @@
 
 <style>
   .faq-question, .faq-question :global(*) {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Newsreader', Georgia, serif;
   }
 </style>
 

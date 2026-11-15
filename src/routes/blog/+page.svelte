@@ -77,7 +77,7 @@
   {@html ldBreadcrumbHtml}
 </svelte:head>
 
-<div class="blog-index">
+<div class="blog-index" data-water-page-tone="mist">
 <section class="relative overflow-hidden" style="min-height: 45vh;">
   <div
     class="absolute inset-0 bg-center bg-cover"
@@ -91,8 +91,11 @@
 
   <div class="blog-hero-content photo-text-contrast relative z-10 mx-auto max-w-7xl px-5 pt-20 md:px-10 md:pt-28">
     <h1 class="blog-hero-title text-[35px] leading-[1.08] text-white md:text-[60px] md:leading-[1.02]">
-      <span class="block md:inline">{ui.heading[0]}</span>{' '}
-      <span class="text-[#8CD0D6]">{ui.heading[1]}<br class="hidden md:block" />{' '}{ui.mobileHeading[1].slice(ui.heading[1].length).trim()}<br class="md:hidden" />{' '}{ui.mobileHeading[2]}</span>
+      <span class="hidden md:inline">{ui.heading[0]}{' '}</span>
+      <span class="hidden text-[#8CD0D6] md:inline">{ui.heading[1]}<br />{ui.heading[2]}</span>
+      {#each ui.mobileHeading as line, index}
+        <span class="blog-mobile-line md:hidden" class:blog-mobile-accent={index > 0}>{line}</span>
+      {/each}
     </h1>
     <p class="mt-7 max-w-5xl text-[15px] font-light leading-relaxed text-white/80">
       {ui.intro[0]} <strong class="font-bold">{ui.intro[1]}</strong><br class="hidden md:block" />{' '}
@@ -112,7 +115,11 @@
     letter-spacing: 0;
   }
 
-@media (max-width: 767px) { .blog-hero-content p { font-size: 14.8px; } }
+  .blog-mobile-accent { color: #8cd0d6; }
+  @media (max-width: 767px) {
+    .blog-hero-content p { font-size: 14.8px; }
+    .blog-mobile-line { display: block; line-height: 39px; }
+  }
   .blog-faq-card { display: block; max-width: 1100px; border: 1px solid transparent; text-decoration: none; transition: border-color 200ms ease, box-shadow 200ms ease; }
   .blog-faq-card:is(:hover, :focus-visible) { border-color: #4083a7; }
   .blog-faq-card:focus-visible { outline: 2px solid #4083a7; outline-offset: 3px; }
@@ -145,7 +152,7 @@
       <p>{#if data.language === 'es'}Sabemos que este tema genera muchas dudas: <strong><em>qué tipo de ejercicio es seguro, cuándo empezar,<br class="blog-faq-desktop-break" /> qué hacer si hay fatiga, dolor, metástasis, anemia o miedo a moverse.</em></strong><span class="blog-faq-break" aria-hidden="true"></span> Puedes consultar nuestras{:else}{ui.questionsBefore}{/if}{' '}<span class="blog-faq-link">{ui.faq}</span> {ui.questionsAfter}</p>
     </a>
     <div class="mx-auto mt-8 flex max-w-3xl flex-col items-center justify-center gap-4 text-center md:flex-row md:gap-6 md:text-left">
-      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ui.cta} />
+      <PrimaryCta href={whatsappHref} target="_blank" rel="noopener noreferrer" label={ui.cta} bordered />
     </div>
   </div>
 </section>

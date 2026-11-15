@@ -17,7 +17,7 @@
 <div class="response-modal" role="presentation" on:click={close}>
   <div class="response-modal-panel" use:dialog={{ close }} role="dialog" aria-modal="true" aria-label={copy.expand} tabindex="-1" on:click|stopPropagation on:keydown|stopPropagation>
     <button class="response-modal-close eima-close" type="button" aria-label={copy.close} on:click={close}><CloseIcon /></button>
-    <span class="modal-image-frame">
+    <span class="modal-image-frame" class:form-edges-cropped={item.cropFormEdges} style:--form-aspect={item.cropFormEdges ? item.width / item.height : undefined}>
       <img src={item.image} alt={item.alt} style:filter={item.cleanBackground ? 'contrast(1.15)' : undefined} width={item.width || undefined} height={item.height || undefined} />
       <ResponseHighlights lines={item.markers} light={item.lightMarkers} active={true} {reduced} />
     </span>
@@ -29,7 +29,14 @@
   .response-modal-panel { position: relative; width: fit-content; max-width: 90vw; padding: 0; background: transparent; }
   .modal-image-frame { position: relative; display: block; width: fit-content; max-width: 100%; }
   img { display: block; width: auto; max-width: min(720px, 86vw); max-height: calc(100dvh - 140px); object-fit: contain; border-radius: 7px; box-shadow: 0 20px 50px #071a2560; }
+  .form-edges-cropped { background: #fff; border-radius: 7px; }
+  .form-edges-cropped img {
+    width: min(720px, var(--form-viewport-width, 86vw), calc((100dvh - var(--form-vertical-space, 140px)) * var(--form-aspect)));
+    max-height: none;
+    object-fit: fill;
+    clip-path: inset(0 2.9%);
+  }
   .response-modal-close { position: absolute; top: -54px; right: 0; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: #233f4e; color: #fff; }
   .response-modal-close:focus-visible { outline: 2px solid #8cd0d6; outline-offset: 4px; }
-  @media (max-width: 767px) { .response-modal { padding: 4rem 1.25rem 1.5rem; } .response-modal-panel { max-width: 100%; } img { max-width: calc(100vw - 2.5rem); max-height: calc(100dvh - 120px); } }
+  @media (max-width: 767px) { .response-modal { padding: 4rem 1.25rem 1.5rem; } .response-modal-panel { max-width: 100%; --form-viewport-width: calc(100vw - 2.5rem); --form-vertical-space: 120px; } img { max-width: calc(100vw - 2.5rem); max-height: calc(100dvh - 120px); } }
 </style>

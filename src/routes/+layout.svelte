@@ -8,11 +8,15 @@
   import '@fontsource/material-symbols-rounded/300.css';
   import interLightFont from '@fontsource/inter/files/inter-latin-300-normal.woff2?url';
   import '../app.css';
+  import '../lib/components/site-water.css';
+  import '../lib/components/eima-barras.css';
   import Header from '$lib/components/Header.svelte';
   import MobileMenu from '$lib/components/MobileMenu.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import FloatingWhatsApp from '$lib/components/FloatingWhatsApp.svelte';
   import PageLoader from '$lib/components/PageLoader.svelte';
+  import { siteWater } from '$lib/actions/siteWater';
+  import { typographyPreview } from '$lib/actions/typographyPreview';
   import { setLanguage } from '$lib/i18n/language';
   import { getLanguageFromPath, getRouteKey } from '$lib/i18n/routes';
   import { getBlogPostId } from '$lib/i18n/blog-routes';
@@ -78,7 +82,8 @@
 </svelte:head>
 
 <PageLoader />
-<div class="min-h-screen bg-default text-primary">
+<div class="site-water-layout min-h-screen bg-default text-primary" use:siteWater use:typographyPreview={$page.url.searchParams.get('titulos') === 'playfair' ? 'playfair' : 'newsreader'}>
+  <canvas id="water" aria-hidden="true"></canvas>
   <div class="scroll-progress" style={`--scroll-progress: ${scrollProgress}`} aria-hidden="true"></div>
   <div class="mobile-scroll-rail" class:mobile-scroll-rail--visible={scrollProgress > 0 && scrollThumbRatio < 1 && !mobileMenuOpen} aria-hidden="true">
     <div class="mobile-scroll-track"><span style={`height: ${scrollThumbRatio * 100}%; top: ${scrollProgress * (1 - scrollThumbRatio) * 100}%`}></span></div>

@@ -4,7 +4,6 @@
   import HomeReviewSections from '$lib/components/sections/HomeReviewSections.svelte';
   import HeroSection from '$lib/components/sections/HeroSection.svelte';
   import ValuePropsSection from '$lib/components/sections/ValuePropsSection.svelte';
-  import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
   import { getCopy } from '$lib/i18n/copy';
   import { language } from '$lib/i18n/language';
   import { getAbsoluteUrl, getAlternateLinks, getLanguageFromPath, getLocalizedPath } from '$lib/i18n/routes';
@@ -39,20 +38,6 @@
   <div class="home-es-rhythm">
   <HeroSection />
   <HomeReviewSections pageLanguage={pageLanguage} />
-  <ParallaxSloganSection
-    image="/Gemini_Generated_Image_8crr28crr28crr28-100.png"
-    topHtml={homeCopy.slogan.topHtml}
-    middleHtml={homeCopy.slogan.middleHtml}
-    bottomHtml={homeCopy.slogan.bottomHtml}
-    mobileTopSize={16}
-    desktopTopSize={24}
-    mobileMiddleSize={16}
-    desktopMiddleSize={24}
-    mobileBottomSize={17}
-    desktopBottomSize={30}
-    lineGap={20}
-    sectionClass="home-banner-section"
-  />
   <ValuePropsSection />
   </div>
 {/key}

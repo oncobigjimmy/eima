@@ -206,7 +206,7 @@
   </div>
 </section>
 
-<section class="testimonials-section" aria-labelledby="testimonios-title">
+<section class="testimonials-section" data-water-tone={activeTab === 'escritas' ? 'deep' : 'mist'} data-water-page-tone={activeTab === 'escritas' ? 'deep' : 'mist'} aria-labelledby="testimonios-title">
   <div class="testimonials-section__inner" class:written={activeTab === 'escritas'}>
     <h2 id="testimonios-title" class="sr-only">{copy.section}</h2>
 
@@ -284,12 +284,14 @@
       {/each}
     </div>
     {:else}
-      <div role="tabpanel" id="testimonials-panel-escritas" aria-labelledby="testimonials-tab-escritas"><WrittenStories {pageLanguage} /></div>
+      <div role="tabpanel" id="testimonials-panel-escritas" aria-labelledby="testimonials-tab-escritas">
+        <WrittenStories {pageLanguage} />
+      </div>
     {/if}
   </div>
 </section>
 
-<section class="testimonials-cta" aria-labelledby="testimonios-cta-title">
+<section class="testimonials-cta" data-water-tone={activeTab === 'escritas' ? 'deep' : 'mist'} aria-labelledby="testimonios-cta-title">
   <div>
     <h2 id="testimonios-cta-title" class="testimonials-closing-title">
        {#if pageLanguage === 'es'}Si quieres <span class="closing-accent">cambiar tu<span class="closing-mobile-break"><br /></span><span class="closing-desktop-space">&nbsp;</span>situación</span> actual,<span class="closing-mobile-break">&nbsp;pero<br /></span><span class="closing-desktop-break"><br /></span><span class="closing-desktop-only">pero&nbsp;</span>no sabes cómo hacerlo...{:else}{@html ctaHeading}{/if}
@@ -457,6 +459,9 @@
     margin: 0 auto;
     max-width: 80rem;
   }
+  .testimonials-section[data-water-tone='deep'], .testimonials-cta[data-water-tone='deep'] { background: #233f4e; }
+  .testimonials-cta[data-water-tone='deep'] h2 { color: #f8f4f0; }
+  .testimonials-cta[data-water-tone='deep'] h2 :global(.closing-accent) { color: #8cd0d6; }
   @media (min-width: 768px) {
     .testimonials-section__inner.written { max-width: none; }
   }
@@ -560,7 +565,7 @@
 
   .testimonial-card__caption {
     bottom: 1rem;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 1.12rem;
     left: 1rem;
@@ -603,7 +608,7 @@
 
   .testimonial-card__person h3 {
     color: var(--testimonial-heading);
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-size: 40px;
     font-weight: 400;
     line-height: 1;
@@ -625,7 +630,7 @@
   .testimonial-card__condition-title {
     color: var(--testimonial-accent);
     display: block;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-size: 18px;
     line-height: 1.25;
     margin-bottom: 0.32rem;
@@ -667,7 +672,7 @@
   .testimonial-card__change span {
     color: var(--testimonial-accent);
     display: block;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 18px;
     letter-spacing: 0;
@@ -1079,6 +1084,10 @@
   @media (max-width: 767px) { .closing-mobile-break { display: inline; } .closing-desktop-break, .closing-desktop-only, .closing-desktop-space { display: none; } .testimonials-cta h2 { line-height: 1.12; } }
   .testimonials-cta { padding-top: 1.2rem; }
   .testimonials-cta h2 :global(.closing-accent) { color: #4083a7; font: inherit; }
+  :global(.site-water-layout[data-water-phase="deep"]:not(.water-measuring)) .testimonials-cta .testimonials-closing-title,
+  :global(.site-water-layout[data-water-phase="deep"]:not(.water-measuring)) .testimonials-cta .testimonials-closing-title :global(*) { color: #fff !important; }
+  :global(.site-water-layout[data-water-phase="deep"]:not(.water-measuring)) .testimonials-cta .testimonials-closing-title :global(:is(.closing-accent, .closing-accent *)) { color: #8cd0d6 !important; }
+  .testimonials-tabs :global(#testimonials-tab-escritas[aria-selected="true"]) { background: #233f4e; }
   @media (max-width: 767px) { .testimonials-cta h2 { font-size: 24px; } }
 
   @media (min-width: 1024px) {

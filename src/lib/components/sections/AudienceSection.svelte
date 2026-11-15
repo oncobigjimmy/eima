@@ -90,7 +90,7 @@
             </div>
 
             <h3
-              class="audience-quote font-fraunces mx-auto mt-3 min-h-[4.9rem] max-w-[17.4rem] text-[1.45rem] leading-[1.05] text-[color:var(--color-brand)] md:min-h-[5.1rem] md:max-w-[17.6rem] md:text-[1.54rem]"
+              class="audience-quote font-newsreader mx-auto mt-3 min-h-[4.9rem] max-w-[17.4rem] text-[1.45rem] leading-[1.05] text-[color:var(--color-brand)] md:min-h-[5.1rem] md:max-w-[17.6rem] md:text-[1.54rem]"
             >
               {#if item.quoteLines}
                 {#each item.quoteLines as line}
@@ -161,7 +161,7 @@
 
   .audience-quote,
   .audience-quote * {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
   }
 

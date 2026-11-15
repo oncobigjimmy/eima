@@ -5,6 +5,7 @@
   import { onMount } from 'svelte';
   import { afterNavigate } from '$app/navigation';
   import { surfaceIsDark } from '$lib/actions/ctaSurface';
+  import { pageSurfaces } from '$lib/actions/pageSurfaces';
   import { page } from '$app/stores';
   import LanguageSelector from '$lib/components/LanguageSelector.svelte';
   import { getCopy, getWhatsAppHref } from '$lib/i18n/copy';
@@ -17,6 +18,8 @@
   let mounted = false;
   let scrolled = false;
   let sectionDark = false;
+  /** @type {boolean | null} */
+  let waterDark = null;
   let previousScroll = 0, scrollingDown = true;
   /** @type {HTMLElement} */
   let headerNode;
@@ -26,8 +29,7 @@
     surfaceFrame = 0;
     if (!headerNode) return;
     // Follow structural page sections, never cards, carousel slides or overlays.
-    const sections = [...document.querySelectorAll('main section, main > article, footer.footer')]
-      .filter(section => !section.parentElement?.closest('main section'));
+    const sections = pageSurfaces();
     const edge = scrollingDown ? headerNode.getBoundingClientRect().height + 1 : 1;
     let section = sections.find(section => {
       const rect = section.getBoundingClientRect();
@@ -66,7 +68,15 @@
     const resize = new ResizeObserver(scheduleSurface);
     const main = document.querySelector('main');
     if (main) resize.observe(main);
-    return () => { resize.disconnect(); cancelAnimationFrame(surfaceFrame); };
+    const layout = headerNode.closest('.site-water-layout');
+    const syncWater = () => {
+      const phase = layout?.getAttribute('data-water-phase');
+      waterDark = phase ? phase === 'deep' : null;
+    };
+    const water = new MutationObserver(syncWater);
+    if (layout) water.observe(layout, { attributes: true, attributeFilter: ['data-water-phase', 'class'] });
+    syncWater();
+    return () => { resize.disconnect(); water.disconnect(); cancelAnimationFrame(surfaceFrame); };
   });
 
   $: pathname = $page.url.pathname;
@@ -87,7 +97,7 @@
     isBlog;
   $: transparent = mounted && hasDarkHero && !scrolled && !mobileMenuOpen;
   $: isErrorPage = $page.status >= 400;
-  $: lightHeader = transparent || sectionDark || isErrorPage || mobileMenuOpen;
+  $: lightHeader = transparent || (waterDark ?? sectionDark) || isErrorPage || mobileMenuOpen;
   $: solidHeaderClass = 'bg-[#F8F4F0]';
 </script>
 
@@ -96,9 +106,12 @@
 <header
   bind:this={headerNode}
   data-surface={lightHeader ? 'dark' : 'light'}
+  data-menu-open={mobileMenuOpen}
+  data-water-header={mounted && !transparent && !mobileMenuOpen && !isErrorPage}
   class="fixed top-0 z-40 w-full transition-colors duration-300
     {mobileMenuOpen || isErrorPage ? 'bg-[#233F4E]' : transparent ? 'bg-transparent' : sectionDark ? 'bg-[#233F4E]' : solidHeaderClass}"
 >
+  <canvas class="header-water" aria-hidden="true"></canvas>
   <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-10">
     <a href={homeHref} aria-label={currentLanguage === 'en' ? 'Home' : currentLanguage === 'ca' ? 'Inici' : 'Inicio'} on:click={() => (mobileMenuOpen = false)} class="ml-1 flex items-center md:ml-2">
       <BrandLogo id="header-logo" light={lightHeader} class="h-9 w-auto md:h-11" />

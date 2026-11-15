@@ -191,7 +191,7 @@
   }
 
   .faq-question {
-    font-family: 'Fraunces', Georgia, serif !important;
+    font-family: 'Newsreader', Georgia, serif !important;
     font-weight: 400;
   }
   @media (max-width: 767px) { .faq-question { font-size: 15px; } }

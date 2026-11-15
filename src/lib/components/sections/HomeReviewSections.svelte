@@ -11,8 +11,7 @@
   import SituationResponse from '$lib/components/SituationResponse.svelte';
   import BrandLogo from '$lib/components/BrandLogo.svelte';
   import PatientJourney from '$lib/components/PatientJourney.svelte';
-  import ParallaxSloganSection from '$lib/components/sections/ParallaxSloganSection.svelte';
-  import { getProgramCopy } from '$lib/i18n/program';
+  import ThreeRSection from './ThreeRSection.svelte';
 
   export let pageLanguage: Language = 'es';
   const ui = homeSections[pageLanguage];
@@ -92,42 +91,7 @@
     return { destroy() { observer.disconnect(); } };
   }
 
-  function paintRecoveryWord(node: HTMLElement) {
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    node.classList.add('word-pending');
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const bounds = node.getBoundingClientRect();
-      // Start at the same 80% viewport threshold; paint over the next quarter screen.
-      const progress = motion.matches ? 1 : Math.max(0, Math.min(1,
-        (window.innerHeight * .8 - bounds.bottom) / (window.innerHeight * .25)));
-      node.style.setProperty('--word-unpainted', ((1 - progress) * 100) + '%');
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    motion.addEventListener('change', schedule);
-    return { destroy() {
-      if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      motion.removeEventListener('change', schedule);
-    } };
-  }
 
-  function revealGoal(node: HTMLElement) {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!('IntersectionObserver' in window) || preference.matches) return {};
-    node.classList.add('goal-pending');
-    const show = () => { node.classList.add('goal-visible'); observer.disconnect(); };
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) show(); }, { threshold: 0.15 });
-    const motionChanged = () => { if (preference.matches) show(); };
-    preference.addEventListener('change', motionChanged);
-    observer.observe(node);
-    return { destroy() { observer.disconnect(); preference.removeEventListener('change', motionChanged); } };
-  }
 </script>
 
 <dialog class="video-notice" bind:this={videoNotice} use:noticeLifecycle on:close={restoreNoticeScroll} aria-labelledby="video-notice-title" aria-describedby="video-notice-description">
@@ -140,7 +104,7 @@
 <section class="vsl section-space" aria-labelledby="vsl-title">
   <div class="section-inner">
     <header class="section-heading">
-      <p class="vsl-headline section-playfair-desktop">{ui.vslBefore} <span>Empenta</span>{ui.vslAfter}</p>
+      <p role="heading" aria-level="2" class="vsl-headline section-playfair-desktop">{ui.vslBefore} <span>Empenta</span>{ui.vslAfter}</p>
       <h1 id="vsl-title" class="mobile-copy-14" aria-label={ui.programme}>{#each programmeLines as line, index}{#if index > 0}{' '}{/if}<span class="programme-line">{line}</span>{/each}</h1>
     </header>
     <div class="video-frame" use:nearVideo use:standardEntry>
@@ -175,18 +139,6 @@
   </div>
 </section>
 
-<ParallaxSloganSection
-  image="/Gemini_Generated_Image_y50u8jy50u8jy50u-100.png"
-  compact
-  sectionClass="home-banner-section"
-  topHtml={getProgramCopy(pageLanguage).slogan1.topHtml}
-  bottomHtml={getProgramCopy(pageLanguage).slogan1.bottomHtml}
-  mobileTopSize={15}
-  desktopTopSize={22}
-  mobileBottomSize={21.5}
-  desktopBottomSize={35}
-/>
-
 <PatientJourney {pageLanguage} />
 
 <section class="situations section-space" aria-labelledby="situations-title">
@@ -195,7 +147,7 @@
       <h2 id="situations-title" class="section-playfair-desktop">{@html ui.situationTitle}</h2>
       <p class="mobile-copy-14">{@html ui.situationIntro}</p>
     </header>
-    <p class="selection-instruction"><span class="instruction-desktop">{selectionCopy.choose}</span><span class="instruction-mobile">{pageLanguage === 'es' ? 'Pulsa en la situación que más se parezca a la tuya' : pageLanguage === 'ca' ? 'Toca la situació que més s’assembli a la teva' : 'Tap the situation that feels closest to yours'}</span></p>
+    <p class="selection-instruction" data-newsreader-fixed><span class="instruction-desktop">{selectionCopy.choose}</span><span class="instruction-mobile">{pageLanguage === 'es' ? 'Pulsa la situación que más se parezca a la tuya' : pageLanguage === 'ca' ? 'Toca la situació que més s’assembli a la teva' : 'Tap the situation that feels closest to yours'}</span></p>
     <div class="situations-grid" class:has-selection={Boolean($selectedSituation || responseSituation)}>
       {#each situations as situation, i}
         <button type="button" class="situation-card" class:selected={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-pressed={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-haspopup="dialog" aria-label={`${situation.quote} ${selectionCopy.hint}`} on:click={() => selectSituation(situation.letter)} use:standardEntry={i} use:scrollContrast use:pulsePrompt>
@@ -212,54 +164,14 @@
   </div>
 </section>
 
-<section class="recovery section-space" class:recovery--translated={pageLanguage !== 'es'} aria-labelledby="recovery-title">
-  <div class="section-inner">
-    <header class="section-heading">
-      <h2 id="recovery-title" class="section-playfair-desktop">{@html ui.recoveryTitle}</h2>
-      <p class="recovery-subtitle" use:revealGoal>
-        <span class="recovery-brush">
-          <svg class="brush-stroke" viewBox="0 0 500 70" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M18 13 Q126 6 248 11 T481 10 Q490 10 493 17 Q498 34 491 51 Q488 57 478 57 Q353 62 244 58 T18 60 Q9 59 7 51 Q3 34 9 21 Q12 15 18 13Z" />
-          </svg>
-          <span class="brush-label">{@html ui.recoverySubtitle}</span>
-          <span class="brush-white" aria-hidden="true">{@html ui.recoverySubtitle}</span>
-        </span>
-      </p>
-    </header>
-    <div class="recovery-grid">
-      {#each goals as goal, i}
-        <article class="recovery-row" use:revealGoal>
-          <svg class="recovery-symbol" viewBox="0 0 300 180" aria-hidden="true">
-            {#if i < 2}
-              <g transform={i === 0 ? 'translate(0 180) scale(1 -1)' : undefined}>
-                <path d="M25 145 55 119 81 134 117 97 146 116 183 73 213 93 265 39" fill="none" stroke="currentColor" stroke-width="16" stroke-linejoin="miter" />
-                <path d="M242 34 290 17 277 66Z" fill="currentColor" />
-              </g>
-            {:else}
-              <g transform="translate(60 0)" fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M140 61A62 62 0 1 0 149 103 M140 25V63H102" />
-              </g>
-            {/if}
-          </svg>
-          <div class="recovery-concept" use:standardEntry>
-            <h3 class="recovery-word" use:paintRecoveryWord>{goal.title}<span class="recovery-word-ink" aria-hidden="true">{goal.title}</span></h3>
-          </div>
-          <div class="goal-content" use:standardEntry={1}>
-            <p class="goal-subtitle">{goal.subtitle}</p>
-            <p class="goal-body">{@html goal.body}</p>
-          </div>
-        </article>
-      {/each}
-    </div>
-  </div>
-</section>
+<ThreeRSection {pageLanguage} {goals} />
 
 {#if responseSituation}<SituationResponse situation={responseSituation} {pageLanguage} href={responseHref} cta={homeCopy.hero.cta} confirm={confirmSituation} close={closeSituation} />{/if}
 
 <style>
   .video-notice { position: fixed; inset: 0; margin: auto; height: fit-content; box-sizing: border-box; width: min(540px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; border: 0; border-radius: 16px; padding: 3rem 2rem 2.25rem; background: #f8f4f0; color: #233f4e; text-align: center; box-shadow: 0 20px 70px #071a2540; }
   .video-notice::backdrop { background: #071a25a3; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
-  .video-notice h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
+  .video-notice h2 { font-family: 'Newsreader', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
   .notice-desktop-break { display: none; }
   @media (min-width: 768px) { .notice-desktop-break { display: block; } }
   .video-notice h2 .notice-video-accent { font-family: inherit; color: #4083a7; }
@@ -271,12 +183,12 @@
 
   .section-space { padding: var(--home-section-start, 3.75rem) 1.5rem var(--home-section-end, 3.75rem); }
   .section-inner { max-width: 1072px; margin: 0 auto; }
-  .vsl, .recovery { background: #f8f4f0; }
+  .vsl { background: #f8f4f0; }
   .section-heading { text-align: center; max-width: 840px; margin: 0 auto 2.75rem; }
   h2, h2 :global(span) { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; }
   h2 { font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1.12; color: #233f4e; text-wrap: balance; }
   h2 :global(span) { color: #4083a7; }
-  .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { max-width: 750px; margin: 1.25rem auto 0; font-size: 1rem; line-height: 1.7; color: #4f6571; }
+  .section-heading > p:not(.vsl-headline) { max-width: 750px; margin: 1.25rem auto 0; font-size: 1rem; line-height: 1.7; color: #4f6571; }
   .vsl-headline, .vsl-headline span { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; }
   .vsl-headline { font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1.12; color: #233f4e; text-wrap: balance; }
   .vsl-headline span { color: #4083a7; }
@@ -299,6 +211,11 @@
   .poster-phone-base { display: block; width: 100%; height: auto; }
   .poster-phone-screen { position: absolute; top: 7.8%; left: 24.2%; width: 61.8%; height: 68.1%; object-fit: fill; border-radius: 10% 10% 8% 8% / 5% 5% 3% 3%; }
   .poster-play { border: 0; padding: 0; cursor: pointer; position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; place-items: center; width: clamp(56px, 9vw, 82px); aspect-ratio: 1; border-radius: 50%; background: #8cd0d6; color: #fff; box-shadow: 0 16px 36px rgba(35, 63, 78, .34), 0 5px 14px rgba(35, 63, 78, .22); transform: translate(-50%, -50%); transition: transform var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma); }
+  .poster-play::before,.poster-play::after{content:"";position:absolute;pointer-events:none;inset:0;border-radius:50%;border:1px solid
+  rgba(248,244,240,.75);animation:eima-video-breathe 6s cubic-bezier(.22,.61,.21,1) infinite}
+  .poster-play::after{animation-delay:3s}
+  @keyframes eima-video-breathe{0%{transform:scale(1);opacity:.85}75%,100%{transform:scale(2);opacity:0}}
+  @media (prefers-reduced-motion: reduce) { .poster-play::before, .poster-play::after { display: none; } }
   .poster-play svg { width: 88%; height: 88%; filter: drop-shadow(0 2px 3px rgba(35, 63, 78, .4)); }
 .poster-play:focus-visible { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); }
 @media (hover: hover) and (pointer: fine) { .poster-play:hover { transform: translate(-50%, -50%) scale(1.04); box-shadow: 0 19px 40px rgba(35, 63, 78, .38), 0 0 0 5px rgba(140, 208, 214, .25); } }
@@ -308,11 +225,11 @@
   :global(.desktop-only-break) { display: none; }
   @media (min-width: 768px) { .cta-note { white-space: pre-line; } :global(.desktop-only-break) { display: inline; } }
   .situations { background: #233f4e; }
-  .situations :is(h2, h3, p) { text-shadow: var(--eima-dark-copy-shadow); }
+  .situations :is(h2, p) { text-shadow: var(--eima-dark-copy-shadow); }
   .situations .section-heading { max-width: 1072px; }
   .situations h2 { color: #fff; }
   .situations h2 :global(span) { color: #8cd0d6; }
-  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #e8f8e0; max-width: 1072px; font-size: 16px; }
+  .situations .section-heading > p:not(.vsl-headline) { color: #e8f8e0; max-width: 1072px; font-size: 16px; }
   .situations-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4rem 1.25rem; }
   @media (min-width: 1100px) {
     .situations-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -323,40 +240,8 @@
   .situation-quote > span { display: block; font: inherit; }
   .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; min-height: 252px; transform-origin: center; transition: opacity var(--dur-estado) var(--ease-calma), filter var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma); }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 7.2rem; line-height: .8; transform: translateY(-6px); color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
-  .situation-card .situation-quote { display: block; font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
+  .situation-card .situation-quote { display: block; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 22px); line-height: 1.32; color: #fff; text-wrap: pretty; }
   .situations-closing { color: #e8f8e0; line-height: 1.7; max-width: 660px; margin: 0 auto 1.5rem; }
-  .recovery h2 { color: #233f4e; }
-  .section-heading > .recovery-subtitle { font-family: 'Fraunces', Georgia, serif; color: #233f4e; font-size: 30px; margin: 1.25rem auto 0; }
-  .recovery-subtitle :global(strong) { font-family: inherit; font-weight: 500; }
-  .recovery-subtitle :global(.brush-accent) { font: inherit; }
-  .recovery-brush { position: relative; display: inline-grid; isolation: isolate; font-family: 'Fraunces', Georgia, serif; padding: .3em .7em .35em; }
-  .brush-stroke { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; color: #245b7d; fill: currentColor; }
-  .brush-label, .brush-white { grid-area: 1 / 1; font-family: inherit; }
-  .brush-label { color: #233f4e; text-shadow: 0 0 4px #233f4e26; }
-  .brush-white { color: #fff; text-shadow: var(--eima-active-text-shadow); }
-  .brush-white :global(.brush-accent) { color: #8cd0d6; }
-  .recovery-subtitle:global(.goal-pending) .brush-stroke { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
-  .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: inset(0 100% 0 0); transition: clip-path 1000ms cubic-bezier(.22, 1, .36, 1); }
-  .recovery-subtitle:global(.goal-visible) .brush-stroke { clip-path: inset(0); }
-  .recovery-subtitle:global(.goal-visible) .brush-white { clip-path: inset(0); }
-  .recovery .section-heading { margin-bottom: .75rem; }
-  .recovery-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .recovery-row { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .73fr) minmax(0, 2.12fr); align-items: start; gap: clamp(1rem, 2.5vw, 2.25rem); padding: 2rem 0; }
-  .recovery-concept { position: relative; isolation: isolate; align-self: center; }
-  .recovery-symbol { position: absolute; z-index: -1; width: 250px; height: 150px; left: 0; top: 50%; transform: translateY(-50%); color: #e8e8f6; opacity: .78; filter: blur(1px); pointer-events: none; }
-  .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: 0; transition: opacity 650ms ease; }
-  .recovery-row:global(.goal-visible) > .recovery-symbol { opacity: .78; }
-  .recovery-row + .recovery-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1.5px; background: #233f4e30; transform-origin: left; }
-  .recovery-word { position: relative; width: fit-content; font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; color: #4083a7; }
-  .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; -webkit-text-stroke: .4px #4083a7; paint-order: stroke fill; }
-    .recovery-word:global(.word-pending) { color: #233f4e; }
-    .recovery-word:global(.word-pending) .recovery-word-ink { position: absolute; inset: 0; display: block; font: inherit; color: #4083a7; clip-path: inset(-.2em var(--word-unpainted, 100%) -.2em -.05em); }
-    .recovery-word-ink::first-letter { color: #233f4e; font-weight: 400; -webkit-text-stroke: 0; }
-  .recovery-word::first-letter { color: #233f4e; font-weight: 400; }
-  .goal-subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.4; color: #233f4e; }
-  .goal-body { font-family: 'Inter', Arial, sans-serif; font-size: 16px; line-height: 1.7; margin-top: .75rem; color: #233f4e; }
-  .recovery-row:global(.goal-pending)::before { transform: scaleX(0); transition: transform 800ms ease; }
-  .recovery-row:global(.goal-visible)::before { transform: scaleX(1); }
   .mobile-video-caption { display: none; }
   @media (min-width: 768px) { .poster-description--review { font-size: 13px; max-width: none; white-space: nowrap; } }
   @media (min-width: 768px) and (hover: hover) {
@@ -367,18 +252,10 @@
     .programme-line { display: block; white-space: nowrap; }
     .vsl .section-cta { margin-top: 1.375rem; display: grid; justify-items: center; }
     .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 1.625rem; }
-    .recovery-grid { grid-template-columns: minmax(0, 1fr); }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
-    .recovery h2 { white-space: normal; }
-    .section-heading > .recovery-subtitle { font-size: 22px; }
-    .goal-subtitle { font-size: 18px; }
-    .goal-body { font-size: 14px; }
     .situations-grid .situation-card { width: min(264px, 100%); aspect-ratio: 1; min-height: 0; padding: 1rem; }
     .situation-card .situation-quote { font-size: 20px; line-height: 1.3; }
     .situation-letter { font-size: 5rem; line-height: .8; margin-bottom: 1.25rem; transform: translateY(-4px); }
-    .recovery-row { grid-template-columns: minmax(0, 1fr); gap: .1875rem; padding: 1.75rem 0; }
-    .recovery-symbol { width: 100%; height: calc(100% - 2rem); left: 0; top: 1rem; transform: none; filter: blur(1.75px); }
-    .recovery-word { position: relative; width: fit-content; font-size: 32px; }
 
     .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
     .video-poster { background: #fff; }
@@ -387,7 +264,7 @@
     .poster-title { font-size: clamp(16px, 4.7cqw, 17px); line-height: 1.18; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
-    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
+    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: clamp(56px, 9vw, 82px); left: 50%; top: 50%; }
@@ -396,18 +273,12 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .video-frame .poster-play { transform: translate(-50%, -50%); }
-    .recovery-word:global(.word-pending) .recovery-word-ink { clip-path: none; transition: none; }
     .situation-card { transition: none; }
-    .recovery-row:global(.goal-pending) > div { opacity: 1; transform: none; transition: none; }
-    .recovery-row:global(.goal-pending)::before { transform: none; transition: none; }
-    .recovery-row:global(.goal-pending) > .recovery-symbol { opacity: .78; transition: none; }
-    .goal-body { color: #233f4e; -webkit-text-fill-color: #233f4e; }
-    .recovery-subtitle:global(.goal-pending) .brush-stroke, .recovery-subtitle:global(.goal-pending) .brush-white { clip-path: none; transition: none; }
     .situations-grid .situation-card:global(.scroll-active):not(:global(.will-reveal)) { transform: none; }
   }
 @media (hover: none) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference) { .poster-play:active { transform: translate(-50%, -50%) scale(.97); transition-duration: 100ms; } }
 @media (max-width: 767px) {
-    .section-heading > p:not(.vsl-headline):not(.recovery-subtitle), .vsl h1, .cta-note, .goal-body, .situations-closing { font-size: 14px !important; font-weight: 400; line-height: 1.6; }
+    .section-heading > p:not(.vsl-headline), .vsl h1, .cta-note, .situations-closing { font-size: 14px !important; font-weight: 400; line-height: 1.6; }
   }
 
   @media (max-width: 767px) {
@@ -415,9 +286,10 @@
     .vsl .cta-note { font-size: 13px !important; line-height: 1.4; max-width: none; margin-inline: -12px; text-wrap: balance; }
   }
   .situation-card { width: 100%; cursor: pointer; }
-  .selection-instruction { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; font-size: 15px; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
+  .selection-instruction { font: italic 400 14px/1.35 'Newsreader', 'Iowan Old Style', Georgia, serif; color: #e8f8e0; text-align: center; margin: 0 0 1.25rem; }
+  .selection-instruction span { font: inherit; }
   .instruction-mobile { display: none; }
-  .situations .section-heading > p:not(.vsl-headline):not(.recovery-subtitle) { color: #f8f4f0; }
+  .situations .section-heading > p:not(.vsl-headline) { color: #f8f4f0; }
   .selection-instruction { color: #e8e8f8; }
   .selection-control { display: block; position: absolute; z-index: 4; top: calc(100% + 8px); left: 50%; white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-50%, 12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
   .situation-card:focus-visible .selection-control, .situation-card.selected .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
@@ -437,7 +309,7 @@
 @media (prefers-reduced-motion: reduce) { .situation-card:hover { transform: none; } }
 @media (hover: none), (pointer: coarse) { .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); } }
 @media (prefers-reduced-motion: reduce) { .selection-control { transition: none; transform: translate(-50%, 0); } }
-@media (max-width: 767px) { .selection-instruction { font-size: 14px; } }
+@media (max-width: 767px) { .selection-instruction { font-size: 12px; white-space: nowrap; } }
   @media (max-width: 360px) { .vsl .cta-note { font-size: 11.5px !important; } }
   @media (max-width: 767px) {
     .instruction-desktop { display: none; }

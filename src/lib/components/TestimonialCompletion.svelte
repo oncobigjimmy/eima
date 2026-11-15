@@ -37,17 +37,18 @@
   .completion-overlay { position: fixed; inset: 0; z-index: 310; display: grid; place-items: center; padding: 76px 24px 44px; overflow-y: auto; background: #071a257a; backdrop-filter: blur(8px); }
   .completion-shell { position: relative; width: min(100%, 560px); text-align: center; font-family: Inter, sans-serif; }
   .completion-panel { max-height: calc(100dvh - 184px); overflow-y: auto; border-radius: 24px; border: 1px solid #ffffffa3; padding: 36px 36px 28px; background: #f8f4f0; color: #233f4e; box-shadow: 0 24px 80px #071a2538; }
-  .completion-close.eima-close { position: absolute; top: -54px; right: 0; width: 44px; height: 44px; background: #233f4e; color: #fff; }
+  .completion-close.eima-close { position: absolute; top: -54px; right: 0; width: 44px; height: 44px; background: #8cd0d6; color: #233f4e; }
   h2 { margin: 0 auto 22px; max-width: 430px; font-family: 'Playfair Display', Georgia, serif; font-size: 40px; font-weight: 500; line-height: 1.2; }
   p { font-family: Inter, sans-serif; font-size: 15px; line-height: 1.65; }
   .completion-intro { margin: 0 0 18px; color: #233f4ec7; }
-  .completion-question { margin: 0 0 18px; font-family: Fraunces, serif; font-size: 18px; font-weight: 600; line-height: 1.5; }
+  .completion-question { margin: 0 0 18px; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; line-height: 1.5; }
   .completion-question span { display: block; font: inherit; }
   .completion-invitation { margin: 0 0 24px; }
   .completion-free { margin: 12px auto 0; max-width: 340px; font-size: 12px; color: #233f4ebf; }
   .completion-dismiss { margin-top: 12px; min-height: 44px; padding: 8px 12px; color: #fff; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
   .completion-dismiss:focus-visible { outline: 2px solid #4083a7; outline-offset: 2px; border-radius: 6px; }
   .completion-confetti { position: fixed; inset: 0; z-index: 320; width: 100%; height: 100%; pointer-events: none; }
+  @media (min-width: 768px) { .completion-panel { padding-top: 22px; max-height: calc(100dvh - 162px); } }
   @media (max-width: 767px) {
     .completion-overlay { padding: 68px 16px 24px; }
     .completion-shell { max-width: 400px; }

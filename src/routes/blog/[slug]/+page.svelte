@@ -141,7 +141,7 @@
   {@html ldBreadcrumbHtml}
 </svelte:head>
 
-<section class="relative overflow-hidden" style="min-height: 40vh;">
+<section class="relative overflow-hidden" style="min-height: 40vh;" data-water-media>
   <div class="absolute inset-0 bg-center bg-cover" style="background-image: url('/blog-hero-mallorca.png');" aria-hidden="true"></div>
   <div class="site-hero-overlay absolute inset-0" aria-hidden="true"></div>
 
@@ -375,7 +375,7 @@
 
   :global(.prose-blog h2),
   :global(.prose-blog h3) {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
   }
 
@@ -451,7 +451,7 @@
   .keep-reading { margin-top: 0; align-self: stretch; display: flex; flex-direction: column; gap: 12px; }
   .keep-reading > :global(.post-card) { flex: 1; }
   .keep-reading-cta { align-self: center; display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; background: #e3e8f8; color: #245b7d; font: 500 13px Inter, sans-serif; transition: background-color 200ms, color 200ms, opacity 200ms; }
-  .keep-reading-cta { background: #8cd0d6; color: #233f4e; box-shadow: 0 3px 9px #071a251c; }
+  .keep-reading-cta { background: #8cd0d6; color: #233f4e; border: 1px solid #8cd0d6; box-shadow: 0 3px 9px #071a251c; }
   .keep-reading-cta svg { width: 16px; height: 16px; }
   .keep-reading-cta svg { transition: transform 220ms ease; }
   .keep-reading-cta:is(:hover, :focus-visible) svg { transform: rotate(-45deg); }

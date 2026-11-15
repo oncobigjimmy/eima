@@ -122,7 +122,7 @@
             <h3 class="fit-card__title text-[24px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
-                style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
+                style="font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
                 >{@html fitCopy.yesTitle}</span
               >
             </h3>
@@ -167,7 +167,7 @@
             <h3 class="fit-card__title text-[24px] leading-[1.2] text-[#233F4E]">
               <span
                 class="font-display-serif"
-                style="font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
+                style="font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-weight: 400 !important;"
                 >{@html fitCopy.noTitle}</span
               >
             </h3>
@@ -260,14 +260,14 @@
 
   .fit-card__title,
   .fit-card__title * {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
   }
 
   :global(.fit-card__title span),
   :global(.fit-card__title strong),
   :global(.fit-card__title em) {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
   }
 

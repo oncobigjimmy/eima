@@ -44,7 +44,7 @@
   .error-page { background: #233f4e; color: white; min-height: 74vh; padding: 8rem 1.5rem 5rem; display: grid; place-items: center; text-align: center; }
   .error-content { width: min(100%, 52rem); }
   .error-code, h1, .error-description { color: white; text-shadow: 0 2px 4px #00000070, 0 6px 18px #00000050; }
-  .error-code { font-family: 'Fraunces', Georgia, serif; font-size: clamp(5rem, 12vw, 8rem); font-weight: 500; line-height: 1; }
+  .error-code { font-family: 'Newsreader', Georgia, serif; font-size: clamp(5rem, 12vw, 8rem); font-weight: 500; line-height: 1; }
   h1 { margin-top: 1.5rem; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 600; line-height: 1.15; }
   .error-description { margin: 1rem auto 0; max-width: 32rem; font-family: 'Inter', Arial, sans-serif; font-size: 18px; line-height: 1.65; }
   .error-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem; margin-top: 2.5rem; }

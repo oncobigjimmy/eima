@@ -66,14 +66,14 @@
 
   .post-card-title {
     color: #233f4e;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 500;
     letter-spacing: 0;
     transition: color 380ms ease-out;
   }
 
   .post-card-title span {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 700;
     transition: color 380ms ease-out;
   }

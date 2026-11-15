@@ -1,16 +1,11 @@
 @import 'tailwindcss';
 @import './lib/playfair-display.css';
+@import './lib/newsreader.css';
 @import '@fontsource/inter/300.css';
 @import '@fontsource/inter/200.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/inter/700.css';
-@import '@fontsource/fraunces/400.css';
-@import '@fontsource/fraunces/500.css';
-@import '@fontsource/fraunces/400-italic.css';
-@import '@fontsource/fraunces/300.css';
-@import '@fontsource/fraunces/700.css';
-@import '@fontsource/fraunces/300-italic.css';
 
 * {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial,
@@ -69,7 +64,7 @@ body {
 }
 
 .font-serif-italic {
-  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
   font-style: italic;
 }
@@ -84,8 +79,8 @@ body {
   }
 }
 
-.font-fraunces {
-  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+.font-newsreader {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
 }
 
@@ -318,7 +313,7 @@ body {
   line-height: 1.75;
 
   & h2 {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 1.75rem;
     line-height: 1.18;
@@ -327,7 +322,7 @@ body {
     color: var(--color-brand);
   }
   & h3 {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 1.35rem;
     margin-top: 2.5rem;

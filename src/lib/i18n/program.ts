@@ -88,9 +88,9 @@ const esProgram = {
       },
       {
         number: '5',
-        title: 'Te acompañamos y medimos tu evolución',
+        title: 'Te acompañamos de forma online',
         body:
-          'Durante las 12 semanas combinamos seguimiento online y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a tus necesidades y a lo que quieras conseguir en cada momento. Incluso, con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
+          'Durante las 12 semanas combinamos <strong>seguimiento online</strong> y <strong>revaloraciones presenciales periódicas</strong> para medir tus progresos y ajustar el plan. Lo adaptamos a tus necesidades y a lo que quieras conseguir en cada momento. Incluso, con tu autorización, podemos <strong>compartir tu evolución con tu oncólogo/a.</strong>',
         icon: 'support'
       }
     ],
@@ -321,7 +321,7 @@ const caProgram = {
       },
       {
         number: '5',
-        title: 'T’acompanyam i mesuram la teva evolució',
+        title: 'T’acompanyam en línia',
         body:
           'Durant el programa feim <strong>seguiment online continu</strong>, ajustam la pauta segons com et trobes i recollim dades per valorar la teva evolució amb criteri. Si ho autoritzes, podrem <strong>compartir aquesta informació amb el teu oncòleg/òloga</strong> o equip mèdic perquè també tengui una visió clara del teu progrés.',
         icon: 'support'
@@ -554,7 +554,7 @@ const enProgram = {
       },
       {
         number: '5',
-        title: 'We track, adapt and support you',
+        title: 'We support you online',
         body:
           'Throughout the programme, we provide <strong>online follow-up</strong>, adjust your plan based on how you feel and track your progress with clear criteria. With your permission, we can <strong>share useful progress updates</strong> with your oncologist or medical team.',
         icon: 'support'

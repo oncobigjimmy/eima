@@ -11,6 +11,7 @@
   import PatientScreenshot from '$lib/components/PatientScreenshot.svelte';
   import ScreenshotModal from '$lib/components/ScreenshotModal.svelte';
   import TestimonialCompletion from '$lib/components/TestimonialCompletion.svelte';
+  import { eimaBar } from '$lib/actions/eimaBar';
   export let pageLanguage: Language = 'es';
   let mobile = false, reduced = true, paused = false, filter = 0, openFilter = false;
   let filterRoot: HTMLDivElement, filterButton: HTMLButtonElement;
@@ -33,6 +34,7 @@
   $: filtered = filter === 0 ? writtenTestimonials : writtenTestimonials.filter(item => item.chapter === testimonialChapters[filter - 1]);
   $: marquee = filter === 0 && !mobile && !reduced;
   $: rows = testimonialChapters.map(chapter => writtenTestimonials.filter(item => item.chapter === chapter));
+  $: counts = [writtenTestimonials.length, ...rows.map(row => row.length)];
   onMount(() => {
     const media = window.matchMedia('(max-width: 767px)');
     const sync = () => { mobile = media.matches; };
@@ -62,18 +64,21 @@
 <svelte:window on:pointerdown={outside} />
 <div class="written-stories" style:--stories-header-height={`${headerHeight}px`} use:trackExplored={{ top: headerHeight + controlsHeight, blocked: Boolean(enlarged) || completionOpen, onSeen: markExplored }}>
   <div class="desktop-filters" aria-label={copy.filter} use:standardEntry>
-    {#each copy.filters as label, index}<button type="button" class:active={filter === index} aria-pressed={filter === index} on:click={() => select(index)}>{label}</button>{/each}
+    {#each copy.filters as label, index}<button type="button" class:active={filter === index} aria-pressed={filter === index} on:click={() => select(index)}><span>{label} ({counts[index]})</span></button>{/each}
   </div>
   <div class="mobile-filter" bind:this={filterRoot} use:standardEntry>
-    <button class="filter-toggle" type="button" bind:this={filterButton} aria-haspopup="listbox" aria-expanded={openFilter} aria-controls="written-filter-options" on:click={() => { openFilter = !openFilter; }} on:keydown={event => filterKey(event)}>{copy.filter} {copy.filters[filter]} <span class:rotated={openFilter} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></button>
+    <button class="filter-toggle" type="button" bind:this={filterButton} aria-haspopup="listbox" aria-expanded={openFilter} aria-controls="written-filter-options" on:click={() => { openFilter = !openFilter; }} on:keydown={event => filterKey(event)}>{copy.filter} {copy.filters[filter]} ({counts[filter]}) <span class:rotated={openFilter} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg></span></button>
     {#if openFilter}<div class="filter-options" id="written-filter-options" role="listbox" aria-label={copy.filter}>
-      {#each copy.filters as label, index}<button type="button" role="option" aria-selected={filter === index} tabindex={filter === index ? 0 : -1} on:click={() => select(index)} on:keydown={event => filterKey(event, index)}>{label}</button>{/each}
+      {#each copy.filters as label, index}<button type="button" role="option" aria-selected={filter === index} tabindex={filter === index ? 0 : -1} on:click={() => select(index)} on:keydown={event => filterKey(event, index)}><span>{label} ({counts[index]})</span></button>{/each}
     </div>{/if}
   </div>
   <div class="exploration-controls" bind:this={controls}>
+    <canvas class="exploration-water" aria-hidden="true"></canvas>
     <div class="exploration-progress">
       <div class="exploration-label"><span>{copy.explored}</span><span class="exploration-percent" aria-hidden="true">{progress} %</span></div>
-      <div class="exploration-track" role="progressbar" aria-label={`${copy.explored}: ${copy.filters[filter]}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress}><span style:width={`${progress}%`}></span></div>
+      <div class="eb eb-luminous" data-eb="luminous" data-drive="manual" role="progressbar" aria-label={`${copy.explored}: ${copy.filters[filter]}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress} use:eimaBar={{ value: progress / 100 }}>
+        <div class="eb-track"><div class="eb-fill"></div></div>
+      </div>
     </div>
     {#if marquee}<div class="motion-control"><button type="button" aria-pressed={paused} on:click={() => { paused = !paused; }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{#if paused}<path d="m9 5 11 7-11 7Z" />{:else}<path d="M8 5v14M16 5v14" />{/if}</svg>{paused ? copy.resume : copy.pause}</button></div>{/if}
   </div>
@@ -103,21 +108,29 @@
 <style>
   .written-stories { margin-top: 2rem; }
   .desktop-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
-  .desktop-filters button { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid rgba(35,63,78,.25); border-radius: 999px; font-size: 14px; font-weight: 400; color: #233f4e; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
+  .desktop-filters button { min-height: 44px; padding: .65rem 1.25rem; border: 1px solid #8cd0d688; border-radius: 999px; font-size: 14px; font-weight: 400; color: #f8f4f0; transition: background var(--dur-estado) var(--ease-calma), color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .desktop-filters button:not(.active):hover, .desktop-filters button:not(.active):focus-visible { background: #fff; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; }
+    .desktop-filters button:not(.active):hover, .desktop-filters button:not(.active):focus-visible { background: #fff; color: #233f4e; border-color: #4083a740; box-shadow: 0 3px 12px #233f4e08; }
     .filter-options button:not([aria-selected="true"]):hover { background: #fff; box-shadow: inset 0 0 0 1px #4083a740; }
   }
-  .desktop-filters .active { background: #233f4e; color: #fff; }
+  .desktop-filters button > span, .filter-options button > span { display: inline-block; font: inherit; transform: translateY(2px); }
+  .desktop-filters button.active { background: #8cd0d6; border-color: #8cd0d6; color: #233f4e; }
+  .desktop-filters button > span { color: inherit; }
+  .desktop-filters button, .filter-toggle, .filter-options button { font-family: 'Newsreader', 'Iowan Old Style', Georgia, serif; font-style: normal; }
+  :global([data-water-phase="light"]) .desktop-filters button { color: #233f4e; }
   .mobile-filter { display: none; }
   .written-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; align-items: center; }
   .written-slot { display: flex; align-items: center; justify-content: center; height: 100%; min-width: 0; }
-  .exploration-controls { position: sticky; top: calc(var(--stories-header-height) - 1px); z-index: 15; display: flex; align-items: center; min-height: 72px; margin: 0 -1.25rem 1rem; padding: 8px 1.25rem 20px; background: #f8f4f0; }
+  .exploration-controls { position: sticky; isolation: isolate; top: calc(var(--stories-header-height) - 1px); z-index: 15; display: flex; align-items: center; min-height: 72px; margin: 0 -1.25rem 1rem; padding: 8px 1.25rem 20px; }
+  .exploration-controls::before, .exploration-water { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+  .exploration-controls::before { content: ''; background: #233f4e; }
+  :global(.water-rendered) .exploration-controls::before { content: none; }
   .exploration-progress { flex: none; width: min(52rem, 56%, calc(100% - 408px)); margin-inline: auto; min-width: 0; }
-  .exploration-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; color: #233f4e; font-size: 13px; font-weight: 700; line-height: 1.4; }
+  .exploration-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; color: #ffffff; font-size: 13px; font-weight: 700; line-height: 1.4; }
   .exploration-percent { font-weight: 600; font-variant-numeric: tabular-nums; }
-  .exploration-track { height: 4px; border-radius: 999px; background: #dce7eb; overflow: hidden; }
-  .exploration-track > span { display: block; height: 100%; border-radius: inherit; background: #4083a7; transition: width 350ms var(--ease-calma); }
+  .eb-luminous .eb-track { overflow: hidden; }
+  .eb-luminous .eb-fill { transition: clip-path 380ms ease-out, background-size 380ms ease-out; background: linear-gradient(90deg, #1c78b0, #3fa6da 55%, #9be6f2) left center / calc(var(--p) * 100%) 100% no-repeat; box-shadow: none; }
+  .eb-luminous .eb-fill::after { content: none; }
   .motion-control { position: absolute; right: 1.25rem; display: flex; justify-content: flex-end; }
   .motion-control button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: .6rem 1rem; font-size: 13px; font-weight: 500; border: 1px solid #4083a740; border-radius: 999px; background: #fff; color: #233f4e; box-shadow: 0 3px 12px #233f4e08; transition: background var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma); }
   .motion-control svg { width: 18px; height: 18px; color: #4083a7; }
@@ -135,6 +148,7 @@
     .exploration-controls { margin-inline: -1rem; padding: 10px 1rem 20px; min-height: 0; margin-bottom: 1.25rem; }
     .exploration-progress { flex: 1; width: 100%; margin-inline: 0; }
     .exploration-label { font-size: 12px; margin-bottom: 7px; }
+    .exploration-controls .eb-track { border: 0; box-shadow: none; }
     .desktop-filters { display: none; }
     .mobile-filter { display: block; position: relative; z-index: 20; margin-bottom: 1.5rem; }
     .filter-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 48px; padding: .5rem 1rem; border: 1px solid rgba(35,63,78,.25); border-radius: 12px; background: #fff; font-size: 14px; border-color: #8cd0d6; }
@@ -149,5 +163,5 @@
     .written-stories:has(:global(.written-card:hover)) :global(.written-card:not(:hover)),
     .written-stories:not(:has(:global(.written-card:hover))):has(:global(.written-card:focus-visible)) :global(.written-card:not(:focus-visible)) { filter: blur(1px); opacity: .8; }
   }
-  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button, .exploration-track > span { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .filter-toggle span, .desktop-filters button, .motion-control button, .eb-luminous .eb-fill { transition: none; } }
 </style>

@@ -1,0 +1,101 @@
+.site-water-layout {
+  isolation: isolate;
+  --water-mist: radial-gradient(ellipse at 80% 0, #bfdae8, #e8e8f6 72%);
+  --water-deep: radial-gradient(ellipse at 80% 0, #245b7d, #233f4e 70%);
+}
+
+.site-water-layout > #water {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+}
+
+.site-water-layout:is(.water-rendered, .water-no-gl) :is([data-water-surface], [data-water-tone]) {
+  background-color: transparent !important;
+}
+
+.site-water-layout:not(.water-measuring)[data-water-phase="deep"] [data-water-ink="dark"] { color: #f8f4f0 !important; }
+.site-water-layout:not(.water-measuring)[data-water-phase="deep"] [data-water-ink="dark-blue"] { color: #a5dce1 !important; }
+.site-water-layout:not(.water-measuring)[data-water-phase="light"] [data-water-ink="pale"] { color: #233f4e !important; text-shadow: none; }
+.site-water-layout:not(.water-measuring)[data-water-phase="light"] [data-water-ink="pale-blue"] { color: #245b7d !important; text-shadow: none; }
+
+.hero-water {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  mask-image: linear-gradient(transparent, #000 34%, #000 72%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .water-rendered .hero-water { opacity: .34; }
+}
+
+.site-water-layout > header {
+  isolation: isolate;
+}
+
+.header-water {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: calc(100% + 18px);
+  pointer-events: none;
+  mask-image: linear-gradient(#000 calc(100% - 18px), transparent);
+}
+
+.site-water-layout:is(.water-rendered, .water-no-gl) > header[data-water-header="true"] {
+  background-color: transparent;
+}
+
+.site-water-layout.water-rendered > header[data-water-header="true"] .header-water {
+  display: block;
+}
+
+.site-water-layout.water-rendered > header[data-menu-open="true"] {
+  background-color: transparent;
+}
+
+.site-water-layout.water-rendered > header[data-menu-open="true"] .header-water {
+  display: block;
+  height: calc(100% + 3px);
+  mask-image: none;
+}
+
+.site-water-layout.water-no-gl > header[data-menu-open="true"] {
+  background: var(--water-deep) fixed;
+}
+
+.site-water-layout.water-no-gl::before,
+.site-water-layout.water-no-gl::after,
+.site-water-layout.water-no-gl > header[data-water-header="true"]::before,
+.site-water-layout.water-no-gl > header[data-water-header="true"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--water-mist) fixed;
+}
+
+.site-water-layout.water-no-gl::after,
+.site-water-layout.water-no-gl > header[data-water-header="true"]::after {
+  background: var(--water-deep) fixed;
+  opacity: var(--water-deep-opacity, 0);
+}
+
+.site-water-layout.water-no-gl > header[data-water-header="true"]::before,
+.site-water-layout.water-no-gl > header[data-water-header="true"]::after {
+  position: absolute;
+  inset: 0 0 -18px;
+  mask-image: linear-gradient(#000 calc(100% - 18px), transparent);
+}

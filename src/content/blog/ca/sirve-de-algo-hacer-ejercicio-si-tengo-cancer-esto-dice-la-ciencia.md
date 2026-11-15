@@ -149,7 +149,7 @@ Recorda que l’exercici no competeix amb l’oncologia mèdica; **la potencia.*
 
   .expert-quote-card p {
     color: #233f4e;
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
     font-weight: 400 !important;
     font-size: 1.1rem;
     font-style: italic;

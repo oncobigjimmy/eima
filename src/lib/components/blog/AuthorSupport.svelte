@@ -27,7 +27,7 @@
   .author-support-person { display: flex; align-items: center; gap: 14px; color: inherit; text-decoration: none; }
   .author-support-person img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: top; background: #e8e8f6; }
   .author-support-label { font: 400 12px/1.5 Inter, sans-serif; color: #55656f; }
-  .author-support-name { font: 400 20px/1.4 Fraunces, serif; }
+  .author-support-name { font: 400 20px/1.4 Newsreader, serif; }
   .author-support-role { font: 400 13px/1.5 Inter, sans-serif; color: #245b7d; }
   .mobile-title-break, .mobile-description-break { display: none; }
   @media (max-width: 767px) { .mobile-title-break, .mobile-description-break { display: inline; white-space: pre-wrap; } .desktop-space { display: none; } .author-support h2 { font-size: 26px; } }

@@ -24,31 +24,35 @@ export const patientResponses: PatientResponse[] = [
     highlight: 'Un gran acompañamiento, no solo ejercicio físico.',
     alt: 'Mensaje de paciente: Contactar con vosotros ha sido la mejor decisión que he tomado. Destaca el acompañamiento, el seguimiento diario, las explicaciones y los ánimos en su recuperación física y mental.',
     lightMarkers: true,
-    underlines: [{ x: 7.1, y: 1.0, width: 66, height: 4.7 }, { x: 7.1, y: 6.6, width: 60, height: 4.8 }]
+    underlines: [{ x: 7.1, y: 1.0, width: 66, height: 4.7 }, { x: 7.1, y: 6.6, width: 60, height: 4.8 }, { x: 60, y: 68.6, width: 8, height: 4.5 }, { x: 7.1, y: 74.0, width: 53, height: 4.5 }, { x: 7.1, y: 79.6, width: 62, height: 4.5 }, { x: 7.1, y: 85.2, width: 52, height: 4.5 }]
   },
   {
     id: 'acompanamiento-planificacion', category: 'eima-adaptation',
     image: '/patient-responses/acompanamiento-planificacion.jpg', width: 548, height: 216,
     highlight: 'La planificación y el seguimiento me son de gran ayuda, porque yo soy más desorganizada.',
-    alt: 'Respuesta real de paciente: La planificación y el seguimiento me son de gran ayuda, porque yo soy más desorganizada.'
+    alt: 'Respuesta real de paciente: La planificación y el seguimiento me son de gran ayuda, porque yo soy más desorganizada.',
+    underlines: [{ x: 4, y: 63, width: 90, height: 10 }, { x: 4, y: 78, width: 12, height: 10 }]
   },
   {
     id: 'progreso-fuerza-confianza', category: 'progress',
     image: '/patient-responses/progreso-fuerza-confianza.jpg', width: 545, height: 478,
     highlight: 'Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza.',
-    alt: 'Respuesta real de paciente: Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza. Recuperar fuerza y tolerar de la mejor forma posible el tratamiento era lo que quería, y pienso que sí lo hemos conseguido.'
+    alt: 'Respuesta real de paciente: Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza. Recuperar fuerza y tolerar de la mejor forma posible el tratamiento era lo que quería, y pienso que sí lo hemos conseguido.',
+    underlines: [{ x: 91.5, y: 27.9, width: 5.7, height: 5 }, { x: 2.8, y: 34.1, width: 63.8, height: 5 }, { x: 38.5, y: 77.5, width: 47.5, height: 5 }, { x: 2.8, y: 83.7, width: 92.8, height: 5 }, { x: 2.8, y: 89.8, width: 53.2, height: 5 }]
   },
   {
     id: 'progreso-actividad-anterior', category: 'progress',
     image: '/patient-responses/progreso-actividad-anterior.jpg', width: 547, height: 331,
     highlight: 'Realizar la misma actividad física que antes del diagnóstico, esa es mi meta.',
-    alt: 'Respuesta real de paciente: Su meta es realizar la misma actividad física que antes del diagnóstico; considera que lo están consiguiendo y que ya ha valido la pena.'
+    alt: 'Respuesta real de paciente: Su meta es realizar la misma actividad física que antes del diagnóstico; considera que lo están consiguiendo y que ya ha valido la pena.',
+    underlines: [{ x: 3.5, y: 49.5, width: 86, height: 6.5 }, { x: 3.5, y: 58.6, width: 50.5, height: 6.5 }, { x: 40, y: 77, width: 54.5, height: 6.5 }, { x: 3.5, y: 86, width: 10, height: 6.5 }]
   },
   {
     id: 'progreso-fuerza-durante-tratamiento', category: 'progress',
     image: '/patient-responses/progreso-fuerza-durante-tratamiento.png', width: 1106, height: 531,
     highlight: 'Me encuentro muy bien durante el tratamiento y me parece irreal tener esta fuerza.',
-    alt: 'Respuesta real de paciente en catalán: Se encuentra muy bien durante el tratamiento, salvo por la neuropatía; cree que aún pueden quedar momentos complicados y le parece irreal tener esta fuerza.'
+    alt: 'Respuesta real de paciente en catalán: Se encuentra muy bien durante el tratamiento, salvo por la neuropatía; cree que aún pueden quedar momentos complicados y le parece irreal tener esta fuerza.',
+    underlines: [{ x: 4, y: 38.7, width: 28.5, height: 7 }, { x: 92.5, y: 38.7, width: 4.2, height: 7 }, { x: 4, y: 50, width: 91.5, height: 7 }, { x: 4, y: 61.3, width: 19, height: 7 }, { x: 67.5, y: 72.5, width: 21, height: 7 }, { x: 4, y: 83.7, width: 46.5, height: 7 }]
   },
   {
     id: 'difficult-day-ten-hard-days',
@@ -669,6 +673,7 @@ export type WrittenTestimonial = {
   width: number; height: number; alt: string; caption: Record<Language, string>;
   /** Whiten the pale blue capture-app footer without cropping any text. */
   cleanBackground?: boolean;
+  cropFormEdges?: boolean;
   lightMarkers?: boolean;
 };
 // Five home testimonials per chapter, in the final order approved by the user.
@@ -682,7 +687,7 @@ const examples: Record<string, { quote: LocalizedText; highlight: LocalizedText 
   },
   'progreso-fuerza-confianza': {
     quote: { es: 'Mi cuerpo ha recuperado la fuerza y con ello yo he recuperado seguridad y confianza.', ca: 'El meu cos ha recuperat la força i amb això jo he recuperat seguretat i confiança.', en: 'My body has regained its strength, and with it I have regained a sense of security and confidence.' },
-    highlight: { es: 'seguridad y confianza', ca: 'seguretat i confiança', en: 'security and confidence' }
+    highlight: { es: 'he recuperado seguridad y confianza', ca: 'he recuperat seguretat i confiança', en: 'regained a sense of security and confidence' }
   },
   'progreso-fuerza-durante-tratamiento': {
     quote: { es: '…me parece irreal tener esta fuerza.', ca: '…me sembla irreal tenir aquesta força.', en: '…having this strength feels unreal.' },
@@ -734,6 +739,11 @@ const chapterByCategory: Record<PatientCategory, TestimonialChapter> = { progres
 const pendingText = (): LocalizedText => ({ es: null, ca: null, en: null });
 // Initials confirmed by the user against the review catalogue. R16 was confirmed as P. in the final selection.
 const confirmedPatientInitials: Record<string, string> = {
+  'acompanamiento-whatsapp': 'P.',
+  'acompanamiento-planificacion': 'P.',
+  'progreso-fuerza-confianza': 'P.',
+  'progreso-actividad-anterior': 'P.',
+  'progreso-fuerza-durante-tratamiento': 'P.',
   "progress-return-pilates": "A.",
   "progress-7": "A.",
   "progress-1": "A.",
@@ -987,6 +997,66 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
 };
 
 export const writtenTestimonials: WrittenTestimonial[] = [
+  {
+    id: 'dificiles-retomar-ritmo',
+    image: '/patient-responses/dificiles-retomar-ritmo.jpg',
+    chapter: 'dificiles',
+    initial: null,
+    quote: pendingText(),
+    highlight: pendingText(),
+    featured: false,
+    markers: [{ x: 27.3, y: 57.8, width: 61, height: 7.6 }, { x: 3, y: 70.4, width: 9, height: 7.6 }],
+    width: 983,
+    height: 450,
+    alt: 'Respuesta sobre retomar el ritmo después de una semana difícil, pese a sentir más cansancio.',
+    caption: {
+      es: 'Ir retomando el ritmo aunque me noto más cansado.',
+      ca: 'Anar reprenent el ritme encara que em not més cansat.',
+      en: 'Getting back into my routine even though I feel more tired.'
+    }
+  } satisfies WrittenTestimonial,
+  {
+    id: 'acompanamiento-ajuste-horario',
+    image: '/patient-responses/acompanamiento-ajuste-horario.jpg',
+    chapter: 'acompanamos',
+    initial: null,
+    quote: pendingText(),
+    highlight: pendingText(),
+    featured: false,
+    markers: [
+      { x: 91.3, y: 57.2, width: 3.1, height: 4.6 },
+      { x: 3.1, y: 64.9, width: 38.3, height: 4.6 },
+      { x: 3.1, y: 72.4, width: 84, height: 4.6 },
+      { x: 3.2, y: 80, width: 60.8, height: 4.6 }
+    ],
+    width: 996,
+    height: 759,
+    alt: 'Respuesta sobre cambiar el día de ejercicio para tener más tiempo de recuperación entre sesiones.',
+    caption: {
+      es: 'Me da tiempo a recuperarme mejor de la quimio y voy más tranquila.',
+      ca: 'Em dona temps per recuperar-me millor de la quimio i hi vaig més tranquil·la.',
+      en: 'It gives me more time to recover from chemo, and I feel more at ease.'
+    }
+  } satisfies WrittenTestimonial,
+  {
+    id: 'progreso-fuerza-semanas',
+    cropFormEdges: true,
+    image: '/patient-responses/progreso-fuerza-semanas.png',
+    chapter: 'recupera',
+    initial: null,
+    quote: pendingText(),
+    highlight: pendingText(),
+    featured: false,
+    markers: [{ x: 80.1, y: 81.5, width: 7.7, height: 4.5 }, { x: 6.6, y: 87.1, width: 49.1, height: 4.5 }],
+    width: 1169,
+    height: 985,
+    alt: 'Respuesta sobre sentirse físicamente fuerte tras varias semanas, pese a una semana de bajón.',
+    caption: {
+      es: 'Pese a una semana de bajón, me siento físicamente fuerte.',
+      ca: 'Tot i una setmana de baixada d’ànims, em sent físicament forta.',
+      en: 'Despite a difficult week emotionally, I feel physically strong.'
+    }
+  } satisfies WrittenTestimonial,
   ...patientResponses.map(item => ({
     id: item.image.split('/').pop()!.replace(/\.[^.]+$/, ''), image: item.image, chapter: chapterByCategory[item.category], initial: confirmedPatientInitials[item.image.split('/').pop()!.replace(/\.[^.]+$/, '')] ?? null,
     quote: examples[item.id]?.quote ?? pendingText(), highlight: examples[item.id]?.highlight ?? pendingText(),
