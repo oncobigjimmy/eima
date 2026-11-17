@@ -187,8 +187,10 @@
   }
 
   section {
-    scroll-margin-top: 96px;
+    scroll-margin-top: 0;
   }
+
+  @media (max-width: 767px) { section { scroll-margin-top: -32px; } }
 
   .faq-question {
     font-family: 'Newsreader', Georgia, serif !important;

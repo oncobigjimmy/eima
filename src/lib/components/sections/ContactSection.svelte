@@ -1,4 +1,5 @@
 <script>
+  import { scrollContrast } from '$lib/actions/scrollContrast';
   import { standardEntry } from '$lib/actions/standardEntry';
   import { selectedSituation } from '$lib/data/situation';
   import { contactLayout } from '$lib/i18n/reviewed';
@@ -10,7 +11,7 @@
   $: whatsappHref = getWhatsAppHref($language, false, $selectedSituation);
   // TODO [CA-revisar]: revisar les traduccions de contacte i els passos.
   $: contactAuditCopy = {
-    es: { titles: ['Escríbenos al WhatsApp', 'Llámanos por teléfono', 'Envíanos un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes o llamas', 'Cuéntanos brevemente qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Si no contestamos, salta el contestador. Te respondemos en menos de 12 horas.'], ['Llamada breve y gratuita', 'Valoramos si podemos ayudarte. Si no encaja, te lo decimos con honestidad.']], reassurance: ['Hablar con nosotros no te obliga', 'a empezar nada todavía.'] },
+    es: { titles: ['Escríbenos al WhatsApp', 'Llámanos por teléfono', 'Envíanos un correo'], fast: 'La forma más rápida', after: ['¿Qué pasa ', 'después?'], steps: [['Nos escribes o llamas', 'Cuéntanos brevemente qué te pasa y en qué momento del tratamiento estás.'], ['Te respondemos', 'Si no contestamos, salta el contestador. En menos de 12h tienes respuesta.'], ['Llamada breve y gratuita', 'Valoramos si podemos ayudarte. Si no encaja, te lo decimos con honestidad.']], reassurance: ['Hablar con nosotros no te obliga', 'a empezar nada todavía.'] },
     ca: { titles: ['Escriu-nos per WhatsApp', 'Telefona’ns', 'Envia’ns un correu'], fast: 'La manera més ràpida', after: ['Què passa ', 'després?'], steps: [['Ens escrius o ens crides', 'Conta’ns breument què et passa i en quin moment del tractament estàs.'], ['Et responem', 'Si no contestam, salta el contestador. Et responem en menys de 12 hores.'], ['Trucada breu i gratuïta', 'Valoram si et podem ajudar. Si no encaixa, t’ho deim amb honestedat.']], reassurance: ['Parlar amb nosaltres no t’obliga', 'a començar res encara.'] },
     en: { titles: ['Message us on WhatsApp', 'Call us', 'Send us an email'], fast: 'The quickest way', after: ['What happens ', 'next?'], steps: [['Write or call us', 'Briefly tell us what is happening and where you are in treatment.'], ['We reply', 'If we miss your call, our answering service will respond. We will reply within 12 hours.'], ['Free short call', 'We will see whether we can help. If not, we will tell you honestly.']], reassurance: ['Talking with us does not commit you', 'to starting anything yet.'] }
   }[$language];
@@ -53,7 +54,7 @@
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          class="contact-method contact-method--whatsapp"
+          class="contact-method contact-method--whatsapp" use:scrollContrast
         >
           <span class="contact-method__icon" aria-hidden="true">
             <svg viewBox="0 0 448 512" fill="currentColor" class="contact-method__whatsapp">
@@ -65,7 +66,7 @@
           <span class="contact-method__label"><strong>{#if $language === 'es'}<span class="contact-title-desktop">Escríbenos al WhatsApp</span><span class="contact-title-mobile">{contactAuditCopy.titles[0]}</span>{:else}{contactAuditCopy.titles[0]}{/if}</strong><small>{contactAuditCopy.fast}</small></span><span class="contact-method__arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></span>
         </a>
 
-        <a href={site.phoneHref} class="contact-method contact-method--phone">
+        <a href={site.phoneHref} class="contact-method contact-method--phone" use:scrollContrast>
           <span class="contact-method__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="currentColor" class="contact-method__phone">
               <path
@@ -76,7 +77,7 @@
           <span class="contact-method__label"><strong>{#if $language === 'es'}<span class="contact-title-desktop">Llámanos por teléfono</span><span class="contact-title-mobile">{contactAuditCopy.titles[1]}</span>{:else}{contactAuditCopy.titles[1]}{/if}</strong><small>{site.phoneLocal}</small></span><span class="contact-method__arrow" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg></span>
         </a>
 
-        <a href={`mailto:${site.email}`} class="contact-method contact-method--email">
+        <a href={`mailto:${site.email}`} class="contact-method contact-method--email" use:scrollContrast>
           <span class="contact-method__icon" aria-hidden="true">
             <svg viewBox="0 0 256 256" fill="currentColor" class="contact-method__email">
               <path
@@ -94,7 +95,7 @@
 <section class="contact-next" data-water-tone="deep" aria-labelledby="contact-next-title">
   <div class="contact-inner">
     <h2 id="contact-next-title">{contactAuditCopy.after[0]}<span>{contactAuditCopy.after[1]}</span></h2>
-    <ol use:journeyReveal>{#each contactAuditCopy.steps as step, index}<li><span class="contact-next-number"><span>{index + 1}</span></span><div><h3>{step[0]}</h3><p>{#if $language === 'es' && index === 0}Cuéntanos brevemente qué te pasa y en qué<br class="contact-desktop-break" /> momento del tratamiento estás.{:else if $language === 'es' && index === 1}Si no contestamos, salta el contestador.<br class="contact-desktop-break" /> Te respondemos en menos de 12 horas.{:else if $language === 'es' && index === 2}Valoramos si podemos ayudarte. Si no encaja,<br class="contact-desktop-break" /> te lo decimos con honestidad.{:else}{step[1]}{/if}</p></div></li>{/each}</ol>
+    <ol use:journeyReveal>{#each contactAuditCopy.steps as step, index}<li><span class="contact-next-number"><span>{index + 1}</span></span><div><h3>{step[0]}</h3><p>{#if $language === 'es' && index === 0}Cuéntanos brevemente qué te pasa y en qué<br class="contact-desktop-break" /> momento del tratamiento estás.{:else if $language === 'es' && index === 1}Si no contestamos, salta el contestador.<br />En menos de 12h tienes respuesta.{:else if $language === 'es' && index === 2}Valoramos si podemos ayudarte. Si no encaja,<br class="contact-desktop-break" /> te lo decimos con honestidad.{:else}{step[1]}{/if}</p></div></li>{/each}</ol>
     <p class="contact-reassurance">{#if $language === 'es'}<span>Hablar con nosotros <strong>no te obliga</strong>{' '}</span><span><strong>a empezar</strong> nada todavía.</span>{:else}<span>{contactAuditCopy.reassurance[0]}</span><span>{contactAuditCopy.reassurance[1]}</span>{/if}</p>
   </div>
 </section>
@@ -158,6 +159,7 @@
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   }
   :global(.contact-title__accent) {
+    --newsreader-mobile-accent-size: 40;
     color: #8cd0d6;
   }
   .contact-intro {
@@ -365,7 +367,7 @@
     .contact-next ol:global(.journey-visible) li:nth-child(2) { animation-delay: 1.45s; }
     .contact-next ol:global(.journey-visible) li:nth-child(3) { animation-delay: 2.9s; }
     .contact-next ol:global(.journey-visible) .contact-next-number { animation: none; }
-    .contact-next h2 { font-size: 40px; }
+    .contact-next h2 { font-size: 50px; }
     .contact-next h3 { font-weight: 500; }
     .contact-next li p { font-size: 14px; font-weight: 300; }
     .contact-desktop-break { display: block; }
@@ -382,42 +384,46 @@
   .contact-method:focus-visible, .contact-method:active { background: #233f4e; border-color: #8cd0d6; }
   @media (hover: hover) and (pointer: fine) { .contact-method:hover { background: #233f4e; border-color: #8cd0d6; } }
   @media (max-width: 355px) {
-    .contact-page .contact-method { padding-inline: 7px; grid-template-columns: 32px minmax(0, 1fr) 16px; gap: 5px; }
-    .contact-page .contact-method .contact-method__icon { width: 32px; height: 32px; }
+    .contact-page .contact-method { padding-inline: 7px; grid-template-columns: 38px minmax(0, 1fr) 16px; gap: 8px; }
+    .contact-page .contact-method .contact-method__icon { width: 38px; height: 38px; }
     .contact-page .contact-method__arrow svg { width: 16px; height: 16px; }
   }
   @media (max-width: 767px) {
     .contact-methods, .contact-next ol { grid-template-columns: 1fr; }
     .contact-page { padding-top: 5rem; padding-bottom: 1.5rem; }
     .contact-intro { margin-top: 1.6rem; line-height: 1.4; }
-    .contact-methods { gap: 12px; margin-top: 2.2rem; }
-    .contact-method { min-height: 80px; padding: 10px 12px; grid-template-columns: 36px minmax(0, 1fr) 20px; gap: 8px; }
-    .contact-method .contact-method__icon { width: 36px; height: 36px; }
-    .contact-method__arrow svg { width: 20px; height: 20px; }
-    .contact-method__label strong { font: 500 16px/1.1 Newsreader, Georgia, serif; }
-    .contact-method__label small { margin-top: 6px; font-size: 14px; font-weight: 300; line-height: 1.2; }
+    .contact-methods { gap: 15px; margin-top: 2.2rem; }
+    .contact-method { min-height: 92px; padding: 13px 14px; grid-template-columns: 44px minmax(0, 1fr) 22px; gap: 12px; }
+    .contact-method .contact-method__icon { width: 44px; height: 44px; }
+    .contact-method__arrow svg { width: 22px; height: 22px; }
+    .contact-method:global(.scroll-active) { background: #233f4e; border-color: #8cd0d6; }
+    @media (prefers-reduced-motion: no-preference) {
+      .contact-method:global(.scroll-active) { animation: contact-method-pulse .45s var(--ease-calma); }
+      .contact-method__arrow svg { transition: transform var(--dur-estado) var(--ease-calma); }
+      .contact-method:global(.scroll-active) .contact-method__arrow svg { transform: rotate(-45deg); }
+    }
+    @keyframes contact-method-pulse { 50% { transform: scale(1.025); } }
+    .contact-method__label strong { font: 500 17px/1.15 Newsreader, Georgia, serif; --newsreader-mobile-accent-size: 20; }
+    .contact-method__label small { margin-top: 6px; font-size: 15px; font-weight: 300; line-height: 1.2; }
     .contact-method__whatsapp { width: 1.775rem; height: 1.775rem; }
-    .contact-method__arrow svg { width: 32px; height: 32px; }
-    .contact-next ol { gap: 36px; grid-auto-rows: 1fr; }
+    .contact-next ol { --contact-step-diameter: 50px; --contact-step-gap: 36px; --contact-line-duration: 1.5s; gap: var(--contact-step-gap); grid-auto-rows: 1fr; }
     .contact-next ol::before, .contact-next ol::after { display: none; }
-    .contact-next li { grid-template-columns: 44px minmax(0,1fr); align-items: center; align-content: center; justify-items: stretch; gap: 14px; text-align: left; opacity: .24; }
-    .contact-next li h3 { min-height: 0; display: block; font-weight: 500; }
+    .contact-next li { grid-template-columns: var(--contact-step-diameter) minmax(0,1fr); align-items: center; align-content: center; justify-items: stretch; gap: 14px; text-align: left; opacity: .24; }
+    .contact-next li h3 { min-height: 0; display: block; font-weight: 500; --newsreader-mobile-accent-size: 22; }
     .contact-next li p { margin-top: 4px; font-size: 14px; font-weight: 300; line-height: 1.4; }
-    .contact-next-number { filter: none; }
+    .contact-next-number { width: var(--contact-step-diameter); height: var(--contact-step-diameter); --newsreader-mobile-accent-size: 26; filter: none; }
     .contact-next ol:global(.journey-visible) .contact-next-number { animation: none; }
-    .contact-next ol:global(.journey-visible) li { animation: contact-mobile-step .05s linear both; }
-    .contact-next ol:global(.journey-visible) li:nth-child(1) { animation-delay: .1s; }
-    .contact-next ol:global(.journey-visible) li:nth-child(2) { animation-delay: 1.3s; }
-    .contact-next ol:global(.journey-visible) li:nth-child(3) { animation-delay: 2.8s; }
-    .contact-next li:not(:last-child)::after { content: ''; position: absolute; z-index: -1; left: 20px; top: 50%; width: 4px; height: calc(100% + 36px); transform: scaleY(0); transform-origin: top; }
+    .contact-next ol:global(.journey-visible) li { animation: contact-mobile-step .12s linear var(--contact-step-delay, 0s) both; }
+    .contact-next ol:global(.journey-visible) li:nth-child(2) { --contact-step-delay: var(--contact-line-duration); }
+    .contact-next ol:global(.journey-visible) li:nth-child(3) { --contact-step-delay: calc(2 * var(--contact-line-duration)); }
+    .contact-next li:not(:last-child)::after { content: ''; position: absolute; z-index: -1; left: calc(var(--contact-step-diameter) / 2 - 2px); top: calc(50% + var(--contact-step-diameter) / 2); width: 4px; height: calc(100% + var(--contact-step-gap) - var(--contact-step-diameter)); transform: scaleY(0); transform-origin: top; }
     .contact-next li:first-child::after { background: linear-gradient(#e8e8f6 0% 18%, #8cd0d6 82% 100%); }
     .contact-next li:nth-child(2)::after { background: linear-gradient(#8cd0d6 0% 18%, #4083a7 82% 100%); }
-    .contact-next ol:global(.journey-visible) li:not(:last-child)::after { transform: scaleY(1); transition: transform 1.5s linear; }
-    .contact-next ol:global(.journey-visible) li:nth-child(2)::after { transition-delay: 1.5s; }
+    .contact-next ol:global(.journey-visible) li:not(:last-child)::after { transform: scaleY(1); transition: transform var(--contact-line-duration) linear var(--contact-step-delay, 0s); }
     @keyframes contact-mobile-step { from { opacity: .24; } to { opacity: 1; } }
   }
   @media (prefers-reduced-motion: no-preference) { .contact-next ol:global(.journey-visible) li:nth-of-type(2) .contact-next-number { animation: contact-step-pulse .45s ease 1.45s; } .contact-next ol:global(.journey-visible) li:nth-of-type(3) .contact-next-number { animation: contact-step-pulse .45s ease 2.9s; } }
-  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) { .contact-next ol:global(.journey-visible) li:nth-of-type(2) .contact-next-number { animation-delay: 1.3s; } .contact-next ol:global(.journey-visible) li:nth-of-type(3) .contact-next-number { animation-delay: 2.8s; } }
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) { .contact-next ol:global(.journey-visible) li:nth-of-type(n+2) .contact-next-number { animation-delay: var(--contact-step-delay); } }
   @keyframes contact-mobile-typing { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
   @media (max-width: 767px) and (prefers-reduced-motion: no-preference) { .contact-reassurance span { clip-path: inset(0 100% 0 0); } .contact-next ol:global(.journey-visible) + .contact-reassurance span:first-child { animation: contact-mobile-typing .8s steps(28, end) 3.2s both; } .contact-next ol:global(.journey-visible) + .contact-reassurance span:last-child { animation: contact-mobile-typing .65s steps(24, end) 4s both; } }
   @media (prefers-reduced-motion: reduce) { .contact-method, .contact-method__arrow svg { transition: none; } .contact-method:active { transform: none; } .contact-next ol::before, .contact-next ol::after, .contact-next li::after { transition: none !important; transform: none !important; } .contact-next-number { animation: none !important; filter: none; } .contact-next li { opacity: 1; animation: none !important; } .contact-reassurance { opacity: 1; animation: none !important; } .contact-reassurance span { clip-path: none; animation: none !important; } }

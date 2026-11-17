@@ -13,7 +13,7 @@ export const homeSections = {
     situationClosing: 'Sea cual sea tu punto de partida, primero necesitamos entender tu situación.',
     recoveryTitle: '¿Qué queremos que <span>consigas?</span>', recoverySubtitle: '<strong>Las <span class="brush-accent">3R</span> de tu progreso</strong>',
     firstGoalBody: 'Buscamos que te muevas con <strong>menos fatiga</strong>, <strong>menos rigidez</strong>, <strong>menos miedo</strong> y <strong>más sensación de control</strong> sobre tu cuerpo y tu rutina del día a día.',
-    thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello <br class="rtext-desktop-break" />que <strong>disfrutas y es importante para ti.</strong>'
+    thirdGoalSubtitle: 'con confianza lo importante para ti', thirdGoalBody: 'Queremos ayudarte a seguir haciendo (o volver a hacer) aquello <br class="rtext-desktop-break" />que <strong>disfrutas y es importante para ti</strong> en tu rutina diaria.'
   },
   ca: {
     vslBefore: 'T’explicam com funciona', vslAfter: '', programme: 'El nostre programa d’exercici per a persones amb càncer a Mallorca',
@@ -54,10 +54,10 @@ export const aboutSections = {
     sunsetAlt: 'Atardecer junto al mar en Mallorca',
     cards: [
       { titleLines: ['Te dicen que hagas ejercicio,', 'pero no te explican cómo'], body: 'En una consulta hay muchas decisiones que tomar y <strong>no siempre hay tiempo para explicar</strong> qué ejercicio hacer, cuánto o cómo adaptarlo a tu situación.' },
-      { titleLines: ['Lo que te va bien hoy', 'puede cambiar mañana'], body: 'Fatiga, dolor, cirugía o nuevos síntomas pueden hacer que lo que te iba bien una semana <strong>ya no te sirva igual</strong> la siguiente.' },
-      { titleLines: ['Las dudas no aparecen', 'solo en consulta'], body: '<em>“¿Esto es normal?”</em>, <em>“¿me estoy pasando?”</em>, <em>“¿debería hacer más?”</em> Muchas preguntas aparecen en casa, <strong>cuando toca decidir qué hacer</strong>.' },
+      { titleLines: ['Lo que te va bien hoy', 'puede cambiar mañana'], body: 'Fatiga, dolor, cirugía o nuevos síntomas pueden hacer que lo que te iba bien una semana <strong>ya no te sirva igual</strong> la siguiente, incluso con la misma rutina.' },
+      { titleLines: ['Las dudas no aparecen', 'solo en consulta'], body: '<em>“¿Esto es normal?”</em>, <em>“¿me estoy pasando?”</em>, <em>“¿debería hacer más?”</em>, <em>“¿y si me duele?”</em> Muchas preguntas aparecen en casa, <strong>cuando toca decidir qué&nbsp;hacer</strong>.' },
       { titleLines: ['El miedo a hacerte daño', 'te acaba frenando'], body: 'Después de una operación o durante el tratamiento es normal tener miedo. El problema es que ese miedo muchas veces <strong>te frena más de la cuenta</strong>.' },
-      { titleLines: ['No basta con saber', 'lo que tienes que hacer'], body: 'Lo difícil no es solo tener una pauta. Lo difícil es <strong>llevarla a tu día a día</strong>, entenderla bien y mantenerla cuando la vida se complica.' },
+      { titleLines: ['No basta con saber', 'lo que tienes que hacer'], body: 'Lo difícil no es solo tener una pauta. Lo difícil es <strong>llevarla a tu día a día</strong>, entenderla bien y mantenerla cuando tu día a día se complica y tienes menos tiempo.' },
       { titleLines: ['Sin apoyo, es fácil', 'dejarlo para otro día'], body: 'En las semanas difíciles, <strong>tener apoyo ayuda a</strong> adaptar el ejercicio a cómo te encuentras, <strong>resolver tus dudas</strong> y saber cuándo retomarlo con más confianza.' }
     ]
   },

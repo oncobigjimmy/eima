@@ -156,7 +156,7 @@ function startWater(root, motion, restart) {
         const ownBackground = node.hasAttribute('data-water-tone') || node.hasAttribute('data-water-surface');
         const style = getComputedStyle(node);
         const opacity = style.backgroundColor.match(/[\d.]+/g)?.map(Number);
-        const blocked = node.matches('[data-water-media], .photo-text-contrast, .photo-text-contrast--light, [role="dialog"], dialog, [aria-hidden="true"], .material-symbols-rounded, .desktop-filters, .exploration-label') ||
+        const blocked = node.matches('[data-water-media], .photo-text-contrast, .photo-text-contrast--light, [role="dialog"], dialog, [aria-hidden="true"], .material-symbols-rounded, .desktop-filters, .exploration-label, .bridge-body') ||
           (!ownBackground && (style.backgroundImage !== 'none' || (opacity && (opacity[3] ?? 1) >= .65))) ||
           protectedFromWater(node.parentElement);
         protectedNodes.set(node, blocked);
@@ -206,9 +206,12 @@ function startWater(root, motion, restart) {
     });
     const pageTone = main.querySelector('[data-water-page-tone]')?.dataset.waterPageTone;
     theme = pageTone ?? active?.dataset.waterTone ?? active?.dataset.waterSurface ?? 'mist';
-    if (!pageTone && innerWidth <= 767 && active?.matches('.eima-three-r.payoff-ready .scene')) {
-      const ribbon = active.querySelector('.goals');
-      if (ribbon && ribbon.getBoundingClientRect().bottom <= innerHeight * .6) theme = 'mist';
+    const ribbon = main.querySelector('.eima-three-r.payoff-ready .goals');
+    if (!pageTone && ribbon) {
+      const bounds = ribbon.getBoundingClientRect();
+      const release = innerHeight * (innerWidth <= 767 ? .73 : .84);
+      if (bounds.top < innerHeight && bounds.bottom > release) theme = 'deep';
+      else if (active?.matches('.eima-three-r .scene') && bounds.bottom <= release) theme = 'mist';
     }
     if (!pageTone && footer && footer.getBoundingClientRect().top <= innerHeight * 1.12) {
       const page = document.scrollingElement;

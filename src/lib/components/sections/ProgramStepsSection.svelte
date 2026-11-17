@@ -204,7 +204,7 @@
           </nav>
           <div class="steps-badge mt-8 flex justify-center">
             <div
-              class="inline-flex items-center justify-center gap-3 rounded-full bg-[#E8E8F6] px-6 py-3 text-[15px] font-medium text-[#245B7D] shadow-[0_8px_18px_rgba(14,29,38,0.08)]"
+              class="inline-flex items-center justify-center gap-3 rounded-full bg-[#233F4E] px-6 py-3 text-[15px] font-medium text-white shadow-[0_8px_18px_rgba(14,29,38,0.08)]"
             >
               <span class="material-symbols-rounded !text-[20px]">calendar_month</span>
               {stepsCopy.badge}
@@ -280,6 +280,7 @@
 
 <style>
   .mobile-step-bar { display: none; }
+  @media (max-width: 1023px) { .steps-badge { display: none; } .steps-side-copy { margin-top: 1.375rem; } }
   @media (max-width: 1023px) {
     .mobile-step-bar { display: block; position: fixed; left: 0; right: 0; z-index: 30; padding: 10px 20px 12px; isolation: isolate; background: var(--water-mist) fixed; color: #233f4e; font-size: 13px; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), visibility var(--dur-estado); }
     .mobile-step-water { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }

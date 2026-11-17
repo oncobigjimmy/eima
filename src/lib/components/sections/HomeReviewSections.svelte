@@ -152,7 +152,8 @@
       {#each situations as situation, i}
         <button type="button" class="situation-card" class:selected={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-pressed={($selectedSituation === situation.letter || responseSituation === situation.letter)} aria-haspopup="dialog" aria-label={`${situation.quote} ${selectionCopy.hint}`} on:click={() => selectSituation(situation.letter)} use:standardEntry={i} use:scrollContrast use:pulsePrompt>
           <span class="situation-letter" aria-hidden="true">{situation.letter}</span>
-          <span class="situation-quote" aria-hidden="true">{#each ui.situationLines[i] as line}<span>{line}</span>{/each}</span>
+          <span class="situation-quote situation-quote-desktop" aria-hidden="true">{#each ui.situationLines[i] as line}<span>{line}</span>{/each}</span>
+          <span class="situation-quote situation-quote-mobile" aria-hidden="true">{#if pageLanguage === 'es' && i === 0}“Nunca he hecho<br />ejercicio y no sabría<br />por dónde empezar.”{:else if pageLanguage === 'es' && i === 1}“Hacía ejercicio, pero<br class="situation-b-break" /> ahora no sé cómo<br class="situation-b-break" /> adaptarlo al tratamiento.”{:else}{ui.situationLines[i].join(' ')}{/if}</span>
           <span class="selection-control"><span class="selection-pill">{selectionCopy.hint}</span></span>
         </button>
       {/each}
@@ -237,6 +238,7 @@
     .situations-grid .situation-letter { font-size: 5rem; }
     .situations-grid .situation-card .situation-quote { font-size: 20px; min-height: 5.28em; }
   }
+  .situation-card .situation-quote.situation-quote-mobile { display: none; }
   .situation-quote > span { display: block; font: inherit; }
   .situation-card { position: relative; z-index: 0; border: 1px solid #8cd0d642; border-radius: 10px; background: #ffffff08; padding: 1.8rem 1.5rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; min-height: 252px; transform-origin: center; transition: opacity var(--dur-estado) var(--ease-calma), filter var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma), border-color var(--dur-estado) var(--ease-calma), box-shadow var(--dur-estado) var(--ease-calma), background-color var(--dur-estado) var(--ease-calma); }
   .situation-letter { display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 7.2rem; line-height: .8; transform: translateY(-6px); color: #8cd0d6; margin-bottom: 1rem; text-align: center; }
@@ -251,11 +253,13 @@
     .vsl .section-heading { margin-bottom: 1.375rem; }
     .programme-line { display: block; white-space: nowrap; }
     .vsl .section-cta { margin-top: 1.375rem; display: grid; justify-items: center; }
-    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 1.625rem; }
+    .situations { padding-inline: 1.125rem; }
+    .situations-grid { grid-template-columns: 1fr; justify-items: center; row-gap: 1rem; }
     .video-frame { aspect-ratio: 16 / 9; container-type: inline-size; }
-    .situations-grid .situation-card { width: min(264px, 100%); aspect-ratio: 1; min-height: 0; padding: 1rem; }
-    .situation-card .situation-quote { font-size: 20px; line-height: 1.3; }
-    .situation-letter { font-size: 5rem; line-height: .8; margin-bottom: 1.25rem; transform: translateY(-4px); }
+    .situations-grid .situation-card { width: min(300px, 87%); aspect-ratio: auto; min-height: 174px; padding: .875rem .75rem; }
+    .situation-card .situation-quote-desktop { display: none; }
+    .situation-card .situation-quote.situation-quote-mobile { display: block; max-width: 100%; font-size: 21px; line-height: 1.15; letter-spacing: -.026em; text-wrap: balance; }
+    .situation-letter { font-size: 60px; line-height: .85; margin-bottom: .55rem; }
 
     .poster-copy { width: 44%; height: 73%; padding: 4% 0 0 4%; }
     .video-poster { background: #fff; }
@@ -264,7 +268,7 @@
     .poster-title { font-size: clamp(16px, 4.7cqw, 17px); line-height: 1.18; margin: 0; }
     .poster-description { font-size: 1.65cqw; line-height: 1.45; margin-top: 3.4cqw; white-space: nowrap; }
     .poster-description--review { display: none; }
-    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #4083a7; }
+    .mobile-video-caption { position: relative; display: block; margin: 1rem auto 0; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; font-weight: 400; line-height: 1.45; text-align: center; color: #245b7d; }
     :global(.poster-desktop-break) { display: initial; }
     .poster-phone { width: 18%; left: 5%; bottom: -13%; }
     .poster-play { width: clamp(56px, 9vw, 82px); left: 50%; top: 50%; }
@@ -310,12 +314,14 @@
 @media (hover: none), (pointer: coarse) { .selection-control { opacity: 1; visibility: visible; transform: translate(-50%, 0); } }
 @media (prefers-reduced-motion: reduce) { .selection-control { transition: none; transform: translate(-50%, 0); } }
 @media (max-width: 767px) { .selection-instruction { font-size: 12px; white-space: nowrap; } }
+  @media (max-width: 340px) { .situation-card .situation-quote.situation-quote-mobile { font-size: 16px; } .situation-b-break { display: none; } }
   @media (max-width: 360px) { .vsl .cta-note { font-size: 11.5px !important; } }
   @media (max-width: 767px) {
     .instruction-desktop { display: none; }
     .selection-control { display: none; }
     .instruction-mobile { display: inline; }
     .vsl .cta-note { display: none; }
-    .situations .section-cta { margin-top: 4rem; }
+    .situations .section-cta { margin-top: 2rem; }
+    .situations-closing { margin-bottom: 1rem; }
   }
 </style>

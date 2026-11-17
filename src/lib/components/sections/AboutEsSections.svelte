@@ -168,8 +168,8 @@
   .origin-card-title-line { display: block; }
   .origin-card h3 span { font-family: inherit; }
   .origin-title-mobile-lines { display: none; }
-  .origin-card p { margin-top: .7rem; font-size: 15px; line-height: 1.55; color: #e4edef; }
-  @media (min-width: 1024px) { .origin-card h3 { font-size: 17.8px; } .origin-card p { font-size: 13.3px; } }
+  .origin-card p { margin-top: .7rem; text-wrap: balance; font-size: 15px; line-height: 1.55; color: #e4edef; }
+  @media (min-width: 1024px) { .origin-card h3 { font-size: 17.8px; } .origin-card p { font-size: 13.3px; } .origin-card:nth-child(5) p { margin-inline: -.5rem; } }
   @media (min-width: 1024px) {
     .about-origin { --origin-surrounding-gap: 2.5rem; }
     .origin-grid { max-width: 1184px; margin: var(--origin-surrounding-gap) auto 0; gap: 1.5rem; }

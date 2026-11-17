@@ -115,10 +115,12 @@
     letter-spacing: 0;
   }
 
-  .blog-mobile-accent { color: #8cd0d6; }
+  .blog-hero-title { --newsreader-desktop-accent-size: 64; }
+  .blog-mobile-accent { color: #8cd0d6; --newsreader-mobile-accent-size: 40; }
   @media (max-width: 767px) {
     .blog-hero-content p { font-size: 14.8px; }
-    .blog-mobile-line { display: block; line-height: 39px; }
+    .blog-hero-title { line-height: 42px; }
+    .blog-mobile-line { display: block; line-height: inherit; }
   }
   .blog-faq-card { display: block; max-width: 1100px; border: 1px solid transparent; text-decoration: none; transition: border-color 200ms ease, box-shadow 200ms ease; }
   .blog-faq-card:is(:hover, :focus-visible) { border-color: #4083a7; }

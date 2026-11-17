@@ -17,6 +17,6 @@ export const site = Object.freeze({
   logoLight: '/eima-salut-light.png',
   logoDark: '/eima-salut-blue.png',
   socialImage: '/og-image.png',
-  themeColor: '#245B7D'
+  themeColor: '#233F4E'
 });
 

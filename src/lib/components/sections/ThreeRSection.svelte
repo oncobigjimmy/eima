@@ -12,17 +12,17 @@
     es: {
       tag: 'Las 3R de tu progreso',
       payoff: ['Porque el objetivo no es «hacer ejercicio».', 'Es volver a esto:'],
-      activities: ['Ir a pilates', 'Hacer yoga', 'Bailar', 'Seguir trabajando', 'Jugar al golf', 'Jugar al pádel', 'Nadar', 'Jugar con los nietos', 'Salir de excursión', 'Pasear por la playa', 'Ir en bici', 'Viajar', 'Cuidar el huerto', 'Cocinar para los tuyos', 'Pasear al perro', 'Salir a cenar']
+      activities: ['Jugar con los nietos', 'Cocinar para los tuyos', 'Pasear al perro', 'Salir de excursión', 'Salir a cenar', 'Viajar', 'Bailar', 'Ir a pilates', 'Hacer yoga', 'Seguir trabajando', 'Cuidar el huerto', 'Pasear por la playa', 'Ir en bici', 'Jugar al pádel', 'Nadar', 'Jugar al golf']
     },
     ca: {
       tag: 'Les 3R del teu progrés',
       payoff: ['Perquè l’objectiu no és «fer exercici».', 'És tornar a fer això:'],
-      activities: ['Anar a pilates', 'Fer ioga', 'Ballar', 'Continuar fent feina', 'Jugar a golf', 'Jugar a pàdel', 'Nedar', 'Jugar amb els nets', 'Anar d’excursió', 'Passejar per la platja', 'Anar en bici', 'Viatjar', 'Cuidar l’hort', 'Cuinar per als teus', 'Passejar el ca', 'Sortir a sopar']
+      activities: ['Jugar amb els nets', 'Cuinar per als teus', 'Passejar el ca', 'Anar d’excursió', 'Sortir a sopar', 'Viatjar', 'Ballar', 'Anar a pilates', 'Fer ioga', 'Continuar fent feina', 'Cuidar l’hort', 'Passejar per la platja', 'Anar en bici', 'Jugar a pàdel', 'Nedar', 'Jugar a golf']
     },
     en: {
       tag: 'The 3 Rs of your progress',
       payoff: ['Because the goal isn’t “to exercise”.', 'It’s to get back to this:'],
-      activities: ['Going to Pilates', 'Doing yoga', 'Dancing', 'Keeping up with work', 'Playing golf', 'Playing padel', 'Swimming', 'Playing with your grandchildren', 'Going hiking', 'Walking on the beach', 'Cycling', 'Travelling', 'Tending the garden', 'Cooking for your loved ones', 'Walking the dog', 'Going out for dinner']
+      activities: ['Playing with your grandchildren', 'Cooking for your loved ones', 'Walking the dog', 'Going hiking', 'Going out for dinner', 'Travelling', 'Dancing', 'Going to Pilates', 'Doing yoga', 'Keeping up with work', 'Tending the garden', 'Walking on the beach', 'Cycling', 'Playing padel', 'Swimming', 'Playing golf']
     }
   };
 

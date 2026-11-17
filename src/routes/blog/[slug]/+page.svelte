@@ -94,7 +94,7 @@
       if (closest !== activeCard) {
         clearTimeout(revealTimer); activeCard = closest;
         for (const card of cards) card.classList.remove('source-active');
-        if (closest) revealTimer = setTimeout(() => closest.classList.add('source-active'), reduced.matches ? 0 : 1000);
+        if (closest) revealTimer = setTimeout(() => closest.classList.add('source-active'), reduced.matches ? 0 : 500);
       }
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };

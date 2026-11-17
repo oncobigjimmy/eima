@@ -65,10 +65,13 @@ p{margin:0;font-family:var(--sans);text-wrap:pretty}
 &:not(.pin) .marquee ul{flex-wrap:wrap}
 &:not(.pin) .marquee ul[aria-hidden]{display:none}
 @media (max-width:767px){
+  .intro{padding-bottom:1rem}
+  &.pin .scene__pin{padding-top:clamp(.625rem,3.33svh,2rem)}
+  .rtext__w{--newsreader-mobile-accent-size:34}
   &.pin.payoff-ready .payoff{margin-top:calc(-1 * var(--payoff-mobile-lift,0px) - .8 * var(--payoff-top))}
   .payoff{overflow-anchor:none}
   .rtext__t{font-size:18px}
-  .rtext__d{font-size:14px}
+  .rtext__d{font-size:14px;text-wrap:balance}
 }
 @media (prefers-reduced-motion:reduce){
   &,.goals,.marquee li{transition:none}

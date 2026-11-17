@@ -24,6 +24,7 @@ body {
   --dur-estado: 250ms;
   --dur-entrada: 500ms;
   --stagger: 60ms;
+  background-color: #233f4e;
   scrollbar-color: #233f4e #f8f4f0;
   scrollbar-width: thin;
   --section-playfair-desktop-size: 50px;

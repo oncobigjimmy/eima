@@ -30,36 +30,51 @@ export function typographyPreview(root, variant) {
   function apply() {
     frame = 0;
     restore();
-    /** @type {{node: HTMLElement, pixels: number, weight: number, accent: boolean}[]} */
+    /** @type {{node: HTMLElement, pixels: number, weight: number, accent: boolean, accentLeading: string}[]} */
     const updates = [];
     for (const node of root.querySelectorAll('*')) {
       if (!(node instanceof HTMLElement) || !node.textContent?.trim() || node.matches('script, style, option') || node.closest('[data-newsreader-fixed]')) continue;
       const style = getComputedStyle(node);
       const isNewsreader = /^["']?Newsreader\b/.test(style.fontFamily);
       let accent = false;
+      let accentLeading = '';
       if (/^["']?Playfair Display\b/.test(style.fontFamily) && node.matches('span, em, strong, b, i')) {
         const parent = node.closest('h1, h2, h3, h4, h5, h6, [role="heading"]');
         if (parent) {
           const title = getComputedStyle(parent);
           accent = /^["']?Playfair Display\b/.test(title.fontFamily) &&
             (parent.getAttribute('data-water-color') ?? title.color) !== (node.dataset.waterColor ?? style.color);
+          if (accent) accentLeading = style.display === 'inline' ? '0' : title.lineHeight;
         }
       }
       if (isNewsreader || accent) updates.push({
-        node, pixels: parseFloat(style.fontSize), weight: Number(style.fontWeight), accent
+        node, pixels: parseFloat(style.fontSize), weight: Number(style.fontWeight), accent, accentLeading
       });
     }
 
-    for (const { node, accent, pixels, weight } of updates) {
+    for (const { node, accent, pixels, weight, accentLeading } of updates) {
       if (accent) {
         change(node, 'font-style', 'italic');
+        change(node, 'line-height', accentLeading);
         if (variant === 'playfair') continue;
         change(node, 'font-optical-sizing', 'auto');
         change(node, 'letter-spacing', '-.026em');
       }
       change(node, 'font-family', 'Newsreader, "Iowan Old Style", "Palatino Linotype", Georgia, serif');
       if (accent || weight < 400) change(node, 'font-weight', '400');
-      change(node, 'font-size', `${pixels + 3}px`);
+      const size = pixels + 3;
+      const mobileTitle = window.innerWidth < 768 && node.closest('h1, h2, h3, h4, h5, h6, [role="heading"]');
+      const mobileAccentSize = window.innerWidth < 768
+        ? parseFloat(getComputedStyle(node).getPropertyValue('--newsreader-mobile-accent-size'))
+        : NaN;
+      const sectionAccent = accent && window.innerWidth >= 1024 && Math.abs(pixels - 50) < .05 &&
+        node.closest('.home-es-rhythm h2, .home-es-rhythm [role="heading"], .program-es-rhythm h2');
+      const desktopAccentSize = accent && window.innerWidth >= 1024
+        ? parseFloat(getComputedStyle(node).getPropertyValue('--newsreader-desktop-accent-size')) : NaN;
+      const renderedSize = Number.isFinite(mobileAccentSize) ? mobileAccentSize
+        : Number.isFinite(desktopAccentSize) ? desktopAccentSize
+        : sectionAccent ? 54 : mobileTitle && Math.abs(size - 35) < .05 ? 36 : size;
+      change(node, 'font-size', `${renderedSize}px`);
     }
   }
 

@@ -134,6 +134,7 @@
 
 <style>
   .review-typed { min-height: 1.08em; font-size: clamp(2.5rem, 10vw, 5rem); }
+  @media (max-width: 767px) { .hero-accent-line { --newsreader-mobile-accent-size: 30; } .hero-cta { margin-top: 1.667rem; } }
   @media (min-width: 768px) { .hero-cta { max-width: 32rem; } }
 
   .hero-accent-line {

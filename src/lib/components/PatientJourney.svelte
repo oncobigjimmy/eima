@@ -116,45 +116,30 @@
     const bottom = item.id === 'progress-12' ? Math.round(item.height * .49) : item.id === 'progreso-fuerza-confianza' ? Math.round(item.height * .44) : item.height;
     return `0 ${top} ${item.width} ${bottom - top}`;
   }
-  // Halve the existing 320px card's empty top/bottom space at every width.
-  function halfVerticalSpace(node: HTMLElement, enabled: boolean) {
-    if (!enabled) return {};
-    const media = window.matchMedia('(min-width: 768px)');
-    const quote = node.querySelector<HTMLElement>('.key-phrase');
-    const capture = node.querySelector<HTMLElement>('.capture-group');
-    const update = () => {
-      if (!quote || !capture) return;
-      const content = quote.offsetHeight + capture.offsetHeight + parseFloat(getComputedStyle(node).rowGap);
-      node.style.setProperty('--response-height', ((320 + content) / 2) + 'px');
-      if (node.classList.contains('central')) node.parentElement?.style.setProperty('--active-response-height', ((320 + content) / 2) + 'px');
-    };
-    const observer = new ResizeObserver(update);
-    const classes = new MutationObserver(update);
-    classes.observe(node, { attributes: true, attributeFilter: ['class'] });
-    if (quote) observer.observe(quote);
-    if (capture) observer.observe(capture);
-    media.addEventListener('change', update); update();
-    return { destroy() { observer.disconnect(); classes.disconnect(); media.removeEventListener('change', update); } };
-  }
   const spanishQuoteLines: Record<string, string> = {
+    'progress-2': '…puedo volver a la rutina\nde antes del cáncer.',
+    'difficult-day-2': 'Todo el día sin energía\ny con asco y vómitos.',
+    'acompanamiento-whatsapp': '…un gran acompañamiento,\nno solo ejercicio físico.',
     'difficult-day-5': '…Náuseas y muchos mareos. No tengo\nfuerzas para nada.',
     'eima-adaptation-1': 'Me encanta que sea un plan adaptable\nal día a día y así no me frustro.',
     'eima-adaptation-9': 'Me he sentido acompañada con\nlas llamadas telefónicas.',
     'eima-adaptation-2': 'Me gusta saber lo que tengo que hacer\nal día siguiente.',
     'eima-adaptation-7': 'El vídeo me ayudó a entender por dónde\nestoy y lo que me queda.'
   };
-  const mobileRoutine = {
-    es: { quote: 'He podido volver a seguir\nlas rutinas establecidas y\na sentirme «normal».', highlight: 'a sentirme «normal»' },
-    ca: { quote: 'He pogut tornar a seguir\nles rutines establertes i\na sentir-me «normal».', highlight: 'a sentir-me «normal»' },
-    en: { quote: 'I have been able to follow\nmy established routines again\nand feel “normal”.', highlight: 'and feel “normal”' }
-  };
   const mobileSpanishQuotes: Record<string, string> = {
-    'progress-2': '…puedo volver a la rutina\nde antes del cáncer.',
-    'progress-9': 'Lograr salir a caminar todos\nlos días, a pesar del tratamiento\ny las inyecciones.',
-    'difficult-day-1': 'Hemos ido a caminar pero\nestaba muy cansada. He\nhecho lo que he podido.',
-    'difficult-day-mental-fog': 'Sigo con bastante\n“niebla” en la cabeza.',
-    'difficult-day-2': 'Todo el día sin energía y\ncon asco y vómitos.',
-    'eima-adaptation-1': 'Me encanta que sea un plan\nadaptable al día a día y así\nno me frustro.'
+    'progreso-fuerza-confianza': '…he recuperado seguridad y confianza.',
+    'progress-12': '…y a sentirme «normal».',
+    'progress-11': '…me he sentido un poco más yo al poder ir sola…',
+    'progress-3': 'He podido ir de viaje a buen ritmo…',
+    'progress-9': 'Lograr salir a caminar todos los días…',
+    'difficult-day-1': 'Hemos ido a caminar pero estaba muy cansada.',
+    'difficult-day-4': 'Sensación de malestar todo el día…',
+    'difficult-day-5': '…Náuseas y muchos mareos.',
+    'eima-adaptation-1': '…un plan adaptable al día a día…',
+    'eima-adaptation-9': 'Me he sentido acompañada…',
+    'eima-adaptation-2': 'Me gusta saber lo que tengo que hacer…',
+    'eima-adaptation-7': '…entender por dónde estoy y lo que me queda.',
+    'eima-adaptation-11': '…agradezco de corazón la dedicación…'
   };
   const mobileBridgeLines = {
     es: 'Lo importante es saber <strong>cómo adaptar<br />el ejercicio</strong> a cada momento,<br />sin exigirte de más.',
@@ -168,12 +153,20 @@
     en: ['So you can', 'get back to doing', 'the things you', 'miss the most.']
   }[pageLanguage];
   function phrase(item: WrittenTestimonial, isMobile = mobile) {
-    if (isMobile && item.id === 'progress-12') return mobileRoutine[pageLanguage].quote;
-    if (isMobile && pageLanguage === 'es' && mobileSpanishQuotes[item.id]) return mobileSpanishQuotes[item.id];
-    return (pageLanguage === 'es' && spanishQuoteLines[item.id]) || item.quote[pageLanguage] || item.caption[pageLanguage];
+    const original = item.quote[pageLanguage] || item.caption[pageLanguage];
+    if (!isMobile) return (pageLanguage === 'es' && spanishQuoteLines[item.id]) || original;
+    if (pageLanguage === 'es' && mobileSpanishQuotes[item.id]) return mobileSpanishQuotes[item.id];
+    if (original.length <= 48) return original;
+    const highlight = item.highlight[pageLanguage];
+    const start = highlight && original.indexOf(highlight) >= 0 ? original.indexOf(highlight) : 0;
+    const segment = original.slice(start, start + 46);
+    const end = start + segment.length;
+    const excerpt = end < original.length && !/\s/.test(original[end])
+      ? segment.replace(/\s+\S*$/, '') : segment.trimEnd();
+    return (start ? '…' : '') + excerpt + (end < original.length ? '…' : '');
   }
   function phraseParts(item: WrittenTestimonial, isMobile = mobile) {
-    const text = phrase(item, isMobile), searchable = text.replace(/\n/g, ' '), highlight = isMobile && item.id === 'progress-12' ? mobileRoutine[pageLanguage].highlight : item.highlight[pageLanguage];
+    const text = phrase(item, isMobile), searchable = text.replace(/\n/g, ' '), highlight = item.highlight[pageLanguage];
     return highlight && searchable.includes(highlight) ? [text.slice(0, searchable.indexOf(highlight)), text.slice(searchable.indexOf(highlight), searchable.indexOf(highlight) + highlight.length), text.slice(searchable.indexOf(highlight) + highlight.length)] : [text, '', ''];
   }
   onDestroy(() => { clearTimeout(markerTimer); clearTimeout(clickTimer); });
@@ -201,13 +194,13 @@
       {#each slides as slide, index}
         {@const distance = index - current + dragOffset / step}
         {@const magnitude = Math.abs(distance)}
-        <article use:halfVerticalSpace={slide.kind === 'response'} class="journey-card" class:blue-response={slide.kind === 'response'} class:recovery-response={slide.kind === 'response' && slide.item.chapter === 'recupera'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--chapter-color={slide.kind === 'response' ? chapterColors[testimonialChapters.indexOf(slide.item.chapter)] : '#233f4e'} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
+        <article class="journey-card" class:blue-response={slide.kind === 'response'} class:recovery-response={slide.kind === 'response' && slide.item.chapter === 'recupera'} class:bridge={slide.kind !== 'response'} class:first-bridge={slide.kind === 'bridge1'} class:final={slide.kind === 'final'} class:central={index === current} aria-hidden={index !== current} style:--chapter-color={slide.kind === 'response' ? chapterColors[testimonialChapters.indexOf(slide.item.chapter)] : '#233f4e'} style:--distance={distance} style:--scale={magnitude <= 1 ? 1 - .14 * magnitude : Math.max(.74, .86 - .12 * (magnitude - 1))} style:--blur={`${Math.min(5, magnitude * 2.5)}px`} style:--opacity={magnitude <= 1 ? 1 - .4 * magnitude : Math.max(0, .6 - .32 * (magnitude - 1))} style:z-index={Math.round(100 - magnitude * 10)} style:visibility={magnitude > 2.2 ? 'hidden' : 'visible'}>
           {#if slide.kind === 'response'}
             {@const parts = phraseParts(slide.item, mobile)}
-            <blockquote class="key-phrase"><button class="quote-open" class:quote-mobile-lines={mobile && (slide.item.id === 'progress-12' || (pageLanguage === 'es' && Boolean(mobileSpanishQuotes[slide.item.id])))} type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
+            <blockquote class="key-phrase"><button class="quote-open" type="button" tabindex={index === current ? 0 : -1} aria-label={`${copy.expand}: ${phrase(slide.item)}`} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>“{parts[0]}<span class:marked={index === current && markerActive && sectionVisible}>{parts[1]}</span>{parts[2]}”</button></blockquote>
             {#if slide.item.initial}<span class="patient-initial">{slide.item.initial}</span>{/if}
-            <div class="capture-group" class:compact={slide.item.chapter !== 'acompanamos'} class:hint-running={index === current && markerActive && sectionVisible}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
-              <span class="capture-window">{#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid meet"><image href={slide.item.image} style:filter={slide.item.cleanBackground ? 'contrast(1.15)' : undefined} width={slide.item.width} height={slide.item.height} /></svg>{/if}</span>
+            <div class="capture-group" class:hint-running={index === current && markerActive && sectionVisible}><button class="capture-action" type="button" tabindex={index === current ? 0 : -1} aria-label={copy.expand} aria-haspopup="dialog" on:click={() => { enlarged = slide.item; }}>
+              <span class="capture-window">{#if magnitude <= 2.2}<svg class="capture-preview" viewBox={previewBox(slide.item)} role="img" aria-label={slide.item.alt} preserveAspectRatio="xMidYMid slice"><image href={slide.item.image} style:filter={slide.item.cleanBackground ? 'contrast(1.15)' : undefined} width={slide.item.width} height={slide.item.height} /></svg>{/if}</span>
               <span class="magnify" aria-hidden="true"><SearchIcon /></span>
             <span class="capture-hint" aria-hidden="true"><span class="hint-desktop">{copy.captureHint}</span><span class="hint-mobile">{pageLanguage === 'es' ? 'Pulsa para ampliar' : pageLanguage === 'ca' ? 'Toca per ampliar' : 'Tap to enlarge'}</span></span></button></div>
           {:else if slide.kind === 'bridge1'}
@@ -239,6 +232,10 @@
   .chapter-bar .eb-seg-fill { background: var(--chapter-color); }
   .chapter-bar .eb-labels { margin-top: 8px; }
   .chapter-bar .eb-seg-label { position: relative; display: block; min-height: 44px; padding-bottom: 23px; color: var(--chapter-color); font-size: 14px; white-space: nowrap; text-align: center; }
+  @media (min-width: 768px) {
+    .chapter-bar .eb-seg-label { cursor: pointer; }
+    .chapter-bar .eb-seg-label::before { content: ''; position: absolute; inset: auto 0 100%; height: 18px; }
+  }
   .chapter-bar .eb-seg-label.active { font-weight: 700; }
   .chapter-bar .eb-check { position: absolute; inset: auto auto 0 50%; transform: translateX(-50%); opacity: 0; }
   .chapter-bar .eb-check circle { fill: var(--chapter-color); stroke: none; }
@@ -255,21 +252,19 @@
   .key-phrase span { font: inherit; background: linear-gradient(rgba(64,131,167,.30), rgba(64,131,167,.30)) left center / 0% 84% no-repeat; padding-block: 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .key-phrase .marked { background-size: 100% 84%; transition: background-size 1100ms var(--ease-calma) 200ms; }
   .patient-initial { position: absolute; bottom: 12px; right: 18px; color: #fff; font: italic 400 19px/1.2 'Playfair Display', Georgia, serif; text-shadow: 0 1px 3px #071a2580; }
-  .capture-group { position: relative; align-self: center; width: min(260px, 100%); padding-top: 8px; }
+  .capture-group { position: relative; align-self: center; width: min(260px, 100%); }
   .capture-action { display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
   .blue-response .capture-action:focus-visible { outline: none; }
   .capture-action:focus-visible .capture-window { outline: 2px solid #f8f4f0; outline-offset: 4px; }
   .capture-hint { display: block; text-align: center; font: italic 300 11px/16px Inter, sans-serif; color: #fff; text-shadow: 0 1px 2px #071a25aa, 0 0 5px #071a2540; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); }
-  .capture-window { position: relative; display: block; align-self: center; width: 100%; height: 140px; min-height: 0; flex: 0 0 140px; overflow: visible; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
-  .capture-group.compact .capture-window { height: 105px; flex-basis: 105px; }
+  .capture-window { position: relative; display: block; align-self: center; width: 100%; height: 105px; min-height: 0; overflow: visible; padding: 7px; border: 1px solid #ffffff75; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px #071a2524; cursor: zoom-in; text-align: left; }
   .capture-preview { display: block; width: 100%; height: 100%; border-radius: 5px; }
   .magnify { position: relative; z-index: 1; margin-inline: auto; opacity: 0; transform: translateY(12px); transition: opacity var(--dur-estado) var(--ease-calma), transform var(--dur-estado) var(--ease-calma); width: 30px; height: 30px; display: grid; place-items: center; background: #233f4e; color: #fff; border: 0; border-radius: 10px; box-shadow: 0 3px 12px #233f4e12; }
   .magnify :global(svg) { filter: drop-shadow(0 1px 2px #071a2566); }
   .capture-action:focus-visible .magnify { opacity: 1; transform: translateY(0); }
   .hint-mobile { display: none; }
   /* Response cards share the blue testimonial treatment. */
-  @media (min-width: 768px) { .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); } }
-  .blue-response { background: var(--chapter-color); color: #fff; }
+  .blue-response { top: 50%; height: 286px; margin-top: -143px; gap: 15px; background: var(--chapter-color); color: #fff; }
   .blue-response .key-phrase { color: #fff; }
   .blue-response .quote-open { text-shadow: 0 0 3px #071a2580, 0 0 5px #071a2533; }
   .blue-response .key-phrase span { background-image: linear-gradient(#233f4e, #233f4e); }
@@ -285,6 +280,7 @@
   }
   .bridge { top: 50%; height: 290px; margin-top: -145px; background: #233f4e; justify-content: center; align-items: center; text-align: center; }
   h3, h3 span { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; line-height: 1.25; }
+  h3 span { line-height: 0; }
   h3 { font-size: 30px; } .bridge h3 { color: #fff; } .bridge h3 span { color: #8cd0d6; }
   .first-bridge h3 span { font-weight: 600; }
   .final-cta { display: grid; place-items: center; width: 100%; }
@@ -293,7 +289,7 @@
   .heading-week { color: inherit; }
   .bridge-body :global(.subtitle-line) { display: block; }
   .bridge-body :global(.subtitle-line + .subtitle-line) { margin-top: .5rem; }
-  .bridge-body { font: 300 14px/1.65 Inter, sans-serif; color: #F4F4F8; margin-top: 1rem; }
+  .bridge-body { font: 300 14px/1.65 Inter, sans-serif; color: #f8f4f0; margin-top: 1rem; }
   .final { height: 320px; margin-top: -160px; border: 1px solid #8cd0d640; justify-content: center; align-items: center; text-align: center; }
   .final h3 { font-size: 30px; margin-bottom: 2.5rem; } .final h3 span { color: #8cd0d6; }
   .restart-slot { position: absolute; top: 150px; left: calc(50% + 215px); width: 150px; }
@@ -304,21 +300,23 @@
   .proof-ctas { display: flex; justify-content: center; gap: 16px; padding: 0 1.25rem; margin-top: 2rem; }
   button:focus-visible, a:focus-visible, .journey-carousel:focus-visible { outline: 2px solid #4083a7; outline-offset: 4px; }
   @media (max-width: 767px) {
-    h2 { font-size: clamp(26px, 8vw, 30px); } .heading-mobile-break { display: block; } .heading-desktop-space { display: none; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
+    h2 { font-size: 32px; } h2 > span:last-child { --newsreader-mobile-accent-size: 36; } .heading-mobile-break { display: block; } .heading-desktop-space { display: none; } .chapter-desktop { display: none; } .chapter-mobile { display: inline; }
     .chapter-bar { margin-top: 2rem; margin-bottom: 0; }
     .chapter-bar .eb-labels { margin-top: 5px; }
     .chapter-bar .eb-seg-label { min-height: 35px; padding-bottom: 18px; font-size: clamp(9px, 2.75vw, 12px); }
     .chapter-bar .eb-check { width: 15px; height: 15px; }
     .journey-stage { height: 340px; }
-    .journey-stage.response-active { height: calc(255px + var(--active-response-height, 274px) * .25); }
+    .journey-stage.response-active { height: 322px; }
     .journey-card { width: 300px; height: 320px; padding: 16px; gap: 10px; transform: translateX(calc(-50% + var(--distance) * 262px)) scale(var(--scale)); }
-    .blue-response { height: var(--response-height, 320px); top: 50%; margin-top: calc(var(--response-height, 320px) / -2); }
+    .blue-response { height: 286px; gap: 14px; }
     .key-phrase { font-size: 18px; white-space: normal; }
     .key-phrase span { background-position: left calc(50% + 1px); }
-    .quote-mobile-lines { white-space: pre-line; }
+    .quote-open { text-wrap: balance; }
+    .first-bridge { padding-block: 20px 26px; gap: 8px; }
+    .first-bridge h3 { line-height: 32px; }
+    .first-bridge .bridge-body { margin-top: .5rem; line-height: 1.5; }
     .capture-group { width: min(224px, 100%); }
-    .capture-window { height: 115px; flex-basis: 115px; }
-    .capture-group.compact .capture-window { height: 100px; flex-basis: 100px; }
+    .capture-window { height: 100px; }
     .bridge { height: 310px; margin-top: -155px; }
     .final { height: 320px; margin-top: -160px; }
     h3 { font-size: 28px; } .final h3 { font-size: 26px; margin-bottom: 1rem; }

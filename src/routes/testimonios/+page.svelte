@@ -424,6 +424,7 @@
   }
 
   .testimonials-hero h1 span {
+    --newsreader-mobile-accent-size: 45;
     color: #8cd0d6;
     font-family: inherit;
   }
@@ -1083,7 +1084,7 @@
   .closing-desktop-only { font: inherit; }
   @media (max-width: 767px) { .closing-mobile-break { display: inline; } .closing-desktop-break, .closing-desktop-only, .closing-desktop-space { display: none; } .testimonials-cta h2 { line-height: 1.12; } }
   .testimonials-cta { padding-top: 1.2rem; }
-  .testimonials-cta h2 :global(.closing-accent) { color: #4083a7; font: inherit; }
+  .testimonials-cta h2 :global(.closing-accent) { --newsreader-desktop-accent-size: 34; color: #4083a7; font: inherit; }
   :global(.site-water-layout[data-water-phase="deep"]:not(.water-measuring)) .testimonials-cta .testimonials-closing-title,
   :global(.site-water-layout[data-water-phase="deep"]:not(.water-measuring)) .testimonials-cta .testimonials-closing-title :global(*) { color: #fff !important; }
   :global(.site-water-layout[data-water-phase="deep"]:not(.water-measuring)) .testimonials-cta .testimonials-closing-title :global(:is(.closing-accent, .closing-accent *)) { color: #8cd0d6 !important; }

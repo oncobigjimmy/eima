@@ -347,7 +347,7 @@
 
 <section id="historias" style:padding-top={anchorEntryPadding} class={`story-page bg-[#F8F4F0] pb-12 md:pb-16 pt-20 md:pt-24`}>
   <div class="mx-auto max-w-6xl px-5 md:px-10">
-    <h1 class="story-journey-title">{journey.first} <span>{journey.accent}</span></h1>
+    <h1 class="story-journey-title" style:--newsreader-mobile-accent-size="45">{journey.first} <span>{journey.accent}</span></h1>
     <div class="mx-auto w-full max-w-[28rem]">
 
       <div class="team-photo-frame" aria-label={meta.imageAlt}>
