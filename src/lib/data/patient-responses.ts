@@ -998,6 +998,46 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
 
 export const writtenTestimonials: WrittenTestimonial[] = [
   {
+    id: 'dificiles-recuperacion-ultimo-ciclo',
+    image: '/patient-responses/dificiles-recuperacion-ultimo-ciclo.jpg',
+    chapter: 'dificiles',
+    initial: null,
+    quote: pendingText(),
+    highlight: pendingText(),
+    featured: false,
+    markers: [
+      { x: 69.4, y: 66.5, width: 17.1, height: 6 },
+      { x: 2.8, y: 76.7, width: 83.4, height: 6 },
+      { x: 2.8, y: 87, width: 24.8, height: 6 }
+    ],
+    width: 974,
+    height: 563,
+    alt: 'Respuesta real sobre la dureza del último ciclo de tratamiento y una semana de recuperación.',
+    caption: {
+      es: 'El último chute fue “devastador”. Costó una semana recuperarse.',
+      ca: 'La darrera sessió va ser “devastadora”. Va costar una setmana recuperar-se.',
+      en: 'The last round was “devastating”. It took a week to recover.'
+    }
+  } satisfies WrittenTestimonial,
+  {
+    id: 'acompanamiento-muy-bien-acompanado',
+    image: '/patient-responses/acompanamiento-muy-bien-acompanado.jpg',
+    chapter: 'acompanamos',
+    initial: null,
+    quote: pendingText(),
+    highlight: pendingText(),
+    featured: false,
+    markers: [{ x: 2.8, y: 81, width: 75.2, height: 8.8 }],
+    width: 970,
+    height: 379,
+    alt: 'Respuesta real de paciente: Me he sentido muy bien acompañado.',
+    caption: {
+      es: 'Me he sentido muy bien acompañado.',
+      ca: 'M’he sentit molt ben acompanyat.',
+      en: 'I have felt very well supported.'
+    }
+  } satisfies WrittenTestimonial,
+  {
     id: 'dificiles-retomar-ritmo',
     image: '/patient-responses/dificiles-retomar-ritmo.jpg',
     chapter: 'dificiles',
