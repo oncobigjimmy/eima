@@ -998,6 +998,27 @@ const featuredOverrides: Record<string, Partial<WrittenTestimonial>> = {
 
 export const writtenTestimonials: WrittenTestimonial[] = [
   {
+    id: 'dificiles-hoy-costaba-todo',
+    image: '/patient-responses/dificiles-hoy-costaba-todo.jpg',
+    chapter: 'dificiles',
+    initial: null,
+    quote: pendingText(),
+    highlight: pendingText(),
+    featured: false,
+    markers: [
+      { x: 58.7, y: 54.9, width: 33.5, height: 12.2 },
+      { x: 3.1, y: 76, width: 13.2, height: 12.2 }
+    ],
+    width: 933,
+    height: 276,
+    alt: 'Comentario real de paciente sobre una sesión de fuerza difícil: Hoy me costaba todo.',
+    caption: {
+      es: 'Hoy me costaba todo…',
+      ca: 'Avui em costava tot…',
+      en: 'Everything felt difficult today…'
+    }
+  } satisfies WrittenTestimonial,
+  {
     id: 'dificiles-recuperacion-ultimo-ciclo',
     image: '/patient-responses/dificiles-recuperacion-ultimo-ciclo.jpg',
     chapter: 'dificiles',
